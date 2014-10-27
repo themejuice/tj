@@ -65,7 +65,7 @@ module Tinder
             ::Tinder::warning "Just a few questions before we begin..."
 
             # Ask for the theme name
-            theme = ask "[?] Theme name (required):"
+            theme = ask("[?] Theme name (required):").downcase
 
             # Make sure theme name was given, else throw err
             unless theme.empty?
@@ -76,8 +76,8 @@ module Tinder
                     :theme_location => File.expand_path(ask("[?] Theme location (e.g. /path/to/site):", :default => Dir.pwd)),
                     :dev_location => File.expand_path("~/vagrant/www/dev-#{theme}"),
                     :dev_url => ask("[?] Development url (e.g. site.dev):", :default => "#{theme}.dev"),
-                    :db_name => ask("[?] Database name:", :default => theme),
-                    :db_user => ask("[?] Database username:", :default => theme),
+                    :db_name => ask("[?] Database name:", :default => theme.gsub(/[^\w]/, "")).gsub(/[^\w]/, ""),
+                    :db_user => ask("[?] Database username:", :default => theme.gsub(/[^\w]/, "")).gsub(/[^\w]/, ""),
                     :db_pass => ask("[?] Database password:", :default => theme)
                 }
 

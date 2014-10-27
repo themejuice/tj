@@ -1,3 +1,5 @@
+require 'securerandom'
+
 module Tinder
     module Scaffold
         class << self
@@ -313,8 +315,38 @@ module Tinder
                 system [
                     "mkdir -p #{@opts[:theme_location]} && cd $_",
                     "git clone --depth 1 https://github.com/WordPress/WordPress.git .",
-                    "rm wp-config.php"
+                    "mv wp-config-sample.php wp-config.php"
                 ].join " && "
+
+                setup_wordpress_config "wp-config.php"
+            end
+
+            ###
+            # Setup WordPress config file
+            ###
+            def setup_wordpress_config(input_file)
+                begin
+                    # Create new tempfile
+                    output_file = Tempfile.new File.basename(input_file)
+                    # Copy over contents of actual file to tempfile
+                    open File.expand_path(input_file), "rb" do |file|
+                        contents = "#{file.read}"
+                        contents = contents.gsub(/(database_name_here)/, @opts[:db_name])
+                        contents = contents.gsub(/(username_here)/, @opts[:db_user])
+                        contents = contents.gsub(/(password_here)/, @opts[:db_pass])
+                        contents = contents.gsub(/(put\syour\sunique\sphrase\shere)/, SecureRandom.hex(20))
+                        file.write contents
+                    end
+                    # Move temp file to actual file location
+                    FileUtils.mv output_file, File.expand_path(input_file)
+                rescue LoadError => err
+                    ::Tinder::error err
+                    exit -1
+                ensure
+                    # Make sure that the tempfile closes and is cleaned up, regardless of errors
+                    output_file.close
+                    output_file.unlink
+                end
             end
 
             ###
