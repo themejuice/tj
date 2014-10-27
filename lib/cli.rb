@@ -76,9 +76,10 @@ module Tinder
                     :theme_location => File.expand_path(ask("[?] Theme location (e.g. /path/to/site):", :default => Dir.pwd)),
                     :dev_location => File.expand_path("~/vagrant/www/dev-#{theme}"),
                     :dev_url => ask("[?] Development url (e.g. site.dev):", :default => "#{theme}.dev"),
-                    :db_name => ask("[?] Database name:", :default => theme.gsub(/[^\w]/, "")).gsub(/[^\w]/, ""),
-                    :db_user => ask("[?] Database username:", :default => theme.gsub(/[^\w]/, "")).gsub(/[^\w]/, ""),
-                    :db_pass => ask("[?] Database password:", :default => theme)
+                    :db_name => ask("[?] Database name:", :default => theme.gsub(/[^\w]/, "_")).gsub(/[^\w]/, "_"),
+                    :db_user => ask("[?] Database username:", :default => theme.gsub(/[^\w]/, "_")).gsub(/[^\w]/, "_"),
+                    :db_pass => ask("[?] Database password:", :default => theme),
+                    :db_host => ask("[?] Database host:", :default => "192.168.50.4")
                 }
 
                 # Create the theme!

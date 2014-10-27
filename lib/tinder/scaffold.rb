@@ -315,10 +315,12 @@ module Tinder
                 system [
                     "mkdir -p #{@opts[:theme_location]} && cd $_",
                     "git clone --depth 1 https://github.com/WordPress/WordPress.git .",
-                    "mv wp-config-sample.php wp-config.php"
+                    "cp wp-config-sample.php wp-config.php",
+                    "chmod 755 wp-config.php",
+                    "chmod -R 777 wp-content/uploads",
                 ].join " && "
 
-                setup_wordpress_config "wp-config.php"
+                setup_wordpress_config "#{@opts[:theme_location]}/wp-config.php"
             end
 
             ###
@@ -330,12 +332,16 @@ module Tinder
                     output_file = Tempfile.new File.basename(input_file)
                     # Copy over contents of actual file to tempfile
                     open File.expand_path(input_file), "rb" do |file|
+                        # Get the contents
                         contents = "#{file.read}"
+                        # Replace config info
                         contents = contents.gsub(/(database_name_here)/, @opts[:db_name])
                         contents = contents.gsub(/(username_here)/, @opts[:db_user])
                         contents = contents.gsub(/(password_here)/, @opts[:db_pass])
+                        contents = contents.gsub(/(localhost)/, @opts[:db_host])
                         contents = contents.gsub(/(put\syour\sunique\sphrase\shere)/, SecureRandom.hex(20))
-                        file.write contents
+                        # Write to temp file
+                        output_file.write contents
                     end
                     # Move temp file to actual file location
                     FileUtils.mv output_file, File.expand_path(input_file)
