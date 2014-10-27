@@ -60,7 +60,7 @@ module Tinder
         #   install and configure Vagrant/VVV into your `~/` directory.
         ###
         desc "create", "Setup new theme and virtual development environment with Vagrant"
-        method_option :bare
+        method_option :bare, :default => nil
         def create
             ::Tinder::warning "Just a few questions before we begin..."
 
