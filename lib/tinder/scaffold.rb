@@ -52,13 +52,13 @@ module Tinder
                     ::Tinder::warning "Restarting VVV..."
 
                     if restart_vagrant
-                        ::Tinder::success "Theme name: #{@opts[:theme_name]}"
-                        ::Tinder::success "Theme location: #{@opts[:theme_location]}"
-                        ::Tinder::success "Development environment: #{@opts[:dev_location]}"
-                        ::Tinder::success "Development url: http://#{@opts[:dev_url]}"
-                        ::Tinder::success "Database name: #{@opts[:db_name]}"
-                        ::Tinder::success "Database username: #{@opts[:db_user]}"
-                        ::Tinder::success "Database password: #{@opts[:db_pass]}"
+                        ::Tinder::success "[!] Theme name: #{@opts[:theme_name]}"
+                        ::Tinder::success "[!] Theme location: #{@opts[:theme_location]}"
+                        ::Tinder::success "[!] Development environment: #{@opts[:dev_location]}"
+                        ::Tinder::success "[!] Development url: http://#{@opts[:dev_url]}"
+                        ::Tinder::success "[!] Database name: #{@opts[:db_name]}"
+                        ::Tinder::success "[!] Database username: #{@opts[:db_user]}"
+                        ::Tinder::success "[!] Database password: #{@opts[:db_pass]}"
                         # ::Tinder::success "Database host: #{@opts[:db_host]}"
                     end
                 else
