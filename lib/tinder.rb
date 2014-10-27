@@ -10,7 +10,7 @@ module Tinder
         # @param {String} color
         ###
         def message(message, color)
-            puts "#{message}".send "#{color}"
+            puts "[!] #{message}".send "#{color}"
         end
 
         ###
