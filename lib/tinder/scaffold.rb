@@ -113,6 +113,9 @@ module Tinder
 
             ###
             # Restart Vagrant
+            #
+            # Normally a simple `vagrant reload` would work, but landrush requires a
+            #   `vagrant up` to be fired for it to set up the DNS.
             ###
             def restart_vagrant
                 system [
