@@ -117,7 +117,8 @@ module Tinder
             def restart_vagrant
                 system [
                     "cd ~/vagrant",
-                    "vagrant reload --provision"
+                    "vagrant halt",
+                    "vagrant up --provision"
                 ].join " && "
             end
 
