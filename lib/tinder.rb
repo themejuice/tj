@@ -1,3 +1,5 @@
+require_relative "tinder/version"
+
 module Tinder
     class << self
 
