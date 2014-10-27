@@ -91,6 +91,9 @@ module Tinder
 
         ###
         # Remove all traces of site from Vagrant
+        #
+        # @param {String} theme
+        #   Theme to delete. This will not delete your local files, only the VVV env.
         ###
         desc "delete THEME", "Remove THEME from Vagrant development environment"
         method_option :restart, :default => true

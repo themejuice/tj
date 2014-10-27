@@ -313,7 +313,6 @@ module Tinder
                 system [
                     "mkdir -p #{@opts[:theme_location]} && cd $_",
                     "git clone --depth 1 https://github.com/WordPress/WordPress.git .",
-                    "rm wp-config-sample.php",
                     "rm wp-config.php"
                 ].join " && "
             end
