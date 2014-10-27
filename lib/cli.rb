@@ -62,6 +62,8 @@ module Tinder
         desc "create", "Setup new theme and virtual development environment with Vagrant"
         method_option :bare
         def create
+            ::Tinder::warning "Just a few questions before we begin..."
+
             # Ask for the theme name
             theme = ask "[?] Theme name (required):"
 
@@ -71,7 +73,7 @@ module Tinder
                 # Ask for other options
                 opts = {
                     :theme_name => theme,
-                    :theme_location => ask("[?] Theme location (e.g. /path/to/site):", :default => Dir.pwd),
+                    :theme_location => File.expand_path(ask("[?] Theme location (e.g. /path/to/site):", :default => Dir.pwd)),
                     :dev_location => File.expand_path("~/vagrant/www/dev-#{theme}"),
                     :dev_url => ask("[?] Development url (e.g. site.dev):", :default => "#{theme}.dev"),
                     :db_name => ask("[?] Database name:", :default => theme),

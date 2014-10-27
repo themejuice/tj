@@ -11,14 +11,17 @@ module Tinder
                 @opts = opts
 
                 ::Tinder::warning "Running setup for `#{@opts[:theme_name]}`..."
-                ::Tinder::success opts
+
+                unless wordpress_is_setup?
+                    setup_wordpress
+                end
+
+                unless theme_is_setup?
+                    setup_theme
+                end
 
                 unless vvv_is_setup?
                     setup_vvv
-                end
-
-                unless dev_site_is_setup?
-                    setup_dev_site
                 end
 
                 unless hosts_is_setup?
@@ -33,12 +36,8 @@ module Tinder
                     setup_nginx
                 end
 
-                unless wordpress_is_setup?
-                    setup_wordpress
-                end
-
-                unless theme_is_setup?
-                    setup_theme
+                unless dev_site_is_setup?
+                    setup_dev_site
                 end
 
                 if setup_was_successful?
@@ -48,12 +47,15 @@ module Tinder
                     if restart_vagrant
                         ::Tinder::success "Theme name: #{@opts[:theme_name]}"
                         ::Tinder::success "Theme location: #{@opts[:theme_location]}"
-                        ::Tinder::success "Development environment: #{File.expand_path("~/vagrant/www/dev-#{@opts[:theme_name]}")}"
+                        ::Tinder::success "Development environment: #{@opts[:dev_location]}"
                         ::Tinder::success "Development url: http://#{@opts[:dev_url]}"
                         ::Tinder::success "Database name: #{@opts[:db_name]}"
                         ::Tinder::success "Database username: #{@opts[:db_user]}"
                         ::Tinder::success "Database password: #{@opts[:db_pass]}"
                     end
+                else
+                    ::Tinder::error "Setup failed. Running cleanup..."
+                    delete @opts[:theme_name], false
                 end
             end
 
@@ -94,6 +96,8 @@ module Tinder
                         ::Tinder::warning "Restarting VVV..."
                         restart_vagrant
                     end
+                else
+                    ::Tinder::error "Theme `#{@opts[:theme_name]}` could not be fully be removed."
                 end
             end
 
@@ -131,7 +135,7 @@ module Tinder
             # @return {Bool}
             ###
             def setup_was_successful?
-                vvv_is_setup? and wordpress_is_setup? and hosts_is_setup? and database_is_setup? and nginx_is_setup? ? true : false
+                vvv_is_setup? and dev_site_is_setup? and hosts_is_setup? and database_is_setup? and nginx_is_setup? ? true : false
             end
 
             ###
@@ -159,7 +163,7 @@ module Tinder
             # @return {Bool}
             ###
             def hosts_is_setup?
-                File.exists? "#{@opts[:dev_location]}/vvv-hosts"
+                File.exists? "#{@opts[:theme_location]}/vvv-hosts"
             end
 
             ###
@@ -173,7 +177,7 @@ module Tinder
             # @return {Bool}
             ###
             def nginx_is_setup?
-                File.exists? "#{@opts[:dev_location]}/vvv-nginx.conf"
+                File.exists? "#{@opts[:theme_location]}/vvv-nginx.conf"
             end
 
             ###
@@ -235,13 +239,10 @@ module Tinder
             # Clone WP and remove wp-config
             ###
             def setup_dev_site
-                ::Tinder::warning "Creating new wordpress install at `#{@opts[:dev_location]}`."
+                ::Tinder::warning "Setting up new development site at `#{@opts[:dev_location]}`."
                 system [
                     "cd ~/vagrant/www",
                     "mkdir dev-#{@opts[:theme_name]}"
-                    # "cp -r wordpress-default dev-#{@opts[:theme_name]}",
-                    # "cd dev-#{@opts[:theme_name]}",
-                    # "rm wp-config.php"
                 ].join " && "
             end
 
@@ -249,14 +250,14 @@ module Tinder
             # Create vvv-hosts file
             ###
             def setup_hosts
-                File.open "#{@opts[:dev_location]}/vvv-hosts", "w" do |file|
+                File.open "#{@opts[:theme_location]}/vvv-hosts", "w" do |file|
                     file.puts @opts[:dev_url]
                 end
 
                 if hosts_is_setup?
-                    ::Tinder::success "Successfully created VVV's `vvv-hosts` file."
+                    ::Tinder::success "Successfully added `vvv-hosts` file."
                 else
-                    ::Tinder::error "Could not create `vvv-hosts` file for `#{@opts[:theme_name]}.dev`."
+                    ::Tinder::error "Could not create `vvv-hosts` file."
                 end
             end
 
@@ -276,7 +277,7 @@ module Tinder
                 end
 
                 if database_is_setup?
-                    ::Tinder::success "Successfully added new database to `init-custom.sql`."
+                    ::Tinder::success "Successfully added database to `init-custom.sql`."
                 else
                     ::Tinder::error "Could not add database info for `#{@opts[:theme_name]}` to `init-custom.sql`."
                 end
@@ -286,7 +287,7 @@ module Tinder
             # Create vvv-nginx.conf file for local development site
             ###
             def setup_nginx
-                File.open "#{@opts[:dev_location]}/vvv-nginx.conf", "w" do |file|
+                File.open "#{@opts[:theme_location]}/vvv-nginx.conf", "w" do |file|
                     file.puts "server {"
                     file.puts "\tlisten 80;"
                     file.puts "\tserver_name .#{@opts[:dev_url]};"
@@ -296,7 +297,7 @@ module Tinder
                 end
 
                 if nginx_is_setup?
-                    ::Tinder::success "Successfully set up VVV's `vvv-nginx.conf` file."
+                    ::Tinder::success "Successfully added `vvv-nginx.conf` file."
                 else
                     ::Tinder::error "Could not create `vvv-nginx.conf` file."
                 end
