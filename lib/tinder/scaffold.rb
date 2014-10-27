@@ -42,6 +42,8 @@ module Tinder
                     setup_dev_site
                 end
 
+                force_permissions
+
                 if setup_was_successful?
                     ::Tinder::success "Setup successful!"
                     ::Tinder::warning "Restarting VVV..."
@@ -54,6 +56,7 @@ module Tinder
                         ::Tinder::success "Database name: #{@opts[:db_name]}"
                         ::Tinder::success "Database username: #{@opts[:db_user]}"
                         ::Tinder::success "Database password: #{@opts[:db_pass]}"
+                        # ::Tinder::success "Database host: #{@opts[:db_host]}"
                     end
                 else
                     ::Tinder::error "Setup failed. Running cleanup..."
@@ -204,6 +207,16 @@ module Tinder
             end
 
             ###
+            # Force permissions
+            ###
+            def force_permissions
+                system [
+                    "chmod -R 777 #{@opts[:theme_location]}",
+                    "chmod -R 777 #{@opts[:dev_location]}",
+                ].join " && "
+            end
+
+            ###
             # Install plugins and clone VVV
             ###
             def setup_vvv
@@ -312,15 +325,19 @@ module Tinder
             ###
             def setup_wordpress
                 ::Tinder::warning "Setting up WordPress..."
+
+                # Clone WP, create config file from sample
                 system [
                     "mkdir -p #{@opts[:theme_location]} && cd $_",
                     "git clone --depth 1 https://github.com/WordPress/WordPress.git .",
                     "cp wp-config-sample.php wp-config.php",
-                    "chmod 755 wp-config.php",
-                    "chmod -R 777 wp-content/uploads",
                 ].join " && "
 
+                # Setup config
                 setup_wordpress_config "#{@opts[:theme_location]}/wp-config.php"
+
+                # Create uploads dir
+                system "mkdir -p #{@opts[:theme_location]}/wp-content/uploads"
             end
 
             ###
@@ -338,7 +355,7 @@ module Tinder
                         contents = contents.gsub(/(database_name_here)/, @opts[:db_name])
                         contents = contents.gsub(/(username_here)/, @opts[:db_user])
                         contents = contents.gsub(/(password_here)/, @opts[:db_pass])
-                        contents = contents.gsub(/(localhost)/, @opts[:db_host])
+                        contents = contents.gsub(/(localhost)/, @opts[:dev_url])
                         contents = contents.gsub(/(put\syour\sunique\sphrase\shere)/, SecureRandom.hex(20))
                         # Write to temp file
                         output_file.write contents

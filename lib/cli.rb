@@ -79,7 +79,7 @@ module Tinder
                     :db_name => ask("[?] Database name:", :default => theme.gsub(/[^\w]/, "_")).gsub(/[^\w]/, "_"),
                     :db_user => ask("[?] Database username:", :default => theme.gsub(/[^\w]/, "_")).gsub(/[^\w]/, "_"),
                     :db_pass => ask("[?] Database password:", :default => theme),
-                    :db_host => ask("[?] Database host:", :default => "192.168.50.4")
+                    # :db_host => ask("[?] Database host:", :default => "192.168.50.4")
                 }
 
                 # Create the theme!
