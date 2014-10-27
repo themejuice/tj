@@ -97,7 +97,7 @@ module Tinder
         #   Theme to delete. This will not delete your local files, only the VVV env.
         ###
         desc "delete THEME", "Remove THEME from Vagrant development environment"
-        method_option :restart, :default => true
+        method_option :restart, :default => nil
         def delete(theme)
             ::Tinder::Scaffold::delete theme, options[:restart]
         end
