@@ -5,14 +5,14 @@ require "colorize"
 require "thor"
 
 ###
-# Module
+# Tinder
 ###
 require_relative "tinder"
+require_relative "tinder/scaffold"
 
 ###
 # Subcommands
 ###
-require_relative "tinder/scaffold"
 require_relative "tinder/tasks/guard"
 require_relative "tinder/tasks/composer"
 require_relative "tinder/tasks/vagrant"
@@ -56,6 +56,10 @@ module Tinder
         ###
         no_commands do
 
+            ###
+            # Make sure all dependencies are installed and globally executable.
+            #   Will prompt for install if available.
+            ###
             def setup
                 ::Tinder::warning "Making sure all dependencies are installed..."
 
