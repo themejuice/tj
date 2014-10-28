@@ -59,7 +59,7 @@ module Tinder
         #   folder with the theme folder on the Vagrant VM. This task will also
         #   install and configure Vagrant/VVV into your `~/` directory.
         ###
-        desc "create THEME", "Setup new theme and virtual development environment with Vagrant"
+        desc "create THEME", "Setup new THEME and virtual development environment with Vagrant"
         method_option :bare, :default => nil
         def create(theme = nil)
             ::Tinder::warning "Just a few questions before we begin..."
