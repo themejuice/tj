@@ -32,11 +32,19 @@ module Tinder
                                 "sudo mv composer.phar /usr/local/bin/composer"
                             ].join " && "
                         else
-                            ::Tinder::warning "To use Composer, install it manually and make sure it is globally executable."
+                            ::Tinder::warning "To use Tinder, install Composer manually and make sure it is globally executable."
                             exit -1
                         end
                     end
                 end
+            end
+
+            ###
+            # Setup
+            ###
+            desc "setup", "Install Composer"
+            def setup
+                self.installed?
             end
 
             ###

@@ -17,6 +17,7 @@ require_relative "tinder/tasks/guard"
 require_relative "tinder/tasks/composer"
 require_relative "tinder/tasks/vagrant"
 require_relative "tinder/tasks/capistrano"
+require_relative "tinder/tasks/wpcli"
 
 module Tinder
 
@@ -26,29 +27,94 @@ module Tinder
     class CLI < ::Thor
         include ::Thor::Actions
 
-        ###
-        # Guard
-        ###
-        desc "watch", "Watch and compile assets with Guard"
-        subcommand "watch", ::Tinder::Tasks::Guard
+        # ###
+        # # Guard
+        # ###
+        # desc "watch", "Watch and compile assets with Guard"
+        # subcommand "watch", ::Tinder::Tasks::Guard
+        #
+        # ###
+        # # Composer
+        # ###
+        # desc "dependencies", "Manage vendor dependencies with Composer"
+        # subcommand "dependencies", ::Tinder::Tasks::Composer
+        #
+        # ###
+        # # Vagrant
+        # ###
+        # desc "vm", "Manage virtual development environment with Vagrant"
+        # subcommand "vm", ::Tinder::Tasks::Vagrant
+        #
+        # ###
+        # # Capistrano
+        # ###
+        # desc "deploy", "Run deployment and migration command with Capistrano"
+        # subcommand "deploy", ::Tinder::Tasks::Capistrano
 
         ###
-        # Composer
+        # Non Thor commands
         ###
-        desc "dependencies", "Manage vendor dependencies with Composer"
-        subcommand "dependencies", ::Tinder::Tasks::Composer
+        no_commands do
 
-        ###
-        # Vagrant
-        ###
-        desc "vm", "Manage virtual development environment with Vagrant"
-        subcommand "vm", ::Tinder::Tasks::Vagrant
+            def setup
+                ::Tinder::warning "Making sure all dependencies are installed..."
 
-        ###
-        # Capistrano
-        ###
-        desc "deploy", "Run deployment and migration command with Capistrano"
-        subcommand "deploy", ::Tinder::Tasks::Capistrano
+                ###
+                # Vagrant
+                ###
+                if ::Tinder::installed? "vagrant"
+                    ::Tinder::success "Vagrant is installed!"
+                else
+                    ::Tinder::error "Vagrant doesn't seem to be installed. Download Vagrant and VirtualBox before running this task. See README for more information."
+                    exit -1
+                end
+
+                ###
+                # Composer
+                ###
+                if ::Tinder::installed? "composer"
+                    ::Tinder::success "Composer is installed!"
+                else
+                    ::Tinder::error "Composer doesn't seem to be installed, or is not globally executable."
+                    answer = ask "Do you want to globally install it?", :limited_to => ["yes", "no"]
+
+                    if answer == "yes"
+                        ::Tinder::warning "Installing Composer..."
+                        ::Tinder::warning "This task uses `sudo` to move the installed `composer.phar` into your `/usr/local/bin` so that it will be globally executable."
+                        run [
+                            "curl -sS https://getcomposer.org/installer | php",
+                            "sudo mv composer.phar /usr/local/bin/composer"
+                        ].join " && "
+                    else
+                        ::Tinder::warning "To use Tinder, install Composer manually and make sure it is globally executable."
+                        exit -1
+                    end
+                end
+
+                ###
+                # WP-CLI
+                ###
+                if ::Tinder::installed? "wp"
+                    ::Tinder::success "WP-CLI is installed!"
+                else
+                    ::Tinder::error "WP-CLI doesn't seem to be installed, or is not globally executable."
+                    answer = ask "Do you want to globally install it?", :limited_to => ["yes", "no"]
+
+                    if answer == "yes"
+                        ::Tinder::warning "Installing WP-CLI..."
+                        ::Tinder::warning "This task uses `sudo` to move the installed `wp-cli.phar` into your `/usr/local/bin` so that it will be globally executable."
+                        run [
+                            "curl -O https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar",
+                            "chmod +x wp-cli.phar",
+                            "sudo mv wp-cli.phar /usr/local/bin/wp"
+                        ].join " && "
+                    else
+                        ::Tinder::warning "To use Tinder, install WP-CLI manually and make sure it is globally executable."
+                        exit -1
+                    end
+                end
+            end
+        end
 
         ###
         # Install and setup VVV environment
@@ -62,6 +128,8 @@ module Tinder
         desc "create THEME", "Setup new THEME and virtual development environment with Vagrant"
         method_option :bare, :default => nil
         def create(theme = nil)
+            self.setup
+
             ::Tinder::warning "Just a few questions before we begin..."
 
             # Ask for the theme name
@@ -75,7 +143,7 @@ module Tinder
                 dev_url = ask "[?] Development url (e.g. site.dev):",
                     :default => "#{theme}.dev"
                 repository = ask "[?] Git repository:",
-                    :default => nil
+                    :default => "none"
                 db_name = ask "[?] Database name:",
                     :default => theme.gsub(/[^\w]/, "_")
                 db_user = ask "[?] Database username:",

@@ -26,6 +26,14 @@ module Tinder
             end
 
             ###
+            # Setup
+            ###
+            desc "setup", "Install Vagrant"
+            def setup
+                self.installed?
+            end
+
+            ###
             # Start VM
             ###
             desc "up", "Start Vagrant"
