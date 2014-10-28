@@ -42,6 +42,10 @@ module Tinder
                     setup_dev_site
                 end
 
+                if @opts[:repository]
+                    setup_repo
+                end
+
                 ###
                 # @TODO - This is a hacky workaround for WP uploads dir
                 ###
@@ -211,6 +215,13 @@ module Tinder
             ###
             def synced_folder_is_setup?
                 File.readlines(File.expand_path "~/vagrant/Vagrantfile").grep(/(### Begin `#{@opts[:theme_name]}`)/m).any?
+            end
+
+            ###
+            # @return {Bool}
+            ###
+            def repo_is_setup?
+                File.exists? File.expand_path("#{@opts[:theme_location]}/.git")
             end
 
             ###
@@ -412,6 +423,28 @@ module Tinder
                     file.puts "### End `#{@opts[:theme_name]}`"
                     file.puts "\n"
                 end
+            end
+
+            ###
+            # Initialize Git repo, add remote, initial commit
+            ###
+            def setup_repo
+                ::Tinder::warning "Setting up Git repository at `#{@opts[:repository]}`..."
+
+                if repo_is_setup?
+                    system [
+                        "cd #{@opts[:theme_location]}",
+                        "rm -rf .git",
+                    ].join " && "
+                end
+
+                system [
+                    "cd #{@opts[:theme_location]}",
+                    "git init",
+                    "git remote add origin #{@opts[:repository]}",
+                    "git add -A",
+                    "git commit -m 'initial commit'",
+                ].join " && "
             end
 
             ###

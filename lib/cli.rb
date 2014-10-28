@@ -59,7 +59,7 @@ module Tinder
         #   folder with the theme folder on the Vagrant VM. This task will also
         #   install and configure Vagrant/VVV into your `~/` directory.
         ###
-        desc "create", "Setup new theme and virtual development environment with Vagrant"
+        desc "create THEME", "Setup new theme and virtual development environment with Vagrant"
         method_option :bare, :default => nil
         def create(theme = nil)
             ::Tinder::warning "Just a few questions before we begin..."
@@ -116,7 +116,14 @@ module Tinder
         desc "delete THEME", "Remove THEME from Vagrant development environment"
         method_option :restart, :default => nil
         def delete(theme)
-            ::Tinder::Scaffold::delete theme, options[:restart]
+            ::Tinder::warning "This method does not remove your local theme. It will only remove the site from within the VM."
+
+            answer = ask "Are you sure you want to delete theme `#{theme}`?",
+                :limited_to => ["yes", "no"]
+
+            if answer == "yes"
+                ::Tinder::Scaffold::delete theme, options[:restart]
+            end
         end
     end
 end

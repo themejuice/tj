@@ -104,7 +104,8 @@ module Tinder
                 self.installed?
 
                 # Are you really, really sure?
-                answer = ask "Are you sure you want to destroy the VM?", :limited_to => ["yes", "no"]
+                answer = ask "Are you sure you want to destroy the VM?",
+                    :limited_to => ["yes", "no"]
 
                 if answer == "yes"
                     ::Tinder::error "Destroying Vagrant..."
