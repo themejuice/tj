@@ -18,7 +18,7 @@ module Tinder
                     setup_wordpress
                 end
 
-                unless theme_is_setup?
+                unless theme_is_setup? && @opts[:bare_install]
                     setup_theme
                 end
 

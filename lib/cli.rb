@@ -61,25 +61,42 @@ module Tinder
         ###
         desc "create", "Setup new theme and virtual development environment with Vagrant"
         method_option :bare, :default => nil
-        def create
+        def create(theme = nil)
             ::Tinder::warning "Just a few questions before we begin..."
 
             # Ask for the theme name
-            theme = ask("[?] Theme name (required):").downcase
+            theme ||= ask("[?] Theme name (required):").downcase
 
             # Make sure theme name was given, else throw err
             unless theme.empty?
 
+                theme_location = ask "[?] Theme location (e.g. /path/to/site):",
+                    :default => Dir.pwd
+                dev_url = ask "[?] Development url (e.g. site.dev):",
+                    :default => "#{theme}.dev"
+                repository = ask "[?] Git repository:",
+                    :default => nil
+                db_name = ask "[?] Database name:",
+                    :default => theme.gsub(/[^\w]/, "_")
+                db_user = ask "[?] Database username:",
+                    :default => theme.gsub(/[^\w]/, "_")
+                db_pass = ask "[?] Database password:",
+                    :default => theme
+                db_host = ask "[?] Database host:",
+                    :default => dev_url # "192.168.50.4"
+
                 # Ask for other options
                 opts = {
                     :theme_name => theme,
-                    :theme_location => File.expand_path(ask("[?] Theme location (e.g. /path/to/site):", :default => Dir.pwd)),
+                    :theme_location => File.expand_path(theme_location),
+                    :bare_install => options[:bare],
                     :dev_location => File.expand_path("~/vagrant/www/dev-#{theme}"),
-                    :dev_url => ask("[?] Development url (e.g. site.dev):", :default => "#{theme}.dev"),
-                    :db_name => ask("[?] Database name:", :default => theme.gsub(/[^\w]/, "_")).gsub(/[^\w]/, "_"),
-                    :db_user => ask("[?] Database username:", :default => theme.gsub(/[^\w]/, "_")).gsub(/[^\w]/, "_"),
-                    :db_pass => ask("[?] Database password:", :default => theme),
-                    # :db_host => ask("[?] Database host:", :default => "192.168.50.4")
+                    :dev_url => dev_url,
+                    :repository => repository,
+                    :db_name => db_name.gsub(/[^\w]/, "_"),
+                    :db_user => db_user.gsub(/[^\w]/, "_"),
+                    :db_pass => db_pass,
+                    :db_host => db_host
                 }
 
                 # Create the theme!
