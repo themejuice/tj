@@ -1,6 +1,11 @@
-require "pathname"
 require "fileutils"
+require "pathname"
 require "tempfile"
+
+###
+# Gems
+###
+require 'securerandom'
 require "colorize"
 require "thor"
 
@@ -149,11 +154,11 @@ module ThemeJuice
                 repository = ask "[?] Git repository:",
                     :default => "none"
                 db_name = ask "[?] Database name:",
-                    :default => theme.gsub(/[^\w]/, "_")
+                    :default => "wordpress"
                 db_user = ask "[?] Database username:",
-                    :default => theme.gsub(/[^\w]/, "_")
+                    :default => "wordpress"
                 db_pass = ask "[?] Database password:",
-                    :default => theme
+                    :default => SecureRandom.base64
                 db_host = ask "[?] Database host:",
                     :default => dev_url
 
@@ -165,8 +170,8 @@ module ThemeJuice
                     :dev_location => File.expand_path("~/vagrant/www/dev-#{theme}"),
                     :dev_url => dev_url,
                     :repository => repository,
-                    :db_name => db_name.gsub(/[^\w]/, "_"),
-                    :db_user => db_user.gsub(/[^\w]/, "_"),
+                    :db_name => db_name,
+                    :db_user => db_user,
                     :db_pass => db_pass,
                     :db_host => db_host
                 }

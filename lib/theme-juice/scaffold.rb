@@ -1,5 +1,3 @@
-require 'securerandom'
-
 module ThemeJuice
     module Scaffold
         class << self
