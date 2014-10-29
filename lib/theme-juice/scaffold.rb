@@ -88,10 +88,12 @@ module ThemeJuice
                     :dev_location => File.expand_path("~/vagrant/www/dev-#{theme}")
                 }
 
-                ::ThemeJuice::warning "Removing theme `#{@opts[:theme_name]}`..."
-
                 if dev_site_is_setup?
+                    ::ThemeJuice::warning "Removing theme `#{@opts[:theme_name]}`..."
                     remove_dev_site
+                else
+                    ::ThemeJuice::error "Theme `#{@opts[:theme_name]}` does not exist."
+                    exit -1
                 end
 
                 if database_is_setup?

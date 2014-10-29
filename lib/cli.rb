@@ -90,7 +90,7 @@ module ThemeJuice
                             "sudo mv composer.phar /usr/local/bin/composer"
                         ].join " && "
                     else
-                        ::ThemeJuice::warning "To use ThemeJuice, install Composer manually and make sure it is globally executable."
+                        ::ThemeJuice::warning "To use proceed, install Composer manually and make sure it is globally executable."
                         exit -1
                     end
                 end
@@ -113,7 +113,7 @@ module ThemeJuice
                             "sudo mv wp-cli.phar /usr/local/bin/wp"
                         ].join " && "
                     else
-                        ::ThemeJuice::warning "To use ThemeJuice, install WP-CLI manually and make sure it is globally executable."
+                        ::ThemeJuice::warning "To use proceed, install WP-CLI manually and make sure it is globally executable."
                         exit -1
                     end
                 end
