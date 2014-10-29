@@ -10,4 +10,4 @@ warn err
     exit -1
 end
 
-Tinder::CLI.start
+ThemeJuice::CLI.start

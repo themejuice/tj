@@ -1,21 +1,21 @@
-require_relative 'lib/tinder'
+require_relative 'lib/theme-juice'
 
 Gem::Specification.new do |spec|
 
     # Info
-    spec.version = Tinder::VERSION
+    spec.version = ThemeJuice::VERSION
 
     # Details
-    spec.name = "tinder-cli"
-    spec.rubyforge_project = "tinder-cli"
+    spec.name = "theme-juice-cli"
+    spec.rubyforge_project = "theme-juice-cli"
     spec.licenses = "MIT"
     spec.authors = ["Ezekiel Gabrielse"]
     spec.email = ["ezekg@yahoo.com"]
-    spec.homepage = "https://github.com/ezekg/tinder-cli.git"
+    spec.homepage = "https://github.com/ezekg/theme-juice-cli.git"
 
     # Description
     spec.summary = %q{A WordPress theme development framework.}
-    spec.description = %q{A WordPress theme development framework.}
+    spec.description = %q{A WordPress theme development framework that scaffolds out an entire Vagrant development environment in seconds.}
 
     # Library
     spec.files += Dir.glob("lib/**/*.*")
@@ -24,7 +24,7 @@ Gem::Specification.new do |spec|
     spec.files += ["LICENSE", "README.md"]
 
     # Executable
-    spec.executables = ["tinder"]
+    spec.executables = ["tj"]
 
     # Test
     # spec.test_files += Dir.glob("tests/**/*.*")

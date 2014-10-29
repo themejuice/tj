@@ -1,6 +1,6 @@
-require_relative "tinder/version"
+require_relative "theme-juice/version"
 
-module Tinder
+module ThemeJuice
     class << self
 
         ###

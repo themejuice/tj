@@ -1,4 +1,4 @@
-module Tinder
+module ThemeJuice
     module Tasks
         class Composer < ::Thor
             namespace :dependencies
@@ -20,19 +20,19 @@ module Tinder
                 # If it's not globally installed, this will prompt for an installation
                 ###
                 def installed?
-                    unless ::Tinder::installed? "composer"
-                        ::Tinder::error "Composer doesn't seem to be installed, or is not globally executable."
+                    unless ::ThemeJuice::installed? "composer"
+                        ::ThemeJuice::error "Composer doesn't seem to be installed, or is not globally executable."
                         answer = ask "Do you want to globally install it?", :limited_to => ["yes", "no"]
 
                         if answer == "yes"
-                            ::Tinder::warning "Installing Composer..."
-                            ::Tinder::warning "This task uses `sudo` to move the installed `composer.phar` into your `/usr/local/bin` so that it will be globally executable."
+                            ::ThemeJuice::warning "Installing Composer..."
+                            ::ThemeJuice::warning "This task uses `sudo` to move the installed `composer.phar` into your `/usr/local/bin` so that it will be globally executable."
                             run [
                                 "curl -sS https://getcomposer.org/installer | php",
                                 "sudo mv composer.phar /usr/local/bin/composer"
                             ].join " && "
                         else
-                            ::Tinder::warning "To use Tinder, install Composer manually and make sure it is globally executable."
+                            ::ThemeJuice::warning "To use ThemeJuice, install Composer manually and make sure it is globally executable."
                             exit -1
                         end
                     end
@@ -59,18 +59,18 @@ module Tinder
 
                 # Install all packages if :packages is nil
                 if options[:package].nil?
-                    ::Tinder::warning "Installing Composer packages..."
+                    ::ThemeJuice::warning "Installing Composer packages..."
                     if run "composer install"
-                        ::Tinder::success "Successfully installed Composer packages."
+                        ::ThemeJuice::success "Successfully installed Composer packages."
                     else
-                        ::Tinder::error "Failed to installed Composer packages. Be sure to run this command from your project root."
+                        ::ThemeJuice::error "Failed to installed Composer packages. Be sure to run this command from your project root."
                     end
                 else
-                    ::Tinder::warning "Installing `#{options[:package]}`..."
+                    ::ThemeJuice::warning "Installing `#{options[:package]}`..."
                     if run "composer install #{options[:package]}"
-                        ::Tinder::success "Successfully installed`#{options[:package]}`."
+                        ::ThemeJuice::success "Successfully installed`#{options[:package]}`."
                     else
-                        ::Tinder::error "Failed to installed `#{options[:package]}`. Be sure to run this command from your project root."
+                        ::ThemeJuice::error "Failed to installed `#{options[:package]}`. Be sure to run this command from your project root."
                     end
                 end
             end
@@ -87,18 +87,18 @@ module Tinder
 
                 # Update all packages if :packages is nil
                 if options[:package].nil?
-                    ::Tinder::warning "Updating Composer packages..."
+                    ::ThemeJuice::warning "Updating Composer packages..."
                     if run "composer update"
-                        ::Tinder::success "Successfully updated Composer packages."
+                        ::ThemeJuice::success "Successfully updated Composer packages."
                     else
-                        ::Tinder::error "Failed to update Composer packages. Be sure to run this command from your project root."
+                        ::ThemeJuice::error "Failed to update Composer packages. Be sure to run this command from your project root."
                     end
                 else
-                    ::Tinder::warning "Updating `#{options[:package]}`..."
+                    ::ThemeJuice::warning "Updating `#{options[:package]}`..."
                     if run "composer update #{options[:package]}"
-                        ::Tinder::success "Successfully updated `#{options[:package]}`."
+                        ::ThemeJuice::success "Successfully updated `#{options[:package]}`."
                     else
-                        ::Tinder::error "Failed to update `#{options[:package]}`. Be sure to run this command from your project root."
+                        ::ThemeJuice::error "Failed to update `#{options[:package]}`. Be sure to run this command from your project root."
                     end
                 end
             end
@@ -113,11 +113,11 @@ module Tinder
             def remove
                 self.installed?
 
-                ::Tinder::warning "Removing `#{options[:package]}`..."
+                ::ThemeJuice::warning "Removing `#{options[:package]}`..."
                 if run "composer remove #{options[:package]}"
-                    ::Tinder::success "Successfully removed `#{options[:package]}`."
+                    ::ThemeJuice::success "Successfully removed `#{options[:package]}`."
                 else
-                    ::Tinder::error "Failed to remove `#{options[:package]}`. Be sure to run this command from your project root."
+                    ::ThemeJuice::error "Failed to remove `#{options[:package]}`. Be sure to run this command from your project root."
                 end
             end
 
@@ -130,11 +130,11 @@ module Tinder
             def require
                 self.installed?
 
-                ::Tinder::warning "Requiring new Composer packages..."
+                ::ThemeJuice::warning "Requiring new Composer packages..."
                 if run "composer require"
-                    ::Tinder::success "Successfully required new Composer packages."
+                    ::ThemeJuice::success "Successfully required new Composer packages."
                 else
-                    ::Tinder::error "Failed to require new Composer packages. Be sure to run this command from your project root."
+                    ::ThemeJuice::error "Failed to require new Composer packages. Be sure to run this command from your project root."
                 end
             end
         end

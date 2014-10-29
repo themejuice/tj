@@ -5,21 +5,21 @@ require "colorize"
 require "thor"
 
 ###
-# Tinder
+# ThemeJuice
 ###
-require_relative "tinder"
-require_relative "tinder/scaffold"
+require_relative "theme-juice"
+require_relative "theme-juice/scaffold"
 
 ###
 # Subcommands
 ###
-require_relative "tinder/tasks/guard"
-require_relative "tinder/tasks/composer"
-require_relative "tinder/tasks/vagrant"
-require_relative "tinder/tasks/capistrano"
-require_relative "tinder/tasks/wpcli"
+require_relative "theme-juice/tasks/guard"
+require_relative "theme-juice/tasks/composer"
+require_relative "theme-juice/tasks/vagrant"
+require_relative "theme-juice/tasks/capistrano"
+require_relative "theme-juice/tasks/wpcli"
 
-module Tinder
+module ThemeJuice
 
     ###
     # CLI interface to run subcommands from
@@ -31,25 +31,25 @@ module Tinder
         # # Guard
         # ###
         # desc "watch", "Watch and compile assets with Guard"
-        # subcommand "watch", ::Tinder::Tasks::Guard
+        # subcommand "watch", ::ThemeJuice::Tasks::Guard
         #
         # ###
         # # Composer
         # ###
         # desc "dependencies", "Manage vendor dependencies with Composer"
-        # subcommand "dependencies", ::Tinder::Tasks::Composer
+        # subcommand "dependencies", ::ThemeJuice::Tasks::Composer
         #
         # ###
         # # Vagrant
         # ###
         # desc "vm", "Manage virtual development environment with Vagrant"
-        # subcommand "vm", ::Tinder::Tasks::Vagrant
+        # subcommand "vm", ::ThemeJuice::Tasks::Vagrant
         #
         # ###
         # # Capistrano
         # ###
         # desc "deploy", "Run deployment and migration command with Capistrano"
-        # subcommand "deploy", ::Tinder::Tasks::Capistrano
+        # subcommand "deploy", ::ThemeJuice::Tasks::Capistrano
 
         ###
         # Non Thor commands
@@ -61,36 +61,36 @@ module Tinder
             #   Will prompt for install if available.
             ###
             def setup
-                ::Tinder::warning "Making sure all dependencies are installed..."
+                ::ThemeJuice::warning "Making sure all dependencies are installed..."
 
                 ###
                 # Vagrant
                 ###
-                if ::Tinder::installed? "vagrant"
-                    ::Tinder::success "Vagrant is installed!"
+                if ::ThemeJuice::installed? "vagrant"
+                    ::ThemeJuice::success "Vagrant is installed!"
                 else
-                    ::Tinder::error "Vagrant doesn't seem to be installed. Download Vagrant and VirtualBox before running this task. See README for more information."
+                    ::ThemeJuice::error "Vagrant doesn't seem to be installed. Download Vagrant and VirtualBox before running this task. See README for more information."
                     exit -1
                 end
 
                 ###
                 # Composer
                 ###
-                if ::Tinder::installed? "composer"
-                    ::Tinder::success "Composer is installed!"
+                if ::ThemeJuice::installed? "composer"
+                    ::ThemeJuice::success "Composer is installed!"
                 else
-                    ::Tinder::error "Composer doesn't seem to be installed, or is not globally executable."
+                    ::ThemeJuice::error "Composer doesn't seem to be installed, or is not globally executable."
                     answer = ask "Do you want to globally install it?", :limited_to => ["yes", "no"]
 
                     if answer == "yes"
-                        ::Tinder::warning "Installing Composer..."
-                        ::Tinder::warning "This task uses `sudo` to move the installed `composer.phar` into your `/usr/local/bin` so that it will be globally executable."
+                        ::ThemeJuice::warning "Installing Composer..."
+                        ::ThemeJuice::warning "This task uses `sudo` to move the installed `composer.phar` into your `/usr/local/bin` so that it will be globally executable."
                         run [
                             "curl -sS https://getcomposer.org/installer | php",
                             "sudo mv composer.phar /usr/local/bin/composer"
                         ].join " && "
                     else
-                        ::Tinder::warning "To use Tinder, install Composer manually and make sure it is globally executable."
+                        ::ThemeJuice::warning "To use ThemeJuice, install Composer manually and make sure it is globally executable."
                         exit -1
                     end
                 end
@@ -98,22 +98,22 @@ module Tinder
                 ###
                 # WP-CLI
                 ###
-                if ::Tinder::installed? "wp"
-                    ::Tinder::success "WP-CLI is installed!"
+                if ::ThemeJuice::installed? "wp"
+                    ::ThemeJuice::success "WP-CLI is installed!"
                 else
-                    ::Tinder::error "WP-CLI doesn't seem to be installed, or is not globally executable."
+                    ::ThemeJuice::error "WP-CLI doesn't seem to be installed, or is not globally executable."
                     answer = ask "Do you want to globally install it?", :limited_to => ["yes", "no"]
 
                     if answer == "yes"
-                        ::Tinder::warning "Installing WP-CLI..."
-                        ::Tinder::warning "This task uses `sudo` to move the installed `wp-cli.phar` into your `/usr/local/bin` so that it will be globally executable."
+                        ::ThemeJuice::warning "Installing WP-CLI..."
+                        ::ThemeJuice::warning "This task uses `sudo` to move the installed `wp-cli.phar` into your `/usr/local/bin` so that it will be globally executable."
                         run [
                             "curl -O https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar",
                             "chmod +x wp-cli.phar",
                             "sudo mv wp-cli.phar /usr/local/bin/wp"
                         ].join " && "
                     else
-                        ::Tinder::warning "To use Tinder, install WP-CLI manually and make sure it is globally executable."
+                        ::ThemeJuice::warning "To use ThemeJuice, install WP-CLI manually and make sure it is globally executable."
                         exit -1
                     end
                 end
@@ -134,7 +134,7 @@ module Tinder
         def create(theme = nil)
             self.setup
 
-            ::Tinder::warning "Just a few questions before we begin..."
+            ::ThemeJuice::warning "Just a few questions before we begin..."
 
             # Ask for the theme name
             theme ||= ask("[?] Theme name (required):").downcase
@@ -172,9 +172,9 @@ module Tinder
                 }
 
                 # Create the theme!
-                ::Tinder::Scaffold::create opts
+                ::ThemeJuice::Scaffold::create opts
             else
-                ::Tinder::error "Theme name is required. Aborting mission."
+                ::ThemeJuice::error "Theme name is required. Aborting mission."
                 exit -1
             end
         end
@@ -188,13 +188,13 @@ module Tinder
         desc "delete THEME", "Remove THEME from Vagrant development environment"
         method_option :restart, :default => nil
         def delete(theme)
-            ::Tinder::warning "This method does not remove your local theme. It will only remove the site from within the VM."
+            ::ThemeJuice::warning "This method does not remove your local theme. It will only remove the site from within the VM."
 
             answer = ask "Are you sure you want to delete theme `#{theme}`?",
                 :limited_to => ["yes", "no"]
 
             if answer == "yes"
-                ::Tinder::Scaffold::delete theme, options[:restart]
+                ::ThemeJuice::Scaffold::delete theme, options[:restart]
             end
         end
     end

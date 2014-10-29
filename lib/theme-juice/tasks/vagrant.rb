@@ -1,4 +1,4 @@
-module Tinder
+module ThemeJuice
     module Tasks
         class Vagrant < ::Thor
             namespace :vm
@@ -18,8 +18,8 @@ module Tinder
                 # Check if Vagrant is installed
                 ###
                 def installed?
-                    unless ::Tinder::installed? "vagrant"
-                        ::Tinder::error "Vagrant doesn't seem to be installed. Download Vagrant and VirtualBox before running this task. See README for more information."
+                    unless ::ThemeJuice::installed? "vagrant"
+                        ::ThemeJuice::error "Vagrant doesn't seem to be installed. Download Vagrant and VirtualBox before running this task. See README for more information."
                         exit -1
                     end
                 end
@@ -40,7 +40,7 @@ module Tinder
             def up
                 self.installed?
 
-                ::Tinder::warning "Starting Vagrant..."
+                ::ThemeJuice::warning "Starting Vagrant..."
                 run [
                     "cd ~/vagrant",
                     "vagrant up"
@@ -59,7 +59,7 @@ module Tinder
             def halt
                 self.installed?
 
-                ::Tinder::warning "Stopping Vagrant..."
+                ::ThemeJuice::warning "Stopping Vagrant..."
                 run [
                     "cd ~/vagrant",
                     "vagrant halt"
@@ -78,7 +78,7 @@ module Tinder
             def reload
                 self.installed?
 
-                ::Tinder::warning "Restarting Vagrant..."
+                ::ThemeJuice::warning "Restarting Vagrant..."
                 run [
                     "cd ~/vagrant",
                     "vagrant reload"
@@ -97,7 +97,7 @@ module Tinder
             def provision
                 self.installed?
 
-                ::Tinder::warning "Provisioning Vagrant..."
+                ::ThemeJuice::warning "Provisioning Vagrant..."
                 run [
                     "cd ~/vagrant",
                     "vagrant provision"
@@ -116,7 +116,7 @@ module Tinder
                     :limited_to => ["yes", "no"]
 
                 if answer == "yes"
-                    ::Tinder::error "Destroying Vagrant..."
+                    ::ThemeJuice::error "Destroying Vagrant..."
                     run [
                         "cd ~/vagrant",
                         "vagrant destroy"

@@ -1,4 +1,4 @@
-module Tinder
+module ThemeJuice
     module Tasks
         class Guard < ::Thor
             namespace :watch
@@ -16,11 +16,11 @@ module Tinder
             ###
             desc "all", "Run all Guard plugins"
             def all
-                ::Tinder::warning "Initiating Guard..."
+                ::ThemeJuice::warning "Initiating Guard..."
                 if run "bundle exec guard"
-                    # ::Tinder::success "Guard initiated. Watching files..."
+                    # ::ThemeJuice::success "Guard initiated. Watching files..."
                 else
-                    ::Tinder::error "Failed to initiate Guard. Be sure to run this command from your project root."
+                    ::ThemeJuice::error "Failed to initiate Guard. Be sure to run this command from your project root."
                 end
             end
 
@@ -31,11 +31,11 @@ module Tinder
             ###
             desc "sass", "Watch Sass files with Guard"
             def sass
-                ::Tinder::warning "Initiating Guard..."
+                ::ThemeJuice::warning "Initiating Guard..."
                 if run "bundle exec guard -P compass"
-                    # ::Tinder::success "Guard initiated. Watching Sass files..."
+                    # ::ThemeJuice::success "Guard initiated. Watching Sass files..."
                 else
-                    ::Tinder::error "Failed to initiate Guard. Be sure to run this command from your project root."
+                    ::ThemeJuice::error "Failed to initiate Guard. Be sure to run this command from your project root."
                 end
             end
 
@@ -46,11 +46,11 @@ module Tinder
             ###
             desc "coffee", "Watch Coffee files with Guard"
             def coffee
-                ::Tinder::warning "Initiating Guard..."
+                ::ThemeJuice::warning "Initiating Guard..."
                 if run "bundle exec guard -P coffeescript"
-                    # ::Tinder::success "Guard initiated. Watching Coffee files..."
+                    # ::ThemeJuice::success "Guard initiated. Watching Coffee files..."
                 else
-                    ::Tinder::error "Failed to initiate Guard. Be sure to run this command from your project root."
+                    ::ThemeJuice::error "Failed to initiate Guard. Be sure to run this command from your project root."
                 end
             end
 
@@ -61,11 +61,11 @@ module Tinder
             ###
             desc "haml", "Watch Haml files with Guard"
             def haml
-                ::Tinder::warning "Initiating Guard..."
+                ::ThemeJuice::warning "Initiating Guard..."
                 if run "bundle exec guard -P haml"
-                    # ::Tinder::success "Guard initiated. Watching Haml files..."
+                    # ::ThemeJuice::success "Guard initiated. Watching Haml files..."
                 else
-                    ::Tinder::error "Failed to initiate Guard. Be sure to run this command from your project root."
+                    ::ThemeJuice::error "Failed to initiate Guard. Be sure to run this command from your project root."
                 end
             end
 
@@ -76,11 +76,11 @@ module Tinder
             ###
             desc "image_optim", "Optimize images with Guard"
             def image_optim
-                ::Tinder::warning "Initiating Guard..."
+                ::ThemeJuice::warning "Initiating Guard..."
                 if run "bundle exec guard -P image_optim"
-                    # ::Tinder::success "Guard initiated. Optimizing images..."
+                    # ::ThemeJuice::success "Guard initiated. Optimizing images..."
                 else
-                    ::Tinder::error "Failed to initiate Guard. Be sure to run this command from your project root."
+                    ::ThemeJuice::error "Failed to initiate Guard. Be sure to run this command from your project root."
                 end
             end
         end

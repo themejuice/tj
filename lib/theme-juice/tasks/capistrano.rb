@@ -1,4 +1,4 @@
-module Tinder
+module ThemeJuice
     module Tasks
         class Capistrano < ::Thor
             namespace :deploy
@@ -11,7 +11,7 @@ module Tinder
 
             desc "install", "Install Capistrano"
             def install
-                ::Tinder::warning "Installing..."
+                ::ThemeJuice::warning "Installing..."
             end
         end
     end

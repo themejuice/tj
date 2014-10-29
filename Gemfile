@@ -1,4 +1,4 @@
 source 'https://rubygems.org'
 
-# Specify your gem's dependencies in tinder.gemspec
+# Specify your gem's dependencies in theme-juice.gemspec
 gemspec

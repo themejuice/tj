@@ -1,6 +1,6 @@
 require 'securerandom'
 
-module Tinder
+module ThemeJuice
     module Scaffold
         class << self
 
@@ -12,7 +12,7 @@ module Tinder
             def create(opts)
                 @opts = opts
 
-                ::Tinder::warning "Running setup for `#{@opts[:theme_name]}`..."
+                ::ThemeJuice::warning "Running setup for `#{@opts[:theme_name]}`..."
 
                 unless wordpress_is_setup?
                     setup_wordpress
@@ -52,22 +52,22 @@ module Tinder
                 force_permissions
 
                 if setup_was_successful?
-                    ::Tinder::success "Setup successful!"
-                    ::Tinder::warning "Restarting VVV..."
+                    ::ThemeJuice::success "Setup successful!"
+                    ::ThemeJuice::warning "Restarting VVV..."
 
                     if restart_vagrant
-                        ::Tinder::success "Theme name: #{@opts[:theme_name]}"
-                        ::Tinder::success "Theme location: #{@opts[:theme_location]}"
-                        ::Tinder::success "Development environment: #{@opts[:dev_location]}"
-                        ::Tinder::success "Development url: http://#{@opts[:dev_url]}"
-                        ::Tinder::success "Repository: #{@opts[:repository]}"
-                        ::Tinder::success "Database name: #{@opts[:db_name]}"
-                        ::Tinder::success "Database username: #{@opts[:db_user]}"
-                        ::Tinder::success "Database password: #{@opts[:db_pass]}"
-                        ::Tinder::success "Database host: #{@opts[:db_host]}"
+                        ::ThemeJuice::success "Theme name: #{@opts[:theme_name]}"
+                        ::ThemeJuice::success "Theme location: #{@opts[:theme_location]}"
+                        ::ThemeJuice::success "Development environment: #{@opts[:dev_location]}"
+                        ::ThemeJuice::success "Development url: http://#{@opts[:dev_url]}"
+                        ::ThemeJuice::success "Repository: #{@opts[:repository]}"
+                        ::ThemeJuice::success "Database name: #{@opts[:db_name]}"
+                        ::ThemeJuice::success "Database username: #{@opts[:db_user]}"
+                        ::ThemeJuice::success "Database password: #{@opts[:db_pass]}"
+                        ::ThemeJuice::success "Database host: #{@opts[:db_host]}"
                     end
                 else
-                    ::Tinder::error "Setup failed. Running cleanup..."
+                    ::ThemeJuice::error "Setup failed. Running cleanup..."
                     delete @opts[:theme_name], false
                 end
             end
@@ -88,7 +88,7 @@ module Tinder
                     :dev_location => File.expand_path("~/vagrant/www/dev-#{theme}")
                 }
 
-                ::Tinder::warning "Removing theme `#{@opts[:theme_name]}`..."
+                ::ThemeJuice::warning "Removing theme `#{@opts[:theme_name]}`..."
 
                 if dev_site_is_setup?
                     remove_dev_site
@@ -103,14 +103,14 @@ module Tinder
                 end
 
                 if removal_was_successful?
-                    ::Tinder::success "Theme `#{@opts[:theme_name]}` successfully removed!"
+                    ::ThemeJuice::success "Theme `#{@opts[:theme_name]}` successfully removed!"
 
                     unless restart.nil?
-                        ::Tinder::warning "Restarting VVV..."
+                        ::ThemeJuice::warning "Restarting VVV..."
                         restart_vagrant
                     end
                 else
-                    ::Tinder::error "Theme `#{@opts[:theme_name]}` could not be fully be removed."
+                    ::ThemeJuice::error "Theme `#{@opts[:theme_name]}` could not be fully be removed."
                 end
             end
 
@@ -124,6 +124,7 @@ module Tinder
             ###
             def restart_vagrant
                 system [
+                    "cd ~/vagrant",
                     "vagrant halt",
                     "vagrant up --provision"
                 ].join " && "
@@ -228,7 +229,7 @@ module Tinder
             # Force permissions for WP install to be executable
             ###
             def force_permissions
-                ::Tinder::warning "Modifying permissions for WordPress installation..."
+                ::ThemeJuice::warning "Modifying permissions for WordPress installation..."
                 system [
                     "chmod -R +x #{@opts[:theme_location]}",
                     "chmod -R +x #{@opts[:dev_location]}",
@@ -239,7 +240,7 @@ module Tinder
             # Install plugins and clone VVV
             ###
             def setup_vvv
-                ::Tinder::warning "Installing VVV into `#{File.expand_path "~/vagrant"}`."
+                ::ThemeJuice::warning "Installing VVV into `#{File.expand_path "~/vagrant"}`."
                 system [
                     "vagrant plugin install vagrant-hostsupdater",
                     "vagrant plugin install vagrant-triggers",
@@ -254,12 +255,12 @@ module Tinder
             # Enable Landrush for wildcard subdomains
             ###
             def setup_wildcard_subdomains
-                ::Tinder::warning "Setting up wildcard subdomains..."
+                ::ThemeJuice::warning "Setting up wildcard subdomains..."
                 open File.expand_path("~/vagrant/Vagrantfile"), "a" do |file|
                     file.puts "###"
                     file.puts "# Enable wildcard subdomains"
                     file.puts "#"
-                    file.puts "# This block is automatically generated by Tinder. Do not edit."
+                    file.puts "# This block is automatically generated by ThemeJuice. Do not edit."
                     file.puts "###"
                     file.puts "Vagrant.configure('2') do |config|"
                     file.puts "\tconfig.landrush.enabled = true"
@@ -273,7 +274,7 @@ module Tinder
             # Clone WP and remove wp-config
             ###
             def setup_dev_site
-                ::Tinder::warning "Setting up new development site at `#{@opts[:dev_location]}`."
+                ::ThemeJuice::warning "Setting up new development site at `#{@opts[:dev_location]}`."
                 system [
                     "cd ~/vagrant/www",
                     "mkdir dev-#{@opts[:theme_name]}"
@@ -289,9 +290,9 @@ module Tinder
                 end
 
                 if hosts_is_setup?
-                    ::Tinder::success "Successfully added `vvv-hosts` file."
+                    ::ThemeJuice::success "Successfully added `vvv-hosts` file."
                 else
-                    ::Tinder::error "Could not create `vvv-hosts` file."
+                    ::ThemeJuice::error "Could not create `vvv-hosts` file."
                 end
             end
 
@@ -302,7 +303,7 @@ module Tinder
                 File.open File.expand_path("~/vagrant/database/init-custom.sql"), "a" do |file|
                     file.puts "### Begin `#{@opts[:theme_name]}`"
                     file.puts "#"
-                    file.puts "# This block is automatically generated by Tinder. Do not edit."
+                    file.puts "# This block is automatically generated by ThemeJuice. Do not edit."
                     file.puts "###"
                     file.puts "CREATE DATABASE IF NOT EXISTS `#{@opts[:db_name]}`;"
                     file.puts "GRANT ALL PRIVILEGES ON `#{@opts[:db_name]}`.* TO '#{@opts[:db_user]}'@'localhost' IDENTIFIED BY '#{@opts[:db_pass]}';"
@@ -311,9 +312,9 @@ module Tinder
                 end
 
                 if database_is_setup?
-                    ::Tinder::success "Successfully added database to `init-custom.sql`."
+                    ::ThemeJuice::success "Successfully added database to `init-custom.sql`."
                 else
-                    ::Tinder::error "Could not add database info for `#{@opts[:theme_name]}` to `init-custom.sql`."
+                    ::ThemeJuice::error "Could not add database info for `#{@opts[:theme_name]}` to `init-custom.sql`."
                 end
             end
 
@@ -331,9 +332,9 @@ module Tinder
                 end
 
                 if nginx_is_setup?
-                    ::Tinder::success "Successfully added `vvv-nginx.conf` file."
+                    ::ThemeJuice::success "Successfully added `vvv-nginx.conf` file."
                 else
-                    ::Tinder::error "Could not create `vvv-nginx.conf` file."
+                    ::ThemeJuice::error "Could not create `vvv-nginx.conf` file."
                 end
             end
 
@@ -343,7 +344,7 @@ module Tinder
             # Clones official WordPress repo into @opts[:theme_location]
             ###
             def setup_wordpress
-                ::Tinder::warning "Setting up WordPress..."
+                ::ThemeJuice::warning "Setting up WordPress..."
 
                 # Clone WP, create new config file with WP-CLI
                 system [
@@ -360,15 +361,15 @@ module Tinder
             # Setup theme directory
             ###
             def setup_theme
-                ::Tinder::warning "Setting up theme..."
+                ::ThemeJuice::warning "Setting up theme..."
                 system [
                     "cd #{@opts[:theme_location]}/wp-content/themes",
-                    "git clone --depth 1 https://github.com/ezekg/tinder.git #{@opts[:theme_name]}"
+                    "git clone --depth 1 https://github.com/ezekg/theme-juice.git #{@opts[:theme_name]}"
                 ].join " && "
 
                 # Setup synced folders
                 unless synced_folder_is_setup?
-                    ::Tinder::warning "Syncing host theme directory `#{@opts[:theme_location]}` with VM theme directory `/srv/www/dev-#{@opts[:theme_name]}`..."
+                    ::ThemeJuice::warning "Syncing host theme directory `#{@opts[:theme_location]}` with VM theme directory `/srv/www/dev-#{@opts[:theme_name]}`..."
                     setup_synced_folder
                 end
             end
@@ -380,7 +381,7 @@ module Tinder
                 open File.expand_path("~/vagrant/Vagrantfile"), "a" do |file|
                     file.puts "### Begin `#{@opts[:theme_name]}`"
                     file.puts "#"
-                    file.puts "# This block is automatically generated by Tinder. Do not edit."
+                    file.puts "# This block is automatically generated by ThemeJuice. Do not edit."
                     file.puts "###"
                     file.puts "Vagrant.configure('2') do |config|"
                     file.puts "\tconfig.vm.synced_folder '#{@opts[:theme_location]}', '/srv/www/dev-#{@opts[:theme_name]}', mount_options: ['dmode=777,fmode=777']"
@@ -395,7 +396,7 @@ module Tinder
             # Initialize Git repo, add remote, initial commit
             ###
             def setup_repo
-                ::Tinder::warning "Setting up Git repository at `#{@opts[:repository]}`..."
+                ::ThemeJuice::warning "Setting up Git repository at `#{@opts[:repository]}`..."
 
                 if repo_is_setup?
                     system [
@@ -417,12 +418,12 @@ module Tinder
             # Remove all theme files from Vagrant directory
             ###
             def remove_dev_site
-                ::Tinder::warning "Removing VVV installation..."
+                ::ThemeJuice::warning "Removing VVV installation..."
 
                 if system "rm -rf #{@opts[:dev_location]}"
-                    ::Tinder::success "VVV installation for `#{@opts[:theme_name]}` successfully removed."
+                    ::ThemeJuice::success "VVV installation for `#{@opts[:theme_name]}` successfully removed."
                 else
-                    ::Tinder::error "Theme `#{@opts[:theme_name]}` could not be removed. Make sure you have write capabilities."
+                    ::ThemeJuice::error "Theme `#{@opts[:theme_name]}` could not be removed. Make sure you have write capabilities."
                 end
             end
 
@@ -430,10 +431,10 @@ module Tinder
             # Remove database block from init-custom.sql
             ###
             def remove_database
-                ::Tinder::warning "Removing database for `#{@opts[:theme_name]}`..."
+                ::ThemeJuice::warning "Removing database for `#{@opts[:theme_name]}`..."
 
                 if remove_traces_from_file "~/vagrant/database/init-custom.sql"
-                    ::Tinder::success "Database for `#{@opts[:theme_name]}` successfully removed."
+                    ::ThemeJuice::success "Database for `#{@opts[:theme_name]}` successfully removed."
                 end
             end
 
@@ -441,10 +442,10 @@ module Tinder
             # Remove synced folder block from Vagrantfile
             ###
             def remove_synced_folder
-                ::Tinder::warning "Removing synced folders for `#{@opts[:theme_name]}`..."
+                ::ThemeJuice::warning "Removing synced folders for `#{@opts[:theme_name]}`..."
 
                 if remove_traces_from_file "~/vagrant/Vagrantfile"
-                    ::Tinder::success "Synced folders for `#{@opts[:theme_name]}` successfully removed."
+                    ::ThemeJuice::success "Synced folders for `#{@opts[:theme_name]}` successfully removed."
                 end
             end
 
@@ -465,7 +466,7 @@ module Tinder
                     # Move temp file to actual file location
                     FileUtils.mv output_file, File.expand_path(input_file)
                 rescue LoadError => err
-                    ::Tinder::error err
+                    ::ThemeJuice::error err
                     exit -1
                 ensure
                     # Make sure that the tempfile closes and is cleaned up, regardless of errors
