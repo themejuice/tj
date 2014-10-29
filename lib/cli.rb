@@ -129,7 +129,7 @@ module ThemeJuice
         #   folder with the theme folder on the Vagrant VM. This task will also
         #   install and configure Vagrant/VVV into your `~/` directory.
         ###
-        desc "create THEME", "Setup new THEME and virtual development environment with Vagrant"
+        desc "create [THEME]", "Setup THEME and virtual development environment with Vagrant"
         method_option :bare, :default => nil
         def create(theme = nil)
             self.setup
@@ -155,7 +155,7 @@ module ThemeJuice
                 db_pass = ask "[?] Database password:",
                     :default => theme
                 db_host = ask "[?] Database host:",
-                    :default => dev_url # "192.168.50.4"
+                    :default => dev_url
 
                 # Ask for other options
                 opts = {
