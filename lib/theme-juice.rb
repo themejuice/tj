@@ -14,6 +14,22 @@ module ThemeJuice
         end
 
         ###
+        # Welcome message
+        #
+        # @param {String} ascii
+        #   Generated ASCII welcome
+        # @param {String} color
+        #   Color of welcome message
+        ###
+        def welcome(message, color = nil)
+            unless color.nil?
+                puts "#{message}".send "#{color}"
+            else
+                puts message
+            end
+        end
+
+        ###
         # Success message
         ###
         def success(message)

@@ -7,6 +7,7 @@ require "tempfile"
 ###
 require 'securerandom'
 require "colorize"
+require "artii"
 require "thor"
 
 ###
@@ -139,9 +140,20 @@ module ThemeJuice
         def create(theme = nil)
             self.install_dependencies
 
+            # Set up ASCII font
+            f = ::Artii::Base.new :font => "rowancap"
+
+            # Output ASCII welcome message
+            ::ThemeJuice::welcome ""
+            ::ThemeJuice::welcome f.asciify("theme"), "green"
+            ::ThemeJuice::welcome f.asciify("juice"), "green"
+
+            ###
+            # Theme setup
+            ###
             ::ThemeJuice::warning "Just a few questions before we begin..."
 
-            # Ask for the theme name
+            # Ask for the theme name if not passed directly
             theme ||= ask("[?] Theme name (required):").downcase
 
             # Make sure theme name was given, else throw err
