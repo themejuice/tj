@@ -2,8 +2,9 @@
 
 ## Installation
 
-Add this line to your application's Gemfile:
+* Install [Vagrant](https://www.vagrantup.com/) and [VirtualBox](https://www.virtualbox.org/) for local development.
 
+Add this line to your application's Gemfile:
 ```ruby
 gem 'theme-juice-cli'
 ```
