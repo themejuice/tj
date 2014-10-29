@@ -22,10 +22,10 @@ module ThemeJuice
         #   Color of welcome message
         ###
         def welcome(message, color = nil)
-            unless color.nil?
-                puts "#{message}".send "#{color}"
-            else
+            if color.nil?
                 puts message
+            else
+                puts "#{message}".send "#{color}"
             end
         end
 

@@ -151,7 +151,11 @@ module ThemeJuice
             ###
             # Theme setup
             ###
-            ::ThemeJuice::warning "Just a few questions before we begin..."
+            if theme.nil?
+                ::ThemeJuice::warning "Just a few questions before we begin..."
+            else
+                ::ThemeJuice::warning "Just a few more questions before we create `#{theme}`..."
+            end
 
             # Ask for the theme name if not passed directly
             theme ||= ask("[?] Theme name (required):").downcase
@@ -159,9 +163,9 @@ module ThemeJuice
             # Make sure theme name was given, else throw err
             unless theme.empty?
 
-                theme_location = ask "[?] Theme location (e.g. /path/to/site):",
-                    :default => Dir.pwd
-                dev_url = ask "[?] Development url (e.g. site.dev):",
+                theme_location = ask "[?] Theme location:",
+                    :default => "#{Dir.pwd}/"
+                dev_url = ask "[?] Development url:",
                     :default => "#{theme}.dev"
                 repository = ask "[?] Git repository:",
                     :default => "none"
