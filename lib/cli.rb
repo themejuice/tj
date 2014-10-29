@@ -65,7 +65,7 @@ module ThemeJuice
             # Make sure all dependencies are installed and globally executable.
             #   Will prompt for install if available.
             ###
-            def setup
+            def install_dependencies
                 ::ThemeJuice::warning "Making sure all dependencies are installed..."
 
                 ###
@@ -137,7 +137,7 @@ module ThemeJuice
         desc "create [THEME]", "Setup THEME and virtual development environment with Vagrant"
         method_option :bare, :default => nil
         def create(theme = nil)
-            self.setup
+            self.install_dependencies
 
             ::ThemeJuice::warning "Just a few questions before we begin..."
 
