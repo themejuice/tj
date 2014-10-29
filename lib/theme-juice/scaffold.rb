@@ -364,7 +364,7 @@ module ThemeJuice
                 ::ThemeJuice::warning "Setting up theme..."
                 system [
                     "cd #{@opts[:theme_location]}/wp-content/themes",
-                    "git clone --depth 1 https://github.com/ezekg/theme-juice.git #{@opts[:theme_name]}"
+                    "git clone --depth 1 https://github.com/ezekg/theme-juice-starter.git #{@opts[:theme_name]}"
                 ].join " && "
 
                 # Setup synced folders
