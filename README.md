@@ -21,17 +21,17 @@ gem install theme-juice-cli
 
 ## Usage
 
-#### Help
+##### Help
 ```
 tj
 ```
 
-#### Create theme
+##### Create theme
 ```
 tj create [<theme-name>]
 ```
 
-#### Delete theme
+##### Delete theme
 ```
 tj delete <theme-name>
 ```

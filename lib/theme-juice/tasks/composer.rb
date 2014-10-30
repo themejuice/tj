@@ -10,6 +10,14 @@ module ThemeJuice
             end
 
             ###
+            # Initialize a new composer.json
+            ###
+            desc "init", "Initialize a new composer.json"
+            def init
+                run "composer init"
+            end
+
+            ###
             # Install packages
             #
             # You can specify a single package with `-p PACKAGE`, or `--package=PACKAGE`
@@ -17,7 +25,6 @@ module ThemeJuice
             desc "install", "Install Composer packages"
             method_option :package, :default => nil, :aliases => "-p"
             def install
-                # Install all packages if :packages is nil
                 if options[:package].nil?
                     ::ThemeJuice::warning "Installing Composer packages..."
                     if run "composer install"
@@ -30,7 +37,7 @@ module ThemeJuice
                     if run "composer install #{options[:package]}"
                         ::ThemeJuice::success "Successfully installed`#{options[:package]}`."
                     else
-                        ::ThemeJuice::error "Failed to installed `#{options[:package]}`. Be sure to run this command from your project root."
+                        ::ThemeJuice::error "Failed to install `#{options[:package]}`. Be sure to run this command from your project root."
                     end
                 end
             end
@@ -43,7 +50,6 @@ module ThemeJuice
             desc "update", "Update Composer package"
             method_option :package, :default => nil, :aliases => "-p"
             def update
-                # Update all packages if :packages is nil
                 if options[:package].nil?
                     ::ThemeJuice::warning "Updating Composer packages..."
                     if run "composer update"
@@ -62,33 +68,42 @@ module ThemeJuice
             end
 
             ###
-            # Remove a package
+            # Install composer packages
             #
-            # You must specify a single package with `-p PACKAGE`, or `--package=PACKAGE`
+            # @param {String} package
             ###
-            desc "remove", "Remove Composer package"
-            method_option :package, :required => true, :aliases => "-p"
-            def remove
-                ::ThemeJuice::warning "Removing `#{options[:package]}`..."
-                if run "composer remove #{options[:package]}"
-                    ::ThemeJuice::success "Successfully removed `#{options[:package]}`."
+            desc "require", "Require packages from Composer"
+            method_option :package, :default => nil, :aliases => "-p"
+            def require
+                if options[:package].nil?
+                    ::ThemeJuice::warning "Requiring packages..."
+                    if run "composer require"
+                        ::ThemeJuice::success "Successfully required packages."
+                    else
+                        ::ThemeJuice::error "Failed to require packages. Be sure to run this command from your project root."
+                    end
                 else
-                    ::ThemeJuice::error "Failed to remove `#{options[:package]}`. Be sure to run this command from your project root."
+                    ::ThemeJuice::warning "Requiring `#{options[:package]}`..."
+                    if run "composer require #{options[:package]}"
+                        ::ThemeJuice::success "Successfully required `#{options[:package]}`."
+                    else
+                        ::ThemeJuice::error "Failed to require `#{options[:package]}`. Be sure to run this command from your project root."
+                    end
                 end
             end
 
             ###
-            # Install composer packages
+            # Remove a package
             #
-            # You can specify a single package with `-p PACKAGE`, or `--package=PACKAGE`
+            # @param {String} package
             ###
-            desc "require", "Require new Composer packages"
-            def require
-                ::ThemeJuice::warning "Requiring new Composer packages..."
-                if run "composer require"
-                    ::ThemeJuice::success "Successfully required new Composer packages."
+            desc "remove PACKAGE", "Remove PACKAGE from Composer"
+            def remove(package)
+                ::ThemeJuice::warning "Removing `#{package}`..."
+                if run "composer remove #{package}"
+                    ::ThemeJuice::success "Successfully removed `#{package}`."
                 else
-                    ::ThemeJuice::error "Failed to require new Composer packages. Be sure to run this command from your project root."
+                    ::ThemeJuice::error "Failed to remove `#{package}`. Be sure to run this command from your project root."
                 end
             end
         end

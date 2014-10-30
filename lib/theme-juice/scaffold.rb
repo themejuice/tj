@@ -16,8 +16,8 @@ module ThemeJuice
                     setup_wordpress
                 end
 
-                unless theme_is_setup? && @opts[:bare_install]
-                    setup_theme
+                unless theme_is_setup?
+                    setup_theme if @opts[:bare_install].nil?
                 end
 
                 unless vvv_is_setup?

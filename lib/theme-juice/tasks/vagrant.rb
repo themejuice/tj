@@ -34,6 +34,20 @@ module ThemeJuice
             end
 
             ###
+            #
+            ###
+            desc "suspend", "Suspend Vagrant"
+            def suspend
+                def stop
+                    ::ThemeJuice::warning "Suspending Vagrant..."
+                    run [
+                        "cd ~/vagrant",
+                        "vagrant suspend"
+                    ].join " && "
+                end
+            end
+
+            ###
             # Restart VM
             ###
             desc "restart", "Restart Vagrant"
