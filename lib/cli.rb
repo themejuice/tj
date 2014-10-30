@@ -135,7 +135,7 @@ module ThemeJuice
         #   folder with the theme folder on the Vagrant VM. This task will also
         #   install and configure Vagrant/VVV into your `~/` directory.
         ###
-        desc "create [THEME]", "Setup THEME and virtual development environment with Vagrant"
+        desc "create [THEME]", "Setup THEME and Vagrant development environment"
         method_option :bare, :default => nil, :desc => "Create a bare WordPress installation without starter theme"
         def create(theme = nil)
             self.install_dependencies
@@ -206,10 +206,10 @@ module ThemeJuice
         # @param {String} theme
         #   Theme to delete. This will not delete your local files, only the VVV env.
         ###
-        desc "delete THEME", "Remove THEME from Vagrant development environment"
+        desc "delete THEME", "Remove THEME from Vagrant development environment. Does not remove local theme."
         method_option :restart, :default => nil
         def delete(theme)
-            ::ThemeJuice::warning "This method does not remove your local theme. It will only remove the site from within the VM."
+            ::ThemeJuice::warning "This method will only remove the site from within the VM. Tt does not remove your local theme."
 
             answer = ask "Are you sure you want to delete theme `#{theme}`?",
                 :limited_to => ["yes", "no"]
@@ -222,7 +222,7 @@ module ThemeJuice
         ###
         # List all development sites
         ###
-        desc "list", "List all development sites within Vagrant"
+        desc "list", "List all themes within Vagrant development environment"
         def list
             ::ThemeJuice::Scaffold::list
         end
