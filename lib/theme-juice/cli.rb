@@ -207,10 +207,10 @@ module ThemeJuice
         desc "vendor", "Manage vendor dependencies with Composer"
         subcommand "vendor", ::ThemeJuice::Plugins::Composer
 
-        # ###
-        # # Capistrano
-        # ###
-        # desc "deploy", "Run deployment and migration command with Capistrano"
-        # subcommand "deploy", ::ThemeJuice::Plugins::Capistrano
+        ###
+        # Capistrano
+        ###
+        desc "deploy", "Run deployment and migration commands with Capistrano"
+        subcommand "deploy", ::ThemeJuice::Plugins::Capistrano
     end
 end
