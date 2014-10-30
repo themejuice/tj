@@ -160,7 +160,7 @@ module ThemeJuice
         def delete(theme)
             ::ThemeJuice::warning "This method will only remove the site from within the VM. It does not remove your local theme."
 
-            answer = ask "Are you sure you want to delete theme `#{theme}`?",
+            answer = ask "[?] Are you sure you want to delete theme `#{theme}`?",
                 :limited_to => ["yes", "no"]
 
             if answer == "yes"
@@ -175,7 +175,6 @@ module ThemeJuice
         def list
             ::ThemeJuice::Scaffold::list
         end
-
 
         ###
         # Vagrant
