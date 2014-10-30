@@ -116,13 +116,24 @@ module ThemeJuice
 
             ###
             # List all development sites
+            #
+            # @return {Array}
             ###
             def list
+                sites = []
+
                 Dir.glob(File.expand_path("~/vagrant/www/*")).each do |f|
                     if File.directory?(f) && f.include?("dev-")
-                        ::ThemeJuice::warning File.basename(f).gsub(/(dev-)/, "")
+                        # Get the site name
+                        site = File.basename(f).gsub(/(dev-)/, "")
+                        # Output site to cli
+                        ::ThemeJuice::warning site
+                        # Save site to sites arr
+                        sites << site
                     end
                 end
+
+                sites
             end
 
             private
