@@ -21,17 +21,23 @@ gem install theme-juice-cli
 
 ## Usage
 
-##### Help
+#### Help
+List available commands.
+
 ```
 tj
 ```
 
-##### Create theme
+#### Create theme
+Create a new theme and development site.
+
 ```
 tj create [<theme-name>]
 ```
 
-##### Delete theme
+#### Delete theme
+Delete a theme from the VM. _Does not remove your local theme._
+
 ```
 tj delete <theme-name>
 ```
