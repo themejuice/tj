@@ -25,7 +25,7 @@ module ThemeJuice
                     ::ThemeJuice::success "Vagrant is installed!"
                 else
                     ::ThemeJuice::error "Vagrant doesn't seem to be installed. Download Vagrant and VirtualBox before running this task. See README for more information."
-                    exit -1
+                    exit 1
                 end
 
                 ###
@@ -46,7 +46,7 @@ module ThemeJuice
                         ].join " && "
                     else
                         ::ThemeJuice::warning "To use proceed, install Composer manually and make sure it is globally executable."
-                        exit -1
+                        exit 1
                     end
                 end
 
@@ -69,7 +69,7 @@ module ThemeJuice
                         ].join " && "
                     else
                         ::ThemeJuice::warning "To use proceed, install WP-CLI manually and make sure it is globally executable."
-                        exit -1
+                        exit 1
                     end
                 end
             end
@@ -145,7 +145,7 @@ module ThemeJuice
                 ::ThemeJuice::Scaffold::create opts
             else
                 ::ThemeJuice::error "Theme name is required. Aborting mission."
-                exit -1
+                exit 1
             end
         end
 

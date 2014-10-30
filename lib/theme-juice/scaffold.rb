@@ -91,7 +91,7 @@ module ThemeJuice
                     remove_dev_site
                 else
                     ::ThemeJuice::error "Theme `#{@opts[:theme_name]}` does not exist."
-                    exit -1
+                    exit 1
                 end
 
                 if database_is_setup?
@@ -489,7 +489,7 @@ module ThemeJuice
                     FileUtils.mv output_file, File.expand_path(input_file)
                 rescue LoadError => err
                     ::ThemeJuice::error err
-                    exit -1
+                    exit 1
                 ensure
                     # Make sure that the tempfile closes and is cleaned up, regardless of errors
                     output_file.close

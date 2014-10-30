@@ -7,7 +7,7 @@ begin
     require_relative "../lib/theme-juice"
 rescue LoadError => err
 warn err
-    exit -1
+    exit 1
 end
 
 ThemeJuice::CLI.start
