@@ -4,7 +4,7 @@ require "pathname"
 require "thor"
 
 begin
-    require_relative "../lib/cli"
+    require_relative "../lib/theme-juice"
 rescue LoadError => err
 warn err
     exit -1

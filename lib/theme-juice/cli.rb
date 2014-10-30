@@ -1,30 +1,3 @@
-require "fileutils"
-require "pathname"
-require "tempfile"
-
-###
-# Gems
-###
-require 'securerandom'
-require "colorize"
-require "artii"
-require "thor"
-
-###
-# ThemeJuice
-###
-require_relative "theme-juice"
-require_relative "theme-juice/scaffold"
-
-###
-# Subcommands
-###
-require_relative "theme-juice/tasks/guard"
-require_relative "theme-juice/tasks/composer"
-require_relative "theme-juice/tasks/vagrant"
-require_relative "theme-juice/tasks/capistrano"
-require_relative "theme-juice/tasks/wpcli"
-
 module ThemeJuice
 
     ###

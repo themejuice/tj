@@ -1,4 +1,30 @@
+require "fileutils"
+require "pathname"
+require "tempfile"
+
+###
+# Gems
+###
+require 'securerandom'
+require "colorize"
+require "artii"
+require "thor"
+
+###
+# ThemeJuice
+###
 require_relative "theme-juice/version"
+require_relative "theme-juice/scaffold"
+require_relative "theme-juice/cli"
+
+###
+# Subcommands
+###
+require_relative "theme-juice/tasks/guard"
+require_relative "theme-juice/tasks/composer"
+require_relative "theme-juice/tasks/vagrant"
+require_relative "theme-juice/tasks/capistrano"
+require_relative "theme-juice/tasks/wpcli"
 
 module ThemeJuice
     class << self

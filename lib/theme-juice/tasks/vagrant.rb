@@ -10,36 +10,10 @@ module ThemeJuice
             end
 
             ###
-            # Non Thor commands
-            ###
-            no_commands do
-
-                ###
-                # Check if Vagrant is installed
-                ###
-                def installed?
-                    unless ::ThemeJuice::installed? "vagrant"
-                        ::ThemeJuice::error "Vagrant doesn't seem to be installed. Download Vagrant and VirtualBox before running this task. See README for more information."
-                        exit -1
-                    end
-                end
-            end
-
-            ###
-            # Setup
-            ###
-            desc "setup", "Install Vagrant"
-            def setup
-                self.installed?
-            end
-
-            ###
             # Start VM
             ###
             desc "up", "Start Vagrant"
             def up
-                self.installed?
-
                 ::ThemeJuice::warning "Starting Vagrant..."
                 run [
                     "cd ~/vagrant",
@@ -57,8 +31,6 @@ module ThemeJuice
             ###
             desc "halt", "Stop Vagrant"
             def halt
-                self.installed?
-
                 ::ThemeJuice::warning "Stopping Vagrant..."
                 run [
                     "cd ~/vagrant",
@@ -76,8 +48,6 @@ module ThemeJuice
             ###
             desc "reload", "Restart Vagrant"
             def reload
-                self.installed?
-
                 ::ThemeJuice::warning "Restarting Vagrant..."
                 run [
                     "cd ~/vagrant",
@@ -95,8 +65,6 @@ module ThemeJuice
             ###
             desc "provision", "Provision Vagrant"
             def provision
-                self.installed?
-
                 ::ThemeJuice::warning "Provisioning Vagrant..."
                 run [
                     "cd ~/vagrant",
@@ -109,8 +77,6 @@ module ThemeJuice
             ###
             desc "destroy!", "Destroy Vagrant"
             def destroy!
-                self.installed?
-
                 # Are you really, really sure?
                 answer = ask "Are you sure you want to destroy the VM?",
                     :limited_to => ["yes", "no"]
@@ -129,8 +95,6 @@ module ThemeJuice
             ###
             desc "ssh", "SSH into Vagrant"
             def ssh
-                self.installed?
-
                 run [
                     "cd ~/vagrant",
                     "vagrant ssh"
