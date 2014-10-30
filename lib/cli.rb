@@ -136,7 +136,7 @@ module ThemeJuice
         #   install and configure Vagrant/VVV into your `~/` directory.
         ###
         desc "create [THEME]", "Setup THEME and virtual development environment with Vagrant"
-        method_option :bare, :default => nil
+        method_option :bare, :default => nil, :desc => "Create a bare WordPress installation without starter theme"
         def create(theme = nil)
             self.install_dependencies
 
