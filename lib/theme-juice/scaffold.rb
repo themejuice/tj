@@ -114,6 +114,17 @@ module ThemeJuice
                 end
             end
 
+            ###
+            # List all development sites
+            ###
+            def list
+                Dir.glob(File.expand_path("~/vagrant/www/*")).each do |f|
+                    if File.directory?(f) && f.include?("dev-")
+                        ::ThemeJuice::warning File.basename(f).gsub(/(dev-)/, "")
+                    end
+                end
+            end
+
             private
 
             ###

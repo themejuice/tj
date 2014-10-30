@@ -218,5 +218,13 @@ module ThemeJuice
                 ::ThemeJuice::Scaffold::delete theme, options[:restart]
             end
         end
+
+        ###
+        # List all development sites
+        ###
+        desc "list", "List all development sites within Vagrant"
+        def list
+            ::ThemeJuice::Scaffold::list
+        end
     end
 end
