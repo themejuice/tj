@@ -107,7 +107,7 @@ module ThemeJuice
             end
 
             # Ask for the theme name if not passed directly
-            theme ||= ask("[?] Theme name (required):").downcase
+            theme ||= ask "[?] Theme name (required):"
 
             # Make sure theme name was given, else throw err
             unless theme.empty?
