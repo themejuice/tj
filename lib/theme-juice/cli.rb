@@ -6,30 +6,6 @@ module ThemeJuice
     class CLI < ::Thor
         include ::Thor::Actions
 
-        # ###
-        # # Guard
-        # ###
-        # desc "watch", "Watch and compile assets with Guard"
-        # subcommand "watch", ::ThemeJuice::Tasks::Guard
-        #
-        # ###
-        # # Composer
-        # ###
-        # desc "vendor", "Manage vendor dependencies with Composer"
-        # subcommand "vendor", ::ThemeJuice::Tasks::Composer
-        #
-        # ###
-        # # Vagrant
-        # ###
-        # desc "vm", "Manage virtual development environment with Vagrant"
-        # subcommand "vm", ::ThemeJuice::Tasks::Vagrant
-        #
-        # ###
-        # # Capistrano
-        # ###
-        # desc "deploy", "Run deployment and migration command with Capistrano"
-        # subcommand "deploy", ::ThemeJuice::Tasks::Capistrano
-
         ###
         # Non Thor commands
         ###
@@ -109,7 +85,7 @@ module ThemeJuice
         #   install and configure Vagrant/VVV into your `~/` directory.
         ###
         desc "create [THEME]", "Setup THEME and Vagrant development environment"
-        method_option :bare, :default => nil, :desc => "Create a bare WordPress installation without starter theme"
+        method_option :bare, :type => :boolean, :desc => "Create a bare WordPress installation without starter theme"
         def create(theme = nil)
             self.install_dependencies
 
@@ -180,7 +156,7 @@ module ThemeJuice
         #   Theme to delete. This will not delete your local files, only the VVV env.
         ###
         desc "delete THEME", "Remove THEME from Vagrant development environment. Does not remove local theme."
-        method_option :restart, :default => nil
+        method_option :restart, :type => :boolean
         def delete(theme)
             ::ThemeJuice::warning "This method will only remove the site from within the VM. It does not remove your local theme."
 
@@ -199,5 +175,30 @@ module ThemeJuice
         def list
             ::ThemeJuice::Scaffold::list
         end
+
+
+        ###
+        # Vagrant
+        ###
+        desc "vm", "Manage virtual development environment with Vagrant"
+        subcommand "vm", ::ThemeJuice::Tasks::Vagrant
+
+        # ###
+        # # Guard
+        # ###
+        # desc "watch", "Watch and compile assets with Guard"
+        # subcommand "watch", ::ThemeJuice::Tasks::Guard
+        #
+        # ###
+        # # Composer
+        # ###
+        # desc "vendor", "Manage vendor dependencies with Composer"
+        # subcommand "vendor", ::ThemeJuice::Tasks::Composer
+        #
+        # ###
+        # # Capistrano
+        # ###
+        # desc "deploy", "Run deployment and migration command with Capistrano"
+        # subcommand "deploy", ::ThemeJuice::Tasks::Capistrano
     end
 end

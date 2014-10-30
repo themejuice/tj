@@ -12,8 +12,8 @@ module ThemeJuice
             ###
             # Start VM
             ###
-            desc "up", "Start Vagrant"
-            def up
+            desc "start", "Start Vagrant"
+            def start
                 ::ThemeJuice::warning "Starting Vagrant..."
                 run [
                     "cd ~/vagrant",
@@ -21,16 +21,11 @@ module ThemeJuice
                 ].join " && "
             end
 
-            desc "start", "[Alias for `up`]"
-            def start
-                up
-            end
-
             ###
             # Stop VM
             ###
-            desc "halt", "Stop Vagrant"
-            def halt
+            desc "stop", "Stop Vagrant"
+            def stop
                 ::ThemeJuice::warning "Stopping Vagrant..."
                 run [
                     "cd ~/vagrant",
@@ -38,26 +33,16 @@ module ThemeJuice
                 ].join " && "
             end
 
-            desc "stop", "[Alias for `halt`]"
-            def stop
-                halt
-            end
-
             ###
             # Restart VM
             ###
-            desc "reload", "Restart Vagrant"
-            def reload
+            desc "restart", "Restart Vagrant"
+            def restart
                 ::ThemeJuice::warning "Restarting Vagrant..."
                 run [
                     "cd ~/vagrant",
                     "vagrant reload"
                 ].join " && "
-            end
-
-            desc "restart", "[Alias for `reload`]"
-            def restart
-                reload
             end
 
             ###
@@ -91,7 +76,7 @@ module ThemeJuice
             end
 
             ###
-            # SSH
+            # SSH into VM
             ###
             desc "ssh", "SSH into Vagrant"
             def ssh

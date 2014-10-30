@@ -11,20 +11,16 @@ require "artii"
 require "thor"
 
 ###
-# ThemeJuice
-###
-require_relative "theme-juice/version"
-require_relative "theme-juice/scaffold"
-require_relative "theme-juice/cli"
-
-###
-# Subcommands
+# Theme Juice
 ###
 require_relative "theme-juice/tasks/guard"
 require_relative "theme-juice/tasks/composer"
 require_relative "theme-juice/tasks/vagrant"
 require_relative "theme-juice/tasks/capistrano"
 require_relative "theme-juice/tasks/wpcli"
+require_relative "theme-juice/version"
+require_relative "theme-juice/scaffold"
+require_relative "theme-juice/cli"
 
 module ThemeJuice
     class << self
