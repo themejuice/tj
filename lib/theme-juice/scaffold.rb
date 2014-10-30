@@ -355,6 +355,12 @@ module ThemeJuice
 
                 # Create uploads dir
                 system "mkdir -p #{@opts[:theme_location]}/wp-content/uploads"
+
+                # Setup synced folders
+                unless synced_folder_is_setup?
+                    ::ThemeJuice::warning "Syncing host theme directory `#{@opts[:theme_location]}` with VM theme directory `/srv/www/dev-#{@opts[:theme_name]}`..."
+                    setup_synced_folder
+                end
             end
 
             ###
@@ -366,12 +372,6 @@ module ThemeJuice
                     "cd #{@opts[:theme_location]}/wp-content/themes",
                     "git clone --depth 1 https://github.com/ezekg/theme-juice-starter.git #{@opts[:theme_name]}"
                 ].join " && "
-
-                # Setup synced folders
-                unless synced_folder_is_setup?
-                    ::ThemeJuice::warning "Syncing host theme directory `#{@opts[:theme_location]}` with VM theme directory `/srv/www/dev-#{@opts[:theme_name]}`..."
-                    setup_synced_folder
-                end
             end
 
             ###
