@@ -177,27 +177,40 @@ module ThemeJuice
         end
 
         ###
+        # Watch and compile assets
+        ###
+        desc "watch", "Watch and compile assets with Guard"
+        method_option :plugin, :default => "all", :aliases => "-p", :desc => "Watch and compile specific plugin"
+        def watch
+            ::ThemeJuice::warning "Starting Guard..."
+            ::ThemeJuice::Plugins::Guard::send options[:plugin]
+        end
+
+        ###
+        # Optimize images
+        ###
+        desc "optimize", "Optimize images with Guard"
+        def optimize
+            ::ThemeJuice::warning "Optimizing images..."
+            ::ThemeJuice::Plugins::Guard::image_optim
+        end
+
+        ###
         # Vagrant
         ###
         desc "vm", "Manage virtual development environment with Vagrant"
-        subcommand "vm", ::ThemeJuice::Tasks::Vagrant
+        subcommand "vm", ::ThemeJuice::Plugins::Vagrant
 
         ###
         # Composer
         ###
         desc "vendor", "Manage vendor dependencies with Composer"
-        subcommand "vendor", ::ThemeJuice::Tasks::Composer
+        subcommand "vendor", ::ThemeJuice::Plugins::Composer
 
-        # ###
-        # # Guard
-        # ###
-        # desc "watch", "Watch and compile assets with Guard"
-        # subcommand "watch", ::ThemeJuice::Tasks::Guard
-        #
         # ###
         # # Capistrano
         # ###
         # desc "deploy", "Run deployment and migration command with Capistrano"
-        # subcommand "deploy", ::ThemeJuice::Tasks::Capistrano
+        # subcommand "deploy", ::ThemeJuice::Plugins::Capistrano
     end
 end

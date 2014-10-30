@@ -1,5 +1,5 @@
 module ThemeJuice
-    module Tasks
+    module Plugins
         class Composer < ::Thor
             namespace :vendor
 

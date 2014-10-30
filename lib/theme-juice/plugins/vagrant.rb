@@ -1,5 +1,5 @@
 module ThemeJuice
-    module Tasks
+    module Plugins
         class Vagrant < ::Thor
             namespace :vm
 

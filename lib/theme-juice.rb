@@ -13,11 +13,11 @@ require "thor"
 ###
 # Theme Juice
 ###
-require_relative "theme-juice/tasks/guard"
-require_relative "theme-juice/tasks/composer"
-require_relative "theme-juice/tasks/vagrant"
-require_relative "theme-juice/tasks/capistrano"
-require_relative "theme-juice/tasks/wpcli"
+require_relative "theme-juice/plugins/guard"
+require_relative "theme-juice/plugins/composer"
+require_relative "theme-juice/plugins/vagrant"
+require_relative "theme-juice/plugins/capistrano"
+require_relative "theme-juice/plugins/wpcli"
 require_relative "theme-juice/version"
 require_relative "theme-juice/scaffold"
 require_relative "theme-juice/cli"
