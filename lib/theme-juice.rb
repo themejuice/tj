@@ -1,3 +1,4 @@
+require "securerandom"
 require "fileutils"
 require "pathname"
 require "tempfile"
@@ -5,7 +6,6 @@ require "tempfile"
 ###
 # Gems
 ###
-require 'securerandom'
 require "colorize"
 require "artii"
 require "thor"
