@@ -78,9 +78,9 @@ module ThemeJuice
             def destroy!
                 # Are you really, really sure?
                 answer = ask "Are you sure you want to destroy the VM?",
-                    :limited_to => ["yes", "no"]
+                    :limited_to => ["y", "n"]
 
-                if answer == "yes"
+                if answer == "y"
                     ::ThemeJuice::error "Destroying Vagrant..."
                     run [
                         "cd ~/vagrant",
