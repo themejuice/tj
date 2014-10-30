@@ -1,7 +1,7 @@
 module ThemeJuice
     module Tasks
         class Composer < ::Thor
-            namespace :dependencies
+            namespace :vendor
 
             include ::Thor::Actions
 

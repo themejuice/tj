@@ -42,8 +42,8 @@ module ThemeJuice
         # ###
         # # Composer
         # ###
-        # desc "dependencies", "Manage vendor dependencies with Composer"
-        # subcommand "dependencies", ::ThemeJuice::Tasks::Composer
+        # desc "vendor", "Manage vendor dependencies with Composer"
+        # subcommand "vendor", ::ThemeJuice::Tasks::Composer
         #
         # ###
         # # Vagrant
