@@ -141,7 +141,7 @@ module ThemeJuice
             ###
             # Restart Vagrant
             #
-            # Normally a simple `vagrant reload` would work, but landrush requires a
+            # Normally a simple `vagrant reload` would work, but Landrush requires a
             #   `vagrant up` to be fired for it to set up the DNS correctly.
             ###
             def restart_vagrant
