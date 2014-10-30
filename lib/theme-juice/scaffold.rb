@@ -79,7 +79,8 @@ module ThemeJuice
             def delete(theme, restart)
 
                 ###
-                # @TODO - This is a really hacky way to remove the theme
+                # @TODO - This is a really hacky way to remove the theme.
+                #   Eventually I'd like to handle state.
                 ###
                 @opts = {
                     :theme_name => theme,
