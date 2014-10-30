@@ -36,6 +36,32 @@ Delete a theme from the VM. _Does not remove your local theme._
 tj delete <theme-name>
 ```
 
+Watch and compile assets.
+```
+tj watch
+tj watch -p <plugin>
+```
+
+Optimize images.
+```
+tj optimize
+```
+
+List commands for Vagrant.
+```
+tj vm
+```
+
+List commands for Composer.
+```
+tj vendor
+```
+
+List commands for Capistrano.
+```
+tj deploy
+```
+
 ## Contributing
 
 1. Fork it ( https://github.com/ezekg/theme-juice-cli/fork )
