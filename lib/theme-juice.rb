@@ -4,16 +4,6 @@ module ThemeJuice
     class << self
 
         ###
-        # Outputs colorized message to command line
-        #
-        # @param {String} message
-        # @param {String} color
-        ###
-        def message(message, color)
-            puts "[!] #{message}".send "#{color}"
-        end
-
-        ###
         # Welcome message
         #
         # @param {String} ascii
@@ -30,7 +20,20 @@ module ThemeJuice
         end
 
         ###
+        # Outputs colorized message to command line
+        #
+        # @param {String} message
+        # @param {String} color
+        # @param {String} prefix (!)
+        ###
+        def message(message, color, prefix = "!")
+            puts "[#{prefix}] #{message}".send "#{color}"
+        end
+
+        ###
         # Success message
+        #
+        # @param {String} message
         ###
         def success(message)
             message message, "green"
@@ -38,6 +41,8 @@ module ThemeJuice
 
         ###
         # Warning message
+        #
+        # @param {String} message
         ###
         def warning(message)
             message message, "yellow"
@@ -45,9 +50,21 @@ module ThemeJuice
 
         ###
         # Error message
+        #
+        # @param {String} message
         ###
         def error(message)
-            message message, "red"
+            message message, "red", "x"
+        end
+
+        ###
+        # List message
+        #
+        # @param {String}  message
+        # @param {Integer} index
+        ###
+        def list(list, index)
+            message list, "cyan", "#{index}"
         end
 
         ###

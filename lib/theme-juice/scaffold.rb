@@ -122,12 +122,12 @@ module ThemeJuice
             def list
                 sites = []
 
-                Dir.glob(File.expand_path("~/vagrant/www/*")).each do |f|
+                Dir.glob(File.expand_path("~/vagrant/www/*")).each_with_index do |f, i|
                     if File.directory?(f) && f.include?("dev-")
                         # Get the site name
                         site = File.basename(f).gsub(/(dev-)/, "")
                         # Output site to cli
-                        ::ThemeJuice::warning site
+                        ::ThemeJuice::list site, i
                         # Save site to sites arr
                         sites << site
                     end
