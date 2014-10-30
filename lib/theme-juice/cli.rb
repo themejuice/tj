@@ -183,17 +183,17 @@ module ThemeJuice
         desc "vm", "Manage virtual development environment with Vagrant"
         subcommand "vm", ::ThemeJuice::Tasks::Vagrant
 
+        ###
+        # Composer
+        ###
+        desc "vendor", "Manage vendor dependencies with Composer"
+        subcommand "vendor", ::ThemeJuice::Tasks::Composer
+
         # ###
         # # Guard
         # ###
         # desc "watch", "Watch and compile assets with Guard"
         # subcommand "watch", ::ThemeJuice::Tasks::Guard
-        #
-        # ###
-        # # Composer
-        # ###
-        # desc "vendor", "Manage vendor dependencies with Composer"
-        # subcommand "vendor", ::ThemeJuice::Tasks::Composer
         #
         # ###
         # # Capistrano
