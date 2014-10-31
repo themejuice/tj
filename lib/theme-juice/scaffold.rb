@@ -232,7 +232,8 @@ module ThemeJuice
             # @return {Bool}
             ###
             def theme_is_setup?
-                File.exists? File.expand_path("#{@opts[:theme_location]}/wp-content/themes/#{@opts[:theme_name]}")
+                # File.exists? File.expand_path("#{@opts[:theme_location]}/wp-content/themes/#{@opts[:theme_name]}")
+                File.exists? File.expand_path("#{@opts[:theme_location]}/app/themes/#{@opts[:theme_name]}")
             end
 
             ###
@@ -372,19 +373,36 @@ module ThemeJuice
 
                 # Clone WP, create new config file with WP-CLI
                 system [
-                    "mkdir -p #{@opts[:theme_location]} && cd $_",
+                    # "mkdir -p #{@opts[:theme_location]} && cd $_",
                     # "git clone --depth 1 https://github.com/WordPress/WordPress.git .",
+
+                    ###
+                    # Clone starter
+                    ###
+                    "mkdir -p #{@opts[:theme_location]} && cd $_",
                     "git clone --depth 1 https://github.com/ezekg/theme-juice-starter.git .",
-                    "wp core config --dbname=#{@opts[:db_name]} --dbuser=#{@opts[:db_user]} --dbpass=#{@opts[:db_pass]} --dbhost=#{@opts[:db_host]} --skip-check -extra-php <<PHP
+
+                    ###
+                    # Set up wp-config
+                    #
+                    # This bootstraps WP to use the app/ directory in place of wp-content/
+                    ###
+                    "wp core config --dbname=#{@opts[:db_name]} --dbuser=#{@opts[:db_user]} --dbpass=#{@opts[:db_pass]} --dbhost=#{@opts[:db_host]} --skip-check --extra-php <<PHP
 define('CONTENT_DIR', '/app');
 define('WP_CONTENT_DIR', dirname(__FILE__) . CONTENT_DIR);
 define('WP_CONTENT_URL', 'http://' . $_SERVER['HTTP_HOST'] . CONTENT_DIR);
 if (!defined('ABSPATH')) define('ABSPATH', dirname(__FILE__) . '/wp');
-PHP"
+PHP",
+                    ###
+                    # Rename theme
+                    ###
+                    "cd app/themes",
+                    "mv theme-juice #{@opts[:theme_name]}"
                 ].join " && "
 
                 # Create uploads dir
-                system "mkdir -p #{@opts[:theme_location]}/wp-content/uploads"
+                system "mkdir -p #{@opts[:theme_location]}/app/uploads"
+                # system "mkdir -p #{@opts[:theme_location]}/wp-content/uploads"
 
                 # Setup synced folders
                 unless synced_folder_is_setup?
