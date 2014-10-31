@@ -368,15 +368,29 @@ module ThemeJuice
                     "git clone --depth 1 https://github.com/ezekg/theme-juice-starter.git .",
 
                     ###
+                    # Setup WordPress
+                    ###
+                    "composer install",
+
+                    ###
                     # Set up wp-config
                     #
                     # This bootstraps WP to use the app/ directory in place of wp-content/
                     ###
                     "wp core config --dbname=#{@opts[:db_name]} --dbuser=#{@opts[:db_user]} --dbpass=#{@opts[:db_pass]} --dbhost=#{@opts[:db_host]} --skip-check --extra-php <<PHP
-define('CONTENT_DIR', '/app');
-define('WP_CONTENT_DIR', dirname(__FILE__) . CONTENT_DIR);
-define('WP_CONTENT_URL', 'http://' . $_SERVER['HTTP_HOST'] . CONTENT_DIR);
-if (!defined('ABSPATH')) define('ABSPATH', dirname(__FILE__) . '/wp');
+/**
+ * Custom Content Directory
+ */
+define( 'CONTENT_DIR', '/app' );
+define( 'WP_CONTENT_DIR', dirname(__FILE__) . CONTENT_DIR );
+define( 'WP_CONTENT_URL', WP_HOME . CONTENT_DIR );
+if ( ! defined( 'ABSPATH' ) )
+    define( 'ABSPATH', dirname(__FILE__) . '/wp' );
+
+/**
+ * Disable file editor
+ */
+define( 'DISALLOW_FILE_EDIT', true );
 PHP",
                     ###
                     # Rename theme
