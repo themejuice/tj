@@ -407,7 +407,7 @@ PHP",
                     # Move config
                     ###
                     "cd wp",
-                    "mv wp-config.php ../wp-config.php"
+                    "mv wp-config.php #{@opts[:theme_location]}/wp-config.php"
                 ].join " && "
 
                 # Setup synced folders
