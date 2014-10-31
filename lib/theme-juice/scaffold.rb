@@ -146,19 +146,11 @@ module ThemeJuice
             #   `vagrant up` to be fired for it to set up the DNS correctly.
             ###
             def restart_vagrant
-                if system("cd ~/vagrant && vagrant status --machine-readable").grep(/(default,state,poweroff)/m).any?
-                    ::ThemeJuice::warning "VVV is powered off. Starting..."
-                    system [
-                        "cd ~/vagrant",
-                        "vagrant up --provision"
-                    ].join " && "
-                else
-                    system [
-                        "cd ~/vagrant",
-                        "vagrant halt",
-                        "vagrant up --provision"
-                    ].join " && "
-                end
+                system [
+                    "cd ~/vagrant",
+                    "vagrant halt",
+                    "vagrant up --provision"
+                ].join " && "
             end
 
             ###
