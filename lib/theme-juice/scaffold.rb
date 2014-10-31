@@ -147,7 +147,7 @@ module ThemeJuice
             ###
             def restart_vagrant
                 if system("cd ~/vagrant && vagrant status --machine-readable").grep(/(default,state,poweroff)/m).any?
-                    ::ThemeJuice::warning "Vagrant is powered off. Starting..."
+                    ::ThemeJuice::warning "VVV is powered off. Starting..."
                     system [
                         "cd ~/vagrant",
                         "vagrant up --provision"
