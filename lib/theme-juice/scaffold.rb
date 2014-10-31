@@ -146,11 +146,18 @@ module ThemeJuice
             #   `vagrant up` to be fired for it to set up the DNS correctly.
             ###
             def restart_vagrant
-                system [
-                    "cd ~/vagrant",
-                    "vagrant halt",
-                    "vagrant up --provision"
-                ].join " && "
+                if system("vagrant status --machine-readable").grep(/(poweroff)/m).any?
+                    system [
+                        "cd ~/vagrant",
+                        "vagrant up --provision"
+                    ].join " && "
+                else
+                    system [
+                        "cd ~/vagrant",
+                        "vagrant halt",
+                        "vagrant up --provision"
+                    ].join " && "
+                end
             end
 
             ###
@@ -225,7 +232,7 @@ module ThemeJuice
             ###
             def wordpress_is_setup?
                 # File.exists? File.expand_path("#{@opts[:theme_location]}/wp-content}")
-                File.exists? File.expand_path("#{@opts[:theme_location]/app}")
+                File.exists? File.expand_path("#{@opts[:theme_location]}/app")
             end
 
             ###
