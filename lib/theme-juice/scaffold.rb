@@ -379,18 +379,28 @@ module ThemeJuice
                     ###
                     "wp core config --dbname=#{@opts[:db_name]} --dbuser=#{@opts[:db_user]} --dbpass=#{@opts[:db_pass]} --dbhost=#{@opts[:db_host]} --skip-check --extra-php <<PHP
 /**
- * Custom Content Directory
+ * Setup WP to use subdirectory
+ */
+define( 'WP_HOME', 'http://#{@opts[:dev_url]}' );
+define( 'WP_SITEURL', 'http://#{@opts[:dev_url]}/wp' );
+
+/**
+ * Custom content directory
  */
 define( 'CONTENT_DIR', '/app' );
-define( 'WP_CONTENT_DIR', dirname(__FILE__) . CONTENT_DIR );
+define( 'WP_CONTENT_DIR', dirname(__DIR__) . CONTENT_DIR );
 define( 'WP_CONTENT_URL', WP_HOME . CONTENT_DIR );
-if ( ! defined( 'ABSPATH' ) )
-    define( 'ABSPATH', dirname(__FILE__) . '/wp' );
 
 /**
  * Disable file editor
  */
 define( 'DISALLOW_FILE_EDIT', true );
+
+/**
+ * Absolute path
+ */
+if ( ! defined( 'ABSPATH' ) )
+    define( 'ABSPATH', dirname(__DIR__) . '/wp' );
 PHP",
                     ###
                     # Rename theme
