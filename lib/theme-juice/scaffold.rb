@@ -43,7 +43,7 @@ module ThemeJuice
                 ###
                 # @TODO - This is a hacky workaround for WP uploads dir
                 ###
-                force_permissions
+                # force_permissions
 
                 if setup_was_successful?
                     ::ThemeJuice::success "Setup successful!"
@@ -393,14 +393,13 @@ define( 'DISALLOW_FILE_EDIT', true );
 /**
  * Absolute path
  */
-if ( ! defined( 'ABSPATH' ) )
-    define( 'ABSPATH', dirname(__FILE__) . '/wp/' );
+define( 'ABSPATH', dirname(__FILE__) . '/wp/' );
 PHP"
                 ].join " && "
 
                 # Move config out of wp/ directory
                 system [
-                    "cd wp",
+                    "cd #{@opts[:theme_location]}/wp",
                     "mv wp-config.php #{@opts[:theme_location]}/wp-config.php"
                 ].join " && "
 
