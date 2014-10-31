@@ -358,25 +358,19 @@ module ThemeJuice
             def setup_wordpress
                 ::ThemeJuice::warning "Setting up WordPress..."
 
-                # Clone WP, create new config file with WP-CLI
+                # Install WP, create new config file with WP-CLI
                 system [
 
-                    ###
                     # Clone starter
-                    ###
                     "mkdir -p #{@opts[:theme_location]} && cd $_",
                     "git clone --depth 1 https://github.com/ezekg/theme-juice-starter.git .",
 
-                    ###
-                    # Setup WordPress
-                    ###
+                    # Install WordPress
                     "composer install",
 
-                    ###
                     # Set up wp-config
                     #
-                    # This bootstraps WP to use the app/ directory in place of wp-content/
-                    ###
+                    # This bootstraps WordPress to use the app/ directory in place of wp-content/
                     "wp core config --dbname=#{@opts[:db_name]} --dbuser=#{@opts[:db_user]} --dbpass=#{@opts[:db_pass]} --dbhost=#{@opts[:db_host]} --skip-check --extra-php <<PHP
 /**
  * Setup WP to use subdirectory
@@ -401,11 +395,11 @@ define( 'DISALLOW_FILE_EDIT', true );
  */
 if ( ! defined( 'ABSPATH' ) )
     define( 'ABSPATH', dirname(__FILE__) . '/wp/' );
-PHP",
+PHP"
+                ].join " && "
 
-                    ###
-                    # Move config
-                    ###
+                # Move config out of wp/ directory
+                system [
                     "cd wp",
                     "mv wp-config.php #{@opts[:theme_location]}/wp-config.php"
                 ].join " && "
