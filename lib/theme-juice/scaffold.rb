@@ -381,8 +381,8 @@ PHP",
                     ###
                     # Rename theme
                     ###
-                    "cd app/themes",
-                    "mv theme-juice #{@opts[:theme_name]}"
+                    # "cd app/themes",
+                    # "mv theme-juice #{@opts[:theme_name]}"
                 ].join " && "
 
                 # Setup synced folders
