@@ -16,10 +16,6 @@ module ThemeJuice
                     setup_wordpress
                 end
 
-                # unless theme_is_setup?
-                #     setup_theme if @opts[:bare_install].nil?
-                # end
-
                 unless vvv_is_setup?
                     setup_vvv
                 end
@@ -224,16 +220,7 @@ module ThemeJuice
             # @return {Bool}
             ###
             def wordpress_is_setup?
-                # File.exists? File.expand_path("#{@opts[:theme_location]}/wp-content}")
                 File.exists? File.expand_path("#{@opts[:theme_location]}/app")
-            end
-
-            ###
-            # @return {Bool}
-            ###
-            def theme_is_setup?
-                # File.exists? File.expand_path("#{@opts[:theme_location]}/wp-content/themes/#{@opts[:theme_name]}")
-                File.exists? File.expand_path("#{@opts[:theme_location]}/app/themes/#{@opts[:theme_name]}")
             end
 
             ###
@@ -373,8 +360,6 @@ module ThemeJuice
 
                 # Clone WP, create new config file with WP-CLI
                 system [
-                    # "mkdir -p #{@opts[:theme_location]} && cd $_",
-                    # "git clone --depth 1 https://github.com/WordPress/WordPress.git .",
 
                     ###
                     # Clone starter
@@ -400,26 +385,11 @@ PHP",
                     "mv theme-juice #{@opts[:theme_name]}"
                 ].join " && "
 
-                # Create uploads dir
-                system "mkdir -p #{@opts[:theme_location]}/app/uploads"
-                # system "mkdir -p #{@opts[:theme_location]}/wp-content/uploads"
-
                 # Setup synced folders
                 unless synced_folder_is_setup?
                     ::ThemeJuice::warning "Syncing host theme directory `#{@opts[:theme_location]}` with VM theme directory `/srv/www/dev-#{@opts[:theme_name]}`..."
                     setup_synced_folder
                 end
-            end
-
-            ###
-            # Setup theme directory
-            ###
-            def setup_theme
-                ::ThemeJuice::warning "Setting up theme..."
-                system [
-                    "cd #{@opts[:theme_location]}/wp-content/themes",
-                    "git clone --depth 1 https://github.com/ezekg/theme-juice-starter.git #{@opts[:theme_name]}"
-                ].join " && "
             end
 
             ###
