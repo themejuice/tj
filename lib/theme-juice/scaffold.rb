@@ -16,9 +16,9 @@ module ThemeJuice
                     setup_wordpress
                 end
 
-                unless theme_is_setup?
-                    setup_theme if @opts[:bare_install].nil?
-                end
+                # unless theme_is_setup?
+                #     setup_theme if @opts[:bare_install].nil?
+                # end
 
                 unless vvv_is_setup?
                     setup_vvv
@@ -59,10 +59,10 @@ module ThemeJuice
                         ::ThemeJuice::success "Development environment: #{@opts[:dev_location]}"
                         ::ThemeJuice::success "Development url: http://#{@opts[:dev_url]}"
                         ::ThemeJuice::success "Repository: #{@opts[:repository]}"
+                        ::ThemeJuice::success "Database host: #{@opts[:db_host]}"
                         ::ThemeJuice::success "Database name: #{@opts[:db_name]}"
                         ::ThemeJuice::success "Database username: #{@opts[:db_user]}"
                         ::ThemeJuice::success "Database password: #{@opts[:db_pass]}"
-                        ::ThemeJuice::success "Database host: #{@opts[:db_host]}"
                     end
                 else
                     ::ThemeJuice::error "Setup failed. Running cleanup..."
@@ -224,7 +224,8 @@ module ThemeJuice
             # @return {Bool}
             ###
             def wordpress_is_setup?
-                File.exists? File.expand_path("#{@opts[:theme_location]}/wp-content}")
+                # File.exists? File.expand_path("#{@opts[:theme_location]}/wp-content}")
+                File.exists? File.expand_path("#{@opts[:theme_location]/app}")
             end
 
             ###
@@ -372,8 +373,14 @@ module ThemeJuice
                 # Clone WP, create new config file with WP-CLI
                 system [
                     "mkdir -p #{@opts[:theme_location]} && cd $_",
-                    "git clone --depth 1 https://github.com/WordPress/WordPress.git .",
-                    "wp core config --dbname=#{@opts[:db_name]} --dbuser=#{@opts[:db_user]} --dbpass=#{@opts[:db_pass]} --dbhost=#{@opts[:db_host]} --skip-check"
+                    # "git clone --depth 1 https://github.com/WordPress/WordPress.git .",
+                    "git clone --depth 1 https://github.com/ezekg/theme-juice-starter.git .",
+                    "wp core config --dbname=#{@opts[:db_name]} --dbuser=#{@opts[:db_user]} --dbpass=#{@opts[:db_pass]} --dbhost=#{@opts[:db_host]} --skip-check -extra-php <<PHP
+define('CONTENT_DIR', '/app');
+define('WP_CONTENT_DIR', dirname(__FILE__) . CONTENT_DIR);
+define('WP_CONTENT_URL', 'http://' . $_SERVER['HTTP_HOST'] . CONTENT_DIR);
+if (!defined('ABSPATH')) define('ABSPATH', dirname(__FILE__) . '/wp');
+PHP"
                 ].join " && "
 
                 # Create uploads dir

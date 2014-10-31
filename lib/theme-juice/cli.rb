@@ -118,14 +118,14 @@ module ThemeJuice
                     :default => "#{theme}.dev"
                 repository = ask "[?] Git repository:",
                     :default => "none"
+                db_host = ask "[?] Database host:",
+                    :default => dev_url
                 db_name = ask "[?] Database name:",
                     :default => "wordpress"
                 db_user = ask "[?] Database username:",
                     :default => "wordpress"
                 db_pass = ask "[?] Database password:",
                     :default => SecureRandom.base64
-                db_host = ask "[?] Database host:",
-                    :default => dev_url
 
                 # Ask for other options
                 opts = {
@@ -135,10 +135,10 @@ module ThemeJuice
                     :dev_location => File.expand_path("~/vagrant/www/dev-#{theme}"),
                     :dev_url => dev_url,
                     :repository => repository,
+                    :db_host => db_host,
                     :db_name => db_name,
                     :db_user => db_user,
                     :db_pass => db_pass,
-                    :db_host => db_host
                 }
 
                 # Create the theme!
