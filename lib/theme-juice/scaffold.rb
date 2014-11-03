@@ -238,6 +238,13 @@ module ThemeJuice
             end
 
             ###
+            # @return {Bool}
+            ###
+            def env_is_setup?
+                File.exists? File.expand_path("#{@opts[:theme_location]}/.env")
+            end
+
+            ###
             # Force permissions for WP install to be executable
             ###
             def force_permissions
@@ -351,6 +358,27 @@ module ThemeJuice
             end
 
             ###
+            # Create Dotenv environment file
+            ###
+            def setup_env
+                File.open "#{@opts[:theme_location]}/.env", "w" do |file|
+                    file.puts "DB_NAME=#{@opts[:db_name]}"
+                    file.puts "DB_USER=#{@opts[:db_user]}"
+                    file.puts "DB_PASSWORD=#{@opts[:db_pass]}"
+                    file.puts "DB_HOST=#{@opts[:db_host]}"
+                    file.puts "WP_HOME=#{@opts[:dev_url]}"
+                    file.puts "WP_SITEURL=#{@opts[:db_name]}/wp"
+                    file.puts "WP_DEBUG=true"
+                end
+
+                if env_is_setup?
+                    ::ThemeJuice::success "Successfully added `.env` file."
+                else
+                    ::ThemeJuice::error "Could not create `.env` file."
+                end
+            end
+
+            ###
             # Setup WordPress
             #
             # Clones official WordPress repo into @opts[:theme_location]
@@ -360,48 +388,15 @@ module ThemeJuice
 
                 # Install WP, create new config file with WP-CLI
                 system [
-
-                    # Clone starter
                     "mkdir -p #{@opts[:theme_location]} && cd $_",
                     "git clone --depth 1 https://github.com/ezekg/theme-juice-starter.git .",
-
-                    # Install WordPress
                     "composer install",
-
-                    # Set up wp-config
-                    #
-                    # This bootstraps WordPress to use the app/ directory in place of wp-content/
-                    "wp core config --dbname=#{@opts[:db_name]} --dbuser=#{@opts[:db_user]} --dbpass=#{@opts[:db_pass]} --dbhost=#{@opts[:db_host]} --skip-check --extra-php <<PHP
-/**
- * Setup WP to use subdirectory
- */
-define( 'WP_HOME', 'http://#{@opts[:dev_url]}' );
-define( 'WP_SITEURL', 'http://#{@opts[:dev_url]}/wp' );
-
-/**
- * Custom content directory
- */
-define( 'CONTENT_DIR', '/app' );
-define( 'WP_CONTENT_DIR', dirname(__FILE__) . CONTENT_DIR );
-define( 'WP_CONTENT_URL', WP_HOME . CONTENT_DIR );
-
-/**
- * Disable file editor
- */
-define( 'DISALLOW_FILE_EDIT', true );
-
-/**
- * Absolute path
- */
-define( 'ABSPATH', dirname(__FILE__) . '/wp/' );
-PHP"
                 ].join " && "
 
-                # Move config out of wp/ directory
-                system [
-                    "cd #{@opts[:theme_location]}/wp",
-                    "mv wp-config.php #{@opts[:theme_location]}/wp-config.php"
-                ].join " && "
+                # Setup environment
+                unless env_is_setup?
+                    setup_env
+                end
 
                 # Setup synced folders
                 unless synced_folder_is_setup?
