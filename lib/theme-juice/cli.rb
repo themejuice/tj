@@ -187,6 +187,21 @@ module ThemeJuice
         end
 
         ###
+        # Deploy
+        ###
+        desc "deploy", "Deploy site with Mina"
+        method_option :setup, :type => :boolean, :aliases => "-s", :desc => "Setup server for deployment"
+        def deploy
+            if options[:setup]
+                ::ThemeJuice::warning "Setting up server for deployment..."
+                ::ThemeJuice::Plugins::Mina::setup
+            else
+                ::ThemeJuice::warning "Deploying to server..."
+                ::ThemeJuice::Plugins::Mina::deploy
+            end
+        end
+
+        ###
         # Optimize images
         ###
         desc "optimize", "Optimize images with Guard"
@@ -206,11 +221,5 @@ module ThemeJuice
         ###
         desc "vendor", "Manage vendor dependencies with Composer"
         subcommand "vendor", ::ThemeJuice::Plugins::Composer
-
-        ###
-        # Capistrano
-        ###
-        desc "deploy", "Run deployment and migration commands with Capistrano"
-        subcommand "deploy", ::ThemeJuice::Plugins::Capistrano
     end
 end
