@@ -34,7 +34,7 @@ module ThemeJuice
             end
 
             ###
-            #
+            # Suspend VM
             ###
             desc "suspend", "Suspend Vagrant"
             def suspend
