@@ -193,10 +193,8 @@ module ThemeJuice
         method_option :setup, :type => :boolean, :aliases => "-s", :desc => "Setup server for deployment"
         def deploy
             if options[:setup]
-                ::ThemeJuice::warning "Setting up server for deployment..."
                 ::ThemeJuice::Plugins::Mina::setup
             else
-                ::ThemeJuice::warning "Deploying to server..."
                 ::ThemeJuice::Plugins::Mina::deploy
             end
         end

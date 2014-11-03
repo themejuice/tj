@@ -6,8 +6,12 @@ module ThemeJuice
             # Setup
             ###
             def self.setup
-                unless system "mina setup"
-                    ::ThemeJuice::error "Failed to initiate Mina. Be sure to run this command from your project root."
+                ::ThemeJuice::warning "Setting up server for deployment..."
+
+                if system "mina setup"
+                    ::ThemeJuice::success "Setup successful!"
+                else
+                    ::ThemeJuice::error "Failed to run deployment setup."
                 end
             end
 
@@ -15,8 +19,12 @@ module ThemeJuice
             # Deploy
             ###
             def self.deploy
-                unless system "mina deploy"
-                    ::ThemeJuice::error "Failed to initiate Mina. Be sure to run this command from your project root."
+                ::ThemeJuice::warning "Deploying to server..."
+                
+                if system "mina deploy"
+                    ::ThemeJuice::success "Deployment successful!"
+                else
+                    ::ThemeJuice::error "Failed to run deployment setup."
                 end
             end
         end
