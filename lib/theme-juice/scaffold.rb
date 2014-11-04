@@ -367,7 +367,7 @@ module ThemeJuice
                     file.puts "DB_PASSWORD=#{@opts[:db_pass]}"
                     file.puts "DB_HOST=#{@opts[:db_host]}"
                     file.puts "WP_HOME=http://#{@opts[:dev_url]}"
-                    file.puts "WP_SITEURL={$WP_HOME}/wp"
+                    file.puts "WP_SITEURL=http://#{@opts[:dev_url]}/wp"
                 end
 
                 if env_is_setup?
