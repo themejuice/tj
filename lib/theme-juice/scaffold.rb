@@ -257,7 +257,7 @@ module ThemeJuice
                     "chmod -R +x #{@opts[:theme_location]}",
                     "chmod -R +x #{@opts[:dev_location]}",
                 ].join " && "
-            en
+            end
 
             ###
             # Install plugins and clone VVV
