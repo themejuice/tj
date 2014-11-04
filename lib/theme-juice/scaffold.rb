@@ -13,11 +13,7 @@ module ThemeJuice
                 ::ThemeJuice::warning "Running setup for `#{@opts[:theme_name]}`..."
 
                 unless wordpress_is_setup?
-                    if @opts[:bare_setup]
-                        system "mkdir -p #{@opts[:theme_location]}"
-                    else
-                        setup_wordpress
-                    end
+                    setup_wordpress
                 end
 
                 unless vvv_is_setup?
@@ -389,12 +385,19 @@ module ThemeJuice
             def setup_wordpress
                 ::ThemeJuice::warning "Setting up WordPress..."
 
-                # Install WP, create new config file with WP-CLI
-                system [
-                    "mkdir -p #{@opts[:theme_location]} && cd $_",
-                    "git clone --depth 1 https://github.com/ezekg/theme-juice-starter.git .",
-                    "composer install",
-                ].join " && "
+                unless wordpress_is_setup?
+                    if @opts[:bare_setup]
+                        # Create theme dir
+                        system "mkdir -p #{@opts[:theme_location]}"
+                    else
+                        # Clone starter, install WP
+                        system [
+                            "mkdir -p #{@opts[:theme_location]} && cd $_",
+                            "git clone --depth 1 https://github.com/ezekg/theme-juice-starter.git .",
+                            "composer install",
+                        ].join " && "
+                    end
+                end
 
                 # Setup environment
                 unless env_is_setup?
