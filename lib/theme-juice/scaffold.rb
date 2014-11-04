@@ -13,7 +13,11 @@ module ThemeJuice
                 ::ThemeJuice::warning "Running setup for `#{@opts[:theme_name]}`..."
 
                 unless wordpress_is_setup?
-                    setup_wordpress unless @opts[:bare_setup]
+                    if @opts[:bare_setup]
+                        system "mkdir -p #{@opts[:theme_location]}"
+                    else
+                        setup_wordpress
+                    end
                 end
 
                 unless vvv_is_setup?
