@@ -103,7 +103,7 @@ module ThemeJuice
             if theme.nil?
                 ::ThemeJuice::warning "Just a few questions before we begin..."
             else
-                ::ThemeJuice::warning "Just a few more questions before we create `#{theme}`..."
+                ::ThemeJuice::warning "Just a few more questions before we begin..."
             end
 
             # Ask for the theme name if not passed directly
@@ -119,7 +119,7 @@ module ThemeJuice
                 repository = ask "[?] Git repository:",
                     :default => "none"
                 db_host = ask "[?] Database host:",
-                    :default => dev_url
+                    :default => "vvv"
                 db_name = ask "[?] Database name:",
                     :default => "wordpress"
                 db_user = ask "[?] Database username:",
