@@ -57,9 +57,10 @@ List commands for Composer.
 tj vendor
 ```
 
-List commands for Capistrano.
+List commands for Mina.
 ```
 tj deploy
+tj deploy --setup
 ```
 
 ## Contributing
