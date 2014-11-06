@@ -57,7 +57,7 @@ List commands for Composer.
 tj vendor
 ```
 
-List commands for Mina.
+Deployment with Mina, and deploy setup.
 ```
 tj deploy
 tj deploy --setup
