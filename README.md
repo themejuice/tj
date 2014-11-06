@@ -42,7 +42,7 @@ tj watch
 tj watch -p <plugin>
 ```
 
-Optimize images.
+Optimize images. _(Requires [ImageOptim](https://imageoptim.com/))_
 ```
 tj optimize
 ```
