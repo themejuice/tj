@@ -191,11 +191,11 @@ module ThemeJuice
         ###
         desc "deploy", "Deploy site with Mina"
         method_option :setup, :type => :boolean, :aliases => "-s", :desc => "Setup server for deployment"
-        def deploy
+        def deploy(env)
             if options[:setup]
-                ::ThemeJuice::Plugins::Mina::setup
+                ::ThemeJuice::Plugins::Mina::setup env
             else
-                ::ThemeJuice::Plugins::Mina::deploy
+                ::ThemeJuice::Plugins::Mina::deploy env
             end
         end
 
