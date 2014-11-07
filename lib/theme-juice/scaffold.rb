@@ -361,7 +361,7 @@ module ThemeJuice
             # Create Dotenv environment file
             ###
             def setup_env
-                File.open "#{@opts[:theme_location]}/.env", "w" do |file|
+                File.open "#{@opts[:theme_location]}/.env.development", "w" do |file|
                     file.puts "DB_NAME=#{@opts[:db_name]}"
                     file.puts "DB_USER=#{@opts[:db_user]}"
                     file.puts "DB_PASSWORD=#{@opts[:db_pass]}"
