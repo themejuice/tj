@@ -371,9 +371,9 @@ module ThemeJuice
                 end
 
                 if env_is_setup?
-                    ::ThemeJuice::success "Successfully added `.env` file."
+                    ::ThemeJuice::success "Successfully added `.env.development` file."
                 else
-                    ::ThemeJuice::error "Could not create `.env` file."
+                    ::ThemeJuice::error "Could not create `.env.development` file."
                 end
             end
 
