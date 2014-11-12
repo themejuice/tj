@@ -8,7 +8,7 @@ module ThemeJuice
             def self.setup(env)
                 ::ThemeJuice::warning "Setting up server for deployment..."
 
-                if system "mina setup env=#{env}"
+                if system "mina setup on=#{env}"
                     ::ThemeJuice::success "Setup successful!"
                 else
                     ::ThemeJuice::error "Failed to run deployment setup."
@@ -21,7 +21,7 @@ module ThemeJuice
             def self.deploy(env)
                 ::ThemeJuice::warning "Deploying to server..."
 
-                if system "mina deploy env=#{env}"
+                if system "mina deploy on=#{env}"
                     ::ThemeJuice::success "Deployment successful!"
                 else
                     ::ThemeJuice::error "Failed to run deployment setup."
