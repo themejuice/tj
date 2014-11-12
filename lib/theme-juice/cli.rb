@@ -190,10 +190,13 @@ module ThemeJuice
         # Deploy
         ###
         desc "deploy", "Deploy site with Mina"
-        method_option :setup, :type => :boolean, :aliases => "-s", :desc => "Setup server for deployment"
+        method_option :setup, :type => :boolean, :desc => "Setup server for deployment"
+        method_option :rollback, :type => :boolean, :desc => "Rollback to previous release"
         def deploy(env)
             if options[:setup]
                 ::ThemeJuice::Plugins::Mina::setup env
+            elsif options[:rollback]
+                ::ThemeJuice::Plugins::Mina::rollback env
             else
                 ::ThemeJuice::Plugins::Mina::deploy env
             end

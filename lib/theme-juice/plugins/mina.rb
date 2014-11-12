@@ -27,6 +27,19 @@ module ThemeJuice
                     ::ThemeJuice::error "Failed to run deployment setup."
                 end
             end
+
+            ###
+            # Deploy
+            ###
+            def self.rollback(env)
+                ::ThemeJuice::warning "Deploying to server..."
+
+                if system "mina rollback on=#{env}"
+                    ::ThemeJuice::success "Deployment successful!"
+                else
+                    ::ThemeJuice::error "Failed to run deployment setup."
+                end
+            end
         end
     end
 end
