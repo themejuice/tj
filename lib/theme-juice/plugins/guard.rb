@@ -41,8 +41,8 @@ module ThemeJuice
             ###
             # Optimize images
             ###
-            def self.image_optim
-                unless system "bundle exec guard -P image_optim"
+            def self.optimize
+                unless system "bundle exec guard -P optimize"
                     ::ThemeJuice::error "Failed to initiate Guard. Be sure to run this command from your project root."
                 end
             end
