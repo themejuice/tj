@@ -211,7 +211,7 @@ module ThemeJuice
         desc "optimize", "Optimize images with Guard"
         def optimize
             ::ThemeJuice::warning "Optimizing images..."
-            ::ThemeJuice::Plugins::Guard::image_optim
+            ::ThemeJuice::Plugins::Guard::optimize
         end
 
         ###

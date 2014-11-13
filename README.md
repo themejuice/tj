@@ -31,6 +31,11 @@ Create a new theme and development site.
 tj create [<theme-name>]
 ```
 
+Create a new development site with starter theme.
+```
+tj setup [<theme-name>]
+```
+
 Delete a theme from the VM. _Does not remove your local theme._
 ```
 tj delete <theme-name>
@@ -42,25 +47,24 @@ tj watch
 tj watch -p <plugin>
 ```
 
-Optimize images. _(Requires [ImageOptim](https://imageoptim.com/))_
+Optimize images.
 ```
 tj optimize
 ```
 
-List commands for Vagrant.
+List commands for Vagrant (development environment).
 ```
 tj vm
 ```
 
-List commands for Composer.
+List commands for Composer (dependencies).
 ```
 tj vendor
 ```
 
-Deployment with Mina, and deploy setup.
+List commands for Mina (deployment).
 ```
-tj deploy
-tj deploy --setup
+tj server
 ```
 
 ## Contributing
