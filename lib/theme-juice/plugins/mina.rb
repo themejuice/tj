@@ -14,7 +14,7 @@ module ThemeJuice
             ###
             # Setup
             ###
-            desc "setup ENV", "Prepare server for deployment"
+            desc "setup", "Prepare server for deployment"
             def setup
                 ::ThemeJuice::warning "Setting up server for deployment..."
 
@@ -28,7 +28,7 @@ module ThemeJuice
             ###
             # Deploy
             ###
-            desc "deploy ENV", "Deploys the current version to the server"
+            desc "deploy", "Deploys the current version to the server"
             def deploy
                 ::ThemeJuice::warning "Deploying to server..."
 
@@ -42,7 +42,7 @@ module ThemeJuice
             ###
             # Deploy
             ###
-            desc "rollback ENV", "Rollback to previous release"
+            desc "rollback", "Rollback to previous release"
             def rollback
                 ::ThemeJuice::warning "Deploying to server..."
 
@@ -56,7 +56,7 @@ module ThemeJuice
             ###
             # Database migration
             ###
-            desc "db ENV ACTION", "Database migration"
+            desc "db ACTION", "Database migration"
             def db(action)
                 if action == "push" || action == "pull"
                     if system "mina #{options[:env]} db:#{action}"
@@ -72,7 +72,7 @@ module ThemeJuice
             ###
             # Database migration
             ###
-            desc "uploads ENV ACTION", "Uploads migration"
+            desc "uploads ACTION", "Uploads migration"
             def uploads(action)
                 if action == "push" || action == "pull"
                     if system "mina #{options[:env]} uploads:#{action}"
