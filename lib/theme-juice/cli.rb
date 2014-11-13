@@ -206,22 +206,6 @@ module ThemeJuice
         end
 
         ###
-        # Deploy
-        ###
-        desc "deploy", "Deploy site with Mina"
-        method_option :setup, :type => :boolean, :desc => "Setup server for deployment"
-        method_option :rollback, :type => :boolean, :desc => "Rollback to previous release"
-        def deploy(env)
-            if options[:setup]
-                ::ThemeJuice::Plugins::Mina::setup env
-            elsif options[:rollback]
-                ::ThemeJuice::Plugins::Mina::rollback env
-            else
-                ::ThemeJuice::Plugins::Mina::deploy env
-            end
-        end
-
-        ###
         # Optimize images
         ###
         desc "optimize", "Optimize images with Guard"
@@ -241,5 +225,11 @@ module ThemeJuice
         ###
         desc "vendor", "Manage vendor dependencies with Composer"
         subcommand "vendor", ::ThemeJuice::Plugins::Composer
+
+        ###
+        # Mina
+        ###
+        desc "server", "Deploy site with Mina"
+        subcommand "server", ::ThemeJuice::Plugins::Mina
     end
 end
