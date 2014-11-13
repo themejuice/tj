@@ -83,10 +83,15 @@ module ThemeJuice
         #   and with a fresh WP database. It will also sync up your current theme
         #   folder with the theme folder on the Vagrant VM. This task will also
         #   install and configure Vagrant/VVV into your `~/` directory.
+        #
+        # @param {String} theme
+        #   Name of the theme to create
+        # @param {Bool}   bare
+        #   Create a bare VVV site without starter
         ###
         desc "create [THEME]", "Setup THEME and Vagrant development environment"
         method_option :bare, :type => :boolean, :desc => "Create a bare Vagrant site without starter"
-        def create(theme = nil)
+        def create(theme = nil, bare = false)
             self.install_dependencies
 
             # Set up ASCII font
@@ -108,6 +113,9 @@ module ThemeJuice
 
             # Ask for the theme name if not passed directly
             theme ||= ask "[?] Theme name (required):"
+
+            # Bare install
+            bare ||= options[:bare]
 
             # Make sure theme name was given, else throw err
             unless theme.empty?
@@ -131,7 +139,7 @@ module ThemeJuice
                 opts = {
                     :theme_name => theme,
                     :theme_location => File.expand_path(theme_location),
-                    :bare_setup => options[:bare],
+                    :bare_setup => bare,
                     :dev_location => File.expand_path("~/vagrant/www/dev-#{theme}"),
                     :dev_url => dev_url,
                     :repository => repository,
@@ -147,6 +155,17 @@ module ThemeJuice
                 ::ThemeJuice::error "Theme name is required. Aborting mission."
                 exit 1
             end
+        end
+
+        ###
+        # Setup an existing WordPress install in VVV
+        #
+        # @param {String} theme
+        #   Name of the theme to create
+        ###
+        desc "setup [THEME]", "Alias for `create --bare`. Setup an existing WordPress install in VVV"
+        def setup(theme = nil)
+            self.create theme, true
         end
 
         ###

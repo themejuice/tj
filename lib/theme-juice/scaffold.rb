@@ -241,7 +241,7 @@ module ThemeJuice
             # @return {Bool}
             ###
             def env_is_setup?
-                File.exists? File.expand_path("#{@opts[:theme_location]}/.env")
+                File.exists? File.expand_path("#{@opts[:theme_location]}/.env.development")
             end
 
             ###
