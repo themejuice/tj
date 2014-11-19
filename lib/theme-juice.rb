@@ -32,11 +32,11 @@ module ThemeJuice
         # @param {String} color
         #   Color of welcome message
         ###
-        def welcome(message, color = nil)
+        def welcome(ascii, color = nil)
             if color.nil?
-                puts message
+                puts ascii
             else
-                puts "#{message}".send "#{color}"
+                puts "#{ascii}".send "#{color}"
             end
         end
 
@@ -81,7 +81,7 @@ module ThemeJuice
         ###
         # List message
         #
-        # @param {String}  message
+        # @param {String}  list
         # @param {Integer} index
         ###
         def list(list, index)
