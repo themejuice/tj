@@ -56,7 +56,7 @@ module ThemeJuice
             ###
             # Database migration
             ###
-            desc "db ACTION", "Database migration. Push or pull."
+            desc "db ACTION", "Database migration, push or pull"
             def db(action)
                 if action == "push" || action == "pull"
                     if system "mina #{options[:env]} db:#{action}"
@@ -72,7 +72,7 @@ module ThemeJuice
             ###
             # Database migration
             ###
-            desc "uploads ACTION", "Uploads migration. Push or pull."
+            desc "uploads ACTION", "Uploads migration, push or pull"
             def uploads(action)
                 if action == "push" || action == "pull"
                     if system "mina #{options[:env]} uploads:#{action}"
