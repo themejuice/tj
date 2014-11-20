@@ -37,9 +37,9 @@ module ThemeJuice
                     ::ThemeJuice::success "Composer is installed!"
                 else
                     ::ThemeJuice::error "Composer doesn't seem to be installed, or is not globally executable."
-                    answer = ask "Do you want to globally install it?", :limited_to => ["yes", "no"]
+                    answer = ask "Do you want to globally install it?", :limited_to => ["y", "n"]
 
-                    if answer == "yes"
+                    if answer == "y"
                         ::ThemeJuice::warning "Installing Composer..."
                         ::ThemeJuice::warning "This task uses `sudo` to move the installed `composer.phar` into your `/usr/local/bin` so that it will be globally executable."
                         run [
@@ -59,9 +59,9 @@ module ThemeJuice
                     ::ThemeJuice::success "WP-CLI is installed!"
                 else
                     ::ThemeJuice::error "WP-CLI doesn't seem to be installed, or is not globally executable."
-                    answer = ask "Do you want to globally install it?", :limited_to => ["yes", "no"]
+                    answer = ask "Do you want to globally install it?", :limited_to => ["y", "n"]
 
-                    if answer == "yes"
+                    if answer == "y"
                         ::ThemeJuice::warning "Installing WP-CLI..."
                         ::ThemeJuice::warning "This task uses `sudo` to move the installed `wp-cli.phar` into your `/usr/local/bin` so that it will be globally executable."
                         run [
