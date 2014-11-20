@@ -115,7 +115,7 @@ module ThemeJuice
         # @return {Void}
         ###
         desc "create [THEME]", "Setup THEME and Vagrant development environment"
-        method_option :bare, :type => :boolean, :desc => "Create a bare Vagrant site without starter theme"
+        method_option :bare, :type => :boolean, :desc => "Create a Vagrant site without starter theme"
         def create(theme = nil, bare = false)
             self.install_dependencies
 
@@ -190,7 +190,7 @@ module ThemeJuice
         #
         # @return {Void}
         ###
-        desc "setup [THEME]", "Alias for `create --bare`. Setup an existing WordPress install in VVV"
+        desc "setup [THEME]", "Alias for `create --bare`. Create a Vagrant site without starter theme"
         def setup(theme = nil)
             self.create theme, true
         end
