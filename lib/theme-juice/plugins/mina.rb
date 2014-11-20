@@ -106,6 +106,27 @@ module ThemeJuice
                     ::ThemeJuice::error "Unknown command `uploads:#{action}` for uploads migration. It's either push or pull."
                 end
             end
+
+            ###
+            # Plugins migration
+            #
+            # @param {String} action
+            #   Push or pull contents of plugins directory
+            #
+            # @return {Void}
+            ###
+            desc "plugins ACTION", "Plugins migration, push or pull"
+            def plugins(action)
+                if action == "push" || action == "pull"
+                    if system "mina #{options[:env]} plugins:#{action}"
+                        ::ThemeJuice::success "Plugins migration successful!"
+                    else
+                        ::ThemeJuice::error "Failed migrate plugins."
+                    end
+                else
+                    ::ThemeJuice::error "Unknown command `plugins:#{action}` for plugins migration. It's either push or pull."
+                end
+            end
         end
     end
 end
