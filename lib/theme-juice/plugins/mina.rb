@@ -13,6 +13,10 @@ module ThemeJuice
 
             ###
             # Setup
+            #
+            # Prepare server for deployment
+            #
+            # @return {Void}
             ###
             desc "setup", "Prepare server for deployment"
             def setup
@@ -27,6 +31,10 @@ module ThemeJuice
 
             ###
             # Deploy
+            #
+            # Deploys the current version to the server
+            #
+            # @return {Void}
             ###
             desc "deploy", "Deploys the current version to the server"
             def deploy
@@ -40,7 +48,11 @@ module ThemeJuice
             end
 
             ###
-            # Deploy
+            # Rollback
+            #
+            # Rollback to previous release
+            #
+            # @return {Void}
             ###
             desc "rollback", "Rollback to previous release"
             def rollback
@@ -55,6 +67,11 @@ module ThemeJuice
 
             ###
             # Database migration
+            #
+            # @param {String} action
+            #   Push or pull database
+            #
+            # @return {Void}
             ###
             desc "db ACTION", "Database migration, push or pull"
             def db(action)
@@ -70,7 +87,12 @@ module ThemeJuice
             end
 
             ###
-            # Database migration
+            # Uploads migration
+            #
+            # @param {String} action
+            #   Push or pull contents of uploads directory
+            #
+            # @return {Void}
             ###
             desc "uploads ACTION", "Uploads migration, push or pull"
             def uploads(action)

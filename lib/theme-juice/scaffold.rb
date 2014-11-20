@@ -3,9 +3,27 @@ module ThemeJuice
         class << self
 
             ###
-            # Set up local development environment for theme
+            # Set up local development environment
+            #
+            # @return {Void}
+            ###
+            def init
+                ::ThemeJuice::warning "Initializing development environment..."
+
+                if vvv_is_setup?
+                    ::ThemeJuice::error "Development environment is already set up. Aborting mission."
+                else
+                    setup_vvv
+                    ::ThemeJuice::success "Setup successful!"
+                end
+            end
+
+            ###
+            # Set up local development environment and theme
             #
             # @param {Hash} opts
+            #
+            # @return {Void}
             ###
             def create(opts)
                 @opts = opts
@@ -40,11 +58,6 @@ module ThemeJuice
                     setup_repo
                 end
 
-                ###
-                # @TODO - This is a hacky workaround for WP uploads dir
-                ###
-                # force_permissions
-
                 if setup_was_successful?
                     ::ThemeJuice::success "Setup successful!"
                     ::ThemeJuice::warning "Restarting VVV..."
@@ -71,6 +84,8 @@ module ThemeJuice
             #
             # @param {String} theme
             # @param {Bool}   restart
+            #
+            # @return {Void}
             ###
             def delete(theme, restart)
 
@@ -140,6 +155,8 @@ module ThemeJuice
             #
             # Normally a simple `vagrant reload` would work, but Landrush requires a
             #   `vagrant up` to be fired for it to set up the DNS correctly.
+            #
+            # @return {Void}
             ###
             def restart_vagrant
                 system [
@@ -245,18 +262,9 @@ module ThemeJuice
             end
 
             ###
-            # Force permissions for WP install to be executable
-            ###
-            def force_permissions
-                ::ThemeJuice::warning "Modifying permissions for WordPress installation..."
-                system [
-                    "chmod -R +x #{@opts[:theme_location]}",
-                    "chmod -R +x #{@opts[:dev_location]}",
-                ].join " && "
-            end
-
-            ###
             # Install plugins and clone VVV
+            #
+            # @return {Void}
             ###
             def setup_vvv
                 ::ThemeJuice::warning "Installing VVV into `#{File.expand_path "~/vagrant"}`."
@@ -272,6 +280,11 @@ module ThemeJuice
 
             ###
             # Enable Landrush for wildcard subdomains
+            #
+            # This will write a Landrush activation block to the global Vagrantfile
+            #   if one does not already exist.
+            #
+            # @return {Void}
             ###
             def setup_wildcard_subdomains
                 ::ThemeJuice::warning "Setting up wildcard subdomains..."
@@ -290,7 +303,9 @@ module ThemeJuice
             end
 
             ###
-            # Clone WP and remove wp-config
+            # Create a new directory for site that will be symlinked with the local install
+            #
+            # @return {Void}
             ###
             def setup_dev_site
                 ::ThemeJuice::warning "Setting up new development site at `#{@opts[:dev_location]}`."
@@ -302,6 +317,8 @@ module ThemeJuice
 
             ###
             # Create vvv-hosts file
+            #
+            # @return {Void}
             ###
             def setup_hosts
                 File.open "#{@opts[:theme_location]}/vvv-hosts", "w" do |file|
@@ -317,6 +334,8 @@ module ThemeJuice
 
             ###
             # Add database block to init-custom.sql, create if not exists
+            #
+            # @return {Void}
             ###
             def setup_database
                 File.open File.expand_path("~/vagrant/database/init-custom.sql"), "a+" do |file|
@@ -339,6 +358,8 @@ module ThemeJuice
 
             ###
             # Create vvv-nginx.conf file for local development site
+            #
+            # @return {Void}
             ###
             def setup_nginx
                 File.open "#{@opts[:theme_location]}/vvv-nginx.conf", "w" do |file|
@@ -359,6 +380,8 @@ module ThemeJuice
 
             ###
             # Create Dotenv environment file
+            #
+            # @return {Void}
             ###
             def setup_env
                 File.open "#{@opts[:theme_location]}/.env.development", "w" do |file|
@@ -381,6 +404,8 @@ module ThemeJuice
             # Setup WordPress
             #
             # Clones official WordPress repo into @opts[:theme_location]
+            #
+            # @return {Void}
             ###
             def setup_wordpress
                 ::ThemeJuice::warning "Setting up WordPress..."
@@ -413,6 +438,8 @@ module ThemeJuice
 
             ###
             # Add synced folder block to Vagrantfile
+            #
+            # @return {Void}
             ###
             def setup_synced_folder
                 open File.expand_path("~/vagrant/Vagrantfile"), "a+" do |file|
@@ -431,6 +458,8 @@ module ThemeJuice
 
             ###
             # Initialize Git repo, add remote, initial commit
+            #
+            # @return {Void}
             ###
             def setup_repo
                 ::ThemeJuice::warning "Setting up Git repository at `#{@opts[:repository]}`..."
@@ -453,6 +482,8 @@ module ThemeJuice
 
             ###
             # Remove all theme files from Vagrant directory
+            #
+            # @return {Void}
             ###
             def remove_dev_site
                 ::ThemeJuice::warning "Removing VVV installation..."
@@ -466,6 +497,8 @@ module ThemeJuice
 
             ###
             # Remove database block from init-custom.sql
+            #
+            # @return {Void}
             ###
             def remove_database
                 ::ThemeJuice::warning "Removing database for `#{@opts[:theme_name]}`..."
@@ -477,6 +510,8 @@ module ThemeJuice
 
             ###
             # Remove synced folder block from Vagrantfile
+            #
+            # @return {Void}
             ###
             def remove_synced_folder
                 ::ThemeJuice::warning "Removing synced folders for `#{@opts[:theme_name]}`..."
@@ -490,6 +525,8 @@ module ThemeJuice
             # Remove all traces of auto-generated content from file
             #
             # @param {String} input_file
+            #
+            # @return {Void}
             ###
             def remove_traces_from_file(input_file)
                 begin

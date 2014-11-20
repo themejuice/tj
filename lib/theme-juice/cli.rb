@@ -14,6 +14,8 @@ module ThemeJuice
             ###
             # Make sure all dependencies are installed and globally executable.
             #   Will prompt for install if available.
+            #
+            # @return {Void}
             ###
             def install_dependencies
                 ::ThemeJuice::warning "Making sure all dependencies are installed..."
@@ -45,7 +47,7 @@ module ThemeJuice
                             "sudo mv composer.phar /usr/local/bin/composer"
                         ].join " && "
                     else
-                        ::ThemeJuice::warning "To use proceed, install Composer manually and make sure it is globally executable."
+                        ::ThemeJuice::warning "To proceed, install Composer manually and make sure it is globally executable."
                         exit 1
                     end
                 end
@@ -68,7 +70,7 @@ module ThemeJuice
                             "sudo mv wp-cli.phar /usr/local/bin/wp"
                         ].join " && "
                     else
-                        ::ThemeJuice::warning "To use proceed, install WP-CLI manually and make sure it is globally executable."
+                        ::ThemeJuice::warning "To proceed, install WP-CLI manually and make sure it is globally executable."
                         exit 1
                     end
                 end
@@ -77,6 +79,27 @@ module ThemeJuice
 
         ###
         # Install and setup VVV environment
+        #
+        # @return {Void}
+        ###
+        desc "init", "Setup Vagrant development environment"
+        def init
+            self.install_dependencies
+
+            # Set up ASCII font
+            f = ::Artii::Base.new :font => "rowancap"
+
+            # Output ASCII welcome message
+            ::ThemeJuice::welcome ""
+            ::ThemeJuice::welcome f.asciify("theme"), "green"
+            ::ThemeJuice::welcome f.asciify("juice"), "green"
+
+            # Setup the development environment!
+            ::ThemeJuice::Scaffold::init
+        end
+
+        ###
+        # Install and setup VVV environment with new theme
         #
         # It will automagically set up your entire development environment, including
         #   a local development site at `http://site.dev` with WordPress installed
@@ -88,9 +111,11 @@ module ThemeJuice
         #   Name of the theme to create
         # @param {Bool}   bare
         #   Create a bare VVV site without starter
+        #
+        # @return {Void}
         ###
         desc "create [THEME]", "Setup THEME and Vagrant development environment"
-        method_option :bare, :type => :boolean, :desc => "Create a bare Vagrant site without starter"
+        method_option :bare, :type => :boolean, :desc => "Create a bare Vagrant site without starter theme"
         def create(theme = nil, bare = false)
             self.install_dependencies
 
@@ -162,6 +187,8 @@ module ThemeJuice
         #
         # @param {String} theme
         #   Name of the theme to create
+        #
+        # @return {Void}
         ###
         desc "setup [THEME]", "Alias for `create --bare`. Setup an existing WordPress install in VVV"
         def setup(theme = nil)
@@ -173,6 +200,8 @@ module ThemeJuice
         #
         # @param {String} theme
         #   Theme to delete. This will not delete your local files, only the VVV env.
+        #
+        # @return {Void}
         ###
         desc "delete THEME", "Remove THEME from Vagrant development environment. Does not remove local theme."
         method_option :restart, :type => :boolean
@@ -189,6 +218,8 @@ module ThemeJuice
 
         ###
         # List all development sites
+        #
+        # @return {Void}
         ###
         desc "list", "List all themes within Vagrant development environment"
         def list
@@ -197,6 +228,8 @@ module ThemeJuice
 
         ###
         # Watch and compile assets
+        #
+        # @return {Void}
         ###
         desc "watch", "Watch and compile assets with Guard"
         method_option :plugin, :default => "all", :aliases => "-p", :desc => "Watch and compile specific plugin"
@@ -207,6 +240,8 @@ module ThemeJuice
 
         ###
         # Optimize images
+        #
+        # @return {Void}
         ###
         desc "optimize", "Optimize images with Guard"
         def optimize

@@ -11,6 +11,8 @@ module ThemeJuice
 
             ###
             # Initialize a new composer.json
+            #
+            # @return {Void}
             ###
             desc "init", "Initialize a new composer.json"
             def init
@@ -21,6 +23,8 @@ module ThemeJuice
             # Install packages
             #
             # You can specify a single package with `-p PACKAGE`, or `--package=PACKAGE`
+            #
+            # @return {Void}
             ###
             desc "install", "Install Composer packages"
             method_option :package, :default => nil, :aliases => "-p"
@@ -46,6 +50,8 @@ module ThemeJuice
             # Update packages
             #
             # You can specify a single package with `-p PACKAGE`, or `--package=PACKAGE`
+            #
+            # @return {Void}
             ###
             desc "update", "Update Composer package"
             method_option :package, :default => nil, :aliases => "-p"
@@ -71,6 +77,8 @@ module ThemeJuice
             # Install composer packages
             #
             # @param {String} package
+            #
+            # @return {Void}
             ###
             desc "require", "Require packages from Composer"
             method_option :package, :default => nil, :aliases => "-p"
@@ -96,6 +104,8 @@ module ThemeJuice
             # Remove a package
             #
             # @param {String} package
+            #
+            # @return {Void}
             ###
             desc "remove PACKAGE", "Remove PACKAGE from Composer"
             def remove(package)

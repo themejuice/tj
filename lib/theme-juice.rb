@@ -31,6 +31,8 @@ module ThemeJuice
         #   Generated ASCII welcome
         # @param {String} color
         #   Color of welcome message
+        #
+        # @return {Void}
         ###
         def welcome(ascii, color = nil)
             if color.nil?
@@ -46,6 +48,8 @@ module ThemeJuice
         # @param {String} message
         # @param {String} color
         # @param {String} prefix (!)
+        #
+        # @return {Void}
         ###
         def message(message, color, prefix = "!")
             puts "[#{prefix}] #{message}".send "#{color}"
@@ -55,6 +59,8 @@ module ThemeJuice
         # Success message
         #
         # @param {String} message
+        #
+        # @return {Void}
         ###
         def success(message)
             message message, "green"
@@ -64,6 +70,8 @@ module ThemeJuice
         # Warning message
         #
         # @param {String} message
+        #
+        # @return {Void}
         ###
         def warning(message)
             message message, "yellow"
@@ -73,6 +81,8 @@ module ThemeJuice
         # Error message
         #
         # @param {String} message
+        #
+        # @return {Void}
         ###
         def error(message)
             message message, "red", "x"
@@ -81,11 +91,13 @@ module ThemeJuice
         ###
         # List message
         #
-        # @param {String}  list
+        # @param {String}  item
         # @param {Integer} index
+        #
+        # @return {Void}
         ###
-        def list(list, index)
-            message list, "cyan", "#{index}"
+        def list(item, index)
+            message item, "cyan", "#{index}"
         end
 
         ###

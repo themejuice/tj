@@ -1,69 +1,60 @@
 # Theme Juice
+Command line interface to scaffold out a new WordPress development environment and site.
 
 ## Installation
 
 * Install [Vagrant](https://www.vagrantup.com/) and [VirtualBox](https://www.virtualbox.org/) for local development.
 
-Add this line to your application's Gemfile:
-```ruby
-gem 'theme-juice-cli'
-```
-
-And then execute:
-```
-$ bundle
-```
-
-Or install it yourself as:
-```
+Install it:
+```bash
 gem install theme-juice-cli
 ```
 
 ## Usage
 
-List available commands.
-```
+List available commands:
+```bash
 tj
 ```
 
-Create a new theme and development site.
-```
+Create a new theme and development site:
+```bash
 tj create [<theme-name>]
 ```
 
-Create a new development site with starter theme.
-```
+Create a new development site without starter theme:
+```bash
 tj setup [<theme-name>]
 ```
 
-Delete a theme from the VM. _Does not remove your local theme._
-```
+Delete a theme from the VM: _(Does not remove your local theme)_
+```bash
 tj delete <theme-name>
 ```
 
-Watch and compile assets.
-```
+Watch and compile assets:
+```bash
 tj watch
 tj watch -p <plugin>
 ```
 
-Optimize images.
-```
+Optimize images:
+```bash
 tj optimize
 ```
 
-List commands for Vagrant (development environment).
-```
+List commands for Vagrant: _(development environment)_
+```bash
 tj vm
 ```
 
-List commands for Composer (dependencies).
-```
+List commands for Composer: _(dependencies)_
+```bash
 tj vendor
 ```
 
-List commands for Mina (deployment).
-```
+List commands for Mina: _(deployment)_
+```bash
 tj server
 ```
 

@@ -11,6 +11,8 @@ module ThemeJuice
 
             ###
             # Start VM
+            #
+            # @return {Void}
             ###
             desc "start", "Start Vagrant"
             def start
@@ -23,6 +25,8 @@ module ThemeJuice
 
             ###
             # Stop VM
+            #
+            # @return {Void}
             ###
             desc "stop", "Stop Vagrant"
             def stop
@@ -35,6 +39,8 @@ module ThemeJuice
 
             ###
             # Suspend VM
+            #
+            # @return {Void}
             ###
             desc "suspend", "Suspend Vagrant"
             def suspend
@@ -47,6 +53,8 @@ module ThemeJuice
 
             ###
             # Restart VM
+            #
+            # @return {Void}
             ###
             desc "restart", "Restart Vagrant"
             def restart
@@ -59,6 +67,8 @@ module ThemeJuice
 
             ###
             # Provision VM
+            #
+            # @return {Void}
             ###
             desc "provision", "Provision Vagrant"
             def provision
@@ -71,6 +81,8 @@ module ThemeJuice
 
             ###
             # Completely destroy VM
+            #
+            # @return {Void}
             ###
             desc "destroy!", "Destroy Vagrant"
             def destroy!
@@ -89,6 +101,8 @@ module ThemeJuice
 
             ###
             # SSH into VM
+            #
+            # @return {Void}
             ###
             desc "ssh", "SSH into Vagrant"
             def ssh

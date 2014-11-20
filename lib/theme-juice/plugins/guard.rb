@@ -3,7 +3,9 @@ module ThemeJuice
         class Guard
 
             ###
-            # Watch all
+            # Runs all default Guard tasks
+            #
+            # @return {Void}
             ###
             def self.all
                 unless system "bundle exec guard"
@@ -13,6 +15,8 @@ module ThemeJuice
 
             ###
             # Watch Sass files
+            #
+            # @return {Void}
             ###
             def self.sass
                 unless system "bundle exec guard -P compass"
@@ -22,6 +26,8 @@ module ThemeJuice
 
             ###
             # Watch Coffee
+            #
+            # @return {Void}
             ###
             def self.coffee
                 unless system "bundle exec guard -P coffeescript"
@@ -31,6 +37,8 @@ module ThemeJuice
 
             ###
             # Watch Haml
+            #
+            # @return {Void}
             ###
             def self.haml
                 unless system "bundle exec guard -P haml"
@@ -40,6 +48,8 @@ module ThemeJuice
 
             ###
             # Optimize images
+            #
+            # @return {Void}
             ###
             def self.optimize
                 unless system "bundle exec guard -P optimize"
