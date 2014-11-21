@@ -411,25 +411,23 @@ module ThemeJuice
             ###
             # Setup WordPress
             #
-            # Clones official WordPress repo into @opts[:theme_location]
+            # Clones starter theme into @opts[:theme_location]
             #
             # @return {Void}
             ###
             def setup_wordpress
                 ::ThemeJuice::warning "Setting up WordPress..."
 
-                unless wordpress_is_setup?
-                    if @opts[:bare_setup]
-                        # Create theme dir
-                        system "mkdir -p #{@opts[:theme_location]}"
-                    else
-                        # Clone starter, install WP
-                        system [
-                            "mkdir -p #{@opts[:theme_location]} && cd $_",
-                            "git clone --depth 1 https://github.com/ezekg/theme-juice-starter.git .",
-                            "composer install",
-                        ].join " && "
-                    end
+                if @opts[:bare_setup]
+                    # Create theme dir
+                    system "mkdir -p #{@opts[:theme_location]}"
+                else
+                    # Clone starter, install WP
+                    system [
+                        "mkdir -p #{@opts[:theme_location]} && cd $_",
+                        "git clone --depth 1 https://github.com/ezekg/theme-juice-starter.git .",
+                        "composer install",
+                    ].join " && "
                 end
             end
 
