@@ -87,6 +87,27 @@ module ThemeJuice
             end
 
             ###
+            # Environment migration
+            #
+            # @param {String} action
+            #   Push or pull environment file for stage
+            #
+            # @return {Void}
+            ###
+            desc "env ACTION", "Environment migration, push or pull"
+            def env(action)
+                if action == "push" || action == "pull"
+                    if system "mina #{options[:env]} env:#{action}"
+                        ::ThemeJuice::success "Uploads migration successful!"
+                    else
+                        ::ThemeJuice::error "Failed migrate uploads."
+                    end
+                else
+                    ::ThemeJuice::error "Unknown command `env:#{action}` for uploads migration. It's either push or pull."
+                end
+            end
+
+            ###
             # Uploads migration
             #
             # @param {String} action
