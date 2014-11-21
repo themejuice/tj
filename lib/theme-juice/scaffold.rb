@@ -54,16 +54,16 @@ module ThemeJuice
                     setup_dev_site
                 end
 
-                if @opts[:repository] != "none"
-                    setup_repo
-                end
-
                 unless env_is_setup?
                     setup_env
                 end
 
                 unless synced_folder_is_setup?
                     setup_synced_folder
+                end
+
+                if @opts[:repository] != "none"
+                    setup_repo
                 end
 
                 if setup_was_successful?
