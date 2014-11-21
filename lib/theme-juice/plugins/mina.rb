@@ -98,12 +98,12 @@ module ThemeJuice
             def env(action)
                 if action == "push" || action == "pull"
                     if system "mina #{options[:env]} env:#{action}"
-                        ::ThemeJuice::success "Uploads migration successful!"
+                        ::ThemeJuice::success "Environment migration successful!"
                     else
-                        ::ThemeJuice::error "Failed migrate uploads."
+                        ::ThemeJuice::error "Failed to migrate environment."
                     end
                 else
-                    ::ThemeJuice::error "Unknown command `env:#{action}` for uploads migration. It's either push or pull."
+                    ::ThemeJuice::error "Unknown command `env:#{action}` for environment migration. It's either push or pull."
                 end
             end
 
@@ -121,7 +121,7 @@ module ThemeJuice
                     if system "mina #{options[:env]} uploads:#{action}"
                         ::ThemeJuice::success "Uploads migration successful!"
                     else
-                        ::ThemeJuice::error "Failed migrate uploads."
+                        ::ThemeJuice::error "Failed to migrate uploads."
                     end
                 else
                     ::ThemeJuice::error "Unknown command `uploads:#{action}` for uploads migration. It's either push or pull."
