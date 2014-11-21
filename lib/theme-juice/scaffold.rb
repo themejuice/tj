@@ -58,6 +58,14 @@ module ThemeJuice
                     setup_repo
                 end
 
+                unless env_is_setup?
+                    setup_env
+                end
+
+                unless synced_folder_is_setup?
+                    setup_synced_folder
+                end
+
                 if setup_was_successful?
                     ::ThemeJuice::success "Setup successful!"
                     ::ThemeJuice::warning "Restarting VVV..."
@@ -423,17 +431,6 @@ module ThemeJuice
                         ].join " && "
                     end
                 end
-
-                # Setup environment
-                unless env_is_setup?
-                    setup_env
-                end
-
-                # Setup synced folders
-                unless synced_folder_is_setup?
-                    ::ThemeJuice::warning "Syncing host theme directory `#{@opts[:theme_location]}` with VM theme directory `/srv/www/dev-#{@opts[:theme_name]}`..."
-                    setup_synced_folder
-                end
             end
 
             ###
@@ -442,6 +439,8 @@ module ThemeJuice
             # @return {Void}
             ###
             def setup_synced_folder
+                ::ThemeJuice::warning "Syncing host theme directory `#{@opts[:theme_location]}` with VM theme directory `/srv/www/dev-#{@opts[:theme_name]}`..."
+
                 open File.expand_path("~/vagrant/Vagrantfile"), "a+" do |file|
                     file.puts "### Begin `#{@opts[:theme_name]}`"
                     file.puts "#"
