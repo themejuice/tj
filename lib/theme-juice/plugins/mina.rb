@@ -66,6 +66,25 @@ module ThemeJuice
             end
 
             ###
+            # Database backup
+            #
+            # @return {Void}
+            ###
+            desc "backup", "Backup database on server"
+            method_option :clean, :type => :boolean, :desc => "Clean up local backups"
+            def backup
+                if system "mina #{options[:env]} db:backup"
+                    ::ThemeJuice::success "Database backup successful!"
+                    
+                    if options[:clean]
+                        system "mina #{options[:env]} db:clean_backups"
+                    end
+                else
+                    ::ThemeJuice::error "Failed to backup database."
+                end
+            end
+
+            ###
             # Database migration
             #
             # @param {String} action
