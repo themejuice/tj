@@ -75,14 +75,14 @@ module ThemeJuice
             ###
             desc "db ACTION", "Database migration, push or pull"
             def db(action)
-                if action == "push" || action == "pull" || action == "backup"
+                if action == "push" || action == "pull"
                     if system "mina #{options[:env]} db:#{action}"
                         ::ThemeJuice::success "Database migration successful!"
                     else
                         ::ThemeJuice::error "Failed migrate database."
                     end
                 else
-                    ::ThemeJuice::error "Unknown command `db:#{action}` for database migration. It's either backup, push or pull."
+                    ::ThemeJuice::error "Unknown command `db:#{action}` for database migration. It's either push or pull."
                 end
             end
 
