@@ -2,7 +2,7 @@ require_relative 'lib/theme-juice'
 
 Gem::Specification.new do |spec|
 
-    # Info
+    # Version
     spec.version = ThemeJuice::VERSION
 
     # Details
@@ -14,8 +14,8 @@ Gem::Specification.new do |spec|
     spec.homepage = "https://github.com/ezekg/theme-juice-cli.git"
 
     # Description
-    spec.summary = %q{A WordPress theme development framework.}
-    spec.description = %q{A WordPress theme development framework that scaffolds out an entire Vagrant development environment in seconds.}
+    spec.summary = %q{A WordPress development framework.}
+    spec.description = %q{A WordPress development framework that scaffolds out an entire Vagrant development environment in seconds. Uses trendy tech like Haml, Sass and CoffeeScript.}
 
     # Library
     spec.files += Dir.glob("lib/**/*.*")
@@ -28,6 +28,9 @@ Gem::Specification.new do |spec|
 
     # Test
     # spec.test_files += Dir.glob("tests/**/*.*")
+
+    # Required Ruby version
+    spec.required_ruby_version = ">= 1.9.2"
 
     # Dependencies
     spec.add_dependency "thor"
