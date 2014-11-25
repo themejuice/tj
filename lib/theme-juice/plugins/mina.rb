@@ -75,7 +75,7 @@ module ThemeJuice
             def backup
                 if system "mina #{options[:env]} db:backup"
                     ::ThemeJuice::success "Database backup successful!"
-                    
+
                     if options[:clean]
                         system "mina #{options[:env]} db:clean_backups"
                     end
@@ -98,7 +98,7 @@ module ThemeJuice
                     if system "mina #{options[:env]} db:#{action}"
                         ::ThemeJuice::success "Database migration successful!"
                     else
-                        ::ThemeJuice::error "Failed migrate database."
+                        ::ThemeJuice::error "Failed to migrate database."
                     end
                 else
                     ::ThemeJuice::error "Unknown command `db:#{action}` for database migration. It's either push or pull."
