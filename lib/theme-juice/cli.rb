@@ -122,8 +122,7 @@ module ThemeJuice
             ::ThemeJuice::newline
             ::ThemeJuice::welcome f.asciify("theme"), "green"
             ::ThemeJuice::welcome f.asciify("juice"), "green"
-            ::ThemeJuice::newline
-            ::ThemeJuice::message "Welcome to Theme Juice! Don't worry about copying any of your settings right now. All "\
+            ::ThemeJuice::welcome "Welcome to Theme Juice! Don't worry about copying any of your settings right now. All "\
             "your information will be provided to you after the setup is complete. If this is your very first "\
             "setup, it will take around 20 minutes to setup the VM. So, grab some coffee, maybe a good book "\
             "and sit back and watch the magic unfold.", "green"
