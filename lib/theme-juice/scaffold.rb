@@ -90,7 +90,7 @@ module ThemeJuice
             end
 
             ###
-            # Remove all traces of theme from Vagrant
+            # Remove all traces of site from Vagrant
             #
             # @param {String} site
             # @param {Bool}   restart

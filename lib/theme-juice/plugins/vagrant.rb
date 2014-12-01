@@ -80,23 +80,16 @@ module ThemeJuice
             end
 
             ###
-            # Completely destroy VM
+            # Destroy VM
             #
             # @return {Void}
             ###
-            desc "destroy!", "Destroy Vagrant"
-            def destroy!
-                # Are you really, really sure?
-                answer = ask "Are you sure you want to destroy the VM?",
-                    :limited_to => ["y", "n"]
-
-                if answer == "y"
-                    ::ThemeJuice::error "Destroying Vagrant..."
-                    run [
-                        "cd ~/vagrant",
-                        "vagrant destroy"
-                    ].join " && "
-                end
+            desc "destroy", "Destroy Vagrant"
+            def destroy
+                run [
+                    "cd ~/vagrant",
+                    "vagrant destroy"
+                ].join " && "
             end
 
             ###
