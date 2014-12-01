@@ -112,6 +112,9 @@ module ThemeJuice
         def create(site = nil, bare_setup = false)
             self.install_dependencies
 
+            ###
+            # Welcome message
+            ###
             # Set up ASCII font
             f = ::Artii::Base.new :font => "rowancap"
 
@@ -119,6 +122,12 @@ module ThemeJuice
             ::ThemeJuice::newline
             ::ThemeJuice::welcome f.asciify("theme"), "green"
             ::ThemeJuice::welcome f.asciify("juice"), "green"
+            ::ThemeJuice::newline
+            ::ThemeJuice::message "Welcome to Theme Juice! Don't worry about copying any of your settings right now. All "\
+            "your information will be provided to you after the setup is complete. If this is your very first "\
+            "setup, it will take around 20 minutes to setup the VM. So, grab some coffee, maybe a good book "\
+            "and sit back and watch the magic unfold.", "green"
+            ::ThemeJuice::newline
 
             ###
             # Theme setup
@@ -128,14 +137,6 @@ module ThemeJuice
             else
                 ::ThemeJuice::warning "Just a few more questions before we begin..."
             end
-
-            # Initial setup message
-            ::ThemeJuice::newline
-            ::ThemeJuice::message "By the way, don't worry about copying any of your settings right now. All "\
-            "your information will be provided to you after the setup is complete. If this is your very first "\
-            "setup, it will take around 20 minutes to setup the VM. So, grab some coffee, maybe a good book "\
-            "and sit back and watch the magic unfold."
-            ::ThemeJuice::newline
 
             # Color of prompts
             prompt_color = :blue
