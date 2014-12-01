@@ -267,11 +267,7 @@ module ThemeJuice
         method_option :restart, :type => :boolean
         def delete(theme)
             ::ThemeJuice::warning "This method will only remove the site from within the VM. It does not remove your local site."
-
-            answer = ask "[?] Are you sure you want to delete site `#{theme}`?",
-                :limited_to => ["y", "N"]
-
-            if answer == "y"
+            if yes? "[?] Are you sure you want to delete site `#{theme}`? (y/N)"
                 ::ThemeJuice::Scaffold::delete theme, options[:restart]
             end
         end
