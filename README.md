@@ -22,7 +22,7 @@ Setup VVV: _(This is automatically run when you create your first site)_
 tj init
 ```
 
-Create a new site and development site:
+Create a new development site:
 ```bash
 tj create [<theme-name>]
 ```
