@@ -167,9 +167,9 @@ module ThemeJuice
                 ###
                 unless bare_setup
                     starter_theme = ask "[?] Which starter theme would you like to use?", prompt_color,
-                        :default => "theme-juice/theme-juice-starter",
+                        :default => "ezekg/theme-juice-starter",
                         :limited_to => [
-                            "theme-juice/theme-juice-starter",
+                            "ezekg/theme-juice-starter",
                             "other",
                             "none"
                         ]
