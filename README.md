@@ -29,7 +29,7 @@ tj create [<theme-name>]
 
 Create a new development site without starter theme:
 ```bash
-tj setup [<theme-name>]
+tj setup [<theme-name>] # Alias for `tj create [<theme-name>] --bare`
 ```
 
 Delete a site from the VM: _(Does not remove your local site)_
