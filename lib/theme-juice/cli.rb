@@ -32,9 +32,7 @@ module ThemeJuice
                 ###
                 unless ::ThemeJuice::installed? "composer"
                     ::ThemeJuice::error "Composer doesn't seem to be installed, or is not globally executable."
-                    answer = ask "Do you want to globally install it?", :limited_to => ["y", "N"]
-
-                    if answer == "y"
+                    if yes? "Do you want to globally install it? (y/N)"
                         ::ThemeJuice::warning "Installing Composer..."
                         ::ThemeJuice::warning "This task uses `sudo` to move the installed `composer.phar` into your `/usr/local/bin` so that it will be globally executable."
                         run [
@@ -52,9 +50,7 @@ module ThemeJuice
                 ###
                 unless ::ThemeJuice::installed? "wp"
                     ::ThemeJuice::error "WP-CLI doesn't seem to be installed, or is not globally executable."
-                    answer = ask "Do you want to globally install it?", :limited_to => ["y", "N"]
-
-                    if answer == "y"
+                    if yes? "Do you want to globally install it? (y/N)"
                         ::ThemeJuice::warning "Installing WP-CLI..."
                         ::ThemeJuice::warning "This task uses `sudo` to move the installed `wp-cli.phar` into your `/usr/local/bin` so that it will be globally executable."
                         run [
@@ -190,7 +186,7 @@ module ThemeJuice
                 ###
                 # Initialize a git repository on setup
                 ###
-                if yes? "[?] Would you like to initialize a new Git repository?", prompt_color
+                if yes? "[?] Would you like to initialize a new Git repository? (y/N)", prompt_color
                     repository = ask "[?] Repository URL:", prompt_color
                 else
                     repository = "none"
