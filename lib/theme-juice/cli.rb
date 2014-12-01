@@ -268,7 +268,7 @@ module ThemeJuice
         def delete(site)
             ::ThemeJuice::warning "This method will only remove the site from within the VM. It does not remove your local site."
             if yes? "[?] Are you sure you want to delete site `#{site}`? (y/N)"
-                ::ThemeJuice::Scaffold::delete theme, options[:restart]
+                ::ThemeJuice::Scaffold::delete site, options[:restart]
             end
         end
 
