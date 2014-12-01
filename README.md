@@ -43,11 +43,6 @@ tj watch
 tj watch -p <plugin>
 ```
 
-Optimize images:
-```bash
-tj optimize
-```
-
 List commands for Vagrant: _(development environment)_
 ```bash
 tj vm
