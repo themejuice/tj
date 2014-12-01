@@ -32,7 +32,7 @@ module ThemeJuice
                 ###
                 unless ::ThemeJuice::installed? "composer"
                     ::ThemeJuice::error "Composer doesn't seem to be installed, or is not globally executable."
-                    if yes? "Do you want to globally install it? (y/N)"
+                    if yes? "Do you want to globally install it? (y/N)", :blue
                         ::ThemeJuice::warning "Installing Composer..."
                         ::ThemeJuice::warning "This task uses `sudo` to move the installed `composer.phar` into your `/usr/local/bin` so that it will be globally executable."
                         run [
@@ -50,7 +50,7 @@ module ThemeJuice
                 ###
                 unless ::ThemeJuice::installed? "wp"
                     ::ThemeJuice::error "WP-CLI doesn't seem to be installed, or is not globally executable."
-                    if yes? "Do you want to globally install it? (y/N)"
+                    if yes? "Do you want to globally install it? (y/N)", :blue
                         ::ThemeJuice::warning "Installing WP-CLI..."
                         ::ThemeJuice::warning "This task uses `sudo` to move the installed `wp-cli.phar` into your `/usr/local/bin` so that it will be globally executable."
                         run [
@@ -266,8 +266,7 @@ module ThemeJuice
         desc "delete SITE", "Remove SITE from Vagrant development environment. Does not remove local site."
         method_option :restart, :type => :boolean
         def delete(site)
-            ::ThemeJuice::warning "This method will only remove the site from within the VM. It does not remove your local site."
-            if yes? "[?] Are you sure you want to delete site `#{site}`? (y/N)"
+            if yes? "[?] Are you sure you want to delete site `#{site}`? (y/N)", :blue
                 ::ThemeJuice::Scaffold::delete site, options[:restart]
             end
         end
