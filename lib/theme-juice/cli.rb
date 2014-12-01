@@ -245,29 +245,29 @@ module ThemeJuice
         ###
         # Setup an existing WordPress install in VVV
         #
-        # @param {String} theme (nil)
+        # @param {String} site (nil)
         #   Name of the theme to create
         #
         # @return {Void}
         ###
         desc "setup [SITE]", "Alias for `create --bare`. Create a Vagrant site without starter theme"
-        def setup(theme = nil)
-            self.create theme, true
+        def setup(site = nil)
+            self.create site, true
         end
 
         ###
         # Remove all traces of site from Vagrant
         #
-        # @param {String} theme
+        # @param {String} site
         #   Theme to delete. This will not delete your local files, only the VVV env.
         #
         # @return {Void}
         ###
         desc "delete SITE", "Remove SITE from Vagrant development environment. Does not remove local site."
         method_option :restart, :type => :boolean
-        def delete(theme)
+        def delete(site)
             ::ThemeJuice::warning "This method will only remove the site from within the VM. It does not remove your local site."
-            if yes? "[?] Are you sure you want to delete site `#{theme}`? (y/N)"
+            if yes? "[?] Are you sure you want to delete site `#{site}`? (y/N)"
                 ::ThemeJuice::Scaffold::delete theme, options[:restart]
             end
         end
