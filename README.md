@@ -24,17 +24,17 @@ tj init
 
 Create a new development site:
 ```bash
-tj create [<theme-name>]
+tj create [<site-name>]
 ```
 
 Create a new development site without starter theme:
 ```bash
-tj setup [<theme-name>] # Alias for `tj create [<theme-name>] --bare`
+tj setup [<site-name>] # Alias for `tj create [<site-name>] --bare`
 ```
 
 Delete a site from the VM: _(Does not remove your local site)_
 ```bash
-tj delete <theme-name>
+tj delete <site-name>
 ```
 
 Watch and compile assets:
