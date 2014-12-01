@@ -133,7 +133,7 @@ module ThemeJuice
             prompt_color = :blue
 
             # Ask for the Site name if not passed directly
-            site ||= ask "[?] What's the site name? Only ascii characters are allowed.", prompt_color
+            site ||= ask "[?] What's the site name? Only ascii characters are allowed:", prompt_color
 
             if site.match /[^0-9A-Za-z.\-]/
                 ::ThemeJuice::error "Site name contains invalid non-ascii characters. This name is used for creating directories, so that's not gonna work. Aborting mission."
@@ -176,7 +176,7 @@ module ThemeJuice
                 ###
                 # Development url
                 ###
-                dev_url = ask "[?] What do you want the development url to be? This should end in `dev`.", prompt_color,
+                dev_url = ask "[?] What do you want the development url to be? Must end in `.dev`:", prompt_color,
                     :default => "#{site}.dev"
 
                 ###
