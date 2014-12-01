@@ -170,8 +170,6 @@ module ThemeJuice
                         starter_theme = ask "[?] Please specify the user/repository for the theme you would like to use:", prompt_color
                     when "none"
                         bare_setup = true
-                    else
-                        ::ThemeJuice::error "Houston, we have a problem! Starter theme (#{starter_theme}) is invalid. Aborting mission."
                     end
                 end
 
