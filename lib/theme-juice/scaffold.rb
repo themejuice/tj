@@ -19,7 +19,7 @@ module ThemeJuice
             end
 
             ###
-            # Set up local development environment and theme
+            # Set up local development environment and site
             #
             # @param {Hash} opts
             #
@@ -71,8 +71,9 @@ module ThemeJuice
                     ::ThemeJuice::warning "Restarting VVV..."
 
                     if restart_vagrant
-                        ::ThemeJuice::success "Theme name: #{@opts[:site_name]}"
-                        ::ThemeJuice::success "Theme location: #{@opts[:site_location]}"
+                        ::ThemeJuice::success "Site name: #{@opts[:site_name]}"
+                        ::ThemeJuice::success "Site location: #{@opts[:site_location]}"
+                        ::ThemeJuice::success "Starter theme: #{@opts[:starter_theme]}"
                         ::ThemeJuice::success "Development environment: #{@opts[:dev_location]}"
                         ::ThemeJuice::success "Development url: http://#{@opts[:dev_url]}"
                         ::ThemeJuice::success "Repository: #{@opts[:repository]}"
@@ -90,27 +91,27 @@ module ThemeJuice
             ###
             # Remove all traces of theme from Vagrant
             #
-            # @param {String} theme
+            # @param {String} site
             # @param {Bool}   restart
             #
             # @return {Void}
             ###
-            def delete(theme, restart)
+            def delete(site, restart)
 
                 ###
                 # @TODO - This is a really hacky way to remove the theme.
                 #   Eventually I'd like to handle state.
                 ###
                 @opts = {
-                    :site_name => theme,
-                    :dev_location => File.expand_path("~/vagrant/www/dev-#{theme}")
+                    :site_name => site,
+                    :dev_location => File.expand_path("~/vagrant/www/dev-#{site}")
                 }
 
                 if dev_site_is_setup?
-                    ::ThemeJuice::warning "Removing theme `#{@opts[:site_name]}`..."
+                    ::ThemeJuice::warning "Removing site `#{@opts[:site_name]}`..."
                     remove_dev_site
                 else
-                    ::ThemeJuice::error "Theme `#{@opts[:site_name]}` does not exist."
+                    ::ThemeJuice::error "Site `#{@opts[:site_name]}` does not exist."
                     exit 1
                 end
 
@@ -123,14 +124,14 @@ module ThemeJuice
                 end
 
                 if removal_was_successful?
-                    ::ThemeJuice::success "Theme `#{@opts[:site_name]}` successfully removed!"
+                    ::ThemeJuice::success "Site `#{@opts[:site_name]}` successfully removed!"
 
                     unless restart.nil?
                         ::ThemeJuice::warning "Restarting VVV..."
                         restart_vagrant
                     end
                 else
-                    ::ThemeJuice::error "Theme `#{@opts[:site_name]}` could not be fully be removed."
+                    ::ThemeJuice::error "Site `#{@opts[:site_name]}` could not be fully be removed."
                 end
             end
 
@@ -175,28 +176,10 @@ module ThemeJuice
             end
 
             ###
-            # Get the theme directory name
-            #
-            # @return {String}
-            ###
-            def get_site_name
-                Pathname.new(__FILE__).ascend { |f| return f.parent.basename if f.basename.to_s == "lib" }
-            end
-
-            ###
-            # Get the theme directory path
-            #
-            # @return {String}
-            ###
-            def get_site_location
-                Pathname.new(__FILE__).ascend { |f| return f.parent.realpath if f.basename.to_s == "lib" }
-            end
-
-            ###
             # @return {Bool}
             ###
             def setup_was_successful?
-                vvv_is_setup? and dev_site_is_setup? and hosts_is_setup? and database_is_setup? and nginx_is_setup? ? true : false
+                vvv_is_setup? and dev_site_is_setup? and hosts_is_setup? and database_is_setup? and nginx_is_setup?
             end
 
             ###
@@ -425,7 +408,7 @@ module ThemeJuice
                     # Clone starter, install WP
                     system [
                         "mkdir -p #{@opts[:site_location]} && cd $_",
-                        "git clone --depth 1 https://github.com/ezekg/theme-juice-starter.git .",
+                        "git clone --depth 1 https://github.com/#{@opts[:starter_theme]}.git .",
                         "composer install",
                     ].join " && "
                 end

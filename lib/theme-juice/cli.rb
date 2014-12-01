@@ -100,16 +100,16 @@ module ThemeJuice
         #   folder with the site folder on the Vagrant VM. This task will also
         #   install and configure Vagrant/VVV into your `~/` directory.
         #
-        # @param {String} site
+        # @param {String} site (nil)
         #   Name of the site to create
-        # @param {Bool}   bare
+        # @param {Bool}   bare (false)
         #   Create a bare VVV site without starter
         #
         # @return {Void}
         ###
         desc "create [SITE]", "Setup SITE and Vagrant development environment"
         method_option :bare, :type => :boolean, :desc => "Create a Vagrant site without starter theme"
-        def create(site = nil, bare = false)
+        def create(site = nil, bare_setup = false)
             self.install_dependencies
 
             # Set up ASCII font
@@ -141,7 +141,7 @@ module ThemeJuice
             end
 
             # Bare install
-            bare ||= options[:bare]
+            bare_setup ||= options[:bare]
 
             # Make sure Site name was given, else throw err
             unless site.empty?
@@ -157,16 +157,22 @@ module ThemeJuice
                 ###
                 # Starter theme to clone
                 ###
-                starter_theme = ask "[?] Would you like to use a starter theme?", prompt_color,
-                    :default => "theme-juice/theme-juice-starter",
-                    :limited_to => [
-                        "theme-juice/theme-juice-starter",
-                        "other",
-                        "none"
-                    ]
-
-                if starter_theme == "other"
-                    starter_theme = ask "[?] Please specify a user/repository of the theme you would like to use:", prompt_color
+                unless bare_setup
+                    starter_theme = ask "[?] Would you like to use a starter theme?", prompt_color,
+                        :default => "theme-juice/theme-juice-starter",
+                        :limited_to => [
+                            "theme-juice/theme-juice-starter",
+                            "other",
+                            "none"
+                        ]
+                    case starter_theme
+                    when "other"
+                        starter_theme = ask "[?] Please specify the user/repository for the theme you would like to use:", prompt_color
+                    when "none"
+                        bare_setup = true
+                    else
+                        ::ThemeJuice::error "Houston, we have a problem! Starter theme (#{starter_theme}) is invalid. Aborting mission."
+                    end
                 end
 
                 ###
@@ -214,7 +220,8 @@ module ThemeJuice
                 opts = {
                     :site_name => site,
                     :site_location => File.expand_path(site_location),
-                    :bare_setup => bare,
+                    :starter_theme => starter_theme,
+                    :bare_setup => bare_setup,
                     :dev_location => File.expand_path("~/vagrant/www/dev-#{site}"),
                     :dev_url => dev_url,
                     :repository => repository,
@@ -235,7 +242,7 @@ module ThemeJuice
         ###
         # Setup an existing WordPress install in VVV
         #
-        # @param {String} theme
+        # @param {String} theme (nil)
         #   Name of the theme to create
         #
         # @return {Void}
