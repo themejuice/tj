@@ -263,7 +263,7 @@ module ThemeJuice
         #
         # @return {Void}
         ###
-        desc "delete SITE", "Remove SITE from Vagrant development environment (oes not remove local site)"
+        desc "delete SITE", "Remove SITE from Vagrant development environment (does not remove local site)"
         method_option :restart, :type => :boolean
         def delete(site)
             if yes? "[?] Are you sure you want to delete site `#{site}`? (y/N)", :blue
