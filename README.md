@@ -17,7 +17,12 @@ List available commands:
 tj
 ```
 
-Create a new theme and development site:
+Setup VVV: _(This is automatically run when you create your first site)_
+```bash
+tj init
+```
+
+Create a new site and development site:
 ```bash
 tj create [<theme-name>]
 ```
@@ -27,7 +32,7 @@ Create a new development site without starter theme:
 tj setup [<theme-name>]
 ```
 
-Delete a theme from the VM: _(Does not remove your local theme)_
+Delete a site from the VM: _(Does not remove your local site)_
 ```bash
 tj delete <theme-name>
 ```
