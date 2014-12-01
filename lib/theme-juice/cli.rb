@@ -250,7 +250,7 @@ module ThemeJuice
         #
         # @return {Void}
         ###
-        desc "setup [SITE]", "Alias for `create --bare`. Create a Vagrant site without starter theme"
+        desc "setup [SITE]", "Create a Vagrant site without starter theme (alias for `create --bare`)"
         def setup(site = nil)
             self.create site, true
         end
@@ -263,7 +263,7 @@ module ThemeJuice
         #
         # @return {Void}
         ###
-        desc "delete SITE", "Remove SITE from Vagrant development environment. Does not remove local site."
+        desc "delete SITE", "Remove SITE from Vagrant development environment (oes not remove local site)"
         method_option :restart, :type => :boolean
         def delete(site)
             if yes? "[?] Are you sure you want to delete site `#{site}`? (y/N)", :blue
