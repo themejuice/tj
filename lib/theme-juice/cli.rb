@@ -116,7 +116,7 @@ module ThemeJuice
             f = ::Artii::Base.new :font => "rowancap"
 
             # Output ASCII welcome message
-            ::ThemeJuice::welcome ""
+            ::ThemeJuice::newline
             ::ThemeJuice::welcome f.asciify("theme"), "green"
             ::ThemeJuice::welcome f.asciify("juice"), "green"
 
@@ -128,6 +128,14 @@ module ThemeJuice
             else
                 ::ThemeJuice::warning "Just a few more questions before we begin..."
             end
+
+            # Initial setup message
+            ::ThemeJuice::newline
+            ::ThemeJuice::message "By the way, don't worry about copying any of your settings right now. All "\
+            "your information will be provided to you after the setup is complete. If this is your very first "\
+            "setup, it will take around 20 minutes to setup the VM. So, grab some coffee, maybe a good book "\
+            "and sit back and watch the magic unfold."
+            ::ThemeJuice::newline
 
             # Color of prompts
             prompt_color = :blue
@@ -176,7 +184,7 @@ module ThemeJuice
                 ###
                 # Development url
                 ###
-                dev_url = ask "[?] What do you want the development url to be? Must end in `.dev`:", prompt_color,
+                dev_url = ask "[?] What do you want the development url to be?", prompt_color,
                     :default => "#{site}.dev"
 
                 ###

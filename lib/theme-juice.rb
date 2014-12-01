@@ -46,13 +46,22 @@ module ThemeJuice
         # Outputs colorized message to command line
         #
         # @param {String} message
-        # @param {String} color
+        # @param {String} color  (white)
         # @param {String} prefix (!)
         #
         # @return {Void}
         ###
-        def message(message, color, prefix = "!")
+        def message(message, color = "white", prefix = "!")
             puts "[#{prefix}] #{message}".send "#{color}"
+        end
+
+        ###
+        # Output a newline to command line
+        #
+        # @return {Void}
+        ###
+        def newline
+            puts "\n"
         end
 
         ###
