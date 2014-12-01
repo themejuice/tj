@@ -18,14 +18,11 @@ module ThemeJuice
             # @return {Void}
             ###
             def install_dependencies
-                ::ThemeJuice::warning "Making sure all dependencies are installed..."
 
                 ###
                 # Vagrant
                 ###
-                if ::ThemeJuice::installed? "vagrant"
-                    ::ThemeJuice::success "Vagrant is installed!"
-                else
+                unless ::ThemeJuice::installed? "vagrant"
                     ::ThemeJuice::error "Vagrant doesn't seem to be installed. Download Vagrant and VirtualBox before running this task. See README for more information."
                     exit 1
                 end
@@ -33,11 +30,9 @@ module ThemeJuice
                 ###
                 # Composer
                 ###
-                if ::ThemeJuice::installed? "composer"
-                    ::ThemeJuice::success "Composer is installed!"
-                else
+                unless ::ThemeJuice::installed? "composer"
                     ::ThemeJuice::error "Composer doesn't seem to be installed, or is not globally executable."
-                    answer = ask "Do you want to globally install it?", :limited_to => ["y", "n"]
+                    answer = ask "Do you want to globally install it?", :limited_to => ["y", "N"]
 
                     if answer == "y"
                         ::ThemeJuice::warning "Installing Composer..."
@@ -55,11 +50,9 @@ module ThemeJuice
                 ###
                 # WP-CLI
                 ###
-                if ::ThemeJuice::installed? "wp"
-                    ::ThemeJuice::success "WP-CLI is installed!"
-                else
+                unless ::ThemeJuice::installed? "wp"
                     ::ThemeJuice::error "WP-CLI doesn't seem to be installed, or is not globally executable."
-                    answer = ask "Do you want to globally install it?", :limited_to => ["y", "n"]
+                    answer = ask "Do you want to globally install it?", :limited_to => ["y", "N"]
 
                     if answer == "y"
                         ::ThemeJuice::warning "Installing WP-CLI..."
@@ -99,24 +92,24 @@ module ThemeJuice
         end
 
         ###
-        # Install and setup VVV environment with new theme
+        # Install and setup VVV environment with new site
         #
         # It will automagically set up your entire development environment, including
         #   a local development site at `http://site.dev` with WordPress installed
-        #   and with a fresh WP database. It will also sync up your current theme
-        #   folder with the theme folder on the Vagrant VM. This task will also
+        #   and with a fresh WP database. It will also sync up your current site
+        #   folder with the site folder on the Vagrant VM. This task will also
         #   install and configure Vagrant/VVV into your `~/` directory.
         #
-        # @param {String} theme
-        #   Name of the theme to create
+        # @param {String} site
+        #   Name of the site to create
         # @param {Bool}   bare
         #   Create a bare VVV site without starter
         #
         # @return {Void}
         ###
-        desc "create [THEME]", "Setup THEME and Vagrant development environment"
+        desc "create [SITE]", "Setup SITE and Vagrant development environment"
         method_option :bare, :type => :boolean, :desc => "Create a Vagrant site without starter theme"
-        def create(theme = nil, bare = false)
+        def create(site = nil, bare = false)
             self.install_dependencies
 
             # Set up ASCII font
@@ -130,42 +123,99 @@ module ThemeJuice
             ###
             # Theme setup
             ###
-            if theme.nil?
+            if site.nil?
                 ::ThemeJuice::warning "Just a few questions before we begin..."
             else
                 ::ThemeJuice::warning "Just a few more questions before we begin..."
             end
 
-            # Ask for the theme name if not passed directly
-            theme ||= ask "[?] Theme name (required):"
+            # Color of prompts
+            prompt_color = :green
+
+            # Ask for the Site name if not passed directly
+            site ||= ask "[?] Site name:", prompt_color
+
+            if site.match /[^0-9A-Za-z.\-]/
+                ::ThemeJuice::error "Site name contains invalid non-ascii characters. This name is used for creating directories, so that's not gonna work. Aborting mission."
+                exit 1
+            end
 
             # Bare install
             bare ||= options[:bare]
 
-            # Make sure theme name was given, else throw err
-            unless theme.empty?
+            # Make sure Site name was given, else throw err
+            unless site.empty?
+                clean_site_name = site.gsub(/[^\w]/, "_")[0..10]
 
-                theme_location = ask "[?] Theme location:",
-                    :default => "#{Dir.pwd}/"
-                dev_url = ask "[?] Development url:",
-                    :default => "#{theme}.dev"
-                repository = ask "[?] Git repository:",
-                    :default => "none"
-                db_host = ask "[?] Database host:",
+                ###
+                # Location of site installation
+                ###
+                site_location = ask "[?] Site location:", prompt_color,
+                    :default => "#{Dir.pwd}/",
+                    :path => true
+
+                ###
+                # Starter theme to clone
+                ###
+                starter_theme = ask "[?] Would you like to use a starter theme?", prompt_color,
+                    :default => "theme-juice/theme-juice-starter",
+                    :limited_to => [
+                        "theme-juice/theme-juice-starter",
+                        "other",
+                        "none"
+                    ]
+
+                if starter_theme == "other"
+                    starter_theme = ask "[?] Please specify a user/repository of the theme you would like to use:", prompt_color
+                end
+
+                ###
+                # Development url
+                ###
+                dev_url = ask "[?] Development url:", prompt_color,
+                    :default => "#{site}.dev"
+
+                ###
+                # Initialize a git repository on setup
+                ###
+                if yes? "[?] Would you like to initialize a new Git repository?", prompt_color
+                    repository = ask "[?] Repository URL:", prompt_color
+                else
+                    repository = "none"
+                end
+
+                ###
+                # Database host
+                ###
+                db_host = ask "[?] Database host:", prompt_color,
                     :default => "vvv"
-                db_name = ask "[?] Database name:",
-                    :default => "wordpress"
-                db_user = ask "[?] Database username:",
-                    :default => "wordpress"
-                db_pass = ask "[?] Database password:",
+
+                ###
+                # Database name
+                ###
+                db_name = ask "[?] Database name:", prompt_color,
+                    :default => "#{clean_site_name}_db"
+
+                ###
+                # Database username
+                ###
+                db_user = ask "[?] Database username:", prompt_color,
+                    :default => "#{clean_site_name}_user"
+
+                ###
+                # Database password
+                ###
+                db_pass = ask "[?] Database password:", prompt_color,
                     :default => SecureRandom.base64
 
-                # Ask for other options
+                ###
+                # Save options
+                ###
                 opts = {
-                    :theme_name => theme,
-                    :theme_location => File.expand_path(theme_location),
+                    :site_name => site,
+                    :site_location => File.expand_path(site_location),
                     :bare_setup => bare,
-                    :dev_location => File.expand_path("~/vagrant/www/dev-#{theme}"),
+                    :dev_location => File.expand_path("~/vagrant/www/dev-#{site}"),
                     :dev_url => dev_url,
                     :repository => repository,
                     :db_host => db_host,
@@ -177,7 +227,7 @@ module ThemeJuice
                 # Create the theme!
                 ::ThemeJuice::Scaffold::create opts
             else
-                ::ThemeJuice::error "Theme name is required. Aborting mission."
+                ::ThemeJuice::error "Site name is required. Aborting mission."
                 exit 1
             end
         end
@@ -190,7 +240,7 @@ module ThemeJuice
         #
         # @return {Void}
         ###
-        desc "setup [THEME]", "Alias for `create --bare`. Create a Vagrant site without starter theme"
+        desc "setup [SITE]", "Alias for `create --bare`. Create a Vagrant site without starter theme"
         def setup(theme = nil)
             self.create theme, true
         end
@@ -203,13 +253,13 @@ module ThemeJuice
         #
         # @return {Void}
         ###
-        desc "delete THEME", "Remove THEME from Vagrant development environment. Does not remove local theme."
+        desc "delete SITE", "Remove SITE from Vagrant development environment. Does not remove local site."
         method_option :restart, :type => :boolean
         def delete(theme)
-            ::ThemeJuice::warning "This method will only remove the site from within the VM. It does not remove your local theme."
+            ::ThemeJuice::warning "This method will only remove the site from within the VM. It does not remove your local site."
 
-            answer = ask "[?] Are you sure you want to delete theme `#{theme}`?",
-                :limited_to => ["y", "n"]
+            answer = ask "[?] Are you sure you want to delete site `#{theme}`?",
+                :limited_to => ["y", "N"]
 
             if answer == "y"
                 ::ThemeJuice::Scaffold::delete theme, options[:restart]
@@ -221,13 +271,13 @@ module ThemeJuice
         #
         # @return {Void}
         ###
-        desc "list", "List all themes within Vagrant development environment"
+        desc "list", "List all sites within Vagrant development environment"
         def list
             ::ThemeJuice::Scaffold::list
         end
 
         ###
-        # Watch and compile assets
+        # Watch and compile assets with Guard
         #
         # @return {Void}
         ###
@@ -236,17 +286,6 @@ module ThemeJuice
         def watch
             ::ThemeJuice::warning "Starting Guard..."
             ::ThemeJuice::Plugins::Guard::send options[:plugin]
-        end
-
-        ###
-        # Optimize images
-        #
-        # @return {Void}
-        ###
-        desc "optimize", "Optimize images with Guard"
-        def optimize
-            ::ThemeJuice::warning "Optimizing images..."
-            ::ThemeJuice::Plugins::Guard::optimize
         end
 
         ###

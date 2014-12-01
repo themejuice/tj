@@ -28,7 +28,7 @@ module ThemeJuice
             def create(opts)
                 @opts = opts
 
-                ::ThemeJuice::warning "Running setup for `#{@opts[:theme_name]}`..."
+                ::ThemeJuice::warning "Running setup for `#{@opts[:site_name]}`..."
 
                 unless wordpress_is_setup?
                     setup_wordpress
@@ -71,8 +71,8 @@ module ThemeJuice
                     ::ThemeJuice::warning "Restarting VVV..."
 
                     if restart_vagrant
-                        ::ThemeJuice::success "Theme name: #{@opts[:theme_name]}"
-                        ::ThemeJuice::success "Theme location: #{@opts[:theme_location]}"
+                        ::ThemeJuice::success "Theme name: #{@opts[:site_name]}"
+                        ::ThemeJuice::success "Theme location: #{@opts[:site_location]}"
                         ::ThemeJuice::success "Development environment: #{@opts[:dev_location]}"
                         ::ThemeJuice::success "Development url: http://#{@opts[:dev_url]}"
                         ::ThemeJuice::success "Repository: #{@opts[:repository]}"
@@ -83,7 +83,7 @@ module ThemeJuice
                     end
                 else
                     ::ThemeJuice::error "Setup failed. Running cleanup..."
-                    delete @opts[:theme_name], false
+                    delete @opts[:site_name], false
                 end
             end
 
@@ -102,15 +102,15 @@ module ThemeJuice
                 #   Eventually I'd like to handle state.
                 ###
                 @opts = {
-                    :theme_name => theme,
+                    :site_name => theme,
                     :dev_location => File.expand_path("~/vagrant/www/dev-#{theme}")
                 }
 
                 if dev_site_is_setup?
-                    ::ThemeJuice::warning "Removing theme `#{@opts[:theme_name]}`..."
+                    ::ThemeJuice::warning "Removing theme `#{@opts[:site_name]}`..."
                     remove_dev_site
                 else
-                    ::ThemeJuice::error "Theme `#{@opts[:theme_name]}` does not exist."
+                    ::ThemeJuice::error "Theme `#{@opts[:site_name]}` does not exist."
                     exit 1
                 end
 
@@ -123,14 +123,14 @@ module ThemeJuice
                 end
 
                 if removal_was_successful?
-                    ::ThemeJuice::success "Theme `#{@opts[:theme_name]}` successfully removed!"
+                    ::ThemeJuice::success "Theme `#{@opts[:site_name]}` successfully removed!"
 
                     unless restart.nil?
                         ::ThemeJuice::warning "Restarting VVV..."
                         restart_vagrant
                     end
                 else
-                    ::ThemeJuice::error "Theme `#{@opts[:theme_name]}` could not be fully be removed."
+                    ::ThemeJuice::error "Theme `#{@opts[:site_name]}` could not be fully be removed."
                 end
             end
 
@@ -179,7 +179,7 @@ module ThemeJuice
             #
             # @return {String}
             ###
-            def get_theme_name
+            def get_site_name
                 Pathname.new(__FILE__).ascend { |f| return f.parent.basename if f.basename.to_s == "lib" }
             end
 
@@ -188,7 +188,7 @@ module ThemeJuice
             #
             # @return {String}
             ###
-            def get_theme_location
+            def get_site_location
                 Pathname.new(__FILE__).ascend { |f| return f.parent.realpath if f.basename.to_s == "lib" }
             end
 
@@ -224,49 +224,49 @@ module ThemeJuice
             # @return {Bool}
             ###
             def hosts_is_setup?
-                File.exists? "#{@opts[:theme_location]}/vvv-hosts"
+                File.exists? "#{@opts[:site_location]}/vvv-hosts"
             end
 
             ###
             # @return {Bool}
             ###
             def database_is_setup?
-                File.readlines(File.expand_path "~/vagrant/database/init-custom.sql").grep(/(### Begin `#{@opts[:theme_name]}`)/m).any?
+                File.readlines(File.expand_path "~/vagrant/database/init-custom.sql").grep(/(### Begin `#{@opts[:site_name]}`)/m).any?
             end
 
             ###
             # @return {Bool}
             ###
             def nginx_is_setup?
-                File.exists? "#{@opts[:theme_location]}/vvv-nginx.conf"
+                File.exists? "#{@opts[:site_location]}/vvv-nginx.conf"
             end
 
             ###
             # @return {Bool}
             ###
             def wordpress_is_setup?
-                File.exists? File.expand_path("#{@opts[:theme_location]}/app")
+                File.exists? File.expand_path("#{@opts[:site_location]}/app")
             end
 
             ###
             # @return {Bool}
             ###
             def synced_folder_is_setup?
-                File.readlines(File.expand_path "~/vagrant/Vagrantfile").grep(/(### Begin `#{@opts[:theme_name]}`)/m).any?
+                File.readlines(File.expand_path "~/vagrant/Vagrantfile").grep(/(### Begin `#{@opts[:site_name]}`)/m).any?
             end
 
             ###
             # @return {Bool}
             ###
             def repo_is_setup?
-                File.exists? File.expand_path("#{@opts[:theme_location]}/.git")
+                File.exists? File.expand_path("#{@opts[:site_location]}/.git")
             end
 
             ###
             # @return {Bool}
             ###
             def env_is_setup?
-                File.exists? File.expand_path("#{@opts[:theme_location]}/.env.development")
+                File.exists? File.expand_path("#{@opts[:site_location]}/.env.development")
             end
 
             ###
@@ -319,7 +319,7 @@ module ThemeJuice
                 ::ThemeJuice::warning "Setting up new development site at `#{@opts[:dev_location]}`."
                 system [
                     "cd ~/vagrant/www",
-                    "mkdir dev-#{@opts[:theme_name]}"
+                    "mkdir dev-#{@opts[:site_name]}"
                 ].join " && "
             end
 
@@ -329,7 +329,7 @@ module ThemeJuice
             # @return {Void}
             ###
             def setup_hosts
-                File.open "#{@opts[:theme_location]}/vvv-hosts", "w" do |file|
+                File.open "#{@opts[:site_location]}/vvv-hosts", "w" do |file|
                     file.puts @opts[:dev_url]
                 end
 
@@ -347,20 +347,20 @@ module ThemeJuice
             ###
             def setup_database
                 File.open File.expand_path("~/vagrant/database/init-custom.sql"), "a+" do |file|
-                    file.puts "### Begin `#{@opts[:theme_name]}`"
+                    file.puts "### Begin `#{@opts[:site_name]}`"
                     file.puts "#"
                     file.puts "# This block is automatically generated by ThemeJuice. Do not edit."
                     file.puts "###"
                     file.puts "CREATE DATABASE IF NOT EXISTS `#{@opts[:db_name]}`;"
                     file.puts "GRANT ALL PRIVILEGES ON `#{@opts[:db_name]}`.* TO '#{@opts[:db_user]}'@'localhost' IDENTIFIED BY '#{@opts[:db_pass]}';"
-                    file.puts "### End `#{@opts[:theme_name]}`"
+                    file.puts "### End `#{@opts[:site_name]}`"
                     file.puts "\n"
                 end
 
                 if database_is_setup?
                     ::ThemeJuice::success "Successfully added database to `init-custom.sql`."
                 else
-                    ::ThemeJuice::error "Could not add database info for `#{@opts[:theme_name]}` to `init-custom.sql`."
+                    ::ThemeJuice::error "Could not add database info for `#{@opts[:site_name]}` to `init-custom.sql`."
                 end
             end
 
@@ -370,7 +370,7 @@ module ThemeJuice
             # @return {Void}
             ###
             def setup_nginx
-                File.open "#{@opts[:theme_location]}/vvv-nginx.conf", "w" do |file|
+                File.open "#{@opts[:site_location]}/vvv-nginx.conf", "w" do |file|
                     file.puts "server {"
                     file.puts "\tlisten 80;"
                     file.puts "\tserver_name .#{@opts[:dev_url]};"
@@ -392,7 +392,7 @@ module ThemeJuice
             # @return {Void}
             ###
             def setup_env
-                File.open "#{@opts[:theme_location]}/.env.development", "w" do |file|
+                File.open "#{@opts[:site_location]}/.env.development", "w" do |file|
                     file.puts "DB_NAME=#{@opts[:db_name]}"
                     file.puts "DB_USER=#{@opts[:db_user]}"
                     file.puts "DB_PASSWORD=#{@opts[:db_pass]}"
@@ -411,7 +411,7 @@ module ThemeJuice
             ###
             # Setup WordPress
             #
-            # Clones starter theme into @opts[:theme_location]
+            # Clones starter theme into @opts[:site_location]
             #
             # @return {Void}
             ###
@@ -420,11 +420,11 @@ module ThemeJuice
 
                 if @opts[:bare_setup]
                     # Create theme dir
-                    system "mkdir -p #{@opts[:theme_location]}"
+                    system "mkdir -p #{@opts[:site_location]}"
                 else
                     # Clone starter, install WP
                     system [
-                        "mkdir -p #{@opts[:theme_location]} && cd $_",
+                        "mkdir -p #{@opts[:site_location]} && cd $_",
                         "git clone --depth 1 https://github.com/ezekg/theme-juice-starter.git .",
                         "composer install",
                     ].join " && "
@@ -437,18 +437,18 @@ module ThemeJuice
             # @return {Void}
             ###
             def setup_synced_folder
-                ::ThemeJuice::warning "Syncing host theme directory `#{@opts[:theme_location]}` with VM theme directory `/srv/www/dev-#{@opts[:theme_name]}`..."
+                ::ThemeJuice::warning "Syncing host theme directory `#{@opts[:site_location]}` with VM theme directory `/srv/www/dev-#{@opts[:site_name]}`..."
 
                 open File.expand_path("~/vagrant/Vagrantfile"), "a+" do |file|
-                    file.puts "### Begin `#{@opts[:theme_name]}`"
+                    file.puts "### Begin `#{@opts[:site_name]}`"
                     file.puts "#"
                     file.puts "# This block is automatically generated by ThemeJuice. Do not edit."
                     file.puts "###"
                     file.puts "Vagrant.configure('2') do |config|"
-                    file.puts "\tconfig.vm.synced_folder '#{@opts[:theme_location]}', '/srv/www/dev-#{@opts[:theme_name]}', mount_options: ['dmode=777,fmode=777']"
+                    file.puts "\tconfig.vm.synced_folder '#{@opts[:site_location]}', '/srv/www/dev-#{@opts[:site_name]}', mount_options: ['dmode=777,fmode=777']"
                     file.puts "\tconfig.landrush.host '#{@opts[:dev_url]}', '192.168.50.4'"
                     file.puts "end"
-                    file.puts "### End `#{@opts[:theme_name]}`"
+                    file.puts "### End `#{@opts[:site_name]}`"
                     file.puts "\n"
                 end
             end
@@ -463,13 +463,13 @@ module ThemeJuice
 
                 if repo_is_setup?
                     system [
-                        "cd #{@opts[:theme_location]}",
+                        "cd #{@opts[:site_location]}",
                         "rm -rf .git",
                     ].join " && "
                 end
 
                 system [
-                    "cd #{@opts[:theme_location]}",
+                    "cd #{@opts[:site_location]}",
                     "git init",
                     "git remote add origin #{@opts[:repository]}",
                     "git add -A",
@@ -486,9 +486,9 @@ module ThemeJuice
                 ::ThemeJuice::warning "Removing VVV installation..."
 
                 if system "rm -rf #{@opts[:dev_location]}"
-                    ::ThemeJuice::success "VVV installation for `#{@opts[:theme_name]}` successfully removed."
+                    ::ThemeJuice::success "VVV installation for `#{@opts[:site_name]}` successfully removed."
                 else
-                    ::ThemeJuice::error "Theme `#{@opts[:theme_name]}` could not be removed. Make sure you have write capabilities."
+                    ::ThemeJuice::error "Theme `#{@opts[:site_name]}` could not be removed. Make sure you have write capabilities."
                 end
             end
 
@@ -498,10 +498,10 @@ module ThemeJuice
             # @return {Void}
             ###
             def remove_database
-                ::ThemeJuice::warning "Removing database for `#{@opts[:theme_name]}`..."
+                ::ThemeJuice::warning "Removing database for `#{@opts[:site_name]}`..."
 
                 if remove_traces_from_file "~/vagrant/database/init-custom.sql"
-                    ::ThemeJuice::success "Database for `#{@opts[:theme_name]}` successfully removed."
+                    ::ThemeJuice::success "Database for `#{@opts[:site_name]}` successfully removed."
                 end
             end
 
@@ -511,10 +511,10 @@ module ThemeJuice
             # @return {Void}
             ###
             def remove_synced_folder
-                ::ThemeJuice::warning "Removing synced folders for `#{@opts[:theme_name]}`..."
+                ::ThemeJuice::warning "Removing synced folders for `#{@opts[:site_name]}`..."
 
                 if remove_traces_from_file "~/vagrant/Vagrantfile"
-                    ::ThemeJuice::success "Synced folders for `#{@opts[:theme_name]}` successfully removed."
+                    ::ThemeJuice::success "Synced folders for `#{@opts[:site_name]}` successfully removed."
                 end
             end
 
@@ -532,7 +532,7 @@ module ThemeJuice
                     # Copy over contents of actual file to tempfile
                     open File.expand_path(input_file), "rb" do |file|
                         # Remove traces of theme from contents
-                        output_file.write "#{file.read}".gsub(/(### Begin `#{@opts[:theme_name]}`)(.*?)(### End `#{@opts[:theme_name]}`)\n+/m, "")
+                        output_file.write "#{file.read}".gsub(/(### Begin `#{@opts[:site_name]}`)(.*?)(### End `#{@opts[:site_name]}`)\n+/m, "")
                     end
                     # Move temp file to actual file location
                     FileUtils.mv output_file, File.expand_path(input_file)

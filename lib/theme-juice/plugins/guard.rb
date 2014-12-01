@@ -8,7 +8,7 @@ module ThemeJuice
             # @return {Void}
             ###
             def self.all
-                unless system "bundle exec guard -i"
+                unless system "bundle exec guard"
                     ::ThemeJuice::error "Failed to initiate Guard. Be sure to run this command from your project root."
                 end
             end
@@ -19,7 +19,7 @@ module ThemeJuice
             # @return {Void}
             ###
             def self.sass
-                unless system "bundle exec guard -i -P compass"
+                unless system "bundle exec guard -P compass"
                     ::ThemeJuice::error "Failed to initiate Guard. Be sure to run this command from your project root."
                 end
             end
@@ -30,7 +30,7 @@ module ThemeJuice
             # @return {Void}
             ###
             def self.coffee
-                unless system "bundle exec guard -i -P coffeescript"
+                unless system "bundle exec guard -P coffeescript"
                     ::ThemeJuice::error "Failed to initiate Guard. Be sure to run this command from your project root."
                 end
             end
@@ -41,7 +41,7 @@ module ThemeJuice
             # @return {Void}
             ###
             def self.haml
-                unless system "bundle exec guard -i -P haml"
+                unless system "bundle exec guard -P haml"
                     ::ThemeJuice::error "Failed to initiate Guard. Be sure to run this command from your project root."
                 end
             end
@@ -52,7 +52,7 @@ module ThemeJuice
             # @return {Void}
             ###
             def self.optimize
-                unless system "bundle exec guard -i -P optimize"
+                unless system "bundle exec guard -P optimize"
                     ::ThemeJuice::error "Failed to initiate Guard. Be sure to run this command from your project root."
                 end
             end

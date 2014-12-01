@@ -1,4 +1,4 @@
-require_relative 'lib/theme-juice'
+require_relative "lib/theme-juice"
 
 Gem::Specification.new do |spec|
 
@@ -30,7 +30,7 @@ Gem::Specification.new do |spec|
     # spec.test_files += Dir.glob("tests/**/*.*")
 
     # Required Ruby version
-    spec.required_ruby_version = ">= 1.9.2"
+    spec.required_ruby_version = ">= 2.0.0"
 
     # Dependencies
     spec.add_dependency "thor"
