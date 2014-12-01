@@ -130,7 +130,7 @@ module ThemeJuice
             end
 
             # Color of prompts
-            prompt_color = :green
+            prompt_color = :blue
 
             # Ask for the Site name if not passed directly
             site ||= ask "[?] Site name:", prompt_color

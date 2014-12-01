@@ -71,16 +71,17 @@ module ThemeJuice
                     ::ThemeJuice::warning "Restarting VVV..."
 
                     if restart_vagrant
-                        ::ThemeJuice::success "Site name: #{@opts[:site_name]}"
-                        ::ThemeJuice::success "Site location: #{@opts[:site_location]}"
-                        ::ThemeJuice::success "Starter theme: #{@opts[:starter_theme]}"
-                        ::ThemeJuice::success "Development environment: #{@opts[:dev_location]}"
-                        ::ThemeJuice::success "Development url: http://#{@opts[:dev_url]}"
-                        ::ThemeJuice::success "Repository: #{@opts[:repository]}"
-                        ::ThemeJuice::success "Database host: #{@opts[:db_host]}"
-                        ::ThemeJuice::success "Database name: #{@opts[:db_name]}"
-                        ::ThemeJuice::success "Database username: #{@opts[:db_user]}"
-                        ::ThemeJuice::success "Database password: #{@opts[:db_pass]}"
+                        prompt_color = "blue"
+                        ::ThemeJuice::message "Site name: #{@opts[:site_name]}", prompt_color
+                        ::ThemeJuice::message "Site location: #{@opts[:site_location]}", prompt_color
+                        ::ThemeJuice::message "Starter theme: #{@opts[:starter_theme]}", prompt_color
+                        ::ThemeJuice::message "Development environment: #{@opts[:dev_location]}", prompt_color
+                        ::ThemeJuice::message "Development url: http://#{@opts[:dev_url]}", prompt_color
+                        ::ThemeJuice::message "Repository: #{@opts[:repository]}", prompt_color
+                        ::ThemeJuice::message "Database host: #{@opts[:db_host]}", prompt_color
+                        ::ThemeJuice::message "Database name: #{@opts[:db_name]}", prompt_color
+                        ::ThemeJuice::message "Database username: #{@opts[:db_user]}", prompt_color
+                        ::ThemeJuice::message "Database password: #{@opts[:db_pass]}", prompt_color
                     end
                 else
                     ::ThemeJuice::error "Setup failed. Running cleanup..."
