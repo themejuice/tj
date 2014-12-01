@@ -173,6 +173,7 @@ module ThemeJuice
                     when "other"
                         starter_theme = ask "[?] What is the user/repository of the starter theme you would like to clone?", prompt_color
                     when "none"
+                        ::ThemeJuice::warning "Next time you want to create a site without a starter theme, you can just pass in the --bare option."
                         bare_setup = true
                     end
                 end
