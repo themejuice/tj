@@ -150,7 +150,7 @@ module ThemeJuice
                 ###
                 # Location of site installation
                 ###
-                site_location = ask "[?] Where do you want to setup the site?", prompt_color,
+                site_location = ask "[?] Where do you want to setup the site? Only ascii characters are allowed.", prompt_color,
                     :default => "#{Dir.pwd}/",
                     :path => true
 
@@ -158,7 +158,7 @@ module ThemeJuice
                 # Starter theme to clone
                 ###
                 unless bare_setup
-                    starter_theme = ask "[?] Would you like to use a starter theme?", prompt_color,
+                    starter_theme = ask "[?] Which starter theme would you like to use?", prompt_color,
                         :default => "theme-juice/theme-juice-starter",
                         :limited_to => [
                             "theme-juice/theme-juice-starter",
@@ -167,7 +167,7 @@ module ThemeJuice
                         ]
                     case starter_theme
                     when "other"
-                        starter_theme = ask "[?] Please specify the user/repository for the theme you would like to use:", prompt_color
+                        starter_theme = ask "[?] What is the user/repository of the starter theme you would like to clone?", prompt_color
                     when "none"
                         bare_setup = true
                     end
@@ -176,7 +176,7 @@ module ThemeJuice
                 ###
                 # Development url
                 ###
-                dev_url = ask "[?] What do you want the development url to be?", prompt_color,
+                dev_url = ask "[?] What do you want the development url to be? This should end in `dev`.", prompt_color,
                     :default => "#{site}.dev"
 
                 ###
