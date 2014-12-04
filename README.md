@@ -27,8 +27,8 @@ Use this to create a new development site. It will automagically set up your ent
 tj create [<site-name>]
 ```
 
-#### Create a new development site without starter theme:
-Use this to create a new development site _without_ a starter theme. This should be used when working on non-new projects. You will go through the setup process and create the necessary files for the VM, including `vvv-hosts`, `vvv-nginx.conf`, and a fresh database. Site name is optional, as it will be asked for if not given.
+#### Setup an existing site:
+Use this to setup an existing local site installation within the VM. You will go through the setup process and create the necessary files for the VM, including `vvv-hosts`, `vvv-nginx.conf`, and a fresh database (unless one already exists by the name chosen). Site name is optional, as it will be asked for if not given.
 ```bash
 tj setup [<site-name>] # Alias for `tj create [<site-name>] --bare`
 ```

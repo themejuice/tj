@@ -90,12 +90,6 @@ module ThemeJuice
         ###
         # Install and setup VVV environment with new site
         #
-        # It will automagically set up your entire development environment, including
-        #   a local development site at `http://site.dev` with WordPress installed
-        #   and with a fresh WP database. It will also sync up your current site
-        #   folder with the site folder on the Vagrant VM. This task will also
-        #   install and configure Vagrant/VVV into your `~/` directory.
-        #
         # @param {String} site (nil)
         #   Name of the site to create
         # @param {Bool}   bare (false)
