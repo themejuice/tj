@@ -143,9 +143,11 @@ module ThemeJuice
             ###
             def list
                 sites = []
+                i = 0
 
-                Dir.glob(File.expand_path("~/vagrant/www/*")).each_with_index do |f, i|
+                Dir.glob(File.expand_path("~/vagrant/www/*")).each do |f|
                     if File.directory?(f) && f.include?("tj-")
+                        i += 1
                         # Get the site name
                         site = File.basename(f).gsub(/(tj-)/, "")
                         # Output site to cli

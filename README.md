@@ -54,7 +54,7 @@ tj watch # Alias for `bundle exec guard #{cmd}`
 #### Use for managing development environment: _(Vagrant)_
 Use this to easily manage your Vagrant development environment. This is simply a wrapper for Vagrant.
 ```bash
-tj vm # Alias for `cd ~/Vagrant && vagrant #{cmd}`
+tj vm # Alias for `cd ~/vagrant && vagrant #{cmd}`
 ```
 
 #### Use for managing vendor dependencies: _(Composer)_
