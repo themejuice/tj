@@ -76,7 +76,7 @@ module ThemeJuice
             self.install_dependencies
 
             # Set up ASCII font
-            f = ::Artii::Base.new :font => "rowancap"
+            f = ::Artii::Base.new font: "rowancap"
 
             # Output ASCII welcome message
             ::ThemeJuice::welcome ""
@@ -104,7 +104,7 @@ module ThemeJuice
         # @return {Void}
         ###
         desc "create [SITE]", "Setup SITE and Vagrant development environment"
-        method_option :bare, :type => :boolean, :desc => "Create a Vagrant site without starter theme"
+        method_option :bare, type: :boolean, desc: "Create a Vagrant site without starter theme"
         def create(site = nil, bare_setup = false)
             self.install_dependencies
 
@@ -112,7 +112,7 @@ module ThemeJuice
             # Welcome message
             ###
             # Set up ASCII font
-            f = ::Artii::Base.new :font => "rowancap"
+            f = ::Artii::Base.new font: "rowancap"
 
             # Output ASCII welcome message
             ::ThemeJuice::newline
@@ -155,16 +155,16 @@ module ThemeJuice
                 # Location of site installation
                 ###
                 site_location = ask "[?] Where do you want to setup the site?", prompt_color,
-                    :default => "#{Dir.pwd}/",
-                    :path => true
+                    default: "#{Dir.pwd}/",
+                    path: true
 
                 ###
                 # Starter theme to clone
                 ###
                 unless bare_setup
                     starter_theme = ask "[?] Which starter theme would you like to use?", prompt_color,
-                        :default => "ezekg/theme-juice-starter",
-                        :limited_to => [
+                        default: "ezekg/theme-juice-starter",
+                        limited_to: [
                             "ezekg/theme-juice-starter",
                             "other",
                             "none"
@@ -181,8 +181,8 @@ module ThemeJuice
                 ###
                 # Development url
                 ###
-                dev_url = ask "[?] What do you want the development url to be?", prompt_color,
-                    :default => "#{site}.dev"
+                dev_url = ask "[?] What do you want the development url to be? (this should end in `.dev`)", prompt_color,
+                    default: "#{site}.dev"
 
                 ###
                 # Initialize a git repository on setup
@@ -197,41 +197,41 @@ module ThemeJuice
                 # Database host
                 ###
                 db_host = ask "[?] Database host:", prompt_color,
-                    :default => "vvv"
+                    default: "vvv"
 
                 ###
                 # Database name
                 ###
                 db_name = ask "[?] Database name:", prompt_color,
-                    :default => "#{clean_site_name}_db"
+                    default: "#{clean_site_name}_db"
 
                 ###
                 # Database username
                 ###
                 db_user = ask "[?] Database username:", prompt_color,
-                    :default => "#{clean_site_name}_user"
+                    default: "#{clean_site_name}_user"
 
                 ###
                 # Database password
                 ###
                 db_pass = ask "[?] Database password:", prompt_color,
-                    :default => SecureRandom.base64
+                    default: SecureRandom.base64
 
                 ###
                 # Save options
                 ###
                 opts = {
-                    :site_name => site,
-                    :site_location => File.expand_path(site_location),
-                    :starter_theme => starter_theme,
-                    :bare_setup => bare_setup,
-                    :dev_location => File.expand_path("~/vagrant/www/dev-#{site}"),
-                    :dev_url => dev_url,
-                    :repository => repository,
-                    :db_host => db_host,
-                    :db_name => db_name,
-                    :db_user => db_user,
-                    :db_pass => db_pass,
+                    site_name: site,
+                    site_location: File.expand_path(site_location),
+                    starter_theme: starter_theme,
+                    bare_setup: bare_setup,
+                    dev_location: File.expand_path("~/vagrant/www/tj-#{site}"),
+                    dev_url: dev_url,
+                    repository: repository,
+                    db_host: db_host,
+                    db_name: db_name,
+                    db_user: db_user,
+                    db_pass: db_pass,
                 }
 
                 # Create the theme!
@@ -264,7 +264,7 @@ module ThemeJuice
         # @return {Void}
         ###
         desc "delete SITE", "Remove SITE from Vagrant development environment (does not remove local site)"
-        method_option :restart, :type => :boolean
+        method_option :restart, type: :boolean
         def delete(site)
             if yes? "[?] Are you sure you want to delete site `#{site}`? (y/N)", :blue
                 ::ThemeJuice::Scaffold::delete site, options[:restart]
@@ -282,33 +282,55 @@ module ThemeJuice
         end
 
         ###
-        # Watch and compile assets with Guard
+        # Guard
+        #
+        # @param {*} command
+        #   Commands to run
         #
         # @return {Void}
         ###
-        desc "watch", "Watch and compile assets with Guard"
-        method_option :plugin, :default => "all", :aliases => "-p", :desc => "Watch and compile specific plugin"
-        def watch
-            ::ThemeJuice::warning "Starting Guard..."
-            ::ThemeJuice::Plugins::Guard::send options[:plugin]
+        desc "watch [COMMAND]", "Watch and compile assets with Guard (alias for `bundle exec guard [COMMAND]`)"
+        def watch(*command)
+            system "bundle exec guard #{command.join(" ")}"
         end
 
         ###
         # Vagrant
+        #
+        # @param {*} command
+        #   Commands to run
+        #
+        # @return {Void}
         ###
-        desc "vm", "Manage virtual development environment with Vagrant"
-        subcommand "vm", ::ThemeJuice::Plugins::Vagrant
+        desc "vm [COMMAND]", "Manage virtual development environment with Vagrant (alias for `vagrant [COMMAND]`)"
+        def vm(*command)
+            system "cd ~/vagrant && vagrant #{command.join(" ")}"
+        end
 
         ###
         # Composer
+        #
+        # @param {*} command
+        #   Commands to run
+        #
+        # @return {Void}
         ###
-        desc "vendor", "Manage vendor dependencies with Composer"
-        subcommand "vendor", ::ThemeJuice::Plugins::Composer
+        desc "vendor [COMMAND]", "Manage vendor dependencies with Composer (alias for `composer [COMMAND]`)"
+        def vendor(*command)
+            system "composer #{command.join(" ")}"
+        end
 
         ###
-        # Mina
+        # Capistrano
+        #
+        # @param {*} command
+        #   Commands to run
+        #
+        # @return {Void}
         ###
-        desc "server", "Deploy site with Mina"
-        subcommand "server", ::ThemeJuice::Plugins::Mina
+        desc "server [COMMAND]", "Manage deployment and migration with Capistrano (alias for `bundle exec cap [COMMAND]`)"
+        def server(*command)
+            system "bundle exec cap #{command.join(" ")}"
+        end
     end
 end
