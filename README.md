@@ -1,5 +1,5 @@
 # Theme Juice
-Command line interface to scaffold out a new WordPress development environment and countless sites. Everybody loves one command setups, and deployments.
+Command line interface to scaffold out a new WordPress development environment and countless sites. Everybody loves one command setups, and `tj` even does deployments.
 
 ## Installation
 * First, install [Vagrant](https://www.vagrantup.com/) and [VirtualBox](https://www.virtualbox.org/) for local development.
