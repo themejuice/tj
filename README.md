@@ -22,7 +22,7 @@ tj init
 ```
 
 #### Create a new development site:
-Use this to create a new development site. It will automagically set up your entire development environment, including a local development site at `http://site.dev` with WordPress installed and a fresh WP database. It will also sync up your local site folder with the Vagrant VM. This task will also install and configure Vagrant/VVV into your `~/` directory if it is not already installed. Site name is optional, as it will be asked for if not given.
+Use this to create a new development site. It will automagically set up your entire development environment, including a local development site at `http://<sites-dev-url>.dev` with WordPress installed and a fresh WP database. It will sync up your local site installation with the Vagrant VM. This task will also install and configure Vagrant/VVV into your `~/` directory if it has not already been installed. Site name is optional, as it will be asked for if not given.
 ```bash
 tj create [<site-name>]
 ```
