@@ -268,7 +268,7 @@ module ThemeJuice
         desc "delete SITE", "Remove SITE from Vagrant development environment (does not remove local site)"
         method_option :restart, type: :boolean
         def delete(site)
-            if yes? "Are you sure you want to delete site `#{site}`? (y/N)", :blue
+            if yes? "Are you sure you want to delete `#{site}`? (y/N)", :red
                 ::ThemeJuice::Scaffold::delete site, options[:restart]
             end
         end

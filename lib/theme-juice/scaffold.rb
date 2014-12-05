@@ -121,7 +121,6 @@ module ThemeJuice
                 }
 
                 if dev_site_is_setup?
-                    ::ThemeJuice::warning "Removing site `#{@opts[:site_name]}`..."
                     remove_dev_site
                 else
                     ::ThemeJuice::error "Site `#{@opts[:site_name]}` does not exist."
@@ -472,9 +471,7 @@ module ThemeJuice
                 system [
                     "cd #{@opts[:site_location]}",
                     "git init",
-                    "git remote add origin #{@opts[:repository]}",
-                    "git add -A",
-                    "git commit -m 'initial commit'",
+                    "git remote add origin #{@opts[:repository]}"
                 ].join " && "
             end
 
@@ -484,8 +481,6 @@ module ThemeJuice
             # @return {Void}
             ###
             def remove_dev_site
-                ::ThemeJuice::warning "Removing VVV installation..."
-
                 if system "rm -rf #{@opts[:dev_location]}"
                     ::ThemeJuice::success "VVV installation for `#{@opts[:site_name]}` successfully removed."
                 else
@@ -499,8 +494,6 @@ module ThemeJuice
             # @return {Void}
             ###
             def remove_database
-                ::ThemeJuice::warning "Removing database for `#{@opts[:site_name]}`..."
-
                 if remove_traces_from_file "~/vagrant/database/init-custom.sql"
                     ::ThemeJuice::success "Database for `#{@opts[:site_name]}` successfully removed."
                 end
@@ -512,8 +505,6 @@ module ThemeJuice
             # @return {Void}
             ###
             def remove_synced_folder
-                ::ThemeJuice::warning "Removing synced folders for `#{@opts[:site_name]}`..."
-
                 if remove_traces_from_file "~/vagrant/Vagrantfile"
                     ::ThemeJuice::success "Synced folders for `#{@opts[:site_name]}` successfully removed."
                 end
