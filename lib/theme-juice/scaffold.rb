@@ -62,7 +62,7 @@ module ThemeJuice
                     setup_synced_folder
                 end
 
-                if @opts[:repository] != "none"
+                if @opts[:repository]
                     setup_repo
                 end
 

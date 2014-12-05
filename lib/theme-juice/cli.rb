@@ -184,7 +184,7 @@ module ThemeJuice
                 if yes? "[?] Would you like to initialize a new Git repository? (y/N)", prompt_color
                     repository = ask "[?] Repository URL:", prompt_color
                 else
-                    repository = "none"
+                    repository = false
                 end
 
                 ###
