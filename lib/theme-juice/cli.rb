@@ -175,13 +175,13 @@ module ThemeJuice
                 ###
                 # Development url
                 ###
-                dev_url = ask "[?] What do you want the development url to be? (this should end in `.dev`)", prompt_color,
+                dev_url = ask "[?] What do you want the development url to be? (this should end in `.dev`):", prompt_color,
                     default: "#{site}.dev"
 
                 ###
                 # Initialize a git repository on setup
                 ###
-                if yes? "[?] Would you like to initialize a new Git repository? (y/N)", prompt_color
+                if yes? "[?] Would you like to initialize a new Git repository? (y/N):", prompt_color
                     repository = ask "[?] Repository URL:", prompt_color
                 else
                     repository = false
