@@ -105,9 +105,6 @@ module ThemeJuice
             ###
             # Welcome message
             ###
-            # f = ::Artii::Base.new font: "rowancap"
-            # ::ThemeJuice::welcome f.asciify("theme"), "green"
-            # ::ThemeJuice::welcome f.asciify("juice"), "green"
 
             # Get WP logo ASCII art
             logo = File.read(File.expand_path("../ascii/logo.txt", __FILE__))

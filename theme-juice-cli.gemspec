@@ -35,6 +35,5 @@ Gem::Specification.new do |spec|
     # Dependencies
     spec.add_dependency "thor"
     spec.add_dependency "highline"
-    spec.add_dependency "artii"
     spec.add_dependency "colorize"
 end

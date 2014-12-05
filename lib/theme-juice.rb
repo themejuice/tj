@@ -8,7 +8,6 @@ require "tempfile"
 ###
 require "thor"
 require "highline/import"
-require "artii"
 require "colorize"
 
 ###
