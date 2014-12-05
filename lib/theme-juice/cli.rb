@@ -105,7 +105,6 @@ module ThemeJuice
             ###
             # Welcome message
             ###
-            # Set up ASCII font
             f = ::Artii::Base.new font: "rowancap"
 
             # Output ASCII welcome message
@@ -131,7 +130,7 @@ module ThemeJuice
             prompt_color = :blue
 
             # Ask for the Site name if not passed directly
-            site ||= ask "[?] What's the site name? Only ascii characters are allowed :", prompt_color
+            site ||= ask "What's the site name? Only ascii characters are allowed :", prompt_color
 
             if site.match /[^0-9A-Za-z.\-]/
                 ::ThemeJuice::error "Site name contains invalid non-ascii characters. This name is used for creating directories, so that's not gonna work. Aborting mission."
@@ -148,7 +147,7 @@ module ThemeJuice
                 ###
                 # Location of site installation
                 ###
-                site_location = ask "[?] Where do you want to setup the site? :", prompt_color,
+                site_location = ask "Where do you want to setup the site? :", prompt_color,
                     default: "#{Dir.pwd}/",
                     path: true
 
@@ -156,33 +155,40 @@ module ThemeJuice
                 # Starter theme to clone
                 ###
                 unless bare_setup
-                    starter_theme = ask "[?] Which starter theme would you like to use? :", prompt_color,
-                        default: "ezekg/theme-juice-starter",
-                        limited_to: [
-                            "ezekg/theme-juice-starter",
-                            "other",
-                            "none"
-                        ]
-                    case starter_theme
-                    when "other"
-                        starter_theme = ask "[?] What is the user/repository of the starter theme you would like to clone? :", prompt_color
-                    when "none"
-                        ::ThemeJuice::warning "Next time you want to create a site without a starter theme, you can just run the `setup` command instead."
-                        bare_setup = true
+                    starter_theme = nil
+                    ThemeJuice::message "Which starter theme would you like to use? :", prompt_color
+                    HighLine::choose do |menu|
+                        menu.choice "ezekg/theme-juice-starter" do |c|
+                            ThemeJuice::success "Awesome choice!"
+                            starter_theme = c
+                        end
+                        menu.choice "other" do
+                            starter_theme = ask "What is the user/repository of the starter theme you would like to clone? :", prompt_color
+                        end
+                        menu.choice "none" do |c|
+                            ::ThemeJuice::warning "Next time you want to create a site without a starter theme, you can just run the `setup` command instead."
+                            starter_theme = c
+                            bare_setup = true
+                        end
                     end
                 end
 
                 ###
                 # Development url
                 ###
-                dev_url = ask "[?] What do you want the development url to be? (this should end in `.dev`) :", prompt_color,
+                dev_url = ask "What do you want the development url to be? (this should end in `.dev`) :", prompt_color,
                     default: "#{site}.dev"
+
+                unless dev_url.match /(.dev)$/
+                    ::ThemeJuice::error "Your development url doesn't end with `.dev`. This is used within Vagrant, so that's not gonna work. Aborting mission."
+                    exit 1
+                end
 
                 ###
                 # Initialize a git repository on setup
                 ###
-                if yes? "[?] Would you like to initialize a new Git repository? (y/N) :", prompt_color
-                    repository = ask "[?] Repository URL :", prompt_color
+                if yes? "Would you like to initialize a new Git repository? (y/N) :", prompt_color
+                    repository = ask "Repository URL :", prompt_color
                 else
                     repository = false
                 end
@@ -190,25 +196,25 @@ module ThemeJuice
                 ###
                 # Database host
                 ###
-                db_host = ask "[?] Database host :", prompt_color,
+                db_host = ask "Database host :", prompt_color,
                     default: "vvv"
 
                 ###
                 # Database name
                 ###
-                db_name = ask "[?] Database name :", prompt_color,
+                db_name = ask "Database name :", prompt_color,
                     default: "#{clean_site_name}_db"
 
                 ###
                 # Database username
                 ###
-                db_user = ask "[?] Database username :", prompt_color,
+                db_user = ask "Database username :", prompt_color,
                     default: "#{clean_site_name}_user"
 
                 ###
                 # Database password
                 ###
-                db_pass = ask "[?] Database password :", prompt_color,
+                db_pass = ask "Database password :", prompt_color,
                     default: SecureRandom.base64
 
                 ###
@@ -260,7 +266,7 @@ module ThemeJuice
         desc "delete SITE", "Remove SITE from Vagrant development environment (does not remove local site)"
         method_option :restart, type: :boolean
         def delete(site)
-            if yes? "[?] Are you sure you want to delete site `#{site}`? (y/N)", :blue
+            if yes? "Are you sure you want to delete site `#{site}`? (y/N)", :blue
                 ::ThemeJuice::Scaffold::delete site, options[:restart]
             end
         end

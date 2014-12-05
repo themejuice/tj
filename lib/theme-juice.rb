@@ -6,9 +6,10 @@ require "tempfile"
 ###
 # Gems
 ###
-require "colorize"
-require "artii"
 require "thor"
+require "highline/import"
+require "artii"
+require "colorize"
 
 ###
 # Theme Juice
@@ -43,12 +44,12 @@ module ThemeJuice
         #
         # @param {String} message
         # @param {String} color  (white)
-        # @param {String} prefix (!)
+        # @param {String} prefix (nil)
         #
         # @return {Void}
         ###
-        def message(message, color = "white", prefix = "!")
-            puts "[#{prefix}] #{message}".send "#{color}"
+        def message(message, color = "white", prefix = nil)
+            puts "#{prefix}#{message}".send "#{color}"
         end
 
         ###
@@ -90,7 +91,7 @@ module ThemeJuice
         # @return {Void}
         ###
         def error(message)
-            message message, "red", "x"
+            message message, "red"
         end
 
         ###
@@ -102,7 +103,7 @@ module ThemeJuice
         # @return {Void}
         ###
         def list(item, index)
-            message item, "cyan", "#{index}"
+            message item, "cyan", "#{index}. "
         end
 
         ###
