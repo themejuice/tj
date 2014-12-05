@@ -48,7 +48,7 @@ module ThemeJuice
         #
         # @return {Void}
         ###
-        def message(message, color = "white", prefix = nil)
+        def message(message, color = :white, prefix = nil)
             puts "#{prefix}#{message}".send "#{color}"
         end
 
@@ -69,7 +69,7 @@ module ThemeJuice
         # @return {Void}
         ###
         def success(message)
-            message message, "green"
+            message message, :green
         end
 
         ###
@@ -80,7 +80,7 @@ module ThemeJuice
         # @return {Void}
         ###
         def warning(message)
-            message message, "yellow"
+            message message, :yellow
         end
 
         ###
@@ -91,7 +91,7 @@ module ThemeJuice
         # @return {Void}
         ###
         def error(message)
-            message message, "red"
+            message message, :red
         end
 
         ###
@@ -103,7 +103,7 @@ module ThemeJuice
         # @return {Void}
         ###
         def list(item, index)
-            message item, "cyan", "#{index}. "
+            message item, :cyan, "#{index}. "
         end
 
         ###
