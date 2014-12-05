@@ -109,9 +109,10 @@ module ThemeJuice
             # ::ThemeJuice::welcome f.asciify("theme"), "green"
             # ::ThemeJuice::welcome f.asciify("juice"), "green"
 
-            logo = File.read(File.expand_path("../logo/logo.txt", __FILE__))
+            # Get WP logo ASCII art
+            logo = File.read(File.expand_path("../ascii/logo.txt", __FILE__))
 
-            # Output ASCII welcome message
+            # Output welcome message
             ::ThemeJuice::newline
             ::ThemeJuice::welcome logo.gsub(/[m]/) { |c| c.send(:green) }.gsub(/[\+\/\-\`\:\.\~dyhos]/) { |c| c.send(:yellow) }
             ::ThemeJuice::newline
@@ -124,7 +125,7 @@ module ThemeJuice
             if site.nil?
                 ::ThemeJuice::warning "Just a few questions before we begin..."
             else
-                ::ThemeJuice::warning "Just a few more questions before we begin..."
+                ::ThemeJuice::warning "Your site name shall be #{site}! Just a few more questions before we begin..."
             end
 
             # Color of prompts

@@ -67,11 +67,23 @@ module ThemeJuice
                 end
 
                 if setup_was_successful?
-                    ::ThemeJuice::success "Setup successful!"
                     ::ThemeJuice::warning "Restarting VVV..."
 
                     if restart_vagrant
                         prompt_color = :green
+
+                        # Get smiley ASCII art
+                        success = File.read(File.expand_path("../ascii/smiley.txt", __FILE__))
+
+                        # Output success message
+                        ::ThemeJuice::newline
+                        ::ThemeJuice::welcome success.send(:yellow)
+                        ::ThemeJuice::newline
+                        ::ThemeJuice::welcome "Success!".center(48), :green
+                        ::ThemeJuice::newline
+
+                        # Output setup info
+                        ::ThemeJuice::warning "Here's your installation info:"
                         ::ThemeJuice::message "Site name: #{@opts[:site_name]}", prompt_color
                         ::ThemeJuice::message "Site location: #{@opts[:site_location]}", prompt_color
                         ::ThemeJuice::message "Starter theme: #{@opts[:starter_theme]}", prompt_color
