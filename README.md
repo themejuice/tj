@@ -10,13 +10,13 @@ That's it!
 ## Usage
 
 #### List available commands:
-List all development sites created by `tj`.
+List all commands for `tj`.
 ```bash
 tj
 ```
 
-#### Setup VVV: _(This is automatically run when you create your first site)_
-This command will setup VVV _only_, it will not prompt you to create a site.
+#### Setup VVV:
+This command will setup VVV _only_, it will not prompt you to create a site. _This is automatically run when you create your first site_
 ```bash
 tj init
 ```
@@ -46,25 +46,25 @@ tj list
 ```
 
 #### Watch and compile assets: _(Guard)_
-Use this to watch and compile assets with [Guard](https://github.com/guard/guard). This is simply a wrapper for Guard.
+Use this to watch and compile assets with [Guard](https://github.com/guard/guard). This is simply a wrapper for Guard commands.
 ```bash
 tj watch # Alias for `bundle exec guard #{cmd}`
 ```
 
 #### Use for managing development environment: _(Vagrant)_
-Use this to easily manage your Vagrant development environment. This is simply a wrapper for Vagrant.
+Use this to easily manage your [Varying Vagrant Vagrants](https://github.com/Varying-Vagrant-Vagrants/VVV) development environment. This is simply a wrapper for Vagrant commands.
 ```bash
 tj vm # Alias for `cd ~/vagrant && vagrant #{cmd}`
 ```
 
 #### Use for managing vendor dependencies: _(Composer)_
-Use this to easily manage your Composer dependencies. This is simply a wrapper for Composer.
+Use this to easily manage your [Composer](https://github.com/composer/composer) dependencies. This is simply a wrapper for Composer commands.
 ```bash
 tj vendor # Alias for `composer #{cmd}`
 ```
 
 #### Use for managing deployment and migration: _(Capistrano)_
-Use this to easily manage your deployment and migration with Capistrano. This is simply a wrapper for Capistrano.
+Use this to easily manage your deployment and migration with [Capistrano](https://github.com/capistrano/capistrano). This is simply a wrapper for Capistrano commands.
 ```bash
 tj server # Alias for `bundle exec cap #{cmd}`
 ```
