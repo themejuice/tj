@@ -16,7 +16,7 @@ tj
 ```
 
 #### Setup VVV:
-This command will setup VVV _only_, it will not prompt you to create a site. _This is automatically run when you create your first site_
+This command will setup [Varying Vagrant Vagrants](https://github.com/Varying-Vagrant-Vagrants/VVV) _only_, it will not prompt you to create a site. _This is automatically run when you create your first site_
 ```bash
 tj init
 ```
