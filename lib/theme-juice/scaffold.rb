@@ -71,7 +71,7 @@ module ThemeJuice
                     ::ThemeJuice::warning "Restarting VVV..."
 
                     if restart_vagrant
-                        prompt_color = "blue"
+                        prompt_color = :green
                         ::ThemeJuice::message "Site name: #{@opts[:site_name]}", prompt_color
                         ::ThemeJuice::message "Site location: #{@opts[:site_location]}", prompt_color
                         ::ThemeJuice::message "Starter theme: #{@opts[:starter_theme]}", prompt_color
@@ -220,7 +220,7 @@ module ThemeJuice
             # @return {Bool}
             ###
             def database_is_setup?
-                File.readlines(File.expand_path "~/vagrant/database/init-custom.sql").grep(/(### Begin `#{@opts[:site_name]}`)/m).any?
+                File.readlines(File.expand_path("~/vagrant/database/init-custom.sql")).grep(/(### Begin `#{@opts[:site_name]}`)/m).any?
             end
 
             ###

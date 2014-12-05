@@ -105,16 +105,17 @@ module ThemeJuice
             ###
             # Welcome message
             ###
-            f = ::Artii::Base.new font: "rowancap"
+            # f = ::Artii::Base.new font: "rowancap"
+            # ::ThemeJuice::welcome f.asciify("theme"), "green"
+            # ::ThemeJuice::welcome f.asciify("juice"), "green"
+
+            logo = File.read(File.expand_path("../logo/logo.txt", __FILE__))
 
             # Output ASCII welcome message
             ::ThemeJuice::newline
-            ::ThemeJuice::welcome f.asciify("theme"), "green"
-            ::ThemeJuice::welcome f.asciify("juice"), "green"
-            ::ThemeJuice::welcome "Welcome to Theme Juice! Don't worry about copying any of your settings right now. All "\
-            "your information will be provided to you after the setup is complete. If this is your very first "\
-            "setup, it will take around 20 minutes to setup the VM. So, grab some coffee, maybe a good book "\
-            "and sit back and watch the magic unfold.", "green"
+            ::ThemeJuice::welcome logo.gsub(/[m]/) { |c| c.send(:green) }.gsub(/[\+\/\-\`\:\.\~dyhos]/) { |c| c.send(:yellow) }
+            ::ThemeJuice::newline
+            ::ThemeJuice::welcome "Welcome to Theme Juice!".center(60), :green
             ::ThemeJuice::newline
 
             ###
@@ -127,10 +128,10 @@ module ThemeJuice
             end
 
             # Color of prompts
-            prompt_color = :blue
+            prompt_color = :green
 
             # Ask for the Site name if not passed directly
-            site ||= ask "What's the site name? Only ascii characters are allowed :", prompt_color
+            site ||= ask "What's the site name? (only ascii characters are allowed) :", prompt_color
 
             if site.match /[^0-9A-Za-z.\-]/
                 ::ThemeJuice::error "Site name contains invalid non-ascii characters. This name is used for creating directories, so that's not gonna work. Aborting mission."
