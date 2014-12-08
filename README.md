@@ -3,7 +3,7 @@ Command line interface to scaffold out a new WordPress development environment a
 
 ## Installation
 * First, install [Vagrant](https://www.vagrantup.com/) and [VirtualBox](https://www.virtualbox.org/) for local development.
-* Then, install [Composer](https://getcomposer.org/) and [WP-CLI](http://wp-cli.org/). _Make sure that these are executable from the command line._
+* Then, install [Composer](https://getcomposer.org/) and [WP-CLI](http://wp-cli.org/) (make sure they're executable).
 * Finally, you can run: '$ gem install theme-juice-cli'
 
 That's it!
