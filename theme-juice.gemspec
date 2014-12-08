@@ -6,8 +6,8 @@ Gem::Specification.new do |spec|
     spec.version = ThemeJuice::VERSION
 
     # Details
-    spec.name = "theme-juice-cli"
-    spec.rubyforge_project = "theme-juice-cli"
+    spec.name = "theme-juice"
+    spec.rubyforge_project = "theme-juice"
     spec.licenses = "MIT"
     spec.authors = ["Ezekiel Gabrielse"]
     spec.email = ["ezekg@yahoo.com"]
@@ -35,5 +35,4 @@ Gem::Specification.new do |spec|
     # Dependencies
     spec.add_dependency "thor"
     spec.add_dependency "highline"
-    spec.add_dependency "colorize"
 end

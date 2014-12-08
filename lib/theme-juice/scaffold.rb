@@ -1,6 +1,8 @@
 module ThemeJuice
     module Scaffold
         class << self
+            include ::Thor::Actions
+            include ::Thor::Shell
 
             ###
             # Set up local development environment
@@ -8,13 +10,12 @@ module ThemeJuice
             # @return {Void}
             ###
             def init
-                ::ThemeJuice::warning "Initializing development environment..."
+                say "Initializing development environment...", :yellow
 
                 if vvv_is_setup?
-                    ::ThemeJuice::error "Development environment is already set up. Aborting mission."
+                    say "Development environment is already set up. Aborting mission.", :red
                 else
-                    setup_vvv
-                    ::ThemeJuice::success "Setup successful!"
+                    say "Setup successful!", :green if setup_vvv
                 end
             end
 
@@ -28,7 +29,7 @@ module ThemeJuice
             def create(opts)
                 @opts = opts
 
-                ::ThemeJuice::warning "Running setup for `#{@opts[:site_name]}`..."
+                say "Running setup for '#{@opts[:site_name]}'...", :yellow
 
                 unless wordpress_is_setup?
                     setup_wordpress
@@ -67,36 +68,35 @@ module ThemeJuice
                 end
 
                 if setup_was_successful?
-                    ::ThemeJuice::warning "Restarting VVV..."
+                    say "Restarting VVV...", :yellow
 
                     if restart_vagrant
-                        prompt_color = :green
 
                         # Get smiley ASCII art
                         success = File.read(File.expand_path("../ascii/smiley.txt", __FILE__))
 
-                        # Output success message
-                        ::ThemeJuice::newline
-                        ::ThemeJuice::welcome success.send(:yellow)
-                        ::ThemeJuice::newline
-                        ::ThemeJuice::welcome "Success!".center(48), :green
-                        ::ThemeJuice::newline
+                        # Output welcome message
+                        say "\n"
+                        say set_color(success, :yellow)
+                        say "\n"
+                        say "Success!".center(48), :green
+                        say "\n"
 
                         # Output setup info
-                        ::ThemeJuice::warning "Here's your installation info:"
-                        ::ThemeJuice::message "Site name: #{@opts[:site_name]}", prompt_color
-                        ::ThemeJuice::message "Site location: #{@opts[:site_location]}", prompt_color
-                        ::ThemeJuice::message "Starter theme: #{@opts[:starter_theme]}", prompt_color
-                        ::ThemeJuice::message "Development location: #{@opts[:dev_location]}", prompt_color
-                        ::ThemeJuice::message "Development url: http://#{@opts[:dev_url]}", prompt_color
-                        ::ThemeJuice::message "Initialized repository: #{@opts[:repository]}", prompt_color
-                        ::ThemeJuice::message "Database host: #{@opts[:db_host]}", prompt_color
-                        ::ThemeJuice::message "Database name: #{@opts[:db_name]}", prompt_color
-                        ::ThemeJuice::message "Database username: #{@opts[:db_user]}", prompt_color
-                        ::ThemeJuice::message "Database password: #{@opts[:db_pass]}", prompt_color
+                        say "Here's your installation info:", :yellow
+                        say "Site name: #{@opts[:site_name]}", :green
+                        say "Site location: #{@opts[:site_location]}", :green
+                        say "Starter theme: #{@opts[:starter_theme]}", :green
+                        say "Development location: #{@opts[:dev_location]}", :green
+                        say "Development url: http://#{@opts[:dev_url]}", :green
+                        say "Initialized repository: #{@opts[:repository]}", :green
+                        say "Database host: #{@opts[:db_host]}", :green
+                        say "Database name: #{@opts[:db_name]}", :green
+                        say "Database username: #{@opts[:db_user]}", :green
+                        say "Database password: #{@opts[:db_pass]}", :green
                     end
                 else
-                    ::ThemeJuice::error "Setup failed. Running cleanup..."
+                    say "Setup failed. Running cleanup...", :red
                     delete @opts[:site_name], false
                 end
             end
@@ -123,7 +123,7 @@ module ThemeJuice
                 if dev_site_is_setup?
                     remove_dev_site
                 else
-                    ::ThemeJuice::error "Site `#{@opts[:site_name]}` does not exist."
+                    say "Site '#{@opts[:site_name]}' does not exist.", :red
                     exit 1
                 end
 
@@ -136,14 +136,14 @@ module ThemeJuice
                 end
 
                 if removal_was_successful?
-                    ::ThemeJuice::success "Site `#{@opts[:site_name]}` successfully removed!"
+                    say "Site '#{@opts[:site_name]}' successfully removed!", :green
 
-                    unless restart.nil?
-                        ::ThemeJuice::warning "Restarting VVV..."
+                    unless restart
+                        say "Restarting VVV...", :yellow
                         restart_vagrant
                     end
                 else
-                    ::ThemeJuice::error "Site `#{@opts[:site_name]}` could not be fully be removed."
+                    say "Site '#{@opts[:site_name]}' could not be fully be removed.", :red
                 end
             end
 
@@ -154,21 +154,18 @@ module ThemeJuice
             ###
             def list
                 sites = []
-                i = 0
 
                 Dir.glob(File.expand_path("~/vagrant/www/*")).each do |f|
-                    if File.directory?(f) && f.include?("tj-")
-                        i += 1
-                        # Get the site name
-                        site = File.basename(f).gsub(/(tj-)/, "")
-                        # Output site to cli
-                        ::ThemeJuice::list site, i
-                        # Save site to sites arr
-                        sites << site
-                    end
+                    sites << File.basename(f).gsub(/(tj-)/, "") if File.directory?(f) && f.include?("tj-")
                 end
 
-                ::ThemeJuice::warning "Nothing to list. Create a new site!" if sites.empty?
+                if sites.empty?
+                    say "Nothing to list. Create a new site!", :yellow
+                else
+                    i = 0
+                    # Output site to cli
+                    sites.each { |site| i += 1; say "#{i}) #{site}", :green }
+                end
 
                 sites
             end
@@ -179,8 +176,8 @@ module ThemeJuice
             # Restart Vagrant
             #
             # @note
-            # Normally a simple `vagrant reload` would work, but Landrush requires a
-            #   `vagrant up` to be fired for it to set up the DNS correctly.
+            # Normally a simple 'vagrant reload' would work, but Landrush requires a
+            #   'vagrant up' to be fired for it to set up the DNS correctly.
             #
             # @return {Void}
             ###
@@ -231,7 +228,7 @@ module ThemeJuice
             # @return {Bool}
             ###
             def database_is_setup?
-                File.readlines(File.expand_path("~/vagrant/database/init-custom.sql")).grep(/(### Begin `#{@opts[:site_name]}`)/m).any?
+                File.readlines(File.expand_path("~/vagrant/database/init-custom.sql")).grep(/(### Begin '#{@opts[:site_name]}')/m).any?
             end
 
             ###
@@ -252,7 +249,7 @@ module ThemeJuice
             # @return {Bool}
             ###
             def synced_folder_is_setup?
-                File.readlines(File.expand_path "~/vagrant/Vagrantfile").grep(/(### Begin `#{@opts[:site_name]}`)/m).any?
+                File.readlines(File.expand_path("~/vagrant/Vagrantfile")).grep(/(### Begin '#{@opts[:site_name]}')/m).any?
             end
 
             ###
@@ -275,12 +272,13 @@ module ThemeJuice
             # @return {Void}
             ###
             def setup_vvv
-                ::ThemeJuice::warning "Installing VVV into `#{File.expand_path "~/vagrant"}`."
+                say "Installing VVV into '#{File.expand_path("~/vagrant")}'.", :yellow
                 system [
                     "vagrant plugin install vagrant-hostsupdater",
                     "vagrant plugin install vagrant-triggers",
                     "vagrant plugin install landrush",
                     "git clone https://github.com/Varying-Vagrant-Vagrants/VVV.git ~/vagrant",
+                    "cd ~/vagrant/database && touch init-custom.sql"
                 ].join " && "
 
                 setup_wildcard_subdomains
@@ -295,7 +293,7 @@ module ThemeJuice
             # @return {Void}
             ###
             def setup_wildcard_subdomains
-                ::ThemeJuice::warning "Setting up wildcard subdomains..."
+                say "Setting up wildcard subdomains...", :yellow
                 open File.expand_path("~/vagrant/Vagrantfile"), "a+" do |file|
                     file.puts "###"
                     file.puts "# Enable wildcard subdomains"
@@ -316,7 +314,7 @@ module ThemeJuice
             # @return {Void}
             ###
             def setup_dev_site
-                ::ThemeJuice::warning "Setting up new development site at `#{@opts[:dev_location]}`."
+                say "Setting up new development site at '#{@opts[:dev_location]}'.", :yellow
                 system [
                     "cd ~/vagrant/www",
                     "mkdir tj-#{@opts[:site_name]}"
@@ -334,9 +332,9 @@ module ThemeJuice
                 end
 
                 if hosts_is_setup?
-                    ::ThemeJuice::success "Successfully added `vvv-hosts` file."
+                    say "Successfully added 'vvv-hosts' file.", :green
                 else
-                    ::ThemeJuice::error "Could not create `vvv-hosts` file."
+                    say "Could not create 'vvv-hosts' file.", :red
                 end
             end
 
@@ -347,20 +345,20 @@ module ThemeJuice
             ###
             def setup_database
                 File.open File.expand_path("~/vagrant/database/init-custom.sql"), "a+" do |file|
-                    file.puts "### Begin `#{@opts[:site_name]}`"
+                    file.puts "### Begin '#{@opts[:site_name]}'"
                     file.puts "#"
                     file.puts "# This block is automatically generated by ThemeJuice. Do not edit."
                     file.puts "###"
                     file.puts "CREATE DATABASE IF NOT EXISTS `#{@opts[:db_name]}`;"
                     file.puts "GRANT ALL PRIVILEGES ON `#{@opts[:db_name]}`.* TO '#{@opts[:db_user]}'@'localhost' IDENTIFIED BY '#{@opts[:db_pass]}';"
-                    file.puts "### End `#{@opts[:site_name]}`"
+                    file.puts "### End '#{@opts[:site_name]}'"
                     file.puts "\n"
                 end
 
                 if database_is_setup?
-                    ::ThemeJuice::success "Successfully added database to `init-custom.sql`."
+                    say "Successfully added database to 'init-custom.sql'.", :green
                 else
-                    ::ThemeJuice::error "Could not add database info for `#{@opts[:site_name]}` to `init-custom.sql`."
+                    say "Could not add database info for '#{@opts[:site_name]}' to 'init-custom.sql'.", :red
                 end
             end
 
@@ -380,9 +378,9 @@ module ThemeJuice
                 end
 
                 if nginx_is_setup?
-                    ::ThemeJuice::success "Successfully added `vvv-nginx.conf` file."
+                    say "Successfully added 'vvv-nginx.conf' file.", :green
                 else
-                    ::ThemeJuice::error "Could not create `vvv-nginx.conf` file."
+                    say "Could not create 'vvv-nginx.conf' file.", :red
                 end
             end
 
@@ -402,9 +400,9 @@ module ThemeJuice
                 end
 
                 if env_is_setup?
-                    ::ThemeJuice::success "Successfully added `.env.development` file."
+                    say "Successfully added '.env.development' file.", :green
                 else
-                    ::ThemeJuice::error "Could not create `.env.development` file."
+                    say "Could not create '.env.development' file.", :red
                 end
             end
 
@@ -416,7 +414,7 @@ module ThemeJuice
             # @return {Void}
             ###
             def setup_wordpress
-                ::ThemeJuice::warning "Setting up WordPress..."
+                say "Setting up WordPress...", :yellow
 
                 if @opts[:bare_setup]
                     # Create theme dir
@@ -437,10 +435,10 @@ module ThemeJuice
             # @return {Void}
             ###
             def setup_synced_folder
-                ::ThemeJuice::warning "Syncing host theme directory `#{@opts[:site_location]}` with VM theme directory `/srv/www/tj-#{@opts[:site_name]}`..."
+                say "Syncing host theme directory '#{@opts[:site_location]}' with VM theme directory '/srv/www/tj-#{@opts[:site_name]}'...", :yellow
 
                 open File.expand_path("~/vagrant/Vagrantfile"), "a+" do |file|
-                    file.puts "### Begin `#{@opts[:site_name]}`"
+                    file.puts "### Begin '#{@opts[:site_name]}'"
                     file.puts "#"
                     file.puts "# This block is automatically generated by ThemeJuice. Do not edit."
                     file.puts "###"
@@ -448,7 +446,7 @@ module ThemeJuice
                     file.puts "\tconfig.vm.synced_folder '#{@opts[:site_location]}', '/srv/www/tj-#{@opts[:site_name]}', mount_options: ['dmode=777,fmode=777']"
                     file.puts "\tconfig.landrush.host '#{@opts[:dev_url]}', '192.168.50.4'"
                     file.puts "end"
-                    file.puts "### End `#{@opts[:site_name]}`"
+                    file.puts "### End '#{@opts[:site_name]}'"
                     file.puts "\n"
                 end
             end
@@ -459,7 +457,7 @@ module ThemeJuice
             # @return {Void}
             ###
             def setup_repo
-                ::ThemeJuice::warning "Setting up Git repository at `#{@opts[:repository]}`..."
+                say "Setting up Git repository at '#{@opts[:repository]}'...", :yellow
 
                 if repo_is_setup?
                     system [
@@ -482,9 +480,9 @@ module ThemeJuice
             ###
             def remove_dev_site
                 if system "rm -rf #{@opts[:dev_location]}"
-                    ::ThemeJuice::success "VVV installation for `#{@opts[:site_name]}` successfully removed."
+                    say "VVV installation for '#{@opts[:site_name]}' successfully removed.", :green
                 else
-                    ::ThemeJuice::error "Theme `#{@opts[:site_name]}` could not be removed. Make sure you have write capabilities."
+                    say "Theme '#{@opts[:site_name]}' could not be removed. Make sure you have write capabilities.", :red
                 end
             end
 
@@ -495,7 +493,7 @@ module ThemeJuice
             ###
             def remove_database
                 if remove_traces_from_file "~/vagrant/database/init-custom.sql"
-                    ::ThemeJuice::success "Database for `#{@opts[:site_name]}` successfully removed."
+                    say "Database for '#{@opts[:site_name]}' successfully removed.", :green
                 end
             end
 
@@ -506,7 +504,7 @@ module ThemeJuice
             ###
             def remove_synced_folder
                 if remove_traces_from_file "~/vagrant/Vagrantfile"
-                    ::ThemeJuice::success "Synced folders for `#{@opts[:site_name]}` successfully removed."
+                    say "Synced folders for '#{@opts[:site_name]}' successfully removed.", :green
                 end
             end
 
@@ -524,12 +522,12 @@ module ThemeJuice
                     # Copy over contents of actual file to tempfile
                     open File.expand_path(input_file), "rb" do |file|
                         # Remove traces of theme from contents
-                        output_file.write "#{file.read}".gsub(/(### Begin `#{@opts[:site_name]}`)(.*?)(### End `#{@opts[:site_name]}`)\n+/m, "")
+                        output_file.write "#{file.read}".gsub(/(### Begin '#{@opts[:site_name]}')(.*?)(### End '#{@opts[:site_name]}')\n+/m, "")
                     end
                     # Move temp file to actual file location
                     FileUtils.mv output_file, File.expand_path(input_file)
                 rescue LoadError => err
-                    ::ThemeJuice::error err
+                    say err, :red
                     exit 1
                 ensure
                     # Make sure that the tempfile closes and is cleaned up, regardless of errors

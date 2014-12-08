@@ -1,10 +1,5 @@
 module ThemeJuice
-
-    ###
-    # CLI interface to run subcommands from
-    ###
     class CLI < ::Thor
-        include ::Thor::Actions
 
         ###
         # Non Thor commands
@@ -12,57 +7,21 @@ module ThemeJuice
         no_commands do
 
             ###
-            # Make sure all dependencies are installed and globally executable.
-            #   Will prompt for install if available.
+            # Welcome message
             #
             # @return {Void}
             ###
-            def install_dependencies
+            def welcome
 
-                ###
-                # Vagrant
-                ###
-                unless ::ThemeJuice::installed? "vagrant"
-                    ::ThemeJuice::error "Vagrant doesn't seem to be installed. Download Vagrant and VirtualBox before running this task. See README for more information."
-                    exit 1
-                end
+              # Get WP logo ASCII art
+              logo = File.read(File.expand_path("../ascii/logo.txt", __FILE__))
 
-                ###
-                # Composer
-                ###
-                unless ::ThemeJuice::installed? "composer"
-                    ::ThemeJuice::error "Composer doesn't seem to be installed, or is not globally executable."
-                    if yes? "Do you want to globally install it? (y/N)", :blue
-                        ::ThemeJuice::warning "Installing Composer..."
-                        ::ThemeJuice::warning "This task uses `sudo` to move the installed `composer.phar` into your `/usr/local/bin` so that it will be globally executable."
-                        run [
-                            "curl -sS https://getcomposer.org/installer | php",
-                            "sudo mv composer.phar /usr/local/bin/composer"
-                        ].join " && "
-                    else
-                        ::ThemeJuice::warning "To proceed, install Composer manually and make sure it is globally executable."
-                        exit 1
-                    end
-                end
-
-                ###
-                # WP-CLI
-                ###
-                unless ::ThemeJuice::installed? "wp"
-                    ::ThemeJuice::error "WP-CLI doesn't seem to be installed, or is not globally executable."
-                    if yes? "Do you want to globally install it? (y/N)", :blue
-                        ::ThemeJuice::warning "Installing WP-CLI..."
-                        ::ThemeJuice::warning "This task uses `sudo` to move the installed `wp-cli.phar` into your `/usr/local/bin` so that it will be globally executable."
-                        run [
-                            "curl -O https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar",
-                            "chmod +x wp-cli.phar",
-                            "sudo mv wp-cli.phar /usr/local/bin/wp"
-                        ].join " && "
-                    else
-                        ::ThemeJuice::warning "To proceed, install WP-CLI manually and make sure it is globally executable."
-                        exit 1
-                    end
-                end
+              # Output welcome message
+              say "\n"
+              say logo.gsub(/[m]/) { |char| set_color(char, :green) }.gsub(/[\+\/\-\'\:\.\~dyhos]/) { |char| set_color(char, :yellow) }
+              say "\n"
+              say "Welcome to Theme Juice!".center(60), :green
+              say "\n\n"
             end
         end
 
@@ -71,19 +30,11 @@ module ThemeJuice
         #
         # @return {Void}
         ###
-        desc "init", "Setup Vagrant development environment"
+        desc "init", "Setup the VVV environment"
         def init
-            self.install_dependencies
+            self.welcome
 
-            # Set up ASCII font
-            f = ::Artii::Base.new font: "rowancap"
-
-            # Output ASCII welcome message
-            ::ThemeJuice::welcome ""
-            ::ThemeJuice::welcome f.asciify("theme"), "green"
-            ::ThemeJuice::welcome f.asciify("juice"), "green"
-
-            # Setup the development environment!
+            # Setup the VM
             ::ThemeJuice::Scaffold::init
         end
 
@@ -97,42 +48,25 @@ module ThemeJuice
         #
         # @return {Void}
         ###
-        desc "create [SITE]", "Setup SITE and Vagrant development environment"
-        method_option :bare, type: :boolean, desc: "Create a Vagrant site without starter theme"
+        desc "create [SITE]", "Setup SITE and the VVV development environment"
+        method_option :bare, type: :boolean, desc: "Create a VVV site without the starter theme"
         def create(site = nil, bare_setup = false)
-            self.install_dependencies
-
-            ###
-            # Welcome message
-            ###
-
-            # Get WP logo ASCII art
-            logo = File.read(File.expand_path("../ascii/logo.txt", __FILE__))
-
-            # Output welcome message
-            ::ThemeJuice::newline
-            ::ThemeJuice::welcome logo.gsub(/[m]/) { |c| c.send(:green) }.gsub(/[\+\/\-\`\:\.\~dyhos]/) { |c| c.send(:yellow) }
-            ::ThemeJuice::newline
-            ::ThemeJuice::welcome "Welcome to Theme Juice!".center(60), :green
-            ::ThemeJuice::newline
+            self.welcome
 
             ###
             # Theme setup
             ###
             if site.nil?
-                ::ThemeJuice::warning "Just a few questions before we begin..."
+                say "Just a few questions before we begin...", :yellow
             else
-                ::ThemeJuice::warning "Your site name shall be #{site}! Just a few more questions before we begin..."
+                say "Your site name shall be #{site}! Just a few more questions before we begin...", :yellow
             end
 
-            # Color of prompts
-            prompt_color = :green
-
-            # Ask for the Site name if not passed directly
-            site ||= ask "What's the site name? (only ascii characters are allowed) :", prompt_color
+            # ask for the Site name if not passed directly
+            site ||= ask "What's the site name? (only ascii characters are allowed) :", :green
 
             if site.match /[^0-9A-Za-z.\-]/
-                ::ThemeJuice::error "Site name contains invalid non-ascii characters. This name is used for creating directories, so that's not gonna work. Aborting mission."
+                say "Site name contains invalid non-ascii characters. This name is used for creating directories, so that's not gonna work. Aborting mission.", :red
                 exit 1
             end
 
@@ -146,7 +80,7 @@ module ThemeJuice
                 ###
                 # Location of site installation
                 ###
-                site_location = ask "Where do you want to setup the site? :", prompt_color,
+                site_location = ask "Where do you want to setup the site? :", :green,
                     default: "#{Dir.pwd}/",
                     path: true
 
@@ -154,20 +88,26 @@ module ThemeJuice
                 # Starter theme to clone
                 ###
                 unless bare_setup
+                    require "highline/import"
+
                     starter_theme = nil
-                    ThemeJuice::message "Which starter theme would you like to use? :", prompt_color
-                    HighLine::choose do |menu|
+
+                    say "Which starter theme would you like to use? :", :green
+                    choose do |menu|
+                        menu.index_suffix = ") "
+
                         menu.choice "ezekg/theme-juice-starter" do |c|
-                            ThemeJuice::success "Awesome choice!"
+                            say "Awesome choice!", :green
                             starter_theme = c
                         end
+
                         menu.choice "other" do
-                            starter_theme = ask "What is the user/repository of the starter theme you would like to clone? :", prompt_color
+                            starter_theme = ask "What is the user/repository of the starter theme you would like to clone? :", :green
                         end
+
                         menu.choice "none" do |c|
-                            ::ThemeJuice::warning "Next time you want to create a site without a starter theme, you can just run the `setup` command instead."
-                            starter_theme = c
-                            bare_setup = true
+                            say "Next time you want to create a site without a starter theme, you can just run the 'setup' command instead.", :yellow
+                            starter_theme, bare_setup = c, true
                         end
                     end
                 end
@@ -175,19 +115,19 @@ module ThemeJuice
                 ###
                 # Development url
                 ###
-                dev_url = ask "What do you want the development url to be? (this should end in `.dev`) :", prompt_color,
+                dev_url = ask "What do you want the development url to be? (this should end in '.dev') :", :green,
                     default: "#{site}.dev"
 
                 unless dev_url.match /(.dev)$/
-                    ::ThemeJuice::error "Your development url doesn't end with `.dev`. This is used within Vagrant, so that's not gonna work. Aborting mission."
+                    say "Your development url doesn't end with '.dev'. This is used within Vagrant, so that's not gonna work. Aborting mission.", :red
                     exit 1
                 end
 
                 ###
                 # Initialize a git repository on setup
                 ###
-                if yes? "Would you like to initialize a new Git repository? (y/N) :", prompt_color
-                    repository = ask "Repository URL :", prompt_color
+                if yes? "Would you like to initialize a new Git repository? (y/N) :", :green
+                    repository = ask "Remote URL :", :green
                 else
                     repository = false
                 end
@@ -195,25 +135,25 @@ module ThemeJuice
                 ###
                 # Database host
                 ###
-                db_host = ask "Database host :", prompt_color,
+                db_host = ask "Database host :", :green,
                     default: "vvv"
 
                 ###
                 # Database name
                 ###
-                db_name = ask "Database name :", prompt_color,
+                db_name = ask "Database name :", :green,
                     default: "#{clean_site_name}_db"
 
                 ###
                 # Database username
                 ###
-                db_user = ask "Database username :", prompt_color,
+                db_user = ask "Database username :", :green,
                     default: "#{clean_site_name}_user"
 
                 ###
                 # Database password
                 ###
-                db_pass = ask "Database password :", prompt_color,
+                db_pass = ask "Database password :", :green,
                     default: SecureRandom.base64
 
                 ###
@@ -236,7 +176,7 @@ module ThemeJuice
                 # Create the theme!
                 ::ThemeJuice::Scaffold::create opts
             else
-                ::ThemeJuice::error "Site name is required. Aborting mission."
+                say "Site name is required. Aborting mission.", :red
                 exit 1
             end
         end
@@ -249,7 +189,7 @@ module ThemeJuice
         #
         # @return {Void}
         ###
-        desc "setup [SITE]", "Create a Vagrant site without starter theme (alias for `create --bare`)"
+        desc "setup [SITE]", "Create a VVV site without starter theme (alias for 'create --bare')"
         def setup(site = nil)
             self.create site, true
         end
@@ -262,10 +202,10 @@ module ThemeJuice
         #
         # @return {Void}
         ###
-        desc "delete SITE", "Remove SITE from Vagrant development environment (does not remove local site)"
+        desc "delete SITE", "Remove SITE from the VVV development environment (does not remove local site)"
         method_option :restart, type: :boolean
         def delete(site)
-            if yes? "Are you sure you want to delete `#{site}`? (y/N)", :red
+            if yes? "Are you sure you want to delete '#{site}'? (y/N)", :red
                 ::ThemeJuice::Scaffold::delete site, options[:restart]
             end
         end
@@ -275,7 +215,7 @@ module ThemeJuice
         #
         # @return {Void}
         ###
-        desc "list", "List all sites within Vagrant development environment"
+        desc "list", "List all sites within the VVV development environment"
         def list
             ::ThemeJuice::Scaffold::list
         end
@@ -283,53 +223,53 @@ module ThemeJuice
         ###
         # Guard
         #
-        # @param {*} command
+        # @param {*} commands
         #   Commands to run
         #
         # @return {Void}
         ###
-        desc "watch [COMMAND]", "Watch and compile assets with Guard (alias for `bundle exec guard [COMMAND]`)"
-        def watch(*command)
-            system "bundle exec guard #{command.join(" ")}"
+        desc "watch [COMMANDS]", "Watch and compile assets with Guard (alias for 'bundle exec guard [COMMANDS]')"
+        def watch(*commands)
+            system "bundle exec guard #{commands.join(" ")}"
         end
 
         ###
         # Vagrant
         #
-        # @param {*} command
+        # @param {*} commands
         #   Commands to run
         #
         # @return {Void}
         ###
-        desc "vm [COMMAND]", "Manage virtual development environment with Vagrant (alias for `vagrant [COMMAND]`)"
-        def vm(*command)
-            system "cd ~/vagrant && vagrant #{command.join(" ")}"
+        desc "vm [COMMANDS]", "Manage virtual development environment with Vagrant (alias for 'vagrant [COMMANDS]')"
+        def vm(*commands)
+            system "cd ~/vagrant && vagrant #{commands.join(" ")}"
         end
 
         ###
         # Composer
         #
-        # @param {*} command
+        # @param {*} commands
         #   Commands to run
         #
         # @return {Void}
         ###
-        desc "vendor [COMMAND]", "Manage vendor dependencies with Composer (alias for `composer [COMMAND]`)"
-        def vendor(*command)
-            system "composer #{command.join(" ")}"
+        desc "vendor [COMMANDS]", "Manage vendor dependencies with Composer (alias for 'composer [COMMANDS]')"
+        def vendor(*commands)
+            system "composer #{commands.join(" ")}"
         end
 
         ###
         # Capistrano
         #
-        # @param {*} command
+        # @param {*} commands
         #   Commands to run
         #
         # @return {Void}
         ###
-        desc "server [COMMAND]", "Manage deployment and migration with Capistrano (alias for `bundle exec cap [COMMAND]`)"
-        def server(*command)
-            system "bundle exec cap #{command.join(" ")}"
+        desc "server [COMMANDS]", "Manage deployment and migration with Capistrano (alias for 'bundle exec cap [COMMANDS]')"
+        def server(*commands)
+            system "bundle exec cap #{commands.join(" ")}"
         end
     end
 end
