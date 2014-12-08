@@ -31,7 +31,7 @@ tj create [<site-name>]
 #### Setup an existing site:
 Use this to setup an existing local site installation within the development environment. You will go through the setup process to create the necessary files for the VM, including `vvv-hosts`, `vvv-nginx.conf`, and a fresh database (unless one already exists by the name chosen). Site name is optional, as it will be asked for if not given.
 ```bash
-tj setup [<site-name>] # Alias for `tj create [<site-name>] --bare`
+tj setup [<site-name>] # Alias for 'tj create [<site-name>] --bare'
 ```
 
 #### Delete a site from the VM: _(Does not remove your local site)_
