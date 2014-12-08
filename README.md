@@ -1,4 +1,4 @@
-# Theme Juice
+# Theme Juice [![Gem Version](https://badge.fury.io/rb/theme-juice.svg)](http://badge.fury.io/rb/theme-juice)
 Command line interface to scaffold out a new WordPress development environment and countless sites. Everybody loves one command setups, and `tj` even does one command deployments too.
 
 ## Installation
