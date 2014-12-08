@@ -80,7 +80,7 @@ module ThemeJuice
                         say set_color(success, :yellow)
                         say "\n"
                         say "Success!".center(48), :green
-                        say "\n"
+                        say "\n\n"
 
                         # Output setup info
                         say "Here's your installation info:", :yellow
