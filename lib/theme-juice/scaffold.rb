@@ -63,8 +63,12 @@ module ThemeJuice
                     setup_synced_folder
                 end
 
-                if wpcli_exists?
+                if wpcli_exists? && !wpcli_is_setup?
                     setup_wpcli
+                else
+                    if yes? "Do you want to setup a new 'wp-cli.yml' file? (y/N) :", :green
+                        setup_wpcli true
+                    end
                 end
 
                 if @opts[:repository]
@@ -268,6 +272,13 @@ module ThemeJuice
             ###
             def env_is_setup?
                 File.exists? File.expand_path("#{@opts[:site_location]}/.env.development")
+            end
+
+            ###
+            # @return {Bool}
+            ###
+            def wpcli_is_setup?
+                File.readlines(File.expand_path("#{@opts[:site_location]}/wp-cli.yml")).grep(/(url: #{@opts[:dev_url]})/m).any?
             end
 
             ###
@@ -488,10 +499,14 @@ module ThemeJuice
             ###
             # Add wp-cli-ssh block to wp-cli.yml
             #
+            # @param {Bool} fresh
+            #    Create a fresh wp-cli.yml file
+            #
             # @return {Void}
             ###
-            def setup_wpcli
+            def setup_wpcli(fresh = false)
                 File.open "#{@opts[:site_location]}/wp-cli.yml", "a+" do |file|
+                    file.puts "path: wp" if fresh
                     file.puts "require:"
                     file.puts "\t- vendor/autoload.php"
                     file.puts "ssh:"
