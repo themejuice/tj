@@ -146,7 +146,7 @@ module ThemeJuice
                 if removal_was_successful?
                     say "Site '#{@opts[:site_name]}' successfully removed!", :green
 
-                    unless restart
+                    if restart
                         say "Restarting VVV...", :yellow
                         restart_vagrant
                     end
