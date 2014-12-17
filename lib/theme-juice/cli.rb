@@ -13,15 +13,15 @@ module ThemeJuice
             ###
             def welcome
 
-              # Get WP logo ASCII art
-              logo = File.read(File.expand_path("../ascii/logo.txt", __FILE__))
+                # Get WP logo ASCII art
+                logo = File.read(File.expand_path("../ascii/logo.txt", __FILE__))
 
-              # Output welcome message
-              say "\n"
-              say logo.gsub(/[m]/) { |char| set_color(char, :green) }.gsub(/[\+\/\-\'\:\.\~dyhos]/) { |char| set_color(char, :yellow) }
-              say "\n"
-              say "Welcome to Theme Juice!".center(60), :green
-              say "\n\n"
+                # Output welcome message
+                say "\n"
+                say logo.gsub(/[m]/) { |char| set_color(char, :green) }.gsub(/[\+\/\-\'\:\.\~dyhos]/) { |char| set_color(char, :yellow) }
+                say "\n"
+                say "Welcome to Theme Juice!".center(60), :green
+                say "\n\n"
             end
         end
 
