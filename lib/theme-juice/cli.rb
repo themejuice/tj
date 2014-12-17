@@ -26,6 +26,16 @@ module ThemeJuice
         end
 
         ###
+        # Print current version
+        #
+        # @return {String}
+        ###
+        desc "version", "Print current version"
+        def version
+            say "Current version: #{::ThemeJuice::VERSION}", :green
+        end
+
+        ###
         # Install and setup VVV environment
         #
         # @return {Void}

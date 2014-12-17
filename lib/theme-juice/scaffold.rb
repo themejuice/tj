@@ -63,7 +63,7 @@ module ThemeJuice
                     setup_synced_folder
                 end
 
-                if wpcli_exists? && !wpcli_is_setup?
+                unless wpcli_is_setup?
                     setup_wpcli
                 end
 
@@ -77,11 +77,11 @@ module ThemeJuice
                     if restart_vagrant
 
                         # Get smiley ASCII art
-                        success = File.read(File.expand_path("../ascii/smiley.txt", __FILE__))
+                        smiley = File.read(File.expand_path("../ascii/smiley.txt", __FILE__))
 
                         # Output welcome message
                         say "\n"
-                        say set_color(success, :yellow)
+                        say smiley, :yellow
                         say "\n"
                         say "Success!".center(48), :green
                         say "\n\n"
@@ -289,14 +289,7 @@ module ThemeJuice
             # @return {Bool}
             ###
             def wpcli_is_setup?
-                File.readlines(File.expand_path("#{@opts[:site_location]}/wp-cli.yml")).grep(/(url: #{@opts[:dev_url]})/m).any?
-            end
-
-            ###
-            # @return {Bool}
-            ###
-            def wpcli_exists?
-                File.exists? File.expand_path("#{@opts[:site_location]}/wp-cli.yml")
+                File.exists? File.expand_path("#{@opts[:site_location]}/wp-cli.local.yml")
             end
 
             ###
@@ -525,7 +518,7 @@ module ThemeJuice
             # @return {Void}
             ###
             def setup_wpcli
-                File.open "#{@opts[:site_location]}/wp-cli.yml", "a+" do |file|
+                File.open "#{@opts[:site_location]}/wp-cli.local.yml", "a+" do |file|
                     file.puts "require:"
                     file.puts "\t- vendor/autoload.php"
                     file.puts "ssh:"
@@ -535,7 +528,12 @@ module ThemeJuice
                     file.puts "\t\tcmd: cd ~/vagrant && vagrant ssh-config > /tmp/vagrant_ssh_config && ssh -q %pseudotty% -F /tmp/vagrant_ssh_config default %cmd%"
                     file.puts "\n"
                 end
-                say "Successfully added ssh settings to 'wp-cli.yml'.", :green
+
+                if wpcli_is_setup?
+                    say "Successfully added ssh settings to 'wp-cli.local.yml' file.", :green
+                else
+                    say "Could not create 'wp-cli.local.yml' file.", :red
+                end
             end
 
             ###
@@ -544,7 +542,7 @@ module ThemeJuice
             # @return {Void}
             ###
             def remove_dev_site
-                if system "rm -rf #{@opts[:dev_location]}"
+                if run ["rm -rf #{@opts[:dev_location]}"]
                     say "VVV installation for '#{@opts[:site_name]}' successfully removed.", :yellow
                 else
                     say "Theme '#{@opts[:site_name]}' could not be removed. Make sure you have write capabilities.", :red
