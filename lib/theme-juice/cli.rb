@@ -63,7 +63,7 @@ module ThemeJuice
             end
 
             # ask for the Site name if not passed directly
-            site ||= ask "What's the site name? (only ascii characters are allowed) :", :green
+            site ||= ask "What's the site name? (only ascii characters are allowed) :", :blue
 
             if site.match /[^0-9A-Za-z.\-]/
                 say "Site name contains invalid non-ascii characters. This name is used for creating directories, so that's not gonna work. Aborting mission.", :red
@@ -80,7 +80,7 @@ module ThemeJuice
                 ###
                 # Location of site installation
                 ###
-                site_location = ask "Where do you want to setup the site? :", :green,
+                site_location = ask "Where do you want to setup the site? :", :blue,
                     default: "#{Dir.pwd}/",
                     path: true
 
@@ -92,7 +92,7 @@ module ThemeJuice
 
                     starter_theme = nil
 
-                    say "Which starter theme would you like to use? :", :green
+                    say "Which starter theme would you like to use? :", :blue
                     choose do |menu|
                         menu.index_suffix = ") "
 
@@ -102,7 +102,7 @@ module ThemeJuice
                         end
 
                         menu.choice "other" do
-                            starter_theme = ask "What is the user/repository of the starter theme you would like to clone? :", :green
+                            starter_theme = ask "What is the user/repository of the starter theme you would like to clone? :", :blue
                         end
 
                         menu.choice "none" do |c|
@@ -115,7 +115,7 @@ module ThemeJuice
                 ###
                 # Development url
                 ###
-                dev_url = ask "What do you want the development url to be? (this should end in '.dev') :", :green,
+                dev_url = ask "What do you want the development url to be? (this should end in '.dev') :", :blue,
                     default: "#{site}.dev"
 
                 unless dev_url.match /(.dev)$/
@@ -126,8 +126,8 @@ module ThemeJuice
                 ###
                 # Initialize a git repository on setup
                 ###
-                if yes? "Would you like to initialize a new Git repository? (y/N) :", :green
-                    repository = ask "Remote URL :", :green
+                if yes? "Would you like to initialize a new Git repository? (y/N) :", :blue
+                    repository = ask "What is the repository's URL? :", :blue
                 else
                     repository = false
                 end
@@ -135,25 +135,25 @@ module ThemeJuice
                 ###
                 # Database host
                 ###
-                db_host = ask "Database host :", :green,
+                db_host = ask "Database host :", :blue,
                     default: "vvv"
 
                 ###
                 # Database name
                 ###
-                db_name = ask "Database name :", :green,
+                db_name = ask "Database name :", :blue,
                     default: "#{clean_site_name}_db"
 
                 ###
                 # Database username
                 ###
-                db_user = ask "Database username :", :green,
+                db_user = ask "Database username :", :blue,
                     default: "#{clean_site_name}_user"
 
                 ###
                 # Database password
                 ###
-                db_pass = ask "Database password :", :green,
+                db_pass = ask "Database password :", :blue,
                     default: SecureRandom.base64
 
                 ###

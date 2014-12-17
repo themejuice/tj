@@ -88,16 +88,16 @@ module ThemeJuice
 
                         # Output setup info
                         say "Here's your installation info:", :yellow
-                        say "Site name: #{@opts[:site_name]}", :green
-                        say "Site location: #{@opts[:site_location]}", :green
-                        say "Starter theme: #{@opts[:starter_theme]}", :green
-                        say "Development location: #{@opts[:dev_location]}", :green
-                        say "Development url: http://#{@opts[:dev_url]}", :green
-                        say "Initialized repository: #{@opts[:repository]}", :green
-                        say "Database host: #{@opts[:db_host]}", :green
-                        say "Database name: #{@opts[:db_name]}", :green
-                        say "Database username: #{@opts[:db_user]}", :green
-                        say "Database password: #{@opts[:db_pass]}", :green
+                        say "Site name: #{@opts[:site_name]}", :blue
+                        say "Site location: #{@opts[:site_location]}", :blue
+                        say "Starter theme: #{@opts[:starter_theme]}", :blue
+                        say "Development location: #{@opts[:dev_location]}", :blue
+                        say "Development url: http://#{@opts[:dev_url]}", :blue
+                        say "Initialized repository: #{@opts[:repository]}", :blue
+                        say "Database host: #{@opts[:db_host]}", :blue
+                        say "Database name: #{@opts[:db_name]}", :blue
+                        say "Database username: #{@opts[:db_user]}", :blue
+                        say "Database password: #{@opts[:db_pass]}", :blue
                     end
                 else
                     say "Setup failed. Running cleanup...", :red
@@ -177,6 +177,21 @@ module ThemeJuice
             private
 
             ###
+            # Run system commands
+            #
+            # @param {Array} commands
+            #    Array of commands to run
+            # @param {Bool}  silent   (true)
+            #    Silence all output from command
+            #
+            # @return {Void}
+            ###
+            def run(commands = [], silent = true)
+                commands.map! { |cmd| cmd.to_s + " > /dev/null 2>&1" } if silent
+                system commands.join "&&"
+            end
+
+            ###
             # Restart Vagrant
             #
             # @note
@@ -186,11 +201,11 @@ module ThemeJuice
             # @return {Void}
             ###
             def restart_vagrant
-                system [
+                run [
                     "cd ~/vagrant",
                     "vagrant halt",
-                    "vagrant up --provision"
-                ].join " && "
+                    "vagrant up --provision",
+                ], false
             end
 
             ###
@@ -285,19 +300,19 @@ module ThemeJuice
             end
 
             ###
-            # Install plugins and clone VVV
+            # Install Vagrant plugins and clone VVV
             #
             # @return {Void}
             ###
             def setup_vvv
                 say "Installing VVV into '#{File.expand_path("~/vagrant")}'...", :yellow
-                system [
+                run [
                     "vagrant plugin install vagrant-hostsupdater",
                     "vagrant plugin install vagrant-triggers",
                     "vagrant plugin install landrush",
                     "git clone https://github.com/Varying-Vagrant-Vagrants/VVV.git ~/vagrant",
                     "cd ~/vagrant/database && touch init-custom.sql"
-                ].join " && "
+                ]
 
                 setup_wildcard_subdomains
             end
@@ -334,10 +349,10 @@ module ThemeJuice
             ###
             def setup_dev_site
                 say "Setting up new development site at '#{@opts[:dev_location]}'...", :yellow
-                system [
+                run [
                     "cd ~/vagrant/www",
-                    "mkdir tj-#{@opts[:site_name]}"
-                ].join " && "
+                    "mkdir tj-#{@opts[:site_name]}",
+                ]
             end
 
             ###
@@ -436,15 +451,27 @@ module ThemeJuice
                 say "Setting up WordPress...", :yellow
 
                 if @opts[:bare_setup]
+
                     # Create theme dir
-                    system "mkdir -p #{@opts[:site_location]}"
+                    run [
+                        "mkdir -p #{@opts[:site_location]}",
+                    ]
+
                 else
-                    # Clone starter, install WP
-                    system [
-                        "mkdir -p #{@opts[:site_location]} && cd $_",
+
+                    # Clone starter theme
+                    run [
+                        "mkdir -p #{@opts[:site_location]}",
+                        "cd #{@opts[:site_location]}",
                         "git clone --depth 1 https://github.com/#{@opts[:starter_theme]}.git .",
+                    ]
+
+                    # Install composer dependencies
+                    run [
+                        "cd #{@opts[:site_location]}",
                         "composer install",
-                    ].join " && "
+                    ], false
+
                 end
             end
 
@@ -479,17 +506,17 @@ module ThemeJuice
                 say "Setting up Git repository at '#{@opts[:repository]}'...", :yellow
 
                 if repo_is_setup?
-                    system [
+                    run [
                         "cd #{@opts[:site_location]}",
                         "rm -rf .git",
-                    ].join " && "
+                    ]
                 end
 
-                system [
+                run [
                     "cd #{@opts[:site_location]}",
                     "git init",
-                    "git remote add origin #{@opts[:repository]}"
-                ].join " && "
+                    "git remote add origin #{@opts[:repository]}",
+                ]
             end
 
             ##
@@ -518,7 +545,7 @@ module ThemeJuice
             ###
             def remove_dev_site
                 if system "rm -rf #{@opts[:dev_location]}"
-                    say "VVV installation for '#{@opts[:site_name]}' successfully removed.", :green
+                    say "VVV installation for '#{@opts[:site_name]}' successfully removed.", :yellow
                 else
                     say "Theme '#{@opts[:site_name]}' could not be removed. Make sure you have write capabilities.", :red
                 end
@@ -531,7 +558,7 @@ module ThemeJuice
             ###
             def remove_database
                 if remove_traces_from_file "~/vagrant/database/init-custom.sql"
-                    say "Database for '#{@opts[:site_name]}' successfully removed.", :green
+                    say "Database for '#{@opts[:site_name]}' successfully removed.", :yellow
                 end
             end
 
@@ -542,7 +569,7 @@ module ThemeJuice
             ###
             def remove_synced_folder
                 if remove_traces_from_file "~/vagrant/Vagrantfile"
-                    say "Synced folders for '#{@opts[:site_name]}' successfully removed.", :green
+                    say "Synced folders for '#{@opts[:site_name]}' successfully removed.", :yellow
                 end
             end
 
