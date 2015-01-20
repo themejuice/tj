@@ -55,31 +55,31 @@ tj list
 #### Watching and compiling assets: _(Guard)_
 Use this to watch and compile assets with [Guard](https://github.com/guard/guard). This is simply a wrapper for Guard commands.
 ```bash
-tj watch # Alias for 'bundle exec guard [COMMANDS]'
+tj watch # Alias for 'bundle exec guard [<COMMANDS>]'
 ```
 
 #### Managing development environment: _(Vagrant)_
 Use this to easily manage your [Varying Vagrant Vagrants](https://github.com/Varying-Vagrant-Vagrants/VVV) development environment. This is simply a wrapper for Vagrant commands.
 ```bash
-tj vm # Alias for 'cd ~/vagrant && vagrant [COMMANDS]'
+tj vm # Alias for 'cd ~/vagrant && vagrant [<COMMANDS>]'
 ```
 
 #### Managing vendor dependencies: _(Composer)_
 Use this to easily manage your [Composer](https://github.com/composer/composer) dependencies. This is simply a wrapper for Composer commands.
 ```bash
-tj vendor # Alias for 'composer [COMMANDS]'
+tj vendor # Alias for 'composer [<COMMANDS>]'
 ```
 
 #### Managing deployment and migration: _(Capistrano)_
 Use this to easily manage your deployment and migration with [Capistrano](https://github.com/capistrano/capistrano). This is simply a wrapper for Capistrano commands.
 ```bash
-tj server # Alias for 'bundle exec cap [COMMANDS]'
+tj server # Alias for 'bundle exec cap [<COMMANDS>]'
 ```
 
 #### Executing WP-CLI locally inside your VM with `wp-cli-ssh`
 You can run `wp` commands locally if you specify a `--host`. Upon setup, an `ssh` block for the VM is automatically added to the `wp-cli.local.yml` file with all of your development environment paths.
 ```bash
-wp ssh --host=vagrant [COMMANDS]
+wp ssh --host=vagrant [<COMMANDS>]
 
 # Create an alias
 alias wpv="wp ssh --host=vagrant"
