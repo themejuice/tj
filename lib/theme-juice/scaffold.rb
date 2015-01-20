@@ -180,9 +180,9 @@ module ThemeJuice
             # Run system commands
             #
             # @param {Array} commands
-            #    Array of commands to run
+            #   Array of commands to run
             # @param {Bool}  silent   (true)
-            #    Silence all output from command
+            #   Silence all output from command
             #
             # @return {Void}
             ###
