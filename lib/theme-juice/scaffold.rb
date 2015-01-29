@@ -39,6 +39,10 @@ module ThemeJuice
                     setup_vvv
                 end
 
+                unless wildcard_subdomains_is_setup?
+                    setup_wildcard_subdomains
+                end
+
                 unless hosts_is_setup?
                     setup_hosts
                 end
@@ -88,16 +92,16 @@ module ThemeJuice
 
                         # Output setup info
                         say "Here's your installation info:", :yellow
-                        say "Site name: #{@opts[:site_name]}", :blue
-                        say "Site location: #{@opts[:site_location]}", :blue
-                        say "Starter theme: #{@opts[:starter_theme]}", :blue
-                        say "Development location: #{@opts[:dev_location]}", :blue
-                        say "Development url: http://#{@opts[:dev_url]}", :blue
-                        say "Initialized repository: #{@opts[:repository]}", :blue
-                        say "Database host: #{@opts[:db_host]}", :blue
-                        say "Database name: #{@opts[:db_name]}", :blue
-                        say "Database username: #{@opts[:db_user]}", :blue
-                        say "Database password: #{@opts[:db_pass]}", :blue
+                        say "---> Site name: #{@opts[:site_name]}", :blue
+                        say "---> Site location: #{@opts[:site_location]}", :blue
+                        say "---> Starter theme: #{@opts[:starter_theme]}", :blue
+                        say "---> Development location: #{@opts[:dev_location]}", :blue
+                        say "---> Development url: http://#{@opts[:dev_url]}", :blue
+                        say "---> Initialized repository: #{@opts[:repository]}", :blue
+                        say "---> Database host: #{@opts[:db_host]}", :blue
+                        say "---> Database name: #{@opts[:db_name]}", :blue
+                        say "---> Database username: #{@opts[:db_user]}", :blue
+                        say "---> Database password: #{@opts[:db_pass]}", :blue
                     end
                 else
                     say "Setup failed. Running cleanup...", :red
@@ -116,8 +120,8 @@ module ThemeJuice
             def delete(site, restart)
 
                 ###
-                # @TODO - This is a really hacky way to remove the theme.
-                #   Eventually I'd like to handle state.
+                # @TODO This is a really hacky way to remove the theme. Eventually,
+                #   I'd like to handle state within a config file.
                 ###
                 @opts = {
                     site_name: site,
@@ -226,21 +230,28 @@ module ThemeJuice
             # @return {Bool}
             ###
             def vvv_is_setup?
-                File.exists? File.expand_path("~/vagrant")
+                File.exist? File.expand_path("~/vagrant")
+            end
+
+            ###
+            # @return {Bool}
+            ###
+            def wildcard_subdomains_is_setup?
+                File.readlines(File.expand_path("~/vagrant/Vagrantfile")).grep(/(config.landrush.enabled = true)/m).any?
             end
 
             ###
             # @return {Bool}
             ###
             def dev_site_is_setup?
-                File.exists? "#{@opts[:dev_location]}"
+                File.exist? "#{@opts[:dev_location]}"
             end
 
             ###
             # @return {Bool}
             ###
             def hosts_is_setup?
-                File.exists? "#{@opts[:site_location]}/vvv-hosts"
+                File.exist? "#{@opts[:site_location]}/vvv-hosts"
             end
 
             ###
@@ -254,14 +265,14 @@ module ThemeJuice
             # @return {Bool}
             ###
             def nginx_is_setup?
-                File.exists? "#{@opts[:site_location]}/vvv-nginx.conf"
+                File.exist? "#{@opts[:site_location]}/vvv-nginx.conf"
             end
 
             ###
             # @return {Bool}
             ###
             def wordpress_is_setup?
-                File.exists? File.expand_path("#{@opts[:site_location]}/app")
+                File.exist? File.expand_path("#{@opts[:site_location]}/app")
             end
 
             ###
@@ -275,21 +286,21 @@ module ThemeJuice
             # @return {Bool}
             ###
             def repo_is_setup?
-                File.exists? File.expand_path("#{@opts[:site_location]}/.git")
+                File.exist? File.expand_path("#{@opts[:site_location]}/.git")
             end
 
             ###
             # @return {Bool}
             ###
             def env_is_setup?
-                File.exists? File.expand_path("#{@opts[:site_location]}/.env.development")
+                File.exist? File.expand_path("#{@opts[:site_location]}/.env.development")
             end
 
             ###
             # @return {Bool}
             ###
             def wpcli_is_setup?
-                File.exists? File.expand_path("#{@opts[:site_location]}/wp-cli.local.yml")
+                File.exist? File.expand_path("#{@opts[:site_location]}/wp-cli.local.yml")
             end
 
             ###
@@ -306,8 +317,6 @@ module ThemeJuice
                     "git clone https://github.com/Varying-Vagrant-Vagrants/VVV.git ~/vagrant",
                     "cd ~/vagrant/database && touch init-custom.sql"
                 ]
-
-                setup_wildcard_subdomains
             end
 
             ###

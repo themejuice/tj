@@ -59,116 +59,157 @@ module ThemeJuice
         # @return {Void}
         ###
         desc "create [SITE]", "Setup SITE and the VVV development environment"
-        method_option :bare, type: :boolean, desc: "Create a VVV site without the starter theme"
+        method_option :bare,
+            type: :boolean,
+            aliases: "-b",
+            desc: "Create a VVV site without a starter theme"
+        method_option :site,
+            type: :string,
+            aliases: "-s",
+            default: false,
+            desc: "Name of the development site"
+        method_option :location,
+            type: :string,
+            aliases: "-l",
+            default: false,
+            desc: "Location of the local site"
+        method_option :theme,
+            type: :string,
+            aliases: "-t",
+            default: false,
+            desc: "Starter theme to install"
+        method_option :url,
+            type: :string,
+            aliases: "-u",
+            default: false,
+            desc: "Development URL of the site"
+        method_option :repository,
+            type: :boolean,
+            aliases: "-r",
+            default: false,
+            desc: "Initialize a new Git remote repository"
         def create(site = nil, bare_setup = false)
             self.welcome
 
-            ###
-            # Theme setup
-            ###
-            if site.nil?
-                say "Just a few questions before we begin...", :yellow
-            else
-                say "Your site name shall be #{site}! Just a few more questions before we begin...", :yellow
+            if options[:site]
+                site = options[:site]
             end
 
-            # ask for the Site name if not passed directly
+            # Check if user passed all required options through flags
+            if options.all? { |opt, val| val != false }
+                say "Well... looks like you just have everything all figured out, huh?", :yellow
+            elsif site.nil?
+                say "Just a few questions before we begin...", :yellow
+            else
+                say "Your site name shall be '#{site}'! Just a few more questions before we begin...", :yellow
+            end
+
+            # Ask for the Site name if not passed directly
             site ||= ask "What's the site name? (only ascii characters are allowed) :", :blue
 
+            # Make sure site name is valid
             if site.match /[^0-9A-Za-z.\-]/
                 say "Site name contains invalid non-ascii characters. This name is used for creating directories, so that's not gonna work. Aborting mission.", :red
                 exit 1
             end
 
-            # Bare install
+            # Bare install?
             bare_setup ||= options[:bare]
 
             # Make sure Site name was given, else throw err
             unless site.empty?
                 clean_site_name = site.gsub(/[^\w]/, "_")[0..10]
 
-                ###
                 # Location of site installation
-                ###
-                site_location = ask "Where do you want to setup the site? :", :blue,
-                    default: "#{Dir.pwd}/",
-                    path: true
+                if options[:location]
+                    site_location = options[:location]
+                else
+                    site_location = ask "Where do you want to setup the site? :", :blue, default: "#{Dir.pwd}/", path: true
+                end
 
-                ###
                 # Starter theme to clone
-                ###
                 unless bare_setup
-                    require "highline/import"
 
-                    starter_theme = nil
+                    if options[:theme]
+                        starter_theme = options[:theme]
+                    else
+                        require "highline/import"
 
-                    say "Which starter theme would you like to use? :", :blue
-                    choose do |menu|
-                        menu.index_suffix = ") "
+                        starter_theme = nil
 
-                        menu.choice "ezekg/theme-juice-starter" do |c|
-                            say "Awesome choice!", :green
-                            starter_theme = c
-                        end
+                        say "Which starter theme would you like to use? :", :blue
+                        choose do |menu|
+                            menu.index_suffix = ") "
 
-                        menu.choice "other" do
-                            starter_theme = ask "What is the user/repository of the starter theme you would like to clone? :", :blue
-                        end
+                            menu.choice "ezekg/theme-juice-starter" do |c|
+                                say "Awesome choice!", :green
+                                starter_theme = c
+                            end
 
-                        menu.choice "none" do |c|
-                            say "Next time you want to create a site without a starter theme, you can just run the 'setup' command instead.", :yellow
-                            starter_theme, bare_setup = c, true
+                            menu.choice "other" do
+                                starter_theme = ask "What is the user/repository of the starter theme you would like to clone? :", :blue
+                            end
+
+                            menu.choice "none" do |c|
+                                say "Next time you want to create a site without a starter theme, you can just run the 'setup' command instead.", :yellow
+                                starter_theme, bare_setup = c, true
+                            end
                         end
                     end
                 end
 
-                ###
                 # Development url
-                ###
-                dev_url = ask "What do you want the development url to be? (this should end in '.dev') :", :blue,
-                    default: "#{site}.dev"
+                if options[:url]
+                    dev_url = options[:url]
+                else
+                    dev_url = ask "What do you want the development url to be? (this should end in '.dev') :", :blue, default: "#{site}.dev"
+                end
 
                 unless dev_url.match /(.dev)$/
                     say "Your development url doesn't end with '.dev'. This is used within Vagrant, so that's not gonna work. Aborting mission.", :red
                     exit 1
                 end
 
-                ###
                 # Initialize a git repository on setup
-                ###
-                if yes? "Would you like to initialize a new Git repository? (y/N) :", :blue
-                    repository = ask "What is the repository's URL? :", :blue
+                if options[:repository]
+                    repository = options[:repository]
                 else
-                    repository = false
+                    if yes? "Would you like to initialize a new Git repository? (y/N) :", :blue
+                        repository = ask "What is the repository's URL? :", :blue
+                    else
+                        repository = false
+                    end
                 end
 
-                ###
                 # Database host
-                ###
-                db_host = ask "Database host :", :blue,
-                    default: "vvv"
+                if options[:db_host]
+                    db_host = options[:db_host]
+                else
+                    db_host = ask "Database host :", :blue, default: "vvv"
+                end
 
-                ###
                 # Database name
-                ###
-                db_name = ask "Database name :", :blue,
-                    default: "#{clean_site_name}_db"
+                if options[:db_name]
+                    db_name = options[:db_name]
+                else
+                    db_name = ask "Database name :", :blue, default: "#{clean_site_name}_db"
+                end
 
-                ###
                 # Database username
-                ###
-                db_user = ask "Database username :", :blue,
-                    default: "#{clean_site_name}_user"
+                if options[:db_user]
+                    db_user = options[:db_user]
+                else
+                    db_user = ask "Database username :", :blue, default: "#{clean_site_name}_user"
+                end
 
-                ###
                 # Database password
-                ###
-                db_pass = ask "Database password :", :blue,
-                    default: SecureRandom.base64
+                if options[:db_pass]
+                    db_pass = options[:db_pass]
+                else
+                    db_pass = ask "Database password :", :blue, default: SecureRandom.base64
+                end
 
-                ###
                 # Save options
-                ###
                 opts = {
                     site_name: site,
                     site_location: File.expand_path(site_location),
@@ -183,8 +224,24 @@ module ThemeJuice
                     db_pass: db_pass,
                 }
 
-                # Create the theme!
-                ::ThemeJuice::Scaffold::create opts
+                # Verify that all the options are correct
+                say "---> Site name: #{opts[:site_name]}", :green
+                say "---> Site location: #{opts[:site_location]}", :green
+                say "---> Starter theme: #{opts[:starter_theme]}", :green
+                say "---> Development location: #{opts[:dev_location]}", :green
+                say "---> Development url: http://#{opts[:dev_url]}", :green
+                say "---> Initialized repository: #{opts[:repository]}", :green
+                say "---> Database host: #{opts[:db_host]}", :green
+                say "---> Database name: #{opts[:db_name]}", :green
+                say "---> Database username: #{opts[:db_user]}", :green
+                say "---> Database password: #{opts[:db_pass]}", :green
+
+                if yes? "Do the options above look correct? (y/N) :", :blue
+                    ::ThemeJuice::Scaffold::create opts
+                else
+                    say "Alrighty then! Aborting mission.", :red
+                    exit 1
+                end
             else
                 say "Site name is required. Aborting mission.", :red
                 exit 1
