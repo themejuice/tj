@@ -34,6 +34,22 @@ Use this to create a new development site. It will automagically set up your ent
 tj create [<SITE-NAME>]
 ```
 
+###### Options: _(since `0.2.0`)_
+```bash
+# Create a VVV site without a starter theme
+-b, [--bare], [--no-bare]
+# Name of the development site
+-s, [--site=SITE]
+# Location of the local site
+-l, [--location=LOCATION]
+# Starter theme to install
+-t, [--theme=THEME]
+# Development URL of the site
+-u, [--url=URL]
+# Initialize a new Git remote repository
+-r, [--repository], [--no-repository]
+ ```
+
 #### Setting up an existing site:
 Use this to setup an existing local site installation within the development environment. You will go through the setup process to create the necessary files for the VM, including `vvv-hosts`, `vvv-nginx.conf`, and a fresh database (unless one already exists by the name chosen). Site name is optional, as it will be asked for if not given.
 ```bash
