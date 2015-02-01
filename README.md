@@ -34,8 +34,8 @@ Use this to create a new development site. It will automagically set up your ent
 tj create [<SITE-NAME>]
 ```
 
-###### Options: _(since `0.2.0`)_
-| Command                                 | Type   | Description                                      |
+#### Option flags: _(since `0.2.0`)_
+| Flag                                    | Type   | Description                                      |
 |:--------------------------------------- |:------ |:------------------------------------------------ |
 | `-b, [--bare], [--no-bare]`             | Bool   | Create a VVV site without a starter theme        |
 | `-s, [--site=SITE]`                     | String | Name of the development site                     |
