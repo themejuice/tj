@@ -175,9 +175,7 @@ module ThemeJuice
                 if sites.empty?
                     say "Nothing to list. Create a new site!", :yellow
                 else
-                    i = 0
-                    # Output site to cli
-                    sites.each { |site| i += 1; say "#{i}) #{site}", :green }
+                    sites.each_with_index { |site, i| say "#{i+1}) #{site}", :green }
                 end
 
                 sites
