@@ -42,7 +42,7 @@ module ThemeJuice
                 remote_version = remotes.map { |n, _| n.version }.sort.last
 
                 if ::Gem::Version.new(local_version) < ::Gem::Version.new(remote_version)
-                    say "Current version #{local_version} is outdated. Newest version is #{remote_version}. Please update now.", :yellow
+                    say "Warning: your version of theme-juice (#{local_version}) is outdated. There is a newer version (#{remote_version}) available. Please update now.", :yellow
                 else
                     say "Up to date.", :green
                 end
@@ -56,8 +56,8 @@ module ThemeJuice
         ###
         desc "--version, -v", "Print current version"
         def version
-            say "Current version: #{::ThemeJuice::VERSION}", :green
             # check_if_current_version_is_outdated
+            say ::ThemeJuice::VERSION, :green
         end
 
         ###
