@@ -1,21 +1,23 @@
 module ThemeJuice
-    module Scaffold
+    module Executor
         class << self
             include ::Thor::Actions
             include ::Thor::Shell
 
             ###
-            # Set up local development environment
+            # Install and setup starter theme
+            #
+            # @param {String} config_path (nil)
             #
             # @return {Void}
             ###
-            def init
-                say "Initializing development environment...", :yellow
+            def install(config_path = nil)
+                config_path ||= File.expand_path(Dir.pwd)
 
-                if vvv_is_setup?
-                    say "Development environment is already set up. Aborting mission.", :red
-                else
-                    say "Setup successful!", :green if setup_vvv
+                use_config(config_path)
+
+                @config["install"].each do |command|
+                    run ["cd #{config_path}", command], false
                 end
             end
 
@@ -28,6 +30,8 @@ module ThemeJuice
             ###
             def create(opts)
                 @opts = opts
+
+                use_config
 
                 say "Running setup for '#{@opts[:site_name]}'...", :yellow
 
@@ -152,6 +156,7 @@ module ThemeJuice
                     end
                 else
                     say "Site '#{@opts[:site_name]}' could not be fully be removed.", :red
+                    exit 1
                 end
             end
 
@@ -196,11 +201,42 @@ module ThemeJuice
             end
 
             ###
+            # Verify config is properly setup, set global var
+            #
+            # @param {String} config_path (nil)
+            #
+            # @return {Void}
+            ###
+            def use_config(config_path = nil)
+                config_path ||= @opts[:site_location]
+
+                if config_is_setup? config_path
+                    @config = YAML.load_file "#{config_path}/tj-config.yml"
+                else
+                    say "Unable to find 'tj-config.yml' file in '#{config_path}'.", :yellow
+
+                    if yes? "Would you like to create one? (y/N) :", :blue
+
+                        setup_config(config_path)
+
+                        if config_is_setup? config_path
+                            say "Please re-run the last command to continue.", :yellow
+                            exit
+                        else
+                            exit 1
+                        end
+                    else
+                        say "A config file is needed to continue installation. Aborting mission.", :red
+                        exit 1
+                    end
+                end
+            end
+
+            ###
             # Restart Vagrant
             #
-            # @note
-            # Normally a simple 'vagrant reload' would work, but Landrush requires a
-            #   'vagrant up' to be fired for it to set up the DNS correctly.
+            # @note Normally a simple 'vagrant reload' would work, but Landrush requires
+            #   a 'vagrant up' to be fired for it to set up the DNS correctly.
             #
             # @return {Void}
             ###
@@ -224,6 +260,13 @@ module ThemeJuice
             ###
             def removal_was_successful?
                 !setup_was_successful?
+            end
+
+            ###
+            # @return {Bool}
+            ###
+            def config_is_setup?(config_path)
+                File.exist? "#{config_path}/tj-config.yml"
             end
 
             ###
@@ -358,6 +401,34 @@ module ThemeJuice
             end
 
             ###
+            # Create tj-config.yml file for theme settings
+            #
+            # @param {String} config_path
+            #
+            # @return {Void}
+            ###
+            def setup_config(config_path)
+                watch = ask "Watch command to use :", :blue, default: "guard"
+                server = ask "Deployment command to use :", :blue, default: "cap"
+                vendor = ask "Vendor command to use :", :blue, default: "composer"
+                install = ask "Commands to run on theme install :", :blue, default: "composer install"
+
+                File.open "#{config_path}/tj-config.yml", "w" do |file|
+                    file.puts "watch: #{watch}"
+                    file.puts "server: #{server}"
+                    file.puts "vendor: #{vendor}"
+                    file.puts "install:"
+                    file.puts "\s\s\s\s- #{install}"
+                end
+
+                if config_is_setup? config_path
+                    say "Successfully added 'tj-config.yml' file.", :green
+                else
+                    say "Could not create 'tj-config.yml' file.", :red
+                end
+            end
+
+            ###
             # Create vvv-hosts file
             #
             # @return {Void}
@@ -468,11 +539,10 @@ module ThemeJuice
                         "git clone --depth 1 https://github.com/#{@opts[:starter_theme]}.git .",
                     ]
 
-                    # Install composer dependencies
-                    run [
-                        "cd #{@opts[:site_location]}",
-                        "composer install",
-                    ], false
+                    # Install dependencies
+                    @config["install"].each do |command|
+                        run ["cd #{@opts[:site_location]}", command], false
+                    end
 
                 end
             end

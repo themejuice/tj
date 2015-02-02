@@ -3,13 +3,23 @@ require "fileutils"
 require "pathname"
 require "tempfile"
 require "thor"
+require "yaml"
 
 require_relative "theme-juice/version"
-require_relative "theme-juice/scaffold"
+require_relative "theme-juice/executor"
 require_relative "theme-juice/cli"
 
 module ThemeJuice
     class << self
+
+        ###
+        # Get path where VVV is installed
+        #
+        # @return {String}
+        ###
+        def vvv_path
+            options[:vvv_path] ||= File.expand_path "~/vagrant"
+        end
 
         ###
         # Check if program is installed

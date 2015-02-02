@@ -1,6 +1,8 @@
 module ThemeJuice
     class CLI < ::Thor
 
+        class_option :vvv_path, type: :string, aliases: "-fp", desc: "Force path to VVV installation"
+
         ###
         # Non Thor commands
         ###
@@ -33,19 +35,6 @@ module ThemeJuice
         desc "version", "Print current version"
         def version
             say "Current version: #{::ThemeJuice::VERSION}", :green
-        end
-
-        ###
-        # Install and setup VVV environment
-        #
-        # @return {Void}
-        ###
-        desc "init", "Setup the VVV environment"
-        def init
-            self.welcome
-
-            # Setup the VM
-            ::ThemeJuice::Scaffold::init
         end
 
         ###
@@ -237,7 +226,7 @@ module ThemeJuice
                 say "---> Database password: #{opts[:db_pass]}", :green
 
                 if yes? "Do the options above look correct? (y/N) :", :blue
-                    ::ThemeJuice::Scaffold::create opts
+                    ::ThemeJuice::Executor::create opts
                 else
                     say "Alrighty then! Aborting mission.", :red
                     exit 1
@@ -273,7 +262,7 @@ module ThemeJuice
         method_option :restart, type: :boolean
         def delete(site)
             if yes? "Are you sure you want to delete '#{site}'? (y/N)", :red
-                ::ThemeJuice::Scaffold::delete site, options[:restart]
+                ::ThemeJuice::Executor::delete site, options[:restart]
             end
         end
 
@@ -284,18 +273,33 @@ module ThemeJuice
         ###
         desc "list", "List all sites within the VVV development environment"
         def list
-            ::ThemeJuice::Scaffold::list
+            ::ThemeJuice::Executor::list
         end
 
         ###
-        # Guard
+        # Install and setup starter theme
+        #
+        # @return {Void}
+        ###
+        desc "install", "Run installation for the starter theme"
+        method_option :config,
+            type: :string,
+            aliases: "-c",
+            default: nil,
+            desc: "Force path to config file"
+        def install
+            ::ThemeJuice::Executor::install options[:config]
+        end
+
+        ###
+        # Assets
         #
         # @param {*} commands
         #   Commands to run
         #
         # @return {Void}
         ###
-        desc "watch [COMMANDS]", "Watch and compile assets with Guard (alias for 'bundle exec guard [COMMANDS]')"
+        desc "watch [COMMANDS]", "Watch and compile assets"
         def watch(*commands)
             system "bundle exec guard #{commands.join(" ")}"
         end
@@ -308,33 +312,33 @@ module ThemeJuice
         #
         # @return {Void}
         ###
-        desc "vm [COMMANDS]", "Manage virtual development environment with Vagrant (alias for 'vagrant [COMMANDS]')"
+        desc "vm [COMMANDS]", "Manage virtual development environment with Vagrant"
         def vm(*commands)
             system "cd ~/vagrant && vagrant #{commands.join(" ")}"
         end
 
         ###
-        # Composer
+        # Vendor dependencies
         #
         # @param {*} commands
         #   Commands to run
         #
         # @return {Void}
         ###
-        desc "vendor [COMMANDS]", "Manage vendor dependencies with Composer (alias for 'composer [COMMANDS]')"
+        desc "vendor [COMMANDS]", "Manage vendor dependencies"
         def vendor(*commands)
             system "composer #{commands.join(" ")}"
         end
 
         ###
-        # Capistrano
+        # Server/Deployment
         #
         # @param {*} commands
         #   Commands to run
         #
         # @return {Void}
         ###
-        desc "server [COMMANDS]", "Manage deployment and migration with Capistrano (alias for 'bundle exec cap [COMMANDS]')"
+        desc "server [COMMANDS]", "Manage deployment and migration"
         def server(*commands)
             system "bundle exec cap #{commands.join(" ")}"
         end
