@@ -2,7 +2,7 @@ module ThemeJuice
     class CLI < ::Thor
         map %w[--version -v] => :version
 
-        class_option :vvv_path, type: :string, aliases: "-fp", desc: "Force path to VVV installation"
+        class_option :vvv_path, type: :string, aliases: "-vvv", desc: "Force path to VVV installation"
 
         ###
         # Non Thor commands
