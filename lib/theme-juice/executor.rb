@@ -31,9 +31,9 @@ module ThemeJuice
             def create(opts)
                 @opts = opts
 
-                use_config
-
                 say "Running setup for '#{@opts[:site_name]}'...", :yellow
+
+                use_config(@opts[:site_location])
 
                 unless wordpress_is_setup?
                     setup_wordpress
@@ -203,12 +203,11 @@ module ThemeJuice
             ###
             # Verify config is properly setup, set global var
             #
-            # @param {String} config_path (nil)
+            # @param {String} config_path
             #
             # @return {Void}
             ###
-            def use_config(config_path = nil)
-                config_path ||= @opts[:site_location]
+            def use_config(config_path)
 
                 if config_is_setup? config_path
                     @config = YAML.load_file "#{config_path}/tj-config.yml"
