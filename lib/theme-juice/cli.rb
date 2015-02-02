@@ -1,5 +1,6 @@
 module ThemeJuice
     class CLI < ::Thor
+        map %w[--version -v] => :version
 
         class_option :vvv_path, type: :string, aliases: "-fp", desc: "Force path to VVV installation"
 
@@ -32,7 +33,7 @@ module ThemeJuice
         #
         # @return {String}
         ###
-        desc "version", "Print current version"
+        desc "--version, -v", "Print current version"
         def version
             say "Current version: #{::ThemeJuice::VERSION}", :green
         end

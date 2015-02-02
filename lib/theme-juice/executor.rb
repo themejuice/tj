@@ -5,7 +5,7 @@ module ThemeJuice
             include ::Thor::Shell
 
             ###
-            # Install and setup starter theme
+            # Run installation from config
             #
             # @param {String} config_path (nil)
             #
