@@ -26,6 +26,27 @@ module ThemeJuice
                 say "Welcome to Theme Juice!".center(60), :green
                 say "\n\n"
             end
+
+            ###
+            # Check if current version is outdated
+            #
+            # @return {Bool}
+            ###
+            def check_if_current_version_is_outdated
+                local_version = ::ThemeJuice::VERSION
+
+                fetcher = ::Gem::SpecFetcher.fetcher
+                dependency = ::Gem::Dependency.new "theme-juice", ">= #{local_version}"
+
+                remotes, = fetcher.search_for_dependency dependency
+                remote_version = remotes.map { |n, _| n.version }.sort.last
+
+                if ::Gem::Version.new(local_version) < ::Gem::Version.new(remote_version)
+                    say "Current version #{local_version} is outdated. Newest version is #{remote_version}. Please update now.", :yellow
+                else
+                    say "Up to date.", :green
+                end
+            end
         end
 
         ###
@@ -36,6 +57,7 @@ module ThemeJuice
         desc "--version, -v", "Print current version"
         def version
             say "Current version: #{::ThemeJuice::VERSION}", :green
+            # check_if_current_version_is_outdated
         end
 
         ###

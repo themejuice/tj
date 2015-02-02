@@ -2,6 +2,7 @@ require "securerandom"
 require "fileutils"
 require "pathname"
 require "tempfile"
+require "rubygems"
 require "thor"
 require "yaml"
 
