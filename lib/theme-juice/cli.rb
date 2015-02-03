@@ -66,6 +66,7 @@ module ThemeJuice
         method_option :theme,      type: :string,  aliases: "-t", default: false, desc: "Starter theme to install"
         method_option :url,        type: :string,  aliases: "-u", default: false, desc: "Development URL of the site"
         method_option :repository, type: :boolean, aliases: "-r", default: false, desc: "Initialize a new Git remote repository"
+        method_option :skip_db,    type: :boolean,                default: false, desc: "Skips database prompts and uses defaults"
         def create(site = nil, bare_setup = false)
             self.welcome
 
@@ -160,29 +161,29 @@ module ThemeJuice
                 end
 
                 # Database host
-                if options[:db_host]
-                    db_host = options[:db_host]
+                if options[:skip_db]
+                    db_host = "vvv"
                 else
                     db_host = ask "Database host :", :blue, default: "vvv"
                 end
 
                 # Database name
-                if options[:db_name]
-                    db_name = options[:db_name]
+                if options[:skip_db]
+                    db_name = "#{clean_site_name}_db"
                 else
                     db_name = ask "Database name :", :blue, default: "#{clean_site_name}_db"
                 end
 
                 # Database username
-                if options[:db_user]
-                    db_user = options[:db_user]
+                if options[:skip_db]
+                    db_user = "#{clean_site_name}_user"
                 else
                     db_user = ask "Database username :", :blue, default: "#{clean_site_name}_user"
                 end
 
                 # Database password
-                if options[:db_pass]
-                    db_pass = options[:db_pass]
+                if options[:skip_db]
+                    db_pass = SecureRandom.base64
                 else
                     db_pass = ask "Database password :", :blue, default: SecureRandom.base64
                 end
