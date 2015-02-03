@@ -59,7 +59,7 @@ module ThemeJuice
         #
         # @return {Void}
         ###
-        desc "create [SITE]", "Setup SITE and the VVV development environment"
+        desc "create [SITE]", "Create new SITE and setup the VVV development environment"
         method_option :bare,       type: :boolean, aliases: "-b",                 desc: "Create a VVV site without a starter theme"
         method_option :site,       type: :string,  aliases: "-s", default: false, desc: "Name of the development site"
         method_option :location,   type: :string,  aliases: "-l", default: false, desc: "Location of the local site"
@@ -237,9 +237,9 @@ module ThemeJuice
         #
         # @return {Void}
         ###
-        desc "setup [SITE]", "Create a VVV site without starter theme (alias for 'create --bare')"
+        desc "setup [SITE]", "Setup an existing SITE in development environment"
         def setup(site = nil)
-            invoke :create, [site], :bare => true
+            invoke :create, [site], bare: true
         end
 
         ###
