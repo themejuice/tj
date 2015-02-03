@@ -1,15 +1,15 @@
 module ThemeJuice
     class CLI < ::Thor
 
-        map %w[--version -v]     => :version
-        map %w[new, build, make] => :create
-        map %w[init, prep]       => :setup
-        map %w[remove, teardown] => :delete
-        map %w[sites, show]      => :list
-        map %w[dev]              => :watch
-        map %w[dep]              => :vendor
-        map %w[deploy]           => :server
-        map %w[vagrant, vvv]     => :vm
+        map %w[--version -v]      => :version
+        map %w[new, build, make]  => :create
+        map %w[setup, init, prep] => :create
+        map %w[remove, teardown]  => :delete
+        map %w[sites, show]       => :list
+        map %w[dev]               => :watch
+        map %w[dep]               => :vendor
+        map %w[deploy]            => :server
+        map %w[vagrant, vvv]      => :vm
 
         class_option :vvv_path, type: :string, aliases: "-vvv", desc: "Force path to VVV installation"
 
@@ -66,8 +66,8 @@ module ThemeJuice
         method_option :theme,      type: :string,  aliases: "-t", default: false, desc: "Starter theme to install"
         method_option :url,        type: :string,  aliases: "-u", default: false, desc: "Development URL of the site"
         method_option :repository, type: :boolean, aliases: "-r", default: false, desc: "Initialize a new Git remote repository"
-        method_option :skip_db,    type: :boolean,                default: false, desc: "Skips database prompts and uses defaults"
-        def create(site = nil, bare_setup = false)
+        method_option :skip_db,    type: :boolean,                                desc: "Skips database prompts and uses defaults"
+        def create(site = nil)
             self.welcome
 
             if options[:site]
@@ -107,7 +107,9 @@ module ThemeJuice
                 end
 
                 # Starter theme to clone
-                unless bare_setup
+                if bare_setup
+                    starter_theme = "none"
+                else
 
                     if options[:theme]
                         starter_theme = options[:theme]
@@ -218,7 +220,7 @@ module ThemeJuice
                 if yes? "Do the options above look correct? (y/N) :", :blue
                     ::ThemeJuice::Executor::create opts
                 else
-                    say "Alrighty then! Aborting mission.", :red
+                    say "Maybe you should type better next time? Aborting mission.", :red
                     exit 1
                 end
             else
@@ -237,7 +239,7 @@ module ThemeJuice
         ###
         desc "setup [SITE]", "Create a VVV site without starter theme (alias for 'create --bare')"
         def setup(site = nil)
-            self.create site, true
+            invoke :create, [site], :bare => true
         end
 
         ###
