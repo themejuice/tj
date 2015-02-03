@@ -22,6 +22,27 @@ module ThemeJuice
             end
 
             ###
+            # Run subcommand from config
+            #
+            # @param {String} subcommand
+            # @param {String} commands
+            #
+            # @return {Void}
+            ###
+            def subcommand(subcommand, commands)
+                config_path = File.expand_path(Dir.pwd)
+
+                use_config(config_path)
+
+                if @config[subcommand]
+                    run ["#{@config[subcommand]} #{commands}"], false
+                else
+                    say "Unable to find '#{subcommand}' command in '#{config_path}/tj-config.yml'. Aborting mission.", :red
+                    exit 1
+                end
+            end
+
+            ###
             # Set up local development environment and site
             #
             # @param {Hash} opts
@@ -405,8 +426,8 @@ module ThemeJuice
             # @return {Void}
             ###
             def setup_config(config_path)
-                watch = ask "Watch command to use :", :blue, default: "guard"
-                server = ask "Deployment command to use :", :blue, default: "cap"
+                watch = ask "Watch command to use :", :blue, default: "bundle exec guard"
+                server = ask "Deployment command to use :", :blue, default: "bundle exec cap"
                 vendor = ask "Vendor command to use :", :blue, default: "composer"
                 install = ask "Commands to run on theme install :", :blue, default: "composer install"
 

@@ -324,7 +324,33 @@ module ThemeJuice
         ###
         desc "watch [COMMANDS]", "Watch and compile assets"
         def watch(*commands)
-            system "bundle exec guard #{commands.join(" ")}"
+            ::ThemeJuice::Executor::subcommand "#{__method__}", commands.join(" ")
+        end
+
+        ###
+        # Vendor dependencies
+        #
+        # @param {*} commands
+        #   Commands to run
+        #
+        # @return {Void}
+        ###
+        desc "vendor [COMMANDS]", "Manage vendor dependencies"
+        def vendor(*commands)
+            ::ThemeJuice::Executor::subcommand "#{__method__}", commands.join(" ")
+        end
+
+        ###
+        # Server/Deployment
+        #
+        # @param {*} commands
+        #   Commands to run
+        #
+        # @return {Void}
+        ###
+        desc "server [COMMANDS]", "Manage deployment and migration"
+        def server(*commands)
+            ::ThemeJuice::Executor::subcommand "#{__method__}", commands.join(" ")
         end
 
         ###
@@ -338,32 +364,6 @@ module ThemeJuice
         desc "vm [COMMANDS]", "Manage virtual development environment with Vagrant"
         def vm(*commands)
             system "cd ~/vagrant && vagrant #{commands.join(" ")}"
-        end
-
-        ###
-        # Vendor dependencies
-        #
-        # @param {*} commands
-        #   Commands to run
-        #
-        # @return {Void}
-        ###
-        desc "vendor [COMMANDS]", "Manage vendor dependencies"
-        def vendor(*commands)
-            system "composer #{commands.join(" ")}"
-        end
-
-        ###
-        # Server/Deployment
-        #
-        # @param {*} commands
-        #   Commands to run
-        #
-        # @return {Void}
-        ###
-        desc "server [COMMANDS]", "Manage deployment and migration"
-        def server(*commands)
-            system "bundle exec cap #{commands.join(" ")}"
         end
     end
 end
