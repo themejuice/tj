@@ -129,8 +129,6 @@ module ThemeJuice
                     else
                         require "highline/import"
 
-                        starter_theme = nil
-
                         # Hash of baked-in starter themes
                         themes = {
                             "theme-juice/theme-juice-starter" => "https://github.com/ezekg/theme-juice-starter.git"
@@ -141,13 +139,13 @@ module ThemeJuice
                             menu.index_suffix = ") "
 
                             themes.each do |theme, repo|
-                                menu.choice theme do |c|
+                                menu.choice theme do |choice|
 
                                     if theme == "theme-juice/theme-juice-starter"
                                         say "Awesome choice!", :green
                                     end
 
-                                    starter_theme = c
+                                    starter_theme = choice
                                 end
                             end
 
@@ -155,9 +153,9 @@ module ThemeJuice
                                 starter_theme = ask "What is the repository URL for the starter theme you would like to clone? :", :blue
                             end
 
-                            menu.choice "none" do |c|
+                            menu.choice "none" do |choice|
                                 say "Next time you want to create a site without a starter theme, you can just run the 'setup' command instead.", :yellow
-                                starter_theme, bare_setup = c, true
+                                starter_theme, bare_setup = choice, true
                             end
                         end
                     end
@@ -248,7 +246,7 @@ module ThemeJuice
                 if yes? "Do the options above look correct? (y/N) :", :blue
                     ::ThemeJuice::Executor::create opts
                 else
-                    say "Maybe you should type better next time? Aborting mission.", :red
+                    say "Dang typos... aborting mission.", :red
                     exit 1
                 end
             else
