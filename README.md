@@ -10,6 +10,8 @@ That`s it!
 ## Config
 Because everybody likes to use different tools, you can create a `tj-config.yml` file that will house all of your theme-specific commands. This allows you to use a streamlined set of commands that will act as aliases to your per-project configuration. If you're into [Grunt](https://github.com/gruntjs/grunt), then use it. Prefer [Guard](https://github.com/guard/guard)? Go right ahead. This is obviously relative to the starter theme you use, since you can't exactly use Grunt with a starter theme that doesn't support it.
 
+_Note: If you use a starter theme that doesn't have a `tj-config.yml` file, you'll be prompted through a series of steps in order to create one._
+
 | Command   | Usage                                                                         |
 |:--------- |:----------------------------------------------------------------------------- |
 | `watch`   | Command to be executed when you run `tj watch`                                |
@@ -17,7 +19,7 @@ Because everybody likes to use different tools, you can create a `tj-config.yml`
 | `vendor`  | Command to be executed when you run `tj vendor`                               |
 | `install` | Each command is executed when you run `tj install` to prepare a starter theme |
 
-_Below is the config that comes baked into [our starter theme](https://github.com/ezekg/theme-juice-starter)._
+Below is the config that comes baked into [our starter theme](https://github.com/ezekg/theme-juice-starter):
 
 ```yml
 watch: bundle exec guard
