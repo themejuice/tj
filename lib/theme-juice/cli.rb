@@ -65,8 +65,9 @@ module ThemeJuice
         method_option :location,   type: :string,  aliases: "-l", default: false, desc: "Location of the local site"
         method_option :theme,      type: :string,  aliases: "-t", default: false, desc: "Starter theme to install"
         method_option :url,        type: :string,  aliases: "-u", default: false, desc: "Development URL of the site"
-        method_option :repository, type: :boolean, aliases: "-r", default: false, desc: "Initialize a new Git remote repository"
-        method_option :skip_db,    type: :boolean,                                desc: "Skips database prompts and uses defaults"
+        method_option :repository, type: :string,  aliases: "-r",                 desc: "Initialize a new Git remote repository"
+        method_option :skip_repo,  type: :boolean,                                desc: "Skip repository prompts and use defaults"
+        method_option :skip_db,    type: :boolean,                                desc: "Skip database prompts and use defaults"
         def create(site = nil)
             self.welcome
 
@@ -75,7 +76,7 @@ module ThemeJuice
             end
 
             # Check if user passed all required options through flags
-            if options.all? { |opt, val| val != false }
+            if options.length >= 6
                 say "Well... looks like you just have everything all figured out, huh?", :yellow
             elsif site.nil?
                 say "Just a few questions before we begin...", :yellow
@@ -152,13 +153,17 @@ module ThemeJuice
                 end
 
                 # Initialize a git repository on setup
-                if options[:repository]
-                    repository = options[:repository]
+                if options[:skip_repo]
+                    repository = false
                 else
-                    if yes? "Would you like to initialize a new Git repository? (y/N) :", :blue
-                        repository = ask "What is the repository's URL? :", :blue
+                    if options[:repository]
+                        repository = options[:repository]
                     else
-                        repository = false
+                        if yes? "Would you like to initialize a new Git repository? (y/N) :", :blue
+                            repository = ask "What is the repository's URL? :", :blue
+                        else
+                            repository = false
+                        end
                     end
                 end
 

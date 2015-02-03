@@ -42,8 +42,9 @@ tj create [<SITE-NAME>] # Aliases: new, build, make
 | `-l, [--location=LOCATION]`             | Path   | Location of the local site                       |
 | `-t, [--theme=THEME]`                   | Repo   | Starter theme to install (can use `none`)        |
 | `-u, [--url=URL]`                       | URL    | Development URL of the site (must end in `.dev`) |
-| `-r, [--repository], [--no-repository]` | Bool   | Initialize a new Git remote repository           |
-| `[--skip-db], [--no-skip-db]`           | Bool   | Skip database prompts and uses defaults         |
+| `-r, [--repository]`                    | String | Initialize a new Git remote repository           |
+| `[--skip-repo], [--no-skip-repo]`       | Bool   | Skip repository prompts and use defaults         |
+| `[--skip-db], [--no-skip-db]`           | Bool   | Skip database prompts and uses defaults          |
 
 ### Setting up an existing site:
 Use this to setup an existing local site installation within the development environment. You will go through the setup process to create the necessary files for the VM, including `vvv-hosts`, `vvv-nginx.conf`, and a fresh database (unless one already exists by the name chosen). Site name is optional, as it will be asked for if not given.
