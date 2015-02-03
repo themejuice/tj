@@ -71,35 +71,12 @@ module ThemeJuice
         # @return {Void}
         ###
         desc "create [SITE]", "Setup SITE and the VVV development environment"
-        method_option :bare,
-            type: :boolean,
-            aliases: "-b",
-            desc: "Create a VVV site without a starter theme"
-        method_option :site,
-            type: :string,
-            aliases: "-s",
-            default: false,
-            desc: "Name of the development site"
-        method_option :location,
-            type: :string,
-            aliases: "-l",
-            default: false,
-            desc: "Location of the local site"
-        method_option :theme,
-            type: :string,
-            aliases: "-t",
-            default: false,
-            desc: "Starter theme to install"
-        method_option :url,
-            type: :string,
-            aliases: "-u",
-            default: false,
-            desc: "Development URL of the site"
-        method_option :repository,
-            type: :boolean,
-            aliases: "-r",
-            default: false,
-            desc: "Initialize a new Git remote repository"
+        method_option :bare,       type: :boolean, aliases: "-b",                 desc: "Create a VVV site without a starter theme"
+        method_option :site,       type: :string,  aliases: "-s", default: false, desc: "Name of the development site"
+        method_option :location,   type: :string,  aliases: "-l", default: false, desc: "Location of the local site"
+        method_option :theme,      type: :string,  aliases: "-t", default: false, desc: "Starter theme to install"
+        method_option :url,        type: :string,  aliases: "-u", default: false, desc: "Development URL of the site"
+        method_option :repository, type: :boolean, aliases: "-r", default: false, desc: "Initialize a new Git remote repository"
         def create(site = nil, bare_setup = false)
             self.welcome
 
@@ -305,11 +282,7 @@ module ThemeJuice
         # @return {Void}
         ###
         desc "install", "Run installation for the starter theme"
-        method_option :config,
-            type: :string,
-            aliases: "-c",
-            default: nil,
-            desc: "Force path to config file"
+        method_option :config, type: :string, aliases: "-c", default: nil, desc: "Force path to config file"
         def install
             ::ThemeJuice::Executor::install options[:config]
         end
