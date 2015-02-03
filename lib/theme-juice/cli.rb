@@ -131,17 +131,28 @@ module ThemeJuice
 
                         starter_theme = nil
 
+                        # Hash of baked-in starter themes
+                        themes = {
+                            "theme-juice/theme-juice-starter" => "https://github.com/ezekg/theme-juice-starter.git"
+                        }
+
                         say "Which starter theme would you like to use? :", :blue
                         choose do |menu|
                             menu.index_suffix = ") "
 
-                            menu.choice "ezekg/theme-juice-starter" do |c|
-                                say "Awesome choice!", :green
-                                starter_theme = c
+                            themes.each do |theme, repo|
+                                menu.choice theme do |c|
+
+                                    if theme == "theme-juice/theme-juice-starter"
+                                        say "Awesome choice!", :green
+                                    end
+
+                                    starter_theme = c
+                                end
                             end
 
                             menu.choice "other" do
-                                starter_theme = ask "What is the user/repository of the starter theme you would like to clone? :", :blue
+                                starter_theme = ask "What is the repository URL for the starter theme you would like to clone? :", :blue
                             end
 
                             menu.choice "none" do |c|

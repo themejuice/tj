@@ -8,18 +8,7 @@ Command line interface to scaffold out a new WordPress development environment a
 That`s it!
 
 ## Config
-Because everybody likes to use different tools, you can create a `tj-config.yml` file that will house all of your theme-specific commands. This allows you to use a streamlined set of commands that will act as aliases to your per-project configuration. If you're into [Grunt](https://github.com/gruntjs/grunt), then use it. Prefer [Guard](https://github.com/guard/guard)? Go right ahead. This is obviously relative to the starter theme you use, since you can't exactly use Grunt with a starter theme that doesn't support it.
-
-_Note: If you use a starter theme that doesn't have a `tj-config.yml` file, you'll be prompted through a series of steps in order to create one._
-
-| Command   | Usage                                                                         |
-|:--------- |:----------------------------------------------------------------------------- |
-| `watch`   | Command to be executed when you run `tj watch`                                |
-| `server`  | Command to be executed when you run `tj server`                               |
-| `vendor`  | Command to be executed when you run `tj vendor`                               |
-| `install` | Each command is executed when you run `tj install` to prepare a starter theme |
-
-Below is the config that comes baked into [our starter theme](https://github.com/ezekg/theme-juice-starter):
+Because everybody likes to use different tools, you can create a `tj-config.yml` file that will house all of your theme-specific commands. This allows you to use a streamlined set of commands that will act as aliases to your per-project configuration. If you're into [Grunt](https://github.com/gruntjs/grunt), then use it. Prefer [Guard](https://github.com/guard/guard)? Go right ahead. This is obviously relative to the starter theme you use, since you can't exactly use Grunt with a starter theme that doesn't support it. Below is the config that comes baked into [our starter theme](https://github.com/ezekg/theme-juice-starter):
 
 ```yml
 watch: bundle exec guard
@@ -29,6 +18,16 @@ install:
     - composer install
 
 ```
+
+_Note: If you use a starter theme that doesn't have a `tj-config.yml` file, you'll be prompted through a series of steps in order to create one._
+
+#### Config options:
+| Option    | Usage                                                                         |
+|:--------- |:----------------------------------------------------------------------------- |
+| `watch`   | Command to be aliased when you run `tj watch` for bulding assets              |
+| `server`  | Command to be aliased when you run `tj server` for deployments                |
+| `vendor`  | Command to be aliased when you run `tj vendor` for dependencies               |
+| `install` | Each command is executed when you run `tj install` to prepare a starter theme |
 
 ## Usage
 
@@ -56,13 +55,13 @@ Use this to create a new development site. It will automagically set up your ent
 tj create [<SITE-NAME>] # Aliases: new, build, make
 ```
 
-#### Option flags: _(since `0.2.0`)_
+#### Option flags:
 | Flag                                    | Type   | Description                                      |
 |:--------------------------------------- |:------ |:------------------------------------------------ |
 | `-b, [--bare], [--no-bare]`             | Bool   | Create a VVV site without a starter theme        |
 | `-s, [--site=SITE]`                     | String | Name of the development site                     |
 | `-l, [--location=LOCATION]`             | Path   | Location of the local site                       |
-| `-t, [--theme=THEME]`                   | Repo   | Starter theme to install (can use `none`)        |
+| `-t, [--theme=THEME]`                   | URL    | Starter theme to install (can use `none`)        |
 | `-u, [--url=URL]`                       | URL    | Development URL of the site (must end in `.dev`) |
 | `-r, [--repository]`                    | String | Initialize a new Git remote repository           |
 | `[--skip-repo], [--no-skip-repo]`       | Bool   | Skip repository prompts and set to `none`        |

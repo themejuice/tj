@@ -554,7 +554,7 @@ module ThemeJuice
                     run [
                         "mkdir -p #{@opts[:site_location]}",
                         "cd #{@opts[:site_location]}",
-                        "git clone --depth 1 https://github.com/#{@opts[:starter_theme]}.git .",
+                        "git clone --depth 1 #{@opts[:starter_theme]} .",
                     ]
 
                     # Install dependencies
