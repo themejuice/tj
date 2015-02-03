@@ -1,6 +1,15 @@
 module ThemeJuice
     class CLI < ::Thor
-        map %w[--version -v] => :version
+
+        map %w[--version -v]     => :version
+        map %w[new, build, make] => :create
+        map %w[init, prep]       => :setup
+        map %w[remove, teardown] => :delete
+        map %w[sites, show]      => :list
+        map %w[dev]              => :watch
+        map %w[dep]              => :vendor
+        map %w[deploy]           => :server
+        map %w[vagrant, vvv]     => :vm
 
         class_option :vvv_path, type: :string, aliases: "-vvv", desc: "Force path to VVV installation"
 

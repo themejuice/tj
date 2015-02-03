@@ -20,7 +20,7 @@ module ThemeJuice
         #
         # @return {String}
         ###
-        def vvv_path
+        def get_vvv_path
             ::ThemeJuice::CLI::options[:vvv_path] ||= File.expand_path "~/vagrant"
         end
 
