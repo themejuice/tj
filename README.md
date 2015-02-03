@@ -5,8 +5,28 @@ Command line interface to scaffold out a new WordPress development environment a
 * First, install [Vagrant](https://www.vagrantup.com/) and [VirtualBox](https://www.virtualbox.org/) for local development.
 * Then, install [Composer](https://getcomposer.org/) and [WP-CLI](http://wp-cli.org/) (make sure they're executable).
 * Finally, install with: `gem install theme-juice`
-
 That`s it!
+
+## Config
+Because everybody likes to use different tools, you can create a `tj-config.yml` file that will house all of your theme-specific commands. This allows you to use a streamlined set of commands that will act as aliases to your per-project configuration. If you're into [Grunt](https://github.com/gruntjs/grunt), then use it. Prefer [Guard](https://github.com/guard/guard)? Go right ahead. This is obviously relative to the starter theme you use, since you can't exactly use Grunt with a starter theme that doesn't support it.
+
+| Command   | Usage                                                                         |
+|:--------- |:----------------------------------------------------------------------------- |
+| `watch`   | Command to be executed when you run `tj watch`                                |
+| `server`  | Command to be executed when you run `tj server`                               |
+| `vendor`  | Command to be executed when you run `tj vendor`                               |
+| `install` | Each command is executed when you run `tj install` to prepare a starter theme |
+
+_Below is the config that comes baked into [our starter theme](https://github.com/ezekg/theme-juice-starter)._
+
+```yml
+watch: bundle exec guard
+server: bundle exec cap
+vendor: composer
+install:
+    - composer install
+
+```
 
 ## Usage
 
@@ -43,8 +63,8 @@ tj create [<SITE-NAME>] # Aliases: new, build, make
 | `-t, [--theme=THEME]`                   | Repo   | Starter theme to install (can use `none`)        |
 | `-u, [--url=URL]`                       | URL    | Development URL of the site (must end in `.dev`) |
 | `-r, [--repository]`                    | String | Initialize a new Git remote repository           |
-| `[--skip-repo], [--no-skip-repo]`       | Bool   | Skip repository prompts and use defaults         |
-| `[--skip-db], [--no-skip-db]`           | Bool   | Skip database prompts and uses defaults          |
+| `[--skip-repo], [--no-skip-repo]`       | Bool   | Skip repository prompts and set to `none`        |
+| `[--skip-db], [--no-skip-db]`           | Bool   | Skip database prompts and use defaults           |
 
 ### Setting up an existing site:
 Use this to setup an existing local site installation within the development environment. You will go through the setup process to create the necessary files for the VM, including `vvv-hosts`, `vvv-nginx.conf`, and a fresh database (unless one already exists by the name chosen). Site name is optional, as it will be asked for if not given.
@@ -64,26 +84,26 @@ Use this to list all sites within your development environment that were generat
 tj list # Aliases: sites, show
 ```
 
-### Watching and compiling assets: _(Guard)_
-Use this to watch and compile assets with [Guard](https://github.com/guard/guard). This is simply a wrapper for Guard commands.
+### Watching and compiling assets:
+Use this to watch and compile assets with your preferred build tool, whether that be [Grunt](https://github.com/gruntjs/grunt), [Gulp](https://github.com/gulpjs/gulp), [Guard](https://github.com/guard/guard), or whatever. This is simply a wrapper for whatever command is in your `tj-config.yml` file.
 ```bash
 tj watch # Aliases: dev
 ```
 
-### Managing development environment: _(Vagrant)_
-Use this to easily manage your [Varying Vagrant Vagrants](https://github.com/Varying-Vagrant-Vagrants/VVV) development environment. This is simply a wrapper for Vagrant commands.
+### Managing development environment:
+Use this to easily manage your [Varying Vagrant Vagrants](https://github.com/Varying-Vagrant-Vagrants/VVV) development environment. This is simply a wrapper for Vagrant commands executed within your VVV path.
 ```bash
 tj vm # Aliases: vagrant, vvv
 ```
 
-### Managing vendor dependencies: _(Composer)_
-Use this to easily manage your [Composer](https://github.com/composer/composer) dependencies. This is simply a wrapper for Composer commands.
+### Managing vendor dependencies:
+Use this to easily manage your dependencies with [Composer](https://github.com/composer/composer), or whatever other command you set in your `tj-config.yml`. This is a wrapper for whatever command is in your config file.
 ```bash
 tj vendor # Aliases: deps
 ```
 
-### Managing deployment and migration: _(Capistrano)_
-Use this to easily manage your deployment and migration with [Capistrano](https://github.com/capistrano/capistrano). This is simply a wrapper for Capistrano commands.
+### Managing deployment and migration:
+Use this to easily manage your deployment and migration with [Capistrano](https://github.com/capistrano/capistrano) (or again, anything else set within your `tj-config.yml`). This is just a wrapper for your chosen command.
 ```bash
 tj server # Aliases: deploy
 ```
