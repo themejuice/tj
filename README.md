@@ -19,7 +19,7 @@ tj
 ### Print version:
 This command will print the current version of `tj`.
 ```bash
-tj version
+tj --version # Aliases: -v, version
 ```
 
 ### Setup VVV:
