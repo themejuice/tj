@@ -7,16 +7,27 @@ module ThemeJuice
         map %w[remove, teardown]  => :delete
         map %w[sites, show]       => :list
         map %w[dev]               => :watch
-        map %w[dep]               => :vendor
+        map %w[dep, deps]         => :vendor
         map %w[deploy]            => :server
         map %w[vagrant, vvv]      => :vm
 
-        class_option :vvv_path, type: :string, aliases: "-vvv", desc: "Force path to VVV installation"
+        class_option :vvv_path, type: :string, alias: "-fp", default: nil, desc: "Force path to VVV installation"
 
         ###
-        # Non Thor commands
+        # Non-Thor commands
         ###
         no_commands do
+
+            ###
+            # Set VVV path
+            #
+            # @return {Void}
+            ###
+            def force_vvv_path?
+                unless options[:vvv_path].nil?
+                    ::ThemeJuice::Utilities.set_vvv_path options[:vvv_path]
+                end
+            end
 
             ###
             # Welcome message
@@ -44,7 +55,7 @@ module ThemeJuice
         ###
         desc "--version, -v", "Print current version"
         def version
-            # ::ThemeJuice.check_if_current_version_is_outdated
+            # ::ThemeJuice::Utilities.check_if_current_version_is_outdated
 
             say ::ThemeJuice::VERSION, :green
         end
@@ -69,6 +80,7 @@ module ThemeJuice
         method_option :skip_repo,  type: :boolean,                                desc: "Skip repository prompts and use defaults"
         method_option :skip_db,    type: :boolean,                                desc: "Skip database prompts and use defaults"
         def create(site = nil)
+            self.force_vvv_path?
             self.welcome
 
             if options[:site]
@@ -201,7 +213,7 @@ module ThemeJuice
                     site_location: File.expand_path(site_location),
                     starter_theme: starter_theme,
                     bare_setup: bare_setup,
-                    dev_location: File.expand_path("~/vagrant/www/tj-#{site}"),
+                    dev_location: File.expand_path("#{::ThemeJuice::Utilities.get_vvv_path}/www/tj-#{site}"),
                     dev_url: dev_url,
                     repository: repository,
                     db_host: db_host,
@@ -258,6 +270,8 @@ module ThemeJuice
         desc "delete SITE", "Remove SITE from the VVV development environment (does not remove local site)"
         method_option :restart, type: :boolean
         def delete(site)
+            self.force_vvv_path?
+
             if yes? "Are you sure you want to delete '#{site}'? (y/N)", :red
                 ::ThemeJuice::Executor::delete site, options[:restart]
             end
@@ -270,6 +284,8 @@ module ThemeJuice
         ###
         desc "list", "List all sites within the VVV development environment"
         def list
+            self.force_vvv_path?
+
             ::ThemeJuice::Executor::list
         end
 
@@ -320,6 +336,8 @@ module ThemeJuice
         ###
         desc "server [COMMANDS]", "Manage deployment and migration"
         def server(*commands)
+            self.force_vvv_path?
+
             ::ThemeJuice::Executor::subcommand "#{__method__}", commands.join(" ")
         end
 
@@ -333,7 +351,9 @@ module ThemeJuice
         ###
         desc "vm [COMMANDS]", "Manage virtual development environment with Vagrant"
         def vm(*commands)
-            system "cd ~/vagrant && vagrant #{commands.join(" ")}"
+            self.force_vvv_path?
+
+            system "cd #{::ThemeJuice::Utilities.get_vvv_path} && vagrant #{commands.join(" ")}"
         end
     end
 end

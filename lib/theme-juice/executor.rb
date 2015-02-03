@@ -150,7 +150,7 @@ module ThemeJuice
                 ###
                 @opts = {
                     site_name: site,
-                    dev_location: File.expand_path("~/vagrant/www/tj-#{site}")
+                    dev_location: File.expand_path("#{::ThemeJuice::Utilities.get_vvv_path}/www/tj-#{site}")
                 }
 
                 if dev_site_is_setup?
@@ -189,7 +189,7 @@ module ThemeJuice
             def list
                 sites = []
 
-                Dir.glob(File.expand_path("~/vagrant/www/*")).each do |f|
+                Dir.glob(File.expand_path("#{::ThemeJuice::Utilities.get_vvv_path}/www/*")).each do |f|
                     sites << File.basename(f).gsub(/(tj-)/, "") if File.directory?(f) && f.include?("tj-")
                 end
 
@@ -260,7 +260,7 @@ module ThemeJuice
             ###
             def restart_vagrant
                 run [
-                    "cd ~/vagrant",
+                    "cd #{::ThemeJuice::Utilities.get_vvv_path}",
                     "vagrant halt",
                     "vagrant up --provision",
                 ], false
@@ -291,14 +291,14 @@ module ThemeJuice
             # @return {Bool}
             ###
             def vvv_is_setup?
-                File.exist? File.expand_path("~/vagrant")
+                File.exist? File.expand_path(::ThemeJuice::Utilities.get_vvv_path)
             end
 
             ###
             # @return {Bool}
             ###
             def wildcard_subdomains_is_setup?
-                File.readlines(File.expand_path("~/vagrant/Vagrantfile")).grep(/(config.landrush.enabled = true)/m).any?
+                File.readlines(File.expand_path("#{::ThemeJuice::Utilities.get_vvv_path}/Vagrantfile")).grep(/(config.landrush.enabled = true)/m).any?
             end
 
             ###
@@ -319,7 +319,7 @@ module ThemeJuice
             # @return {Bool}
             ###
             def database_is_setup?
-                File.readlines(File.expand_path("~/vagrant/database/init-custom.sql")).grep(/(### Begin '#{@opts[:site_name]}')/m).any?
+                File.readlines(File.expand_path("#{::ThemeJuice::Utilities.get_vvv_path}/database/init-custom.sql")).grep(/(### Begin '#{@opts[:site_name]}')/m).any?
             end
 
             ###
@@ -340,7 +340,7 @@ module ThemeJuice
             # @return {Bool}
             ###
             def synced_folder_is_setup?
-                File.readlines(File.expand_path("~/vagrant/Vagrantfile")).grep(/(### Begin '#{@opts[:site_name]}')/m).any?
+                File.readlines(File.expand_path("#{::ThemeJuice::Utilities.get_vvv_path}/Vagrantfile")).grep(/(### Begin '#{@opts[:site_name]}')/m).any?
             end
 
             ###
@@ -370,13 +370,13 @@ module ThemeJuice
             # @return {Void}
             ###
             def setup_vvv
-                say "Installing VVV into '#{File.expand_path("~/vagrant")}'...", :yellow
+                say "Installing VVV into '#{File.expand_path("#{::ThemeJuice::Utilities.get_vvv_path}")}'...", :yellow
                 run [
                     "vagrant plugin install vagrant-hostsupdater",
                     "vagrant plugin install vagrant-triggers",
                     "vagrant plugin install landrush",
-                    "git clone https://github.com/Varying-Vagrant-Vagrants/VVV.git ~/vagrant",
-                    "cd ~/vagrant/database && touch init-custom.sql"
+                    "git clone https://github.com/Varying-Vagrant-Vagrants/VVV.git #{::ThemeJuice::Utilities.get_vvv_path}",
+                    "cd #{::ThemeJuice::Utilities.get_vvv_path}/database && touch init-custom.sql"
                 ]
             end
 
@@ -390,7 +390,7 @@ module ThemeJuice
             ###
             def setup_wildcard_subdomains
                 say "Setting up wildcard subdomains...", :yellow
-                open File.expand_path("~/vagrant/Vagrantfile"), "a+" do |file|
+                open File.expand_path("#{::ThemeJuice::Utilities.get_vvv_path}/Vagrantfile"), "a+" do |file|
                     file.puts "\n"
                     file.puts "###"
                     file.puts "# Enable wildcard subdomains"
@@ -413,7 +413,7 @@ module ThemeJuice
             def setup_dev_site
                 say "Setting up new development site at '#{@opts[:dev_location]}'...", :yellow
                 run [
-                    "cd ~/vagrant/www",
+                    "cd #{::ThemeJuice::Utilities.get_vvv_path}/www",
                     "mkdir tj-#{@opts[:site_name]}",
                 ]
             end
@@ -469,7 +469,7 @@ module ThemeJuice
             # @return {Void}
             ###
             def setup_database
-                File.open File.expand_path("~/vagrant/database/init-custom.sql"), "a+" do |file|
+                File.open File.expand_path("#{::ThemeJuice::Utilities.get_vvv_path}/database/init-custom.sql"), "a+" do |file|
                     file.puts "### Begin '#{@opts[:site_name]}'"
                     file.puts "#"
                     file.puts "# This block is automatically generated by ThemeJuice. Do not edit."
@@ -573,7 +573,7 @@ module ThemeJuice
             def setup_synced_folder
                 say "Syncing host theme directory '#{@opts[:site_location]}' with VM theme directory '/srv/www/tj-#{@opts[:site_name]}'...", :yellow
 
-                open File.expand_path("~/vagrant/Vagrantfile"), "a+" do |file|
+                open File.expand_path("#{::ThemeJuice::Utilities.get_vvv_path}/Vagrantfile"), "a+" do |file|
                     file.puts "### Begin '#{@opts[:site_name]}'"
                     file.puts "#"
                     file.puts "# This block is automatically generated by ThemeJuice. Do not edit."
@@ -622,7 +622,7 @@ module ThemeJuice
                     file.puts "\tvagrant:"
                     file.puts "\t\turl: #{@opts[:dev_url]}"
                     file.puts "\t\tpath: /srv/www/tj-#{@opts[:site_name]}"
-                    file.puts "\t\tcmd: cd ~/vagrant && vagrant ssh-config > /tmp/vagrant_ssh_config && ssh -q %pseudotty% -F /tmp/vagrant_ssh_config default %cmd%"
+                    file.puts "\t\tcmd: cd #{::ThemeJuice::Utilities.get_vvv_path} && vagrant ssh-config > /tmp/vagrant_ssh_config && ssh -q %pseudotty% -F /tmp/vagrant_ssh_config default %cmd%"
                     file.puts "\n"
                 end
 
@@ -652,7 +652,7 @@ module ThemeJuice
             # @return {Void}
             ###
             def remove_database
-                if remove_traces_from_file "~/vagrant/database/init-custom.sql"
+                if remove_traces_from_file "#{::ThemeJuice::Utilities.get_vvv_path}/database/init-custom.sql"
                     say "Database for '#{@opts[:site_name]}' successfully removed.", :yellow
                 end
             end
@@ -663,7 +663,7 @@ module ThemeJuice
             # @return {Void}
             ###
             def remove_synced_folder
-                if remove_traces_from_file "~/vagrant/Vagrantfile"
+                if remove_traces_from_file "#{::ThemeJuice::Utilities.get_vvv_path}/Vagrantfile"
                     say "Synced folders for '#{@opts[:site_name]}' successfully removed.", :yellow
                 end
             end
