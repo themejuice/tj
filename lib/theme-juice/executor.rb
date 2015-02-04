@@ -453,10 +453,10 @@ module ThemeJuice
             # @return {Void}
             ###
             def setup_config(config_path)
-                watch = ask " ○ Watch command to use :", :blue, default: "bundle exec guard"
-                server = ask " ○ Deployment command to use :", :blue, default: "bundle exec cap"
-                vendor = ask " ○ Vendor command to use :", :blue, default: "composer"
-                install = ask " ○ Commands to run on theme install :", :blue, default: "composer install"
+                watch = ask "   ○ Watch command to use :", :blue, default: "bundle exec guard"
+                server = ask "   ○ Deployment command to use :", :blue, default: "bundle exec cap"
+                vendor = ask "   ○ Vendor command to use :", :blue, default: "composer"
+                install = ask "   ○ Commands to run on theme install :", :blue, default: "composer install"
 
                 File.open "#{config_path}/tj-config.yml", "w" do |file|
                     file.puts "watch: #{watch}"
