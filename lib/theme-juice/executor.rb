@@ -109,9 +109,9 @@ module ThemeJuice
                 end
 
                 if setup_was_successful?
-                    say " ● Setup complete!", :green
+                    say " → Setup complete!".ljust(terminal_width), [:black, :on_green]
 
-                    say " ↺ In order to finish creating your site, you need to provision Vagrant. Do it now?", [:black, :on_blue]
+                    say " ↺ In order to finish creating your site, you need to provision Vagrant. Do it now?".ljust(terminal_width), [:black, :on_blue]
                     if yes? " (y/N) :", :blue
                         say " ● Restarting VVV...", :yellow
 
@@ -134,7 +134,7 @@ module ThemeJuice
                             say " ● Database password: #{@opts[:db_pass]}", :blue
                         end
                     else
-                        say " ↺ Remember, Vagrant needs to be provisioned before you can use your new site. Exiting...", [:black, :on_yellow]
+                        say " → Remember, Vagrant needs to be provisioned before you can use your new site. Exiting...".ljust(terminal_width), [:black, :on_yellow]
                         exit
                     end
                 else

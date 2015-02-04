@@ -64,7 +64,7 @@ module ThemeJuice
         def create(site = nil)
             self.force_vvv_path?
 
-            say " Welcome to Theme Juice!".ljust(terminal_width), [:black, :on_green]
+            say " Welcome to Theme Juice!".ljust(terminal_width), [:black, :on_green, :bold]
 
             if options[:site]
                 site = options[:site]
