@@ -668,6 +668,12 @@ module ThemeJuice
             # @return {Void}
             ###
             def remove_dev_site
+
+                unless Dir.entries("#{::ThemeJuice::Utilities.get_vvv_path}").include? "www"
+                    say "Cannot load VVV path. Aborting mission before something bad happens.", :red
+                    exit 1
+                end
+
                 if run ["rm -rf #{@opts[:dev_location]}"]
                     say "VVV installation for '#{@opts[:site_name]}' successfully removed.", :yellow
                 else
