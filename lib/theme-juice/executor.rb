@@ -118,7 +118,7 @@ module ThemeJuice
                         if restart_vagrant
 
                             # Output success message
-                            say " → Success!".ljust(terminal_width), [:black, :on_green]
+                            say " Success!".ljust(terminal_width), [:black, :on_green, :bold]
 
                             # Output setup info
                             say " → Your settings :".ljust(terminal_width), [:black, :on_green]
