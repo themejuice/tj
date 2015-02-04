@@ -43,12 +43,6 @@ This command will print the current version of `tj`.
 tj --version # Aliases: -v, version
 ```
 
-### Setup VVV:
-This command will _only_ setup [Varying Vagrant Vagrants](https://github.com/Varying-Vagrant-Vagrants/VVV). It will not prompt you to create a new site. _Note: This is automatically run when you create your first site._
-```bash
-tj init
-```
-
 ### Creating a new development site:
 Use this to create a new development site. It will automagically set up your entire development environment, including a local development site at `http://<sites-dev-url>.dev` with WordPress installed and a fresh WP database. It will sync up your local site installation with the Vagrant VM. This task will also install and configure Vagrant/VVV into your `~/` directory if it has not already been installed. Site name is optional, as it will be asked for if not given.
 ```bash
