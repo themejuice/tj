@@ -14,7 +14,7 @@ module ThemeJuice
             def install(config_path = nil)
                 config_path ||= File.expand_path(Dir.pwd)
 
-                use_config(config_path)
+                use_config config_path
 
                 @config["install"].each do |command|
                     run ["cd #{config_path}", command], false
@@ -32,7 +32,7 @@ module ThemeJuice
             def subcommand(subcommand, commands)
                 config_path = File.expand_path(Dir.pwd)
 
-                use_config(config_path)
+                use_config config_path
 
                 if @config[subcommand]
                     run ["#{@config[subcommand]} #{commands}"], false
@@ -54,10 +54,18 @@ module ThemeJuice
 
                 say "Running setup for '#{@opts[:site_name]}'...", :yellow
 
-                use_config(@opts[:site_location])
+                unless project_dir_is_setup?
+                    setup_project_dir
+                end
 
                 unless wordpress_is_setup?
                     setup_wordpress
+                end
+
+                if config_is_setup? @opts[:site_location]
+                    use_config @opts[:site_location]
+
+                    install_theme_dependencies
                 end
 
                 unless vvv_is_setup?
@@ -231,7 +239,7 @@ module ThemeJuice
                 if config_is_setup? config_path
                     @config = YAML.load_file "#{config_path}/tj-config.yml"
                 else
-                    say "Unable to find 'tj-config.yml' file in '#{config_path}'.", :yellow
+                    say "Unable to find 'tj-config.yml' file in '#{config_path}'.", :red
 
                     if yes? "Would you like to create one? (y/N) :", :blue
 
@@ -278,6 +286,13 @@ module ThemeJuice
             ###
             def removal_was_successful?
                 !setup_was_successful?
+            end
+
+            ###
+            # @return {Bool}
+            ###
+            def project_dir_is_setup?
+                Dir.exist? "#{@opts[:site_location]}"
             end
 
             ###
@@ -378,6 +393,16 @@ module ThemeJuice
                     "git clone https://github.com/Varying-Vagrant-Vagrants/VVV.git #{::ThemeJuice::Utilities.get_vvv_path}",
                     "cd #{::ThemeJuice::Utilities.get_vvv_path}/database && touch init-custom.sql"
                 ]
+            end
+
+            ###
+            # Ensure project directory structure
+            #
+            # @return {Void}
+            ###
+            def setup_project_dir
+                say "Creating project directory tree in '#{@opts[:site_location]}'...", :yellow
+                run ["mkdir -p #{@opts[:site_location]}"]
             end
 
             ###
@@ -534,34 +559,31 @@ module ThemeJuice
             ###
             # Setup WordPress
             #
-            # Clones starter theme into @opts[:site_location]
+            # Clones starter theme into site location
             #
             # @return {Void}
             ###
             def setup_wordpress
                 say "Setting up WordPress...", :yellow
 
-                if @opts[:bare_setup]
-
-                    # Create theme dir
+                unless @opts[:bare_setup]
                     run [
-                        "mkdir -p #{@opts[:site_location]}",
-                    ]
-
-                else
-
-                    # Clone starter theme
-                    run [
-                        "mkdir -p #{@opts[:site_location]}",
                         "cd #{@opts[:site_location]}",
                         "git clone --depth 1 #{@opts[:starter_theme]} .",
                     ]
+                end
+            end
 
-                    # Install dependencies
-                    @config["install"].each do |command|
-                        run ["cd #{@opts[:site_location]}", command], false
-                    end
+            ###
+            # Install dependencies for starter theme
+            #
+            # @return {Void}
+            ###
+            def install_theme_dependencies
+                say "Installing theme dependencies...", :yellow
 
+                @config["install"].each do |command|
+                    run ["cd #{@opts[:site_location]}", command], false
                 end
             end
 

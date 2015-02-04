@@ -139,13 +139,13 @@ module ThemeJuice
                             menu.index_suffix = ") "
 
                             themes.each do |theme, repo|
-                                menu.choice theme do |choice|
+                                menu.choice theme do
 
                                     if theme == "theme-juice/theme-juice-starter"
                                         say "Awesome choice!", :green
                                     end
 
-                                    starter_theme = choice
+                                    starter_theme = repo
                                 end
                             end
 
@@ -153,9 +153,9 @@ module ThemeJuice
                                 starter_theme = ask "What is the repository URL for the starter theme you would like to clone? :", :blue
                             end
 
-                            menu.choice "none" do |choice|
+                            menu.choice "none" do |opt|
                                 say "Next time you want to create a site without a starter theme, you can just run the 'setup' command instead.", :yellow
-                                starter_theme, bare_setup = choice, true
+                                starter_theme, bare_setup = opt, true
                             end
                         end
                     end
