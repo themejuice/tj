@@ -1,5 +1,5 @@
 # Theme Juice [![Gem Version](https://badge.fury.io/rb/theme-juice.svg)](http://badge.fury.io/rb/theme-juice)
-What is it? Theme Juice is a command line interface created to scaffold out a new WordPress development environment (using [VVV](https://github.com/Varying-Vagrant-Vagrants/VVV)) and countless development sites. Everybody loves one command setups, and `tj` can even do one command deployments.
+What is it? Theme Juice is a command line interface created to scaffold out a new WordPress development environment (using [VVV](https://github.com/Varying-Vagrant-Vagrants/VVV)) and countless development sites. Everybody loves one command setups, and `tj` can even do one command deployments too.
 
 ## Installation
 * First, install [Vagrant](https://www.vagrantup.com/) and [VirtualBox](https://www.virtualbox.org/) for local development.
@@ -8,7 +8,9 @@ What is it? Theme Juice is a command line interface created to scaffold out a ne
 That`s it!
 
 ## Config
-Because everybody likes to use different tools, you can create a `tj-config.yml` file that will house all of your theme-specific commands. This allows you to use a streamlined set of commands that will act as aliases to your per-project configuration. If you're into [Grunt](https://github.com/gruntjs/grunt), then use it. Prefer [Guard](https://github.com/guard/guard)? Go right ahead. This is obviously relative to the starter theme you use, since you can't exactly use Grunt with a starter theme that doesn't support it. Below is the config that comes baked into [our starter theme](https://github.com/ezekg/theme-juice-starter):
+Because everybody likes to use different tools, you can create a `tj-config.yml` file that will house all of your theme-specific commands. This allows you to use a streamlined set of commands that will act as aliases to your per-project configuration.
+
+If you're into [Grunt](https://github.com/gruntjs/grunt), then use it. Prefer [Guard](https://github.com/guard/guard)? Go right ahead. This is obviously relative to the starter theme you use, since you can't exactly use Grunt with a starter theme that doesn't support it. Below is the config that comes baked into [our starter theme](https://github.com/ezekg/theme-juice-starter):
 
 ```yml
 watch: bundle exec guard
