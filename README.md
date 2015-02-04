@@ -37,7 +37,7 @@ List all commands for `tj`.
 tj
 ```
 
-## Global flags:
+### Global flags:
 | Flag                                    | Type   | Description                                      |
 |:--------------------------------------- |:------ |:------------------------------------------------ |
 | `-fp, [--vvv-path=PATH]`                | String | Force custom path to your VVV installation       |
