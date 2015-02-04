@@ -37,7 +37,7 @@ module ThemeJuice
                 if @config[subcommand]
                     run ["#{@config[subcommand]} #{commands}"], false
                 else
-                    say "Unable to find '#{subcommand}' command in '#{config_path}/tj-config.yml'. Aborting mission.", :red
+                    say "Unable to find '#{subcommand}' command in '#{config_path}/tj-config.yml'. Aborting mission", :red
                     exit 1
                 end
             end
@@ -109,32 +109,39 @@ module ThemeJuice
                 end
 
                 if setup_was_successful?
-                    say "Restarting VVV...", :yellow
+                    say "Setup complete!", :green
 
-                    if restart_vagrant
+                    if yes? "In order to finish creating your site, you need to provision Vagrant. Do it now? (y/N) :", :blue
+                        say "Restarting VVV...", :yellow
 
-                        # Get smiley ASCII art
-                        smiley = File.read(File.expand_path("../ascii/smiley.txt", __FILE__))
+                        if restart_vagrant
 
-                        # Output welcome message
-                        say "\n"
-                        say smiley, :yellow
-                        say "\n"
-                        say "Success!".center(48), :green
-                        say "\n\n"
+                            # Get smiley ASCII art
+                            smiley = File.read(File.expand_path("../ascii/smiley.txt", __FILE__))
 
-                        # Output setup info
-                        say "Here's your installation info:", :yellow
-                        say "---> Site name: #{@opts[:site_name]}", :blue
-                        say "---> Site location: #{@opts[:site_location]}", :blue
-                        say "---> Starter theme: #{@opts[:starter_theme]}", :blue
-                        say "---> Development location: #{@opts[:dev_location]}", :blue
-                        say "---> Development url: http://#{@opts[:dev_url]}", :blue
-                        say "---> Initialized repository: #{@opts[:repository]}", :blue
-                        say "---> Database host: #{@opts[:db_host]}", :blue
-                        say "---> Database name: #{@opts[:db_name]}", :blue
-                        say "---> Database username: #{@opts[:db_user]}", :blue
-                        say "---> Database password: #{@opts[:db_pass]}", :blue
+                            # Output welcome message
+                            say "\n"
+                            say smiley, :yellow
+                            say "\n"
+                            say "Success!".center(48), :green
+                            say "\n\n"
+
+                            # Output setup info
+                            say "Here's your installation info:", :yellow
+                            say "---> Site name: #{@opts[:site_name]}", :blue
+                            say "---> Site location: #{@opts[:site_location]}", :blue
+                            say "---> Starter theme: #{@opts[:starter_theme]}", :blue
+                            say "---> Development location: #{@opts[:dev_location]}", :blue
+                            say "---> Development url: http://#{@opts[:dev_url]}", :blue
+                            say "---> Initialized repository: #{@opts[:repository]}", :blue
+                            say "---> Database host: #{@opts[:db_host]}", :blue
+                            say "---> Database name: #{@opts[:db_name]}", :blue
+                            say "---> Database username: #{@opts[:db_user]}", :blue
+                            say "---> Database password: #{@opts[:db_pass]}", :blue
+                        end
+                    else
+                        say "Remember, Vagrant needs to be provisioned before you can use your new site. Exiting...", :yellow
+                        exit
                     end
                 else
                     say "Setup failed. Running cleanup...", :red
