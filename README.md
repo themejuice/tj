@@ -61,6 +61,11 @@ tj create [<SITE-NAME>] # Aliases: new, build, make
 | `[--skip-repo], [--no-skip-repo]`       | Bool   | Skip repository prompts and set to `none`        |
 | `[--skip-db], [--no-skip-db]`           | Bool   | Skip database prompts and use defaults           |
 
+#### Global flags:
+| Flag                                    | Type   | Description                                      |
+|:--------------------------------------- |:------ |:------------------------------------------------ |
+| `-fp, [--vvv-path=PATH]`                | String | Force custom path to your VVV installation       |
+
 ### Setting up an existing site:
 Use this to setup an existing local site installation within the development environment. You will go through the setup process to create the necessary files for the VM, including `vvv-hosts`, `vvv-nginx.conf`, and a fresh database (unless one already exists by the name chosen). Site name is optional, as it will be asked for if not given.
 ```bash
