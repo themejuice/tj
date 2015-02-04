@@ -23,9 +23,9 @@ module ThemeJuice
             # @return {String}
             ###
             def get_vvv_path
-                
+
                 unless @@vvv_path
-                    say "Cannot load VVV path. Aborting mission before something bad happens.", :red
+                    say " ↑ Cannot load VVV path. Aborting mission before something bad happens.".ljust(terminal_width), [:white, :on_red]
                     exit 1
                 end
 
@@ -60,9 +60,9 @@ module ThemeJuice
                 remote_version = remotes.map { |n, _| n.version }.sort.last
 
                 if ::Gem::Version.new(local_version) < ::Gem::Version.new(remote_version)
-                    say "Warning: your version of theme-juice (#{local_version}) is outdated. There is a newer version (#{remote_version}) available. Please update now.", :yellow
+                    say " → Your version of Theme Juice (#{local_version}) is outdated. There is a newer version (#{remote_version}) available. Please update now.".ljust(terminal_width), [:black, :on_yellow]
                 else
-                    say "Up to date.", :green
+                    say " → Your version of Theme Juice (#{local_version}) up to date.".ljust(terminal_width), [:black, :on_green]
                 end
             end
         end

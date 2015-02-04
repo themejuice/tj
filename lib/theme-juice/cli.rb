@@ -28,24 +28,6 @@ module ThemeJuice
                     ::ThemeJuice::Utilities.set_vvv_path options[:vvv_path]
                 end
             end
-
-            ###
-            # Welcome message
-            #
-            # @return {Void}
-            ###
-            def welcome
-
-                # Get WP logo ASCII art
-                logo = File.read(File.expand_path("../ascii/logo.txt", __FILE__))
-
-                # Output welcome message
-                say "\n"
-                say logo.gsub(/[m]/) { |char| set_color(char, :green) }.gsub(/[\+\/\-\'\:\.\~dyhos]/) { |char| set_color(char, :yellow) }
-                say "\n"
-                say "Welcome to Theme Juice!".center(60), :green
-                say "\n\n"
-            end
         end
 
         ###
@@ -81,7 +63,8 @@ module ThemeJuice
         method_option :skip_db,    type: :boolean,                                desc: "Skip database prompts and use defaults"
         def create(site = nil)
             self.force_vvv_path?
-            self.welcome
+
+            say " Welcome to Theme Juice!".ljust(terminal_width), [:black, :on_green]
 
             if options[:site]
                 site = options[:site]
@@ -89,19 +72,19 @@ module ThemeJuice
 
             # Check if user passed all required options through flags
             if options.length >= 6
-                say "Well... looks like you just have everything all figured out, huh?", :yellow
+                say " → Well... looks like you just have everything all figured out, huh?".ljust(terminal_width), [:black, :on_green]
             elsif site.nil?
-                say "Just a few questions before we begin...", :yellow
+                say " → Just a few questions before we begin...".ljust(terminal_width), [:black, :on_green]
             else
-                say "Your site name shall be '#{site}'! Just a few more questions before we begin...", :yellow
+                say " → Your site name shall be '#{site}'! Just a few more questions before we begin...".ljust(terminal_width), [:black, :on_green]
             end
 
             # Ask for the Site name if not passed directly
-            site ||= ask "What's the site name? (only ascii characters are allowed) :", :blue
+            site ||= ask " ○ What's the site name? (only ascii characters are allowed) :", :blue
 
             # Make sure site name is valid
             if site.match /[^0-9A-Za-z.\-]/
-                say "Site name contains invalid non-ascii characters. This name is used for creating directories, so that's not gonna work. Aborting mission.", :red
+                say " ↑ Site name contains invalid non-ascii characters. This name is used for creating directories, so that's not gonna work. Aborting mission.".ljust(terminal_width), [:white, :on_red]
                 exit 1
             end
 
@@ -116,7 +99,7 @@ module ThemeJuice
                 if options[:location]
                     site_location = options[:location]
                 else
-                    site_location = ask "Where do you want to setup the site? :", :blue, default: "#{Dir.pwd}/", path: true
+                    site_location = ask " ○ Where do you want to setup the site? :", :blue, default: "#{Dir.pwd}/", path: true
                 end
 
                 # Starter theme to clone
@@ -134,15 +117,16 @@ module ThemeJuice
                             "theme-juice/theme-juice-starter" => "https://github.com/ezekg/theme-juice-starter.git"
                         }
 
-                        say "Which starter theme would you like to use? :", :blue
+                        say " ○ Which starter theme would you like to use? (partial name is acceptable)", :blue
                         choose do |menu|
-                            menu.index_suffix = ") "
+                            menu.index = "   ○"
+                            menu.prompt = set_color " → Choose one :".ljust(16), :blue
 
                             themes.each do |theme, repo|
                                 menu.choice theme do
 
                                     if theme == "theme-juice/theme-juice-starter"
-                                        say "Awesome choice!", :green
+                                        say " ↑ Awesome choice!", :green
                                     end
 
                                     starter_theme = repo
@@ -150,11 +134,11 @@ module ThemeJuice
                             end
 
                             menu.choice "other" do
-                                starter_theme = ask "What is the repository URL for the starter theme you would like to clone? :", :blue
+                                starter_theme = ask "   ○ What is the repository URL for the starter theme you would like to clone? :", :blue
                             end
 
                             menu.choice "none" do |opt|
-                                say "Next time you want to create a site without a starter theme, you can just run the 'setup' command instead.", :yellow
+                                say " → Next time you need to create a site without a starter theme, you can just run the 'setup' command instead.".ljust(terminal_width), [:black, :on_yellow]
                                 starter_theme, bare_setup = opt, true
                             end
                         end
@@ -165,11 +149,11 @@ module ThemeJuice
                 if options[:url]
                     dev_url = options[:url]
                 else
-                    dev_url = ask "What do you want the development url to be? (this should end in '.dev') :", :blue, default: "#{site}.dev"
+                    dev_url = ask " ○ What do you want the development url to be? (this should end in '.dev') :", :blue, default: "#{site}.dev"
                 end
 
                 unless dev_url.match /(.dev)$/
-                    say "Your development url doesn't end with '.dev'. This is used within Vagrant, so that's not gonna work. Aborting mission.", :red
+                    say " ↑ Your development url doesn't end with '.dev'. This is used within Vagrant, so that's not gonna work. Aborting mission.".ljust(terminal_width), [:white, :on_red]
                     exit 1
                 end
 
@@ -180,8 +164,8 @@ module ThemeJuice
                     if options[:repository]
                         repository = options[:repository]
                     else
-                        if yes? "Would you like to initialize a new Git repository? (y/N) :", :blue
-                            repository = ask "What is the repository's URL? :", :blue
+                        if yes? " ○ Would you like to initialize a new Git repository? (y/N) :", :blue
+                            repository = ask "   ○ What is the repository's URL? :", :blue
                         else
                             repository = false
                         end
@@ -192,28 +176,28 @@ module ThemeJuice
                 if options[:skip_db]
                     db_host = "vvv"
                 else
-                    db_host = ask "Database host :", :blue, default: "vvv"
+                    db_host = ask " ○ Database host :", :blue, default: "vvv"
                 end
 
                 # Database name
                 if options[:skip_db]
                     db_name = "#{clean_site_name}_db"
                 else
-                    db_name = ask "Database name :", :blue, default: "#{clean_site_name}_db"
+                    db_name = ask " ○ Database name :", :blue, default: "#{clean_site_name}_db"
                 end
 
                 # Database username
                 if options[:skip_db]
                     db_user = "#{clean_site_name}_user"
                 else
-                    db_user = ask "Database username :", :blue, default: "#{clean_site_name}_user"
+                    db_user = ask " ○ Database username :", :blue, default: "#{clean_site_name}_user"
                 end
 
                 # Database password
                 if options[:skip_db]
                     db_pass = SecureRandom.base64
                 else
-                    db_pass = ask "Database password :", :blue, default: SecureRandom.base64
+                    db_pass = ask " ○ Database password :", :blue, default: SecureRandom.base64
                 end
 
                 # Save options
@@ -232,25 +216,26 @@ module ThemeJuice
                 }
 
                 # Verify that all the options are correct
-                say "---> Site name: #{opts[:site_name]}", :green
-                say "---> Site location: #{opts[:site_location]}", :green
-                say "---> Starter theme: #{opts[:starter_theme]}", :green
-                say "---> Development location: #{opts[:dev_location]}", :green
-                say "---> Development url: http://#{opts[:dev_url]}", :green
-                say "---> Initialized repository: #{opts[:repository]}", :green
-                say "---> Database host: #{opts[:db_host]}", :green
-                say "---> Database name: #{opts[:db_name]}", :green
-                say "---> Database username: #{opts[:db_user]}", :green
-                say "---> Database password: #{opts[:db_pass]}", :green
+                say " → Your settings :".ljust(terminal_width), [:black, :on_yellow]
+                say " ● Site name: #{opts[:site_name]}", :yellow
+                say " ● Site location: #{opts[:site_location]}", :yellow
+                say " ● Starter theme: #{opts[:starter_theme]}", :yellow
+                say " ● Development location: #{opts[:dev_location]}", :yellow
+                say " ● Development url: http://#{opts[:dev_url]}", :yellow
+                say " ● Initialized repository: #{opts[:repository]}", :yellow
+                say " ● Database host: #{opts[:db_host]}", :yellow
+                say " ● Database name: #{opts[:db_name]}", :yellow
+                say " ● Database username: #{opts[:db_user]}", :yellow
+                say " ● Database password: #{opts[:db_pass]}", :yellow
 
-                if yes? "Do the options above look correct? (y/N) :", :blue
+                if yes? " ○ Do the options above look correct? (y/N) :", :blue
                     ::ThemeJuice::Executor::create opts
                 else
-                    say "Dang typos... aborting mission.", :red
+                    say " ↑ Dang typos... aborting mission.".ljust(terminal_width), [:white, :on_red]
                     exit 1
                 end
             else
-                say "Site name is required. Aborting mission.", :red
+                say " ↑ Site name is required. Aborting mission.".ljust(terminal_width), [:white, :on_red]
                 exit 1
             end
         end
@@ -281,7 +266,8 @@ module ThemeJuice
         def delete(site)
             self.force_vvv_path?
 
-            if yes? "Are you sure you want to delete '#{site}'? (y/N)", :red
+            say " → Are you sure you want to delete '#{site}'?".ljust(terminal_width), [:white, :on_red]
+            if yes? " (y/N) :", :red
                 ::ThemeJuice::Executor::delete site, options[:restart]
             end
         end
