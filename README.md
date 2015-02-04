@@ -1,5 +1,5 @@
 # Theme Juice [![Gem Version](https://badge.fury.io/rb/theme-juice.svg)](http://badge.fury.io/rb/theme-juice)
-What is it? Theme Juice is a command line interface created to scaffold out a new WordPress development environment (using [VVV](https://github.com/Varying-Vagrant-Vagrants/VVV)) and countless development sites. Everybody loves one command setups, and `tj` even does one command deployments too.
+What is it? Theme Juice is a command line interface created to scaffold out a new WordPress development environment (using [VVV](https://github.com/Varying-Vagrant-Vagrants/VVV)) and countless development sites. Everybody loves one command setups, and `tj` can even do one command deployments.
 
 ## Installation
 * First, install [Vagrant](https://www.vagrantup.com/) and [VirtualBox](https://www.virtualbox.org/) for local development.
