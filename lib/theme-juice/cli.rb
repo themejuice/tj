@@ -1,15 +1,15 @@
 module ThemeJuice
     class CLI < ::Thor
 
-        map %w[--version -v]      => :version
-        map %w[new, build, make]  => :create
-        map %w[setup, init, prep] => :create
-        map %w[remove, teardown]  => :delete
-        map %w[sites, show]       => :list
-        map %w[dev]               => :watch
-        map %w[dep, deps]         => :vendor
-        map %w[deploy]            => :server
-        map %w[vagrant, vvv]      => :vm
+        map %w[--version -v]             => :version
+        map %w[new, add, build, make]    => :create
+        map %w[setup, init, prep]        => :create
+        map %w[remove, trash, teardown]  => :delete
+        map %w[sites, show]              => :list
+        map %w[dev]                      => :watch
+        map %w[dep, deps]                => :vendor
+        map %w[deploy]                   => :server
+        map %w[vagrant, vvv]             => :vm
 
         class_option :vvv_path, type: :string, alias: "-fp", default: nil, desc: "Force path to VVV installation"
 
@@ -53,14 +53,15 @@ module ThemeJuice
         # @return {Void}
         ###
         desc "create [SITE]", "Create new SITE and setup the VVV development environment"
-        method_option :bare,       type: :boolean, aliases: "-b",                 desc: "Create a VVV site without a starter theme"
-        method_option :site,       type: :string,  aliases: "-s", default: false, desc: "Name of the development site"
-        method_option :location,   type: :string,  aliases: "-l", default: false, desc: "Location of the local site"
-        method_option :theme,      type: :string,  aliases: "-t", default: false, desc: "Starter theme to install"
-        method_option :url,        type: :string,  aliases: "-u", default: false, desc: "Development URL of the site"
-        method_option :repository, type: :string,  aliases: "-r",                 desc: "Initialize a new Git remote repository"
-        method_option :skip_repo,  type: :boolean,                                desc: "Skip repository prompts and use defaults"
-        method_option :skip_db,    type: :boolean,                                desc: "Skip database prompts and use defaults"
+        method_option :bare,         type: :boolean, aliases: "-b",                 desc: "Create a VVV site without a starter theme"
+        method_option :site,         type: :string,  aliases: "-s", default: false, desc: "Name of the development site"
+        method_option :location,     type: :string,  aliases: "-l", default: false, desc: "Location of the local site"
+        method_option :theme,        type: :string,  aliases: "-t", default: false, desc: "Starter theme to install"
+        method_option :url,          type: :string,  aliases: "-u", default: false, desc: "Development URL of the site"
+        method_option :repository,   type: :string,  aliases: "-r",                 desc: "Initialize a new Git remote repository"
+        method_option :skip_repo,    type: :boolean,                                desc: "Skip repository prompts and use defaults"
+        method_option :skip_db,      type: :boolean,                                desc: "Skip database prompts and use defaults"
+        method_option :use_defaults, type: :boolean,                                desc: "Skip all promps and use default settings"
         def create(site = nil)
             self.force_vvv_path?
 
@@ -71,7 +72,7 @@ module ThemeJuice
             end
 
             # Check if user passed all required options through flags
-            if options.length >= 6
+            if options.length >= 6 || options[:use_defaults]
                 say " → Well... looks like you just have everything all figured out, huh?".ljust(terminal_width), [:black, :on_green]
             elsif site.nil?
                 say " → Just a few questions before we begin...".ljust(terminal_width), [:black, :on_green]
@@ -96,10 +97,14 @@ module ThemeJuice
                 clean_site_name = site.gsub(/[^\w]/, "_")[0..10]
 
                 # Location of site installation
-                if options[:location]
-                    site_location = options[:location]
+                if options[:use_defaults]
+                    site_location = "#{Dir.pwd}/"
                 else
-                    site_location = ask " ○ Where do you want to setup the site? :", :blue, default: "#{Dir.pwd}/", path: true
+                    if options[:location]
+                        site_location = options[:location]
+                    else
+                        site_location = ask " ○ Where do you want to setup the site? :", :blue, default: "#{Dir.pwd}/", path: true
+                    end
                 end
 
                 # Starter theme to clone
@@ -117,39 +122,47 @@ module ThemeJuice
                             "theme-juice/theme-juice-starter" => "https://github.com/ezekg/theme-juice-starter.git"
                         }
 
-                        say " ○ Which starter theme would you like to use? (partial name is acceptable)", :blue
-                        choose do |menu|
-                            menu.index = "   ○"
-                            menu.prompt = set_color " → Choose one :".ljust(16), :blue
+                        if options[:use_defaults]
+                            theme = themes["theme-juice/theme-juice-starter"]
+                        else
+                            say " ○ Which starter theme would you like to use? (partial name is acceptable)", :blue
+                            choose do |menu|
+                                menu.index = "   ○"
+                                menu.prompt = set_color " → Choose one :".ljust(16), :blue
 
-                            themes.each do |theme, repo|
-                                menu.choice theme do
+                                themes.each do |theme, repo|
+                                    menu.choice theme do
 
-                                    if theme == "theme-juice/theme-juice-starter"
-                                        say " ↑ Awesome choice!", :green
+                                        if theme == "theme-juice/theme-juice-starter"
+                                            say " ↑ Awesome choice!", :green
+                                        end
+
+                                        starter_theme = repo
                                     end
-
-                                    starter_theme = repo
                                 end
-                            end
 
-                            menu.choice "other" do
-                                starter_theme = ask "   ○ What is the repository URL for the starter theme you would like to clone? :", :blue
-                            end
+                                menu.choice "other" do
+                                    starter_theme = ask "   ○ What is the repository URL for the starter theme you would like to clone? :", :blue
+                                end
 
-                            menu.choice "none" do |opt|
-                                say " → Next time you need to create a site without a starter theme, you can just run the 'setup' command instead.".ljust(terminal_width), [:black, :on_yellow]
-                                starter_theme, bare_setup = opt, true
+                                menu.choice "none" do |opt|
+                                    say " → Next time you need to create a site without a starter theme, you can just run the 'setup' command instead.".ljust(terminal_width), [:black, :on_yellow]
+                                    starter_theme, bare_setup = opt, true
+                                end
                             end
                         end
                     end
                 end
 
                 # Development url
-                if options[:url]
-                    dev_url = options[:url]
+                if options[:use_defaults]
+                    dev_url = "#{site}.dev"
                 else
-                    dev_url = ask " ○ What do you want the development url to be? (this should end in '.dev') :", :blue, default: "#{site}.dev"
+                    if options[:url]
+                        dev_url = options[:url]
+                    else
+                        dev_url = ask " ○ What do you want the development url to be? (this should end in '.dev') :", :blue, default: "#{site}.dev"
+                    end
                 end
 
                 unless dev_url.match /(.dev)$/
@@ -158,7 +171,7 @@ module ThemeJuice
                 end
 
                 # Initialize a git repository on setup
-                if options[:skip_repo]
+                if options[:use_defaults] || options[:skip_repo]
                     repository = false
                 else
                     if options[:repository]
@@ -173,28 +186,28 @@ module ThemeJuice
                 end
 
                 # Database host
-                if options[:skip_db]
+                if options[:use_defaults] || options[:skip_db]
                     db_host = "vvv"
                 else
                     db_host = ask " ○ Database host :", :blue, default: "vvv"
                 end
 
                 # Database name
-                if options[:skip_db]
+                if options[:use_defaults] || options[:skip_db]
                     db_name = "#{clean_site_name}_db"
                 else
                     db_name = ask " ○ Database name :", :blue, default: "#{clean_site_name}_db"
                 end
 
                 # Database username
-                if options[:skip_db]
+                if options[:use_defaults] || options[:skip_db]
                     db_user = "#{clean_site_name}_user"
                 else
                     db_user = ask " ○ Database username :", :blue, default: "#{clean_site_name}_user"
                 end
 
                 # Database password
-                if options[:skip_db]
+                if options[:use_defaults] || options[:skip_db]
                     db_pass = SecureRandom.base64
                 else
                     db_pass = ask " ○ Database password :", :blue, default: SecureRandom.base64
