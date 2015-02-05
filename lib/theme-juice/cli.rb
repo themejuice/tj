@@ -97,11 +97,11 @@ module ThemeJuice
                 clean_site_name = site.gsub(/[^\w]/, "_")[0..10]
 
                 # Location of site installation
-                if options[:use_defaults]
-                    site_location = "#{Dir.pwd}/"
+                if options[:location]
+                    site_location = options[:location]
                 else
-                    if options[:location]
-                        site_location = options[:location]
+                    if options[:use_defaults]
+                        site_location = "#{Dir.pwd}/"
                     else
                         site_location = ask " ○ Where do you want to setup the site? :", :blue, default: "#{Dir.pwd}/", path: true
                     end
@@ -123,7 +123,7 @@ module ThemeJuice
                         }
 
                         if options[:use_defaults]
-                            theme = themes["theme-juice/theme-juice-starter"]
+                            starter_theme = themes["theme-juice/theme-juice-starter"]
                         else
                             say " ○ Which starter theme would you like to use? (partial name is acceptable)", :blue
                             choose do |menu|
@@ -155,11 +155,11 @@ module ThemeJuice
                 end
 
                 # Development url
-                if options[:use_defaults]
-                    dev_url = "#{site}.dev"
+                if options[:url]
+                    dev_url = options[:url]
                 else
-                    if options[:url]
-                        dev_url = options[:url]
+                    if options[:use_defaults]
+                        dev_url = "#{site}.dev"
                     else
                         dev_url = ask " ○ What do you want the development url to be? (this should end in '.dev') :", :blue, default: "#{site}.dev"
                     end
@@ -171,11 +171,11 @@ module ThemeJuice
                 end
 
                 # Initialize a git repository on setup
-                if options[:use_defaults] || options[:skip_repo]
-                    repository = false
+                if options[:repository]
+                    repository = options[:repository]
                 else
-                    if options[:repository]
-                        repository = options[:repository]
+                    if options[:use_defaults] || options[:skip_repo]
+                        repository = false
                     else
                         if yes? " ○ Would you like to initialize a new Git repository? (y/N) :", :blue
                             repository = ask "   ○ What is the repository's URL? :", :blue
