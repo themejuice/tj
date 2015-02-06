@@ -104,7 +104,7 @@ module ThemeJuice
         method_option :repository,   type: :string,  aliases: "-r",                 desc: "Initialize a new Git remote repository"
         method_option :skip_repo,    type: :boolean,                                desc: "Skip repository prompts and use defaults"
         method_option :skip_db,      type: :boolean,                                desc: "Skip database prompts and use defaults"
-        method_option :use_defaults, type: :boolean,                                desc: "Skip all promps and use default settings"
+        method_option :use_defaults, type: :boolean,                                desc: "Skip all prompts and use default settings"
         def create(site = nil)
             self.use_terminal_colors?
             self.use_unicode_chars?
