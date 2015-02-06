@@ -125,7 +125,7 @@ module ThemeJuice
                             ::ThemeJuice::UI.success "Success!"
 
                             # Output setup info
-                            ::ThemeJuice::UI.list "Your settings", :blue, [
+                            ::ThemeJuice::UI.list "Your settings :", :blue, [
                                 "Site name: #{@opts[:site_name]}",
                                 "Site location: #{@opts[:site_location]}",
                                 "Starter theme: #{@opts[:starter_theme]}",
@@ -216,7 +216,7 @@ module ThemeJuice
                         icon: :bullet_solid
                     }
                 else
-                    ::ThemeJuice::UI.list "Your sites:", :green, sites
+                    ::ThemeJuice::UI.list "Your sites :", :green, sites
                 end
 
                 sites

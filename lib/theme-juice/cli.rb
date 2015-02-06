@@ -292,7 +292,7 @@ module ThemeJuice
                 }
 
                 # Verify that all the options are correct
-                ::ThemeJuice::UI.list "Your settings", :yellow, [
+                ::ThemeJuice::UI.list "Your settings :", :yellow, [
                     "Site name: #{opts[:site_name]}",
                     "Site location: #{opts[:site_location]}",
                     "Starter theme: #{opts[:starter_theme]}",
