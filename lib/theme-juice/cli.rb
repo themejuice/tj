@@ -337,7 +337,7 @@ module ThemeJuice
         # @return {Void}
         ###
         desc "delete SITE", "Remove SITE from the VVV development environment (does not remove local site)"
-        method_option :restart, type: :boolean
+        method_option :restart, type: :boolean, alias: "-r", desc: "Restart development environment after SITE deletion"
         def delete(site)
             self.use_terminal_colors?
             self.use_unicode_chars?
