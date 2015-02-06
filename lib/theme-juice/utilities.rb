@@ -1,36 +1,12 @@
 module ThemeJuice
     module Utilities
         class << self
+            attr_accessor :vvv_path
+            attr_accessor :no_unicode
+            attr_accessor :no_colors
+
             include ::Thor::Actions
             include ::Thor::Shell
-
-            @@vvv_path ||= File.expand_path("~/vagrant")
-
-            ###
-            # Set path to VVV installation
-            #
-            # @param {String} path
-            #
-            # @return {String}
-            ###
-            def set_vvv_path(path)
-                @@vvv_path = File.expand_path(path)
-            end
-
-            ###
-            # Get path to VVV installation
-            #
-            # @return {String}
-            ###
-            def get_vvv_path
-
-                unless @@vvv_path
-                    say " ↑ Cannot load VVV path. Aborting mission before something bad happens.".ljust(terminal_width), [:white, :on_red]
-                    exit 1
-                end
-
-                @@vvv_path
-            end
 
             ###
             # Check if program is installed
@@ -60,9 +36,17 @@ module ThemeJuice
                 remote_version = remotes.map { |n, _| n.version }.sort.last
 
                 if ::Gem::Version.new(local_version) < ::Gem::Version.new(remote_version)
-                    say " → Your version of Theme Juice (#{local_version}) is outdated. There is a newer version (#{remote_version}) available. Please update now.".ljust(terminal_width), [:black, :on_yellow]
+                    ::ThemeJuice::UI.speak "Your version of Theme Juice (#{local_version}) is outdated. There is a newer version (#{remote_version}) available. Please update now.", {
+                        color: [:black, :on_yellow],
+                        icon: :arrow_right,
+                        full_width: true
+                    }
                 else
-                    say " → Your version of Theme Juice (#{local_version}) up to date.".ljust(terminal_width), [:black, :on_green]
+                    ::ThemeJuice::UI.speak "Your version of Theme Juice (#{local_version}) up to date.", {
+                        color: [:black, :on_green],
+                        icon: :arrow_right,
+                        full_width: true
+                    }
                 end
             end
         end

@@ -37,8 +37,7 @@ module ThemeJuice
                 if @config[subcommand]
                     run ["#{@config[subcommand]} #{commands}"], false
                 else
-                    say " ↑ Unable to find '#{subcommand}' command in '#{config_path}/tj-config.yml'. Aborting mission.".ljust(terminal_width), [:white, :on_red]
-                    exit 1
+                    ::ThemeJuice::UI.error "Unable to find '#{subcommand}' command in '#{config_path}/tj-config.yml'. Aborting mission."
                 end
             end
 
@@ -52,7 +51,7 @@ module ThemeJuice
             def create(opts)
                 @opts = opts
 
-                say " → Running setup for '#{@opts[:site_name]}'...".ljust(terminal_width), [:black, :on_yellow]
+                ::ThemeJuice::UI.notice "Running setup for '#{@opts[:site_name]}'..."
 
                 unless project_dir_is_setup?
                     setup_project_dir
@@ -109,37 +108,44 @@ module ThemeJuice
                 end
 
                 if setup_was_successful?
-                    say " → Setup complete!".ljust(terminal_width), [:black, :on_green]
+                    ::ThemeJuice::UI.success "Setup complete!"
+                    ::ThemeJuice::UI.speak "In order to finish creating your site, you need to provision Vagrant. Do it now? (y/N)", {
+                        color: [:black, :on_blue],
+                        icon: :arrow_reload,
+                        full_width: true
+                    }
 
-                    say " ↺ In order to finish creating your site, you need to provision Vagrant. Do it now?".ljust(terminal_width), [:black, :on_blue]
-                    if yes? " (y/N) :", :blue
-                        say " ● Restarting VVV...", :yellow
+                    if ::ThemeJuice::UI.agree? "", { simple: true }
+                        ::ThemeJuice::UI.speak "Restarting VVV...", {
+                            color: :yellow,
+                            icon: :bullet_solid
+                        }
 
                         if restart_vagrant
-
-                            # Output success message
-                            say " Success!".ljust(terminal_width), [:black, :on_green, :bold]
+                            ::ThemeJuice::UI.success "Success!"
 
                             # Output setup info
-                            say " → Your settings :".ljust(terminal_width), [:black, :on_green]
-                            say " ● Site name: #{@opts[:site_name]}", :blue
-                            say " ● Site location: #{@opts[:site_location]}", :blue
-                            say " ● Starter theme: #{@opts[:starter_theme]}", :blue
-                            say " ● Development location: #{@opts[:dev_location]}", :blue
-                            say " ● Development url: http://#{@opts[:dev_url]}", :blue
-                            say " ● Initialized repository: #{@opts[:repository]}", :blue
-                            say " ● Database host: #{@opts[:db_host]}", :blue
-                            say " ● Database name: #{@opts[:db_name]}", :blue
-                            say " ● Database username: #{@opts[:db_user]}", :blue
-                            say " ● Database password: #{@opts[:db_pass]}", :blue
+                            ::ThemeJuice::UI.list "Your settings", :blue, [
+                                "Site name: #{@opts[:site_name]}",
+                                "Site location: #{@opts[:site_location]}",
+                                "Starter theme: #{@opts[:starter_theme]}",
+                                "Development location: #{@opts[:dev_location]}",
+                                "Development url: http://#{@opts[:dev_url]}",
+                                "Initialized repository: #{@opts[:repository]}",
+                                "Database host: #{@opts[:db_host]}",
+                                "Database name: #{@opts[:db_name]}",
+                                "Database username: #{@opts[:db_user]}",
+                                "Database password: #{@opts[:db_pass]}"
+                            ]
                         end
                     else
-                        say " → Remember, Vagrant needs to be provisioned before you can use your new site. Exiting...".ljust(terminal_width), [:black, :on_yellow]
+                        ::ThemeJuice::UI.notice "Remember, Vagrant needs to be provisioned before you can use your new site. Exiting..."
                         exit
                     end
                 else
-                    say " ↑ Setup failed. Running cleanup...".ljust(terminal_width), [:white, :on_red]
-                    delete @opts[:site_name], false
+                    ::ThemeJuice::UI.error "Setup failed. Running cleanup..." do
+                        delete @opts[:site_name], false
+                    end
                 end
             end
 
@@ -159,14 +165,13 @@ module ThemeJuice
                 ###
                 @opts = {
                     site_name: site,
-                    dev_location: File.expand_path("#{::ThemeJuice::Utilities.get_vvv_path}/www/tj-#{site}")
+                    dev_location: File.expand_path("#{::ThemeJuice::Utilities.vvv_path}/www/tj-#{site}")
                 }
 
                 if dev_site_is_setup?
                     remove_dev_site
                 else
-                    say " ↑ Site '#{@opts[:site_name]}' does not exist.".ljust(terminal_width), [:white, :on_red]
-                    exit 1
+                    ::ThemeJuice::UI.error "Site '#{@opts[:site_name]}' does not exist."
                 end
 
                 if database_is_setup?
@@ -178,15 +183,18 @@ module ThemeJuice
                 end
 
                 if removal_was_successful?
-                    say " → Site '#{@opts[:site_name]}' successfully removed!".ljust(terminal_width), [:black, :on_green]
+                    ::ThemeJuice::UI.success "Site '#{@opts[:site_name]}' successfully removed!"
 
                     if restart
-                        say " ● Restarting VVV...", :yellow
+                        ::ThemeJuice::UI.speak "Restarting VVV...", {
+                            color: :yellow,
+                            icon: :bullet_solid
+                        }
+
                         restart_vagrant
                     end
                 else
-                    say " ↑ Site '#{@opts[:site_name]}' could not be fully be removed.".ljust(terminal_width), [:white, :on_red]
-                    exit 1
+                    ::ThemeJuice::UI.error "'#{@opts[:site_name]}' could not be fully be removed."
                 end
             end
 
@@ -198,15 +206,17 @@ module ThemeJuice
             def list
                 sites = []
 
-                Dir.glob(File.expand_path("#{::ThemeJuice::Utilities.get_vvv_path}/www/*")).each do |f|
+                Dir.glob(File.expand_path("#{::ThemeJuice::Utilities.vvv_path}/www/*")).each do |f|
                     sites << File.basename(f).gsub(/(tj-)/, "") if File.directory?(f) && f.include?("tj-")
                 end
 
                 if sites.empty?
-                    say " ● Nothing to list. Why haven't you created a site yet?", :yellow
+                    ::ThemeJuice::UI.speak "Nothing to list. Why haven't you created a site yet?", {
+                        color: :yellow,
+                        icon: :bullet_solid
+                    }
                 else
-                    say " → Your sites :".ljust(terminal_width), [:black, :on_green]
-                    sites.each_with_index { |site, i| say " ● #{site}", :blue }
+                    ::ThemeJuice::UI.list "Your sites:", :green, sites
                 end
 
                 sites
@@ -241,21 +251,20 @@ module ThemeJuice
                 if config_is_setup? config_path
                     @config = YAML.load_file "#{config_path}/tj-config.yml"
                 else
-                    say " ↑ Unable to find 'tj-config.yml' file in '#{config_path}'.".ljust(terminal_width), [:white, :on_red]
+                    ::ThemeJuice::UI.notice "Unable to find 'tj-config.yml' file in '#{config_path}'."
 
-                    if yes? " ○ Would you like to create one? (y/N) :", :blue
+                    if ::ThemeJuice::UI.agree? "Would you like to create one?"
 
                         setup_config(config_path)
 
                         if config_is_setup? config_path
-                            say " → Please re-run the last command to continue.".ljust(terminal_width), [:black, :on_yellow]
+                            ::ThemeJuice::UI.notice "Please re-run the last command to continue."
                             exit
                         else
                             exit 1
                         end
                     else
-                        say " ↑ A config file is needed to continue installation. Aborting mission.".ljust(terminal_width), [:white, :on_red]
-                        exit 1
+                        ::ThemeJuice::UI.error "A config file is needed to continue. Aborting mission."
                     end
                 end
             end
@@ -270,7 +279,7 @@ module ThemeJuice
             ###
             def restart_vagrant
                 run [
-                    "cd #{::ThemeJuice::Utilities.get_vvv_path}",
+                    "cd #{::ThemeJuice::Utilities.vvv_path}",
                     "vagrant halt",
                     "vagrant up --provision",
                 ], false
@@ -308,14 +317,14 @@ module ThemeJuice
             # @return {Bool}
             ###
             def vvv_is_setup?
-                File.exist? File.expand_path(::ThemeJuice::Utilities.get_vvv_path)
+                File.exist? File.expand_path(::ThemeJuice::Utilities.vvv_path)
             end
 
             ###
             # @return {Bool}
             ###
             def wildcard_subdomains_is_setup?
-                File.readlines(File.expand_path("#{::ThemeJuice::Utilities.get_vvv_path}/Vagrantfile")).grep(/(config.landrush.enabled = true)/m).any?
+                File.readlines(File.expand_path("#{::ThemeJuice::Utilities.vvv_path}/Vagrantfile")).grep(/(config.landrush.enabled = true)/m).any?
             end
 
             ###
@@ -336,7 +345,7 @@ module ThemeJuice
             # @return {Bool}
             ###
             def database_is_setup?
-                File.readlines(File.expand_path("#{::ThemeJuice::Utilities.get_vvv_path}/database/init-custom.sql")).grep(/(### Begin '#{@opts[:site_name]}')/m).any?
+                File.readlines(File.expand_path("#{::ThemeJuice::Utilities.vvv_path}/database/init-custom.sql")).grep(/(### Begin '#{@opts[:site_name]}')/m).any?
             end
 
             ###
@@ -357,7 +366,7 @@ module ThemeJuice
             # @return {Bool}
             ###
             def synced_folder_is_setup?
-                File.readlines(File.expand_path("#{::ThemeJuice::Utilities.get_vvv_path}/Vagrantfile")).grep(/(### Begin '#{@opts[:site_name]}')/m).any?
+                File.readlines(File.expand_path("#{::ThemeJuice::Utilities.vvv_path}/Vagrantfile")).grep(/(### Begin '#{@opts[:site_name]}')/m).any?
             end
 
             ###
@@ -387,13 +396,17 @@ module ThemeJuice
             # @return {Void}
             ###
             def setup_vvv
-                say " ● Installing VVV into '#{File.expand_path("#{::ThemeJuice::Utilities.get_vvv_path}")}'...", :yellow
+                ::ThemeJuice::UI.speak "Installing VVV into '#{File.expand_path("#{::ThemeJuice::Utilities.vvv_path}")}'...", {
+                    color: :yellow,
+                    icon: :bullet_solid
+                }
+
                 run [
                     "vagrant plugin install vagrant-hostsupdater",
                     "vagrant plugin install vagrant-triggers",
                     "vagrant plugin install landrush",
-                    "git clone https://github.com/Varying-Vagrant-Vagrants/VVV.git #{::ThemeJuice::Utilities.get_vvv_path}",
-                    "cd #{::ThemeJuice::Utilities.get_vvv_path}/database && touch init-custom.sql"
+                    "git clone https://github.com/Varying-Vagrant-Vagrants/VVV.git #{::ThemeJuice::Utilities.vvv_path}",
+                    "cd #{::ThemeJuice::Utilities.vvv_path}/database && touch init-custom.sql"
                 ]
             end
 
@@ -403,7 +416,11 @@ module ThemeJuice
             # @return {Void}
             ###
             def setup_project_dir
-                say " ● Creating project directory tree in '#{@opts[:site_location]}'...", :yellow
+                ::ThemeJuice::UI.speak "Creating project directory tree in '#{@opts[:site_location]}'...", {
+                    color: :yellow,
+                    icon: :bullet_solid
+                }
+
                 run ["mkdir -p #{@opts[:site_location]}"]
             end
 
@@ -416,8 +433,12 @@ module ThemeJuice
             # @return {Void}
             ###
             def setup_wildcard_subdomains
-                say " ● Setting up wildcard subdomains...", :yellow
-                open File.expand_path("#{::ThemeJuice::Utilities.get_vvv_path}/Vagrantfile"), "a+" do |file|
+                ::ThemeJuice::UI.speak "Setting up wildcard subdomains...", {
+                    color: :yellow,
+                    icon: :bullet_solid
+                }
+
+                open File.expand_path("#{::ThemeJuice::Utilities.vvv_path}/Vagrantfile"), "a+" do |file|
                     file.puts "\n"
                     file.puts "###"
                     file.puts "# Enable wildcard subdomains"
@@ -438,9 +459,13 @@ module ThemeJuice
             # @return {Void}
             ###
             def setup_dev_site
-                say " ● Setting up new development site at '#{@opts[:dev_location]}'...", :yellow
+                ::ThemeJuice::UI.speak "Setting up new development site at '#{@opts[:dev_location]}'...", {
+                    color: :yellow,
+                    icon: :bullet_solid
+                }
+
                 run [
-                    "cd #{::ThemeJuice::Utilities.get_vvv_path}/www",
+                    "cd #{::ThemeJuice::Utilities.vvv_path}/www",
                     "mkdir tj-#{@opts[:site_name]}",
                 ]
             end
@@ -453,10 +478,10 @@ module ThemeJuice
             # @return {Void}
             ###
             def setup_config(config_path)
-                watch = ask "   ○ Watch command to use :", :blue, default: "bundle exec guard"
-                server = ask "   ○ Deployment command to use :", :blue, default: "bundle exec cap"
-                vendor = ask "   ○ Vendor command to use :", :blue, default: "composer"
-                install = ask "   ○ Commands to run on theme install :", :blue, default: "composer install"
+                watch   = ::ThemeJuice::UI.prompt "Watch command to use",             indent: 2, default: "bundle exec guard"
+                server  = ::ThemeJuice::UI.prompt "Deployment command to use",        indent: 2, default: "bundle exec cap"
+                vendor  = ::ThemeJuice::UI.prompt "Vendor command to use",            indent: 2, default: "composer"
+                install = ::ThemeJuice::UI.prompt "Commands to run on theme install", indent: 2, default: "composer install"
 
                 File.open "#{config_path}/tj-config.yml", "w" do |file|
                     file.puts "watch: #{watch}"
@@ -467,9 +492,12 @@ module ThemeJuice
                 end
 
                 if config_is_setup? config_path
-                    say " ● Successfully added 'tj-config.yml' file.", :green
+                    ::ThemeJuice::UI.speak "Successfully added 'tj-config.yml' file.", {
+                        color: :green,
+                        icon: :bullet_solid
+                    }
                 else
-                    say " ↑ Could not create 'tj-config.yml' file.".ljust(terminal_width), [:white, :on_red]
+                    ::ThemeJuice::UI.error "Could not create 'tj-config.yml' file. Make sure you have write capabilities to '#{@opts[:site_location]}'."
                 end
             end
 
@@ -484,9 +512,12 @@ module ThemeJuice
                 end
 
                 if hosts_is_setup?
-                    say " ● Successfully added 'vvv-hosts' file.", :green
+                    ::ThemeJuice::UI.speak "Successfully added 'vvv-hosts' file.", {
+                        color: :green,
+                        icon: :bullet_solid
+                    }
                 else
-                    say " ↑ Could not create 'vvv-hosts' file.".ljust(terminal_width), [:white, :on_red]
+                    ::ThemeJuice::UI.error "Could not create 'vvv-hosts' file. Make sure you have write capabilities to '#{@opts[:site_location]}'."
                 end
             end
 
@@ -496,7 +527,7 @@ module ThemeJuice
             # @return {Void}
             ###
             def setup_database
-                File.open File.expand_path("#{::ThemeJuice::Utilities.get_vvv_path}/database/init-custom.sql"), "a+" do |file|
+                File.open File.expand_path("#{::ThemeJuice::Utilities.vvv_path}/database/init-custom.sql"), "a+" do |file|
                     file.puts "### Begin '#{@opts[:site_name]}'"
                     file.puts "#"
                     file.puts "# This block is automatically generated by ThemeJuice. Do not edit."
@@ -508,9 +539,12 @@ module ThemeJuice
                 end
 
                 if database_is_setup?
-                    say " ● Successfully added database to 'init-custom.sql'.", :green
+                    ::ThemeJuice::UI.speak "Successfully added database to 'init-custom.sql'.", {
+                        color: :green,
+                        icon: :bullet_solid
+                    }
                 else
-                    say " ↑ Could not add database info for '#{@opts[:site_name]}' to 'init-custom.sql'.".ljust(terminal_width), [:white, :on_red]
+                    ::ThemeJuice::UI.error "Could not add database info for '#{@opts[:site_name]}' to 'init-custom.sql'. Make sure you have write capabilities to '#{@opts[:site_location]}'."
                 end
             end
 
@@ -530,9 +564,12 @@ module ThemeJuice
                 end
 
                 if nginx_is_setup?
-                    say " ● Successfully added 'vvv-nginx.conf' file.", :green
+                    ::ThemeJuice::UI.speak "Successfully added 'vvv-nginx.conf' file.", {
+                        color: :green,
+                        icon: :bullet_solid
+                    }
                 else
-                    say " ↑ Could not create 'vvv-nginx.conf' file.".ljust(terminal_width), [:white, :on_red]
+                    ::ThemeJuice::UI.error "Could not create 'vvv-nginx.conf' file. Make sure you have write capabilities to '#{@opts[:site_location]}'."
                 end
             end
 
@@ -552,9 +589,12 @@ module ThemeJuice
                 end
 
                 if env_is_setup?
-                    say " ● Successfully added '.env.development' file.", :green
+                    ::ThemeJuice::UI.speak "Successfully added '.env.development' file.", {
+                        color: :green,
+                        icon: :bullet_solid
+                    }
                 else
-                    say " ↑ Could not create '.env.development' file.".ljust(terminal_width), [:white, :on_red]
+                    ::ThemeJuice::UI.error "Could not create '.env.development' file. Make sure you have write capabilities to '#{@opts[:site_location]}'."
                 end
             end
 
@@ -566,7 +606,10 @@ module ThemeJuice
             # @return {Void}
             ###
             def setup_wordpress
-                say " ● Setting up WordPress...", :yellow
+                ::ThemeJuice::UI.speak "Setting up WordPress...", {
+                    color: :yellow,
+                    icon: :bullet_solid
+                }
 
                 unless @opts[:bare_setup]
                     run [
@@ -582,7 +625,10 @@ module ThemeJuice
             # @return {Void}
             ###
             def install_theme_dependencies
-                say " ● Installing theme dependencies...", :yellow
+                ::ThemeJuice::UI.speak "Installing theme dependencies...", {
+                    color: :yellow,
+                    icon: :bullet_solid
+                }
 
                 @config["install"].each do |command|
                     run ["cd #{@opts[:site_location]}", command], false
@@ -595,9 +641,12 @@ module ThemeJuice
             # @return {Void}
             ###
             def setup_synced_folder
-                say " ● Syncing host theme directory '#{@opts[:site_location]}' with VM theme directory '/srv/www/tj-#{@opts[:site_name]}'...", :yellow
+                ::ThemeJuice::UI.speak "Syncing host theme directory '#{@opts[:site_location]}' with VM theme directory '/srv/www/tj-#{@opts[:site_name]}'...", {
+                    color: :yellow,
+                    icon: :bullet_solid
+                }
 
-                open File.expand_path("#{::ThemeJuice::Utilities.get_vvv_path}/Vagrantfile"), "a+" do |file|
+                open File.expand_path("#{::ThemeJuice::Utilities.vvv_path}/Vagrantfile"), "a+" do |file|
                     file.puts "### Begin '#{@opts[:site_name]}'"
                     file.puts "#"
                     file.puts "# This block is automatically generated by ThemeJuice. Do not edit."
@@ -617,7 +666,10 @@ module ThemeJuice
             # @return {Void}
             ###
             def setup_repo
-                say " ● Setting up Git repository at '#{@opts[:repository]}'...", :yellow
+                ::ThemeJuice::UI.speak "Setting up Git repository at '#{@opts[:repository]}'...", {
+                    color: :yellow,
+                    icon: :bullet_solid
+                }
 
                 if repo_is_setup?
                     run [
@@ -646,14 +698,17 @@ module ThemeJuice
                     file.puts "\tvagrant:"
                     file.puts "\t\turl: #{@opts[:dev_url]}"
                     file.puts "\t\tpath: /srv/www/tj-#{@opts[:site_name]}"
-                    file.puts "\t\tcmd: cd #{::ThemeJuice::Utilities.get_vvv_path} && vagrant ssh-config > /tmp/vagrant_ssh_config && ssh -q %pseudotty% -F /tmp/vagrant_ssh_config default %cmd%"
+                    file.puts "\t\tcmd: cd #{::ThemeJuice::Utilities.vvv_path} && vagrant ssh-config > /tmp/vagrant_ssh_config && ssh -q %pseudotty% -F /tmp/vagrant_ssh_config default %cmd%"
                     file.puts "\n"
                 end
 
                 if wpcli_is_setup?
-                    say " ● Successfully added ssh settings to 'wp-cli.local.yml' file.", :green
+                    ::ThemeJuice::UI.speak "Successfully added ssh settings to 'wp-cli.local.yml' file.", {
+                        color: :green,
+                        icon: :bullet_solid
+                    }
                 else
-                    say " ↑ Could not create 'wp-cli.local.yml' file.".ljust(terminal_width), [:white, :on_red]
+                    ::ThemeJuice::UI.error "Could not create 'wp-cli.local.yml' file. Make sure you have write capabilities to '#{@opts[:site_location]}'."
                 end
             end
 
@@ -664,15 +719,18 @@ module ThemeJuice
             ###
             def remove_dev_site
 
-                unless Dir.entries("#{::ThemeJuice::Utilities.get_vvv_path}").include? "www"
+                unless Dir.entries("#{::ThemeJuice::Utilities.vvv_path}").include? "www"
                     say " ↑ Cannot load VVV path. Aborting mission before something bad happens.".ljust(terminal_width), [:white, :on_red]
                     exit 1
                 end
 
                 if run ["rm -rf #{@opts[:dev_location]}"]
-                    say " ● VVV installation for '#{@opts[:site_name]}' successfully removed.", :yellow
+                    ::ThemeJuice::UI.speak "VVV installation for '#{@opts[:site_name]}' successfully removed.", {
+                        color: :green,
+                        icon: :bullet_solid
+                    }
                 else
-                    say " ↑ Theme '#{@opts[:site_name]}' could not be removed. Make sure you have write capabilities.".ljust(terminal_width), [:white, :on_red]
+                    ::ThemeJuice::UI.error "Theme '#{@opts[:site_name]}' could not be removed. Make sure you have write capabilities to '#{@opts[:dev_location]}'."
                 end
             end
 
@@ -682,8 +740,11 @@ module ThemeJuice
             # @return {Void}
             ###
             def remove_database
-                if remove_traces_from_file "#{::ThemeJuice::Utilities.get_vvv_path}/database/init-custom.sql"
-                    say " ● Database for '#{@opts[:site_name]}' successfully removed.", :yellow
+                if remove_traces_from_file "#{::ThemeJuice::Utilities.vvv_path}/database/init-custom.sql"
+                    ::ThemeJuice::UI.speak "Database for '#{@opts[:site_name]}' successfully removed.", {
+                        color: :yellow,
+                        icon: :bullet_solid
+                    }
                 end
             end
 
@@ -693,8 +754,11 @@ module ThemeJuice
             # @return {Void}
             ###
             def remove_synced_folder
-                if remove_traces_from_file "#{::ThemeJuice::Utilities.get_vvv_path}/Vagrantfile"
-                    say " ● Synced folders for '#{@opts[:site_name]}' successfully removed.", :yellow
+                if remove_traces_from_file "#{::ThemeJuice::Utilities.vvv_path}/Vagrantfile"
+                    ::ThemeJuice::UI.speak "Synced folders for '#{@opts[:site_name]}' successfully removed.", {
+                        color: :yellow,
+                        icon: :bullet_solid
+                    }
                 end
             end
 

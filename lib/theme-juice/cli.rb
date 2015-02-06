@@ -6,12 +6,14 @@ module ThemeJuice
         map %w[setup, init, prep]        => :create
         map %w[remove, trash, teardown]  => :delete
         map %w[sites, show]              => :list
-        map %w[dev]                      => :watch
+        map %w[assets, dev]              => :watch
         map %w[dep, deps]                => :vendor
-        map %w[deploy]                   => :server
+        map %w[deploy, remote]           => :server
         map %w[vagrant, vvv]             => :vm
 
-        class_option :vvv_path, type: :string, alias: "-fp", default: nil, desc: "Force path to VVV installation"
+        class_option :no_unicode, type: :boolean, alias: "-nu",               desc: "Disable all unicode characters"
+        class_option :no_colors,  type: :boolean, alias: "-nc",               desc: "Disable colored output"
+        class_option :vvv_path,   type: :string,  alias: "-fp", default: nil, desc: "Force path to VVV installation"
 
         ###
         # Non-Thor commands
@@ -19,14 +21,52 @@ module ThemeJuice
         no_commands do
 
             ###
+            # Disable unicode characters if flag is passed
+            #
+            # @return {Void}
+            ###
+            def use_unicode_chars?
+                ::ThemeJuice::Utilities.no_unicode = true if options[:no_unicode]
+            end
+
+            ###
+            # Disable unicode characters if flag is passed
+            #
+            # @return {Void}
+            ###
+            def use_terminal_colors?
+                ::ThemeJuice::Utilities.no_colors = true if options[:no_colors]
+            end
+
+            ###
             # Set VVV path
             #
             # @return {Void}
             ###
             def force_vvv_path?
-                unless options[:vvv_path].nil?
-                    ::ThemeJuice::Utilities.set_vvv_path options[:vvv_path]
+                if options[:vvv_path].nil?
+                    ::ThemeJuice::Utilities.vvv_path = File.expand_path("~/vagrant")
+                else
+                    ::ThemeJuice::Utilities.vvv_path = options[:vvv_path]
+                    ::ThemeJuice::UI.notice "You're using a custom VVV path : (#{::ThemeJuice::Utilities.vvv_path})"
+
+                    unless ::ThemeJuice::UI.agree? "Is the path correct?"
+                        ::ThemeJuice::UI.error "Good call. Let's create a working dev environment, not a broken computer. Aborting mission."
+                    end
                 end
+
+                unless Dir.exist? ::ThemeJuice::Utilities.vvv_path
+                    ::ThemeJuice::UI.error "Cannot load VVV path (#{::ThemeJuice::Utilities.vvv_path}). Aborting mission before something bad happens."
+                end
+            end
+
+            ###
+            # Output welcome message
+            #
+            # @return {Void}
+            ###
+            def welcome_message
+                ::ThemeJuice::UI.success "Welcome to Theme Juice!"
             end
         end
 
@@ -39,7 +79,10 @@ module ThemeJuice
         def version
             # ::ThemeJuice::Utilities.check_if_current_version_is_outdated
 
-            say ::ThemeJuice::VERSION, :green
+            ::ThemeJuice::UI.speak ::ThemeJuice::VERSION, {
+                color: :green,
+                icon: :arrow_right
+            }
         end
 
         ###
@@ -63,9 +106,12 @@ module ThemeJuice
         method_option :skip_db,      type: :boolean,                                desc: "Skip database prompts and use defaults"
         method_option :use_defaults, type: :boolean,                                desc: "Skip all promps and use default settings"
         def create(site = nil)
-            self.force_vvv_path?
+            self.use_terminal_colors?
+            self.use_unicode_chars?
 
-            say " Welcome to Theme Juice!".ljust(terminal_width), [:black, :on_green, :bold]
+            self.welcome_message
+
+            self.force_vvv_path?
 
             if options[:site]
                 site = options[:site]
@@ -73,20 +119,31 @@ module ThemeJuice
 
             # Check if user passed all required options through flags
             if options.length >= 6 || options[:use_defaults]
-                say " → Well... looks like you just have everything all figured out, huh?".ljust(terminal_width), [:black, :on_green]
+                ::ThemeJuice::UI.speak "Well... looks like you just have everything all figured out, huh?", {
+                    color: [:black, :on_green],
+                    icon: :arrow_right,
+                    full_width: true
+                }
             elsif site.nil?
-                say " → Just a few questions before we begin...".ljust(terminal_width), [:black, :on_green]
+                ::ThemeJuice::UI.speak "Just a few questions before we begin...", {
+                    color: [:black, :on_green],
+                    icon: :arrow_right,
+                    full_width: true
+                }
             else
-                say " → Your site name shall be '#{site}'! Just a few more questions before we begin...".ljust(terminal_width), [:black, :on_green]
+                ::ThemeJuice::UI.speak "Your site name shall be '#{site}'! Just a few more questions before we begin...", {
+                    color: [:black, :on_green],
+                    icon: :arrow_right,
+                    full_width: true
+                }
             end
 
             # Ask for the Site name if not passed directly
-            site ||= ask " ○ What's the site name? (only ascii characters are allowed) :", :blue
+            site ||= ::ThemeJuice::UI.prompt "What's the site name? (only ascii characters are allowed)"
 
             # Make sure site name is valid
             if site.match /[^0-9A-Za-z.\-]/
-                say " ↑ Site name contains invalid non-ascii characters. This name is used for creating directories, so that's not gonna work. Aborting mission.".ljust(terminal_width), [:white, :on_red]
-                exit 1
+                ::ThemeJuice::UI.error "Site name contains invalid non-ascii characters. This name is used for creating directories, so that's not gonna work. Aborting mission."
             end
 
             # Bare install?
@@ -103,7 +160,7 @@ module ThemeJuice
                     if options[:use_defaults]
                         site_location = "#{Dir.pwd}/"
                     else
-                        site_location = ask " ○ Where do you want to setup the site? :", :blue, default: "#{Dir.pwd}/", path: true
+                        site_location = ::ThemeJuice::UI.prompt "Where do you want to setup the site?", default: "#{Dir.pwd}/", path: true
                     end
                 end
 
@@ -125,16 +182,23 @@ module ThemeJuice
                         if options[:use_defaults]
                             starter_theme = themes["theme-juice/theme-juice-starter"]
                         else
-                            say " ○ Which starter theme would you like to use? (partial name is acceptable)", :blue
+                            ::ThemeJuice::UI.speak "Which starter theme would you like to use? (partial name is acceptable)", {
+                                color: :blue,
+                                icon: :bullet_hollow
+                            }
+
                             choose do |menu|
-                                menu.index = "   ○"
-                                menu.prompt = set_color " → Choose one :".ljust(16), :blue
+                                menu.index = "   #{::ThemeJuice::UI::BULLET_HOLLOW}"
+                                menu.prompt = set_color " #{::ThemeJuice::UI::ARROW_RIGHT} Choose one :".ljust(16), :blue
 
                                 themes.each do |theme, repo|
                                     menu.choice theme do
 
                                         if theme == "theme-juice/theme-juice-starter"
-                                            say " ↑ Awesome choice!", :green
+                                            ::ThemeJuice::UI.speak "Awesome choice!", {
+                                                color: :green,
+                                                icon: :arrow_up
+                                            }
                                         end
 
                                         starter_theme = repo
@@ -142,11 +206,11 @@ module ThemeJuice
                                 end
 
                                 menu.choice "other" do
-                                    starter_theme = ask "   ○ What is the repository URL for the starter theme you would like to clone? :", :blue
+                                    starter_theme = ::ThemeJuice::UI.prompt "What is the repository URL for the starter theme you would like to clone?", indent: 2
                                 end
 
                                 menu.choice "none" do |opt|
-                                    say " → Next time you need to create a site without a starter theme, you can just run the 'setup' command instead.".ljust(terminal_width), [:black, :on_yellow]
+                                    ::ThemeJuice::UI.notice "Next time you need to create a site without a starter theme, you can just run the 'setup' command instead."
                                     starter_theme, bare_setup = opt, true
                                 end
                             end
@@ -161,13 +225,12 @@ module ThemeJuice
                     if options[:use_defaults]
                         dev_url = "#{site}.dev"
                     else
-                        dev_url = ask " ○ What do you want the development url to be? (this should end in '.dev') :", :blue, default: "#{site}.dev"
+                        dev_url = ::ThemeJuice::UI.prompt "What do you want the development url to be? (this should end in '.dev')", default: "#{site}.dev"
                     end
                 end
 
                 unless dev_url.match /(.dev)$/
-                    say " ↑ Your development url doesn't end with '.dev'. This is used within Vagrant, so that's not gonna work. Aborting mission.".ljust(terminal_width), [:white, :on_red]
-                    exit 1
+                    ::ThemeJuice::UI.error "Your development url doesn't end with '.dev'. This is used within Vagrant, so that's not gonna work. Aborting mission."
                 end
 
                 # Initialize a git repository on setup
@@ -177,8 +240,8 @@ module ThemeJuice
                     if options[:use_defaults] || options[:skip_repo]
                         repository = false
                     else
-                        if yes? " ○ Would you like to initialize a new Git repository? (y/N) :", :blue
-                            repository = ask "   ○ What is the repository's URL? :", :blue
+                        if ::ThemeJuice::UI.agree? "Would you like to initialize a new Git repository?"
+                            repository = ::ThemeJuice::UI.prompt "What is the repository's URL?", indent: 2
                         else
                             repository = false
                         end
@@ -189,28 +252,28 @@ module ThemeJuice
                 if options[:use_defaults] || options[:skip_db]
                     db_host = "vvv"
                 else
-                    db_host = ask " ○ Database host :", :blue, default: "vvv"
+                    db_host = ::ThemeJuice::UI.prompt "Database host", default: "vvv"
                 end
 
                 # Database name
                 if options[:use_defaults] || options[:skip_db]
                     db_name = "#{clean_site_name}_db"
                 else
-                    db_name = ask " ○ Database name :", :blue, default: "#{clean_site_name}_db"
+                    db_name = ::ThemeJuice::UI.prompt "Database name", default: "#{clean_site_name}_db"
                 end
 
                 # Database username
                 if options[:use_defaults] || options[:skip_db]
                     db_user = "#{clean_site_name}_user"
                 else
-                    db_user = ask " ○ Database username :", :blue, default: "#{clean_site_name}_user"
+                    db_user = ::ThemeJuice::UI.prompt "Database username", default: "#{clean_site_name}_user"
                 end
 
                 # Database password
                 if options[:use_defaults] || options[:skip_db]
                     db_pass = SecureRandom.base64
                 else
-                    db_pass = ask " ○ Database password :", :blue, default: SecureRandom.base64
+                    db_pass = ::ThemeJuice::UI.prompt "Database password", default: SecureRandom.base64
                 end
 
                 # Save options
@@ -219,7 +282,7 @@ module ThemeJuice
                     site_location: File.expand_path(site_location),
                     starter_theme: starter_theme,
                     bare_setup: bare_setup,
-                    dev_location: File.expand_path("#{::ThemeJuice::Utilities.get_vvv_path}/www/tj-#{site}"),
+                    dev_location: File.expand_path("#{::ThemeJuice::Utilities.vvv_path}/www/tj-#{site}"),
                     dev_url: dev_url,
                     repository: repository,
                     db_host: db_host,
@@ -229,27 +292,26 @@ module ThemeJuice
                 }
 
                 # Verify that all the options are correct
-                say " → Your settings :".ljust(terminal_width), [:black, :on_yellow]
-                say " ● Site name: #{opts[:site_name]}", :yellow
-                say " ● Site location: #{opts[:site_location]}", :yellow
-                say " ● Starter theme: #{opts[:starter_theme]}", :yellow
-                say " ● Development location: #{opts[:dev_location]}", :yellow
-                say " ● Development url: http://#{opts[:dev_url]}", :yellow
-                say " ● Initialized repository: #{opts[:repository]}", :yellow
-                say " ● Database host: #{opts[:db_host]}", :yellow
-                say " ● Database name: #{opts[:db_name]}", :yellow
-                say " ● Database username: #{opts[:db_user]}", :yellow
-                say " ● Database password: #{opts[:db_pass]}", :yellow
+                ::ThemeJuice::UI.list "Your settings", :yellow, [
+                    "Site name: #{opts[:site_name]}",
+                    "Site location: #{opts[:site_location]}",
+                    "Starter theme: #{opts[:starter_theme]}",
+                    "Development location: #{opts[:dev_location]}",
+                    "Development url: http://#{opts[:dev_url]}",
+                    "Initialized repository: #{opts[:repository]}",
+                    "Database host: #{opts[:db_host]}",
+                    "Database name: #{opts[:db_name]}",
+                    "Database username: #{opts[:db_user]}",
+                    "Database password: #{opts[:db_pass]}"
+                ]
 
-                if yes? " ○ Do the options above look correct? (y/N) :", :blue
+                if ::ThemeJuice::UI.agree? "Do the options above look correct?"
                     ::ThemeJuice::Executor::create opts
                 else
-                    say " ↑ Dang typos... aborting mission.".ljust(terminal_width), [:white, :on_red]
-                    exit 1
+                    ::ThemeJuice::UI.error "Dang typos... aborting mission."
                 end
             else
-                say " ↑ Site name is required. Aborting mission.".ljust(terminal_width), [:white, :on_red]
-                exit 1
+                ::ThemeJuice::UI.error "Site name is required. Aborting mission."
             end
         end
 
@@ -277,10 +339,17 @@ module ThemeJuice
         desc "delete SITE", "Remove SITE from the VVV development environment (does not remove local site)"
         method_option :restart, type: :boolean
         def delete(site)
+            self.use_terminal_colors?
+            self.use_unicode_chars?
             self.force_vvv_path?
 
-            say " → Are you sure you want to delete '#{site}'?".ljust(terminal_width), [:white, :on_red]
-            if yes? " (y/N) :", :red
+            ::ThemeJuice::UI.speak "Are you sure you want to delete '#{site}'? (y/N)", {
+                color: [:white, :on_red],
+                icon: :arrow_right,
+                full_width: true
+            }
+
+            if ::ThemeJuice::UI.agree? "", { color: :red, simple: true }
                 ::ThemeJuice::Executor::delete site, options[:restart]
             end
         end
@@ -292,6 +361,8 @@ module ThemeJuice
         ###
         desc "list", "List all sites within the VVV development environment"
         def list
+            self.use_terminal_colors?
+            self.use_unicode_chars?
             self.force_vvv_path?
 
             ::ThemeJuice::Executor::list
@@ -305,6 +376,9 @@ module ThemeJuice
         desc "install", "Run installation for the starter theme"
         method_option :config, type: :string, aliases: "-c", default: nil, desc: "Force path to config file"
         def install
+            self.use_terminal_colors?
+            self.use_unicode_chars?
+
             ::ThemeJuice::Executor::install options[:config]
         end
 
@@ -318,6 +392,9 @@ module ThemeJuice
         ###
         desc "watch [COMMANDS]", "Watch and compile assets"
         def watch(*commands)
+            self.use_terminal_colors?
+            self.use_unicode_chars?
+
             ::ThemeJuice::Executor::subcommand "#{__method__}", commands.join(" ")
         end
 
@@ -331,6 +408,9 @@ module ThemeJuice
         ###
         desc "vendor [COMMANDS]", "Manage vendor dependencies"
         def vendor(*commands)
+            self.use_terminal_colors?
+            self.use_unicode_chars?
+
             ::ThemeJuice::Executor::subcommand "#{__method__}", commands.join(" ")
         end
 
@@ -344,6 +424,8 @@ module ThemeJuice
         ###
         desc "server [COMMANDS]", "Manage deployment and migration"
         def server(*commands)
+            self.use_terminal_colors?
+            self.use_unicode_chars?
             self.force_vvv_path?
 
             ::ThemeJuice::Executor::subcommand "#{__method__}", commands.join(" ")
@@ -359,9 +441,11 @@ module ThemeJuice
         ###
         desc "vm [COMMANDS]", "Manage virtual development environment with Vagrant"
         def vm(*commands)
+            self.use_terminal_colors?
+            self.use_unicode_chars?
             self.force_vvv_path?
 
-            system "cd #{::ThemeJuice::Utilities.get_vvv_path} && vagrant #{commands.join(" ")}"
+            system "cd #{::ThemeJuice::Utilities.vvv_path} && vagrant #{commands.join(" ")}"
         end
     end
 end

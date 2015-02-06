@@ -39,9 +39,11 @@ tj
 ```
 
 ### Global flags:
-| Flag                                    | Type   | Description                                      |
-|:--------------------------------------- |:------ |:------------------------------------------------ |
-| `-fp, [--vvv-path=PATH]`                | String | Force custom path to your VVV installation       |
+| Flag                     | Type   | Description                                |
+|:-------------------------|:------ |:------------------------------------------ |
+| `-nu, [--no-unicode]`    | Bool   | Disable all unicode characters             |
+| `-nc, [--no-colors]`     | Bool   | Disable colored output                     |
+| `-fp, [--vvv-path=PATH]` | String | Force custom path to your VVV installation |
 
 ### Print version:
 This command will print the current version of `tj`.
@@ -89,7 +91,7 @@ tj list # Aliases: sites, show
 ### Watching and compiling assets:
 Use this to watch and compile assets with your preferred build tool, whether that be [Grunt](https://github.com/gruntjs/grunt), [Gulp](https://github.com/gulpjs/gulp), [Guard](https://github.com/guard/guard), or whatever. This is simply a wrapper for whatever command is in your `tj-config.yml` file.
 ```bash
-tj watch # Aliases: dev
+tj watch # Aliases: dev, assets
 ```
 
 ### Managing development environment:
@@ -101,13 +103,13 @@ tj vm # Aliases: vagrant, vvv
 ### Managing vendor dependencies:
 Use this to easily manage your dependencies with [Composer](https://github.com/composer/composer), or whatever other command you set in your `tj-config.yml`. This is a wrapper for whatever command is in your config file.
 ```bash
-tj vendor # Aliases: deps
+tj vendor # Aliases: dep, deps
 ```
 
 ### Managing deployment and migration:
 Use this to easily manage your deployment and migration with [Capistrano](https://github.com/capistrano/capistrano) (or again, anything else set within your `tj-config.yml`). This is just a wrapper for your chosen command.
 ```bash
-tj server # Aliases: deploy
+tj server # Aliases: deploy, remote
 ```
 
 ### Executing WP-CLI locally inside your VM with `wp-cli-ssh`
