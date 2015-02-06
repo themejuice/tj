@@ -103,7 +103,7 @@ tj vm # Aliases: vagrant, vvv
 ### Managing vendor dependencies:
 Use this to easily manage your dependencies with [Composer](https://github.com/composer/composer), or whatever other command you set in your `tj-config.yml`. This is a wrapper for whatever command is in your config file.
 ```bash
-tj vendor # Aliases: dep, deps
+tj vendor # Aliases: deps, dependencies
 ```
 
 ### Managing deployment and migration:

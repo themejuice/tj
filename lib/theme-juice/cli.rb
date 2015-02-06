@@ -7,7 +7,7 @@ module ThemeJuice
         map %w[remove, trash, teardown]  => :delete
         map %w[sites, show]              => :list
         map %w[assets, dev]              => :watch
-        map %w[dep, deps]                => :vendor
+        map %w[dependencies, deps]       => :vendor
         map %w[deploy, remote]           => :server
         map %w[vagrant, vvv]             => :vm
 
