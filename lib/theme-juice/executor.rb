@@ -1,3 +1,5 @@
+# encoding: UTF-8
+
 module ThemeJuice
     module Executor
         class << self
