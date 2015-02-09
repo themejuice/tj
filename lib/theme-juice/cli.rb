@@ -63,6 +63,19 @@ module ThemeJuice
             end
 
             ###
+            # Make sure site name is valid
+            #
+            # @param {String} site
+            #
+            # @return {Void}
+            ###
+            def validate_site_name(site)
+                site.match /[^0-9A-Za-z.\-]/ do |char|
+                    ::ThemeJuice::UI.error "Site name contains an invalid character '#{char}'. This name is used for creating directories, so that's not gonna work. Aborting mission."
+                end
+            end
+
+            ###
             # Output welcome message
             #
             # @return {Void}
@@ -113,14 +126,19 @@ module ThemeJuice
         def create(site = nil)
             self.use_terminal_colors?
             self.use_unicode_chars?
-
-            self.welcome_message
-
             self.force_vvv_path?
 
             if options[:site]
                 site = options[:site]
             end
+
+            # Make sure site name is valid
+            unless site.nil?
+                self.validate_site_name(site)
+            end
+
+            # No errors yet, say hi
+            self.welcome_message
 
             # Check if user passed all required options through flags
             if options.length >= 6 || options[:use_defaults]
@@ -132,20 +150,12 @@ module ThemeJuice
                     row: true
                 }
             else
-                ::ThemeJuice::UI.speak "Your site name shall be '#{site}'! Just a few more questions before we begin...", {
-                    color: [:black, :on_green],
-                    icon: :notice,
-                    row: true
-                }
+                ::ThemeJuice::UI.success "Your site name shall be '#{site}'! Just a few more questions before we begin..."
             end
 
             # Ask for the Site name if not passed directly
-            site ||= ::ThemeJuice::UI.prompt "What's the site name? (only ascii characters are allowed)"
-
-            # Make sure site name is valid
-            if site.match /[^0-9A-Za-z.\-]/
-                ::ThemeJuice::UI.error "Site name contains invalid non-ascii characters. This name is used for creating directories, so that's not gonna work. Aborting mission."
-            end
+            site ||= ::ThemeJuice::UI.prompt "What's the site name? (letters, numbers and dashes only)"
+            self.validate_site_name(site)
 
             # Bare install?
             bare_setup ||= options[:bare]
