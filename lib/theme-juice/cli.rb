@@ -18,77 +18,6 @@ module ThemeJuice
         class_option :vvv_path,   type: :string,  alias: "-fp", default: nil, desc: "Force path to VVV installation"
 
         ###
-        # Non-Thor commands
-        ###
-        no_commands do
-
-            ###
-            # Disable unicode characters if flag is passed
-            #
-            # @return {Void}
-            ###
-            def use_unicode_chars?
-                ::ThemeJuice::Utilities.no_unicode = true if options[:no_unicode]
-            end
-
-            ###
-            # Disable unicode characters if flag is passed
-            #
-            # @return {Void}
-            ###
-            def use_terminal_colors?
-                ::ThemeJuice::Utilities.no_colors = true if options[:no_colors]
-            end
-
-            ###
-            # Set VVV path
-            #
-            # @return {Void}
-            ###
-            def force_vvv_path?
-                if options[:vvv_path].nil?
-                    ::ThemeJuice::Utilities.vvv_path = File.expand_path("~/vagrant")
-                else
-                    ::ThemeJuice::Utilities.vvv_path = options[:vvv_path]
-                    ::ThemeJuice::UI.notice "You're using a custom VVV path : (#{::ThemeJuice::Utilities.vvv_path})"
-
-                    unless ::ThemeJuice::UI.agree? "Is the path correct?"
-                        ::ThemeJuice::UI.error "Good call. Let's create a working dev environment, not a broken computer. Aborting mission."
-                    end
-                end
-
-                unless Dir.exist? ::ThemeJuice::Utilities.vvv_path
-                    ::ThemeJuice::UI.error "Cannot load VVV path (#{::ThemeJuice::Utilities.vvv_path}). Aborting mission before something bad happens."
-                end
-            end
-
-            ###
-            # Make sure site name is valid
-            #
-            # @param {String} site
-            #
-            # @return {Void}
-            ###
-            def validate_site_name(site)
-                site.match /[^0-9A-Za-z.\-]/ do |char|
-                    ::ThemeJuice::UI.error "Site name contains an invalid character '#{char}'. This name is used for creating directories, so that's not gonna work. Aborting mission."
-                end
-            end
-
-            ###
-            # Output welcome message
-            #
-            # @return {Void}
-            ###
-            def welcome_message
-                ::ThemeJuice::UI.speak "Welcome to Theme Juice!", {
-                    color: [:black, :on_green, :bold],
-                    row: true
-                }
-            end
-        end
-
-        ###
         # Print current version
         #
         # @return {String}
@@ -397,6 +326,7 @@ module ThemeJuice
         def install
             self.use_terminal_colors?
             self.use_unicode_chars?
+            self.force_vvv_path?
 
             ::ThemeJuice::Executor::install options[:config]
         end
@@ -413,6 +343,7 @@ module ThemeJuice
         def watch(*commands)
             self.use_terminal_colors?
             self.use_unicode_chars?
+            self.force_vvv_path?
 
             ::ThemeJuice::Executor::subcommand "#{__method__}", commands.join(" ")
         end
@@ -429,6 +360,7 @@ module ThemeJuice
         def vendor(*commands)
             self.use_terminal_colors?
             self.use_unicode_chars?
+            self.force_vvv_path?
 
             ::ThemeJuice::Executor::subcommand "#{__method__}", commands.join(" ")
         end
@@ -465,6 +397,77 @@ module ThemeJuice
             self.force_vvv_path?
 
             system "cd #{::ThemeJuice::Utilities.vvv_path} && vagrant #{commands.join(" ")}"
+        end
+
+        ###
+        # Non-Thor commands
+        ###
+        no_commands do
+
+            ###
+            # Disable unicode characters if flag is passed
+            #
+            # @return {Void}
+            ###
+            def use_unicode_chars?
+                ::ThemeJuice::Utilities.no_unicode = true if options[:no_unicode]
+            end
+
+            ###
+            # Disable unicode characters if flag is passed
+            #
+            # @return {Void}
+            ###
+            def use_terminal_colors?
+                ::ThemeJuice::Utilities.no_colors = true if options[:no_colors]
+            end
+
+            ###
+            # Set VVV path
+            #
+            # @return {Void}
+            ###
+            def force_vvv_path?
+                if options[:vvv_path].nil?
+                    ::ThemeJuice::Utilities.vvv_path = File.expand_path("~/vagrant")
+                else
+                    ::ThemeJuice::Utilities.vvv_path = options[:vvv_path]
+                    ::ThemeJuice::UI.notice "You're using a custom VVV path : (#{::ThemeJuice::Utilities.vvv_path})"
+
+                    unless ::ThemeJuice::UI.agree? "Is the path correct?"
+                        ::ThemeJuice::UI.error "Good call. Let's create a working dev environment, not a broken computer. Aborting mission."
+                    end
+                end
+
+                unless Dir.exist? ::ThemeJuice::Utilities.vvv_path
+                    ::ThemeJuice::UI.error "Cannot load VVV path (#{::ThemeJuice::Utilities.vvv_path}). Aborting mission before something bad happens."
+                end
+            end
+
+            ###
+            # Make sure site name is valid
+            #
+            # @param {String} site
+            #
+            # @return {Void}
+            ###
+            def validate_site_name(site)
+                site.match /[^0-9A-Za-z.\-]/ do |char|
+                    ::ThemeJuice::UI.error "Site name contains an invalid character '#{char}'. This name is used for creating directories, so that's not gonna work. Aborting mission."
+                end
+            end
+
+            ###
+            # Output welcome message
+            #
+            # @return {Void}
+            ###
+            def welcome_message
+                ::ThemeJuice::UI.speak "Welcome to Theme Juice!", {
+                    color: [:black, :on_green, :bold],
+                    row: true
+                }
+            end
         end
     end
 end

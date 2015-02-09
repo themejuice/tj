@@ -18,7 +18,7 @@ module ThemeJuice
 
                 use_config config_path
 
-                @config["install"].each do |command|
+                @config["commands"]["install"].each do |command|
                     run ["cd #{config_path}", command], false
                 end
             end
@@ -27,17 +27,17 @@ module ThemeJuice
             # Run subcommand from config
             #
             # @param {String} subcommand
-            # @param {String} commands
+            # @param {String} command
             #
             # @return {Void}
             ###
-            def subcommand(subcommand, commands)
+            def subcommand(subcommand, command)
                 config_path = File.expand_path(Dir.pwd)
 
                 use_config config_path
 
-                if @config[subcommand]
-                    run ["#{@config[subcommand]} #{commands}"], false
+                if @config["commands"][subcommand]
+                    run ["#{@config["commands"][subcommand]} #{command}"], false
                 else
                     ::ThemeJuice::UI.error "Unable to find '#{subcommand}' command in '#{config_path}/tj-config.yml'. Aborting mission."
                 end
@@ -486,10 +486,11 @@ module ThemeJuice
                 install = ::ThemeJuice::UI.prompt "Commands to run on theme install", indent: 2, default: "composer install"
 
                 File.open "#{config_path}/tj-config.yml", "wb" do |file|
-                    file.puts "watch: #{watch}"
-                    file.puts "server: #{server}"
-                    file.puts "vendor: #{vendor}"
-                    file.puts "install:"
+                    file.puts "commands:"
+                    file.puts "\s\swatch: #{watch}"
+                    file.puts "\s\sserver: #{server}"
+                    file.puts "\s\svendor: #{vendor}"
+                    file.puts "\s\sinstall:"
                     file.puts "\s\s\s\s- #{install}"
                 end
 
