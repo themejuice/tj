@@ -40,14 +40,14 @@ module ThemeJuice
                 if ::Gem::Version.new(local_version) < ::Gem::Version.new(remote_version)
                     ::ThemeJuice::UI.speak "Your version of Theme Juice (#{local_version}) is outdated. There is a newer version (#{remote_version}) available. Please update now.", {
                         color: [:black, :on_yellow],
-                        icon: :arrow_right,
-                        full_width: true
+                        icon: :notice,
+                        row: true
                     }
                 else
                     ::ThemeJuice::UI.speak "Your version of Theme Juice (#{local_version}) up to date.", {
                         color: [:black, :on_green],
-                        icon: :arrow_right,
-                        full_width: true
+                        icon: :notice,
+                        row: true
                     }
                 end
             end

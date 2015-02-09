@@ -3,17 +3,14 @@
 module ThemeJuice
     module UI
 
-        QUESTION_MARK = "?"
-        BULLET_HOLLOW = "\u25CB"
-        BULLET_SOLID  = "\u2022"
-        ARROW_UP      = "\u2191"
-        ARROW_RIGHT   = "\u2192"
-        ARROW_DOWN    = "\u2193"
-        ARROW_LEFT    = "\u2190"
-        ARROW_RELOAD  = "\u21AA"
-        BLOCK_LARGE   = "\u2588"
-        BLOCK_MED     = "\u258D"
-        BLOCK_SMALL   = "\u258F"
+        # List of icons
+        SUCCESS  = "\u2713"
+        ERROR    = "\u2191"
+        NOTICE   = "\u2192"
+        QUESTION = "\u003F"
+        GENERAL  = "\u002D"
+        RESTART  = "\u21AA"
+        LIST     = "\u2022"
 
         class << self
             include ::Thor::Actions
@@ -48,7 +45,8 @@ module ThemeJuice
             def success(message)
                 self.speak message, {
                     color: [:black, :on_green, :bold],
-                    full_width: true
+                    icon: :success,
+                    row: true
                 }
             end
 
@@ -62,8 +60,8 @@ module ThemeJuice
             def notice(message)
                 self.speak message, {
                     color: [:black, :on_yellow],
-                    icon: :arrow_right,
-                    full_width: true
+                    icon: :notice,
+                    row: true
                 }
             end
 
@@ -78,8 +76,8 @@ module ThemeJuice
             def error(message)
                 self.speak message, {
                     color: [:white, :on_red],
-                    icon: :arrow_up,
-                    full_width: true
+                    icon: :error,
+                    row: true
                 }
 
                 yield if block_given?
@@ -99,14 +97,14 @@ module ThemeJuice
             def list(header, color, list)
                 self.speak header, {
                     color: [:black, :"on_#{color}"],
-                    icon: :arrow_right,
-                    full_width: true
+                    icon: :notice,
+                    row: true
                 }
 
                 list.each do |item|
                     self.speak item, {
                         color: :"#{color}",
-                        icon: :bullet_solid
+                        icon: :general
                     }
                 end
             end
@@ -122,7 +120,7 @@ module ThemeJuice
             def prompt(question, *opts)
                 format_message! question, {
                     color: :blue,
-                    icon: :bullet_hollow
+                    icon: :question
                 }
 
                 opts.each do |opt|
@@ -159,7 +157,7 @@ module ThemeJuice
 
                 format_message! question, {
                     color: opts[:color],
-                    icon: :bullet_hollow
+                    icon: :question
                 }
 
                 if opts.key? :simple
@@ -192,7 +190,7 @@ module ThemeJuice
 
                 # Check if message should take up entire width
                 #  of the terminal window
-                if opts.key? :full_width
+                if opts.key? :row
                     set!(message) { |msg| msg.ljust(terminal_width) }
                 end
 
@@ -201,6 +199,11 @@ module ThemeJuice
                     if opts.key? :color
                         set!(message) { |msg| set_color(msg, *opts[:color]) }
                     end
+                end
+
+                # Check if message should always start on newline
+                if opts.key? :newline
+                    set!(message) { |msg| "\n" << msg }
                 end
 
                 message

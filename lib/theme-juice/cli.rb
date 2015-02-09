@@ -68,7 +68,10 @@ module ThemeJuice
             # @return {Void}
             ###
             def welcome_message
-                ::ThemeJuice::UI.success "Welcome to Theme Juice!"
+                ::ThemeJuice::UI.speak "Welcome to Theme Juice!", {
+                    color: [:black, :on_green, :bold],
+                    row: true
+                }
             end
         end
 
@@ -83,7 +86,7 @@ module ThemeJuice
 
             ::ThemeJuice::UI.speak ::ThemeJuice::VERSION, {
                 color: :green,
-                icon: :arrow_right
+                icon: :notice
             }
         end
 
@@ -123,20 +126,20 @@ module ThemeJuice
             if options.length >= 6 || options[:use_defaults]
                 ::ThemeJuice::UI.speak "Well... looks like you just have everything all figured out, huh?", {
                     color: [:black, :on_green],
-                    icon: :arrow_right,
-                    full_width: true
+                    icon: :notice,
+                    row: true
                 }
             elsif site.nil?
                 ::ThemeJuice::UI.speak "Just a few questions before we begin...", {
                     color: [:black, :on_green],
-                    icon: :arrow_right,
-                    full_width: true
+                    icon: :notice,
+                    row: true
                 }
             else
                 ::ThemeJuice::UI.speak "Your site name shall be '#{site}'! Just a few more questions before we begin...", {
                     color: [:black, :on_green],
-                    icon: :arrow_right,
-                    full_width: true
+                    icon: :notice,
+                    row: true
                 }
             end
 
@@ -186,21 +189,18 @@ module ThemeJuice
                         else
                             ::ThemeJuice::UI.speak "Which starter theme would you like to use? (partial name is acceptable)", {
                                 color: :blue,
-                                icon: :bullet_hollow
+                                icon: :question
                             }
 
                             choose do |menu|
-                                menu.index = "   #{::ThemeJuice::UI::BULLET_HOLLOW}"
-                                menu.prompt = set_color " #{::ThemeJuice::UI::ARROW_RIGHT} Choose one :".ljust(16), :blue
+                                menu.index = "   #{::ThemeJuice::UI::QUESTION}"
+                                menu.prompt = set_color " #{::ThemeJuice::UI::NOTICE} Choose one :".ljust(16), :blue
 
                                 themes.each do |theme, repo|
                                     menu.choice theme do
 
                                         if theme == "theme-juice/theme-juice-starter"
-                                            ::ThemeJuice::UI.speak "Awesome choice!", {
-                                                color: :green,
-                                                icon: :arrow_up
-                                            }
+                                            ::ThemeJuice::UI.success "Awesome choice!"
                                         end
 
                                         starter_theme = repo
@@ -347,8 +347,8 @@ module ThemeJuice
 
             ::ThemeJuice::UI.speak "Are you sure you want to delete '#{site}'? (y/N)", {
                 color: [:white, :on_red],
-                icon: :arrow_right,
-                full_width: true
+                icon: :notice,
+                row: true
             }
 
             if ::ThemeJuice::UI.agree? "", { color: :red, simple: true }

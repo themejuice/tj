@@ -3,10 +3,15 @@
 
 require "thor"
 
+Signal.trap "INT" do
+    ThemeJuice::UI.speak "Bye bye!", { color: :yellow, icon: :general, newline: true }
+    exit 130
+end
+
 begin
     require_relative "../lib/theme-juice"
 rescue LoadError => err
-warn err
+    warn err
     exit 1
 end
 
