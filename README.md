@@ -8,19 +8,20 @@ What is it? Theme Juice is a command line interface created to scaffold out a ne
 That`s it!
 
 ## Config
-Because everybody likes to use different tools, you can create a `tj-config.yml` file that will house all of your theme-specific commands. This allows you to use a streamlined set of commands that will act as aliases to your per-project configuration.
+Because everybody likes to use different tools, you can create a `tj.yml` file (with an optional preceding `.`) that will house all of your theme-specific commands. This allows you to use a streamlined set of commands that will act as aliases to your per-project configuration, as well as starter-theme specific information, such as deployment configuration, etc. For right now, we'll just stick to the `commands` section.
 
 If you're into [Grunt](https://github.com/gruntjs/grunt), then use it. Prefer [Guard](https://github.com/guard/guard)? Go right ahead. This is obviously relative to the starter theme you use, since you can't exactly use Grunt with a starter theme that doesn't support it. Below is the config that comes baked into [our starter theme](https://github.com/ezekg/theme-juice-starter):
 
 ```yml
-watch: bundle exec guard
-server: bundle exec cap
-vendor: composer
-install:
-    - composer install
+commands:
+    watch: bundle exec guard
+    server: bundle exec cap
+    vendor: composer
+    install:
+        - composer install
 ```
 
-_Note: If you use a starter theme that doesn't have a `tj-config.yml` file, you'll be prompted through a series of steps in order to create one._
+_Note: If you use a starter theme that doesn't have a `tj.yml` file, you'll be prompted through a series of steps in order to create one._
 
 #### Config options:
 | Option    | Usage                                                                         |
@@ -89,7 +90,7 @@ tj list # Aliases: sites, show
 ```
 
 ### Watching and compiling assets:
-Use this to watch and compile assets with your preferred build tool, whether that be [Grunt](https://github.com/gruntjs/grunt), [Gulp](https://github.com/gulpjs/gulp), [Guard](https://github.com/guard/guard), or whatever. This is simply a wrapper for whatever command is in your `tj-config.yml` file.
+Use this to watch and compile assets with your preferred build tool, whether that be [Grunt](https://github.com/gruntjs/grunt), [Gulp](https://github.com/gulpjs/gulp), [Guard](https://github.com/guard/guard), or whatever. This is simply a wrapper for whatever command is in your `tj.yml` file.
 ```bash
 tj watch # Aliases: dev, assets
 ```
@@ -101,13 +102,13 @@ tj vm # Aliases: vagrant, vvv
 ```
 
 ### Managing vendor dependencies:
-Use this to easily manage your dependencies with [Composer](https://github.com/composer/composer), or whatever other command you set in your `tj-config.yml`. This is a wrapper for whatever command is in your config file.
+Use this to easily manage your dependencies with [Composer](https://github.com/composer/composer), or whatever other command you set in your `tj.yml`. This is a wrapper for whatever command is in your config file.
 ```bash
 tj vendor # Aliases: deps, dependencies
 ```
 
 ### Managing deployment and migration:
-Use this to easily manage your deployment and migration with [Capistrano](https://github.com/capistrano/capistrano) (or again, anything else set within your `tj-config.yml`). This is just a wrapper for your chosen command.
+Use this to easily manage your deployment and migration with [Capistrano](https://github.com/capistrano/capistrano) (or again, anything else set within your `tj.yml`). This is just a wrapper for your chosen command.
 ```bash
 tj server # Aliases: deploy, remote
 ```
@@ -124,8 +125,8 @@ alias wpv="wp ssh --host=vagrant"
 ## Contributing
 
 1. First, create an [issue](https://github.com/ezekg/theme-juice-cli/issues) for your proposed feature. If it's a bug fix, go right to step 2.
-2. [Fork the repository](https://github.com/ezekg/theme-juice-cli/fork).
-3. Create a new feature branch. (`git checkout -b my-new-feature`)
-4. Commit your changes. (`git commit -am `Add some feature``)
-5. Push to the new branch. (`git push origin my-new-feature`)
-6. Create a new Pull Request.
+1. [Fork the repository](https://github.com/ezekg/theme-juice-cli/fork).
+1. Create a new feature branch. (`git checkout -b my-new-feature`)
+1. Commit your changes. (`git commit -am 'add some feature'`)
+1. Push to the new branch. (`git push origin my-new-feature`)
+1. Create a new Pull Request.

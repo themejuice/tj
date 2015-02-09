@@ -39,7 +39,7 @@ module ThemeJuice
                 if @config["commands"][subcommand]
                     run ["#{@config["commands"][subcommand]} #{command}"], false
                 else
-                    ::ThemeJuice::UI.error "Unable to find '#{subcommand}' command in '#{config_path}/tj-config.yml'. Aborting mission."
+                    ::ThemeJuice::UI.error "Unable to find '#{subcommand}' command in '#{config_path}/tj.yml'. Aborting mission."
                 end
             end
 
@@ -479,7 +479,7 @@ module ThemeJuice
             end
 
             ###
-            # Create tj-config.yml file for theme settings
+            # Create tj.yml file for theme settings
             #
             # @param {String} config_path
             #
@@ -491,7 +491,7 @@ module ThemeJuice
                 vendor  = ::ThemeJuice::UI.prompt "Vendor command to use",            indent: 2, default: "composer"
                 install = ::ThemeJuice::UI.prompt "Commands to run on theme install", indent: 2, default: "composer install"
 
-                File.open "#{config_path}/tj-config.yml", "wb" do |file|
+                File.open "#{config_path}/tj.yml", "wb" do |file|
                     file.puts "commands:"
                     file.puts "\s\swatch: #{watch}"
                     file.puts "\s\sserver: #{server}"
@@ -501,12 +501,12 @@ module ThemeJuice
                 end
 
                 if config_is_setup? config_path
-                    ::ThemeJuice::UI.speak "Successfully added 'tj-config.yml' file.", {
+                    ::ThemeJuice::UI.speak "Successfully added 'tj.yml' file.", {
                         color: :green,
                         icon: :general
                     }
                 else
-                    ::ThemeJuice::UI.error "Could not create 'tj-config.yml' file. Make sure you have write capabilities to '#{@opts[:site_location]}'."
+                    ::ThemeJuice::UI.error "Could not create 'tj.yml' file. Make sure you have write capabilities to '#{@opts[:site_location]}'."
                 end
             end
 
