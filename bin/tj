@@ -4,7 +4,12 @@
 require "thor"
 
 Signal.trap "INT" do
-    ThemeJuice::UI.speak "Bye bye!", { color: :yellow, icon: :general, newline: true }
+    ThemeJuice::UI.speak "Bye bye!", {
+        color: :yellow,
+        icon: :general,
+        newline: true
+    }
+
     exit 130
 end
 

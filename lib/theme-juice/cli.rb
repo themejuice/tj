@@ -124,11 +124,7 @@ module ThemeJuice
 
             # Check if user passed all required options through flags
             if options.length >= 6 || options[:use_defaults]
-                ::ThemeJuice::UI.speak "Well... looks like you just have everything all figured out, huh?", {
-                    color: [:black, :on_green],
-                    icon: :notice,
-                    row: true
-                }
+                ::ThemeJuice::UI.success "Well... looks like you just have everything all figured out, huh?"
             elsif site.nil?
                 ::ThemeJuice::UI.speak "Just a few questions before we begin...", {
                     color: [:black, :on_green],
@@ -193,8 +189,19 @@ module ThemeJuice
                             }
 
                             choose do |menu|
-                                menu.index = "   #{::ThemeJuice::UI::QUESTION}"
-                                menu.prompt = set_color " #{::ThemeJuice::UI::NOTICE} Choose one :".ljust(16), :blue
+                                menu.index = ::ThemeJuice::UI::speak "", {
+                                    icon: :question,
+                                    indent: 2,
+                                    empty: true,
+                                    quiet: true
+                                }
+
+                                menu.prompt = ::ThemeJuice::UI::speak "Choose one :", {
+                                    color: :blue,
+                                    icon: :question,
+                                    width: 16,
+                                    quiet: true
+                                }
 
                                 themes.each do |theme, repo|
                                     menu.choice theme do

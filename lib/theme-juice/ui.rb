@@ -28,7 +28,7 @@ module ThemeJuice
                 format_message! message, opts
 
                 # Check if we're suppressing terminal output
-                if opts.key? :suppress
+                if opts.key? :quiet
                     message
                 else
                     say message
@@ -179,29 +179,34 @@ module ThemeJuice
             ###
             def format_message!(message, opts = {})
 
-                # Check if we're using an icon
                 unless ::ThemeJuice::Utilities.no_unicode
                     if opts.key? :icon
-                        set!(message) { |msg| " #{self.const_get(opts[:icon].to_s.upcase)} " << msg if opts[:icon].is_a? Symbol }
+                        if opts.key? :empty
+                            set!(message) { |msg| " #{self.const_get(opts[:icon].to_s.upcase)}" }
+                        else
+                            set!(message) { |msg| " #{self.const_get(opts[:icon].to_s.upcase)} " << msg }
+                        end
                     else
                         set!(message) { |msg| " " << msg }
                     end
                 end
 
-                # Check if message should take up entire width
-                #  of the terminal window
-                if opts.key? :row
-                    set!(message) { |msg| msg.ljust(terminal_width) }
+                if opts.key? :indent
+                    set!(message) { |str| (" " * opts[:indent]) << str }
                 end
 
-                # Check if we're using colors
+                if opts.key? :row
+                    set!(message) { |msg| msg.ljust(terminal_width) }
+                elsif opts.key? :width
+                    set!(message) { |msg| msg.ljust(opts[:width]) }
+                end
+
                 unless ::ThemeJuice::Utilities.no_colors
                     if opts.key? :color
                         set!(message) { |msg| set_color(msg, *opts[:color]) }
                     end
                 end
 
-                # Check if message should always start on newline
                 if opts.key? :newline
                     set!(message) { |msg| "\n" << msg }
                 end
