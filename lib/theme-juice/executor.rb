@@ -251,9 +251,9 @@ module ThemeJuice
             def use_config(config_path)
 
                 if config_is_setup? config_path
-                    @config = YAML.load_file "#{config_path}/tj-config.yml"
+                    @config = YAML.load_file(Dir["#{config_path}/*"].select { |f| File.basename(f) =~ /^(\.)?(tj.y(a)?ml)/ }.last)
                 else
-                    ::ThemeJuice::UI.notice "Unable to find 'tj-config.yml' file in '#{config_path}'."
+                    ::ThemeJuice::UI.notice "Unable to find 'tj.yml' file in '#{config_path}'."
 
                     if ::ThemeJuice::UI.agree? "Would you like to create one?"
 
@@ -312,7 +312,7 @@ module ThemeJuice
             # @return {Bool}
             ###
             def config_is_setup?(config_path)
-                File.exist? "#{config_path}/tj-config.yml"
+                !Dir["#{config_path}/*"].select { |f| File.basename(f) =~ /^(\.)?(tj.y(a)?ml)/ }.empty?
             end
 
             ###
