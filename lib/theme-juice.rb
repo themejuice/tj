@@ -7,6 +7,7 @@ require "tempfile"
 require "rubygems"
 require "thor"
 require "yaml"
+require "os"
 
 module ThemeJuice
 end

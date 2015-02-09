@@ -140,6 +140,12 @@ module ThemeJuice
                                 "Database password: #{@opts[:db_pass]}"
                             ]
                         end
+
+                        unless OS.windows?
+                            if ::ThemeJuice::UI.agree? "Do you want to open up your new site 'http://#{@opts[:dev_url]}' now?"
+                                run ["open http://#{@opts[:dev_url]}"]
+                            end
+                        end
                     else
                         ::ThemeJuice::UI.notice "Remember, Vagrant needs to be provisioned before you can use your new site. Exiting..."
                         exit
@@ -633,7 +639,7 @@ module ThemeJuice
                     icon: :general
                 }
 
-                @config["install"].each do |command|
+                @config["commands"]["install"].each do |command|
                     run ["cd #{@opts[:site_location]}", command], false
                 end
             end
@@ -729,7 +735,7 @@ module ThemeJuice
 
                 if run ["rm -rf #{@opts[:dev_location]}"]
                     ::ThemeJuice::UI.speak "VVV installation for '#{@opts[:site_name]}' successfully removed.", {
-                        color: :green,
+                        color: :yellow,
                         icon: :general
                     }
                 else
