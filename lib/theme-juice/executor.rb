@@ -144,7 +144,7 @@ module ThemeJuice
                         unless OS.windows?
                             ::ThemeJuice::UI.notice "Do you want to open up your new site 'http://#{@opts[:dev_url]}' now? (y/N)"
 
-                            if ::ThemeJuice::UI.agree? "", { simple: true }
+                            if ::ThemeJuice::UI.agree? "", { color: :yellow, simple: true }
                                 run ["open http://#{@opts[:dev_url]}"]
                             end
                         end
