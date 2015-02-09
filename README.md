@@ -23,7 +23,7 @@ commands:
 
 _Note: If you use a starter theme that doesn't have a `tj.yml` file, you'll be prompted through a series of steps in order to create one._
 
-#### Config options:
+#### Command options:
 | Option    | Usage                                                                         |
 |:--------- |:----------------------------------------------------------------------------- |
 | `watch`   | Command to be aliased when you run `tj watch` for bulding assets              |
