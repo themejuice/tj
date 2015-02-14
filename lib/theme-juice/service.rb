@@ -12,7 +12,7 @@ module ThemeJuice
             @environment  = ::ThemeJuice::Environment
             @interaction  = ::ThemeJuice::Interaction
             @opts         = opts
-            @config_path  = opts[:site_location]
+            @config_path  = opts[:site_location] || Dir.pwd
             @config_regex = %r{^(\.)?(tj.y(a)?ml)}
         rescue => e
             @interaction.error "Whoops! Something went wrong!" do

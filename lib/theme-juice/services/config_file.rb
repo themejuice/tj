@@ -6,7 +6,7 @@ module ThemeJuice
         #
         # @param {Hash} opts
         #
-        def initialize(opts)
+        def initialize(opts = {})
             super
         end
 

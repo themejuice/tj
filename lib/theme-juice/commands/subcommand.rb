@@ -11,7 +11,7 @@ module ThemeJuice
         def initialize(opts = {})
             super
 
-            ::ThemeJuice::Service::ConfigFile.new.subcommand
+            ::ThemeJuice::Service::ConfigFile.new.subcommand @opts[:subcommand], @opts[:commands]
         end
     end
 end
