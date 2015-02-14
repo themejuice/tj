@@ -1,9 +1,11 @@
+# encoding: UTF-8
+
 require_relative "lib/theme-juice"
 
 Gem::Specification.new do |spec|
 
     # Version
-    spec.version = ThemeJuice::VERSION
+    spec.version = ::ThemeJuice::VERSION
 
     # Details
     spec.name = "theme-juice"
@@ -34,6 +36,7 @@ Gem::Specification.new do |spec|
 
     # Dependencies
     spec.add_dependency "highline"
+    spec.add_dependency "faker"
     spec.add_dependency "thor"
     spec.add_dependency "os"
 end

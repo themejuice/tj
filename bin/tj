@@ -1,10 +1,15 @@
 #!/usr/bin/env ruby
 # encoding: UTF-8
 
-require "thor"
+begin
+    require_relative "../lib/theme-juice"
+rescue LoadError => err
+    warn err
+    exit 1
+end
 
 Signal.trap "INT" do
-    ThemeJuice::UI.speak "Bye bye!", {
+    ::ThemeJuice::Interaction.speak "Bye bye!", {
         color: :yellow,
         icon: :general,
         newline: true
@@ -13,11 +18,4 @@ Signal.trap "INT" do
     exit 130
 end
 
-begin
-    require_relative "../lib/theme-juice"
-rescue LoadError => err
-    warn err
-    exit 1
-end
-
-ThemeJuice::CLI.start
+::ThemeJuice::CLI.start
