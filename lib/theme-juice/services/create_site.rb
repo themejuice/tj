@@ -281,7 +281,7 @@ module ThemeJuice
                 ]
 
                 if wordpress_is_setup?
-                    install_theme_dependencies unless config_is_setup?
+                    install_theme_dependencies if config_is_setup?
                 else
                     @interaction.error "Could not setup WordPress. Make sure you have write capabilities to '#{@opts[:site_location]}'."
                 end
