@@ -1,7 +1,6 @@
 # encoding: UTF-8
 
 require "thor"
-require "forwardable"
 require "faker"
 require "fileutils"
 require "pathname"
