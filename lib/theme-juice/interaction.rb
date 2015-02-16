@@ -74,7 +74,7 @@ module ThemeJuice
             def prompt(question, *opts)
                 format_message question, {
                     :color => :blue,
-                    :icon => :question
+                    :icon  => :question
                 }
 
                 opts.each do |opt|
@@ -105,7 +105,7 @@ module ThemeJuice
 
                 format_message question, {
                     :color => opts[:color] || :blue,
-                    :icon => :question
+                    :icon  => :question
                 }
 
                 if opts[:simple]
@@ -125,7 +125,7 @@ module ThemeJuice
             def log(message)
                 speak message, {
                     :color => :yellow,
-                    :icon => :log
+                    :icon  => :log
                 }
             end
 
@@ -139,8 +139,8 @@ module ThemeJuice
             def success(message)
                 speak message, {
                     :color => [:black, :on_green, :bold],
-                    :icon => :success,
-                    :row => true
+                    :icon  => :success,
+                    :row   => true
                 }
             end
 
@@ -154,8 +154,8 @@ module ThemeJuice
             def notice(message)
                 speak message, {
                     :color => [:black, :on_yellow],
-                    :icon => :notice,
-                    :row => true
+                    :icon  => :notice,
+                    :row   => true
                 }
             end
 
@@ -170,8 +170,8 @@ module ThemeJuice
             def error(message)
                 speak message, {
                     :color => [:white, :on_red],
-                    :icon => :error,
-                    :row => true
+                    :icon  => :error,
+                    :row   => true
                 }
 
                 yield if block_given?
@@ -189,7 +189,7 @@ module ThemeJuice
             def hello(opts = {})
                 speak "Welcome to Theme Juice!", {
                     :color => [:black, :on_green, :bold],
-                    :row => true
+                    :row   => true
                 }.merge(opts)
             end
 
@@ -202,8 +202,8 @@ module ThemeJuice
             #
             def goodbye(opts = {})
                 speak "Bye bye!", {
-                    :color => :yellow,
-                    :icon => :general,
+                    :color   => :yellow,
+                    :icon    => :general,
                     :newline => true
                 }.merge(opts)
 
@@ -222,14 +222,14 @@ module ThemeJuice
             def list(header, color, list)
                 speak header, {
                     :color => [:black, :"on_#{color}"],
-                    :icon => :notice,
-                    :row => true
+                    :icon  => :notice,
+                    :row   => true
                 }
 
                 list.each do |item|
                     speak item, {
                         :color => :"#{color}",
-                        :icon => :general
+                        :icon  => :general
                     }
                 end
             end
@@ -246,7 +246,7 @@ module ThemeJuice
             def choose(header, color, list)
                 speak "#{header} (use arrow keys and press enter)", {
                     :color => :"#{color}",
-                    :icon => :question
+                    :icon  => :question
                 }
 
                 print "\n" * list.size
@@ -390,8 +390,8 @@ module ThemeJuice
                 list.each_with_index do |item, i|
                     icon = if i == selected then "selected" else "unselected" end
                     speak "#{item}", {
-                        :color => :"#{color}",
-                        :icon => :"#{icon}",
+                        :color  => :"#{color}",
+                        :icon   => :"#{icon}",
                         :indent => 2
                     }
                 end
