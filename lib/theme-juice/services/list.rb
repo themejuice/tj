@@ -1,7 +1,7 @@
 # encoding: UTF-8
 
 module ThemeJuice
-    class Service::ListSites < ::ThemeJuice::Service
+    class Service::List < ::ThemeJuice::Service
 
         def initialize(opts = {})
             super

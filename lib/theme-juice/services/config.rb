@@ -1,7 +1,7 @@
 # encoding: UTF-8
 
 module ThemeJuice
-    class Service::ConfigFile < ::ThemeJuice::Service
+    class Service::Config < ::ThemeJuice::Service
 
         #
         # @param {Hash} opts

@@ -11,7 +11,7 @@ module ThemeJuice
         def initialize(opts = {})
             super
 
-            ::ThemeJuice::Service::ConfigFile.new.install
+            ::ThemeJuice::Service::Config.new.install
         end
     end
 end

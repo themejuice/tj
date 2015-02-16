@@ -1,7 +1,7 @@
 # encoding: UTF-8
 
 module ThemeJuice
-    class Interaction::CreateSiteOptions
+    class Interaction::CreateOptions
 
         #
         # Set up interactions and environment
@@ -105,7 +105,7 @@ module ThemeJuice
             if @opts[:use_defaults]
                 location = File.expand_path(path)
             else
-                location = File.expand_path(@interaction.prompt "Where do you want to setup the site?", default: path, path: true)
+                location = File.expand_path(@interaction.prompt "Where do you want to setup the site?", :default => path, :path => true)
             end
 
             location
@@ -123,7 +123,7 @@ module ThemeJuice
                 themes = {
                     "theme-juice/theme-juice-starter" => "https://github.com/ezekg/theme-juice-starter.git",
                     "other" => nil,
-                    "none" => false
+                    "none"  => false
                 }
 
                 if @opts[:use_defaults]
@@ -136,7 +136,7 @@ module ThemeJuice
                 when "theme-juice/theme-juice-starter"
                     @interaction.success "Awesome choice!"
                 when "other"
-                    themes[choice] = @interaction.prompt "What is the repository URL for the starter theme you would like to clone?"
+                    themes[choice] = @interaction.prompt "What is the repository URL for the starter theme that you would like to clone?"
                 when "none"
                     @interaction.notice "Next time you need to create a site without a starter theme, you can just run the 'setup' command instead."
                     @opts[:site_bare] = true
@@ -166,7 +166,7 @@ module ThemeJuice
             if @opts[:use_defaults]
                 url = "#{@opts[:site_name]}.dev"
             else
-                url = @interaction.prompt "What do you want the development url to be? (this should end in '.dev')", default: "#{@opts[:site_name]}.dev"
+                url = @interaction.prompt "What do you want the development url to be? (this should end in '.dev')", :default => "#{@opts[:site_name]}.dev"
             end
 
             validate_site_dev_url url
@@ -184,7 +184,7 @@ module ThemeJuice
                 repo = false
             else
                 if @interaction.agree? "Would you like to initialize a new Git repository?"
-                    repo = @interaction.prompt "What is the repository's URL?", indent: 2
+                    repo = @interaction.prompt "What is the repository's URL?", :indent => 2
                 else
                     repo = false
                 end
@@ -202,7 +202,7 @@ module ThemeJuice
             if @opts[:use_defaults] || @opts[:skip_db]
                 db_host = "vvv"
             else
-                db_host = @interaction.prompt "Database host", default: "vvv"
+                db_host = @interaction.prompt "Database host", :default => "vvv"
             end
 
             db_host
@@ -217,7 +217,7 @@ module ThemeJuice
             if @opts[:use_defaults] || @opts[:skip_db]
                 db_name = "#{@opts[:site_name_clean]}_db"
             else
-                db_name = @interaction.prompt "Database name", default: "#{@opts[:site_name_clean]}_db"
+                db_name = @interaction.prompt "Database name", :default => "#{@opts[:site_name_clean]}_db"
             end
 
             db_name
@@ -232,7 +232,7 @@ module ThemeJuice
             if @opts[:use_defaults] || @opts[:skip_db]
                 db_user = "#{@opts[:site_name_clean]}_user"
             else
-                db_user = @interaction.prompt "Database username", default: "#{@opts[:site_name_clean]}_user"
+                db_user = @interaction.prompt "Database username", :default => "#{@opts[:site_name_clean]}_user"
             end
 
             db_user
@@ -244,12 +244,12 @@ module ThemeJuice
         # @return {String}
         #
         def setup_site_db_pass
-            pass = Faker::Internet.password 16
+            pass = Faker::Internet.password 24
 
             if @opts[:use_defaults] || @opts[:skip_db]
                 db_pass = pass
             else
-                db_pass = @interaction.prompt "Database password", default: pass
+                db_pass = @interaction.prompt "Database password", :default => pass
             end
 
             db_pass

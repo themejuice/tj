@@ -1,13 +1,13 @@
 # encoding: UTF-8
 
 module ThemeJuice
-    class Service::DeleteSite < ::ThemeJuice::Service
+    class Service::Delete < ::ThemeJuice::Service
 
         #
         # @param {Hash} opts
         #
         def initialize(opts)
-            opts = ThemeJuice::Interaction::DeleteSiteOptions.new.get_site_options(opts)
+            opts = ThemeJuice::Interaction::DeleteOptions.new.get_site_options(opts)
 
             super
         end
@@ -24,7 +24,7 @@ module ThemeJuice
                 :row   => true
             }
 
-            if @interaction.agree? "", { color: :red, simple: true }
+            if @interaction.agree? "", { :color => :red, :simple => true }
 
                 remove_dev_site      if dev_site_is_setup?
                 remove_database      if database_is_setup?

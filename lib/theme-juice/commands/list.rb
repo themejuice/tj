@@ -11,7 +11,7 @@ module ThemeJuice
         def initialize(opts = {})
             super
 
-            ::ThemeJuice::Service::ListSites.new.list
+            ::ThemeJuice::Service::List.new.list
         end
     end
 end

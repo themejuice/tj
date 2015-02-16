@@ -11,7 +11,7 @@ module ThemeJuice
         def initialize(opts = {})
             super
 
-            ::ThemeJuice::Service::CreateSite.new(@opts).create
+            ::ThemeJuice::Service::Create.new(@opts).create
         end
     end
 end

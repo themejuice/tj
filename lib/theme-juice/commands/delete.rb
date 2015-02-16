@@ -11,7 +11,7 @@ module ThemeJuice
         def initialize(opts = {})
             super
 
-            ::ThemeJuice::Service::DeleteSite.new(@opts).delete
+            ::ThemeJuice::Service::Delete.new(@opts).delete
         end
     end
 end

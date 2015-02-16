@@ -1,13 +1,13 @@
 # encoding: UTF-8
 
 module ThemeJuice
-    class Service::CreateSite < ::ThemeJuice::Service
+    class Service::Create < ::ThemeJuice::Service
 
         #
         # @param {Hash} opts
         #
         def initialize(opts = {})
-            opts = ::ThemeJuice::Interaction::CreateSiteOptions.new.setup_site_options(opts)
+            opts = ::ThemeJuice::Interaction::CreateOptions.new.setup_site_options(opts)
 
             super
         end
@@ -20,18 +20,18 @@ module ThemeJuice
         def create
             @interaction.notice "Running setup for '#{@opts[:site_name]}'"
 
-            setup_project_dir          unless project_dir_is_setup?
-            setup_starter_theme        unless starter_theme_is_setup?
-            setup_vvv                  unless vvv_is_setup?
-            setup_wildcard_subdomains  unless wildcard_subdomains_is_setup?
-            setup_hosts                unless hosts_is_setup?
-            setup_database             unless database_is_setup?
-            setup_nginx                unless nginx_is_setup?
-            setup_dev_site             unless dev_site_is_setup?
-            setup_env                  unless env_is_setup?
-            setup_synced_folder        unless synced_folder_is_setup?
-            setup_wpcli                unless wpcli_is_setup?
-            setup_repo                 if     using_repo?
+            setup_project_dir         unless project_dir_is_setup?
+            setup_starter_theme       unless starter_theme_is_setup?
+            setup_vvv                 unless vvv_is_setup?
+            setup_wildcard_subdomains unless wildcard_subdomains_is_setup?
+            setup_hosts               unless hosts_is_setup?
+            setup_database            unless database_is_setup?
+            setup_nginx               unless nginx_is_setup?
+            setup_dev_site            unless dev_site_is_setup?
+            setup_env                 unless env_is_setup?
+            setup_synced_folder       unless synced_folder_is_setup?
+            setup_wpcli               unless wpcli_is_setup?
+            setup_repo                if     using_repo?
 
             if setup_was_successful?
                 @interaction.success "Setup complete!"
@@ -41,7 +41,7 @@ module ThemeJuice
                     :row   => true
                 }
 
-                if @interaction.agree? "", { simple: true }
+                if @interaction.agree? "", { :simple => true }
 
                     if restart_vagrant
                         @interaction.success "Success!"
@@ -75,7 +75,7 @@ module ThemeJuice
                 end
             else
                 @interaction.error "Setup failed. Running cleanup" do
-                    ::ThemeJuice::Service::Delete.new({ site_name: @opts[:site_name], restart: false }).delete
+                    ::ThemeJuice::Service::Delete.new({ site_name: @opts[:site_name], :restart => false }).delete
                 end
             end
         end
@@ -158,10 +158,10 @@ module ThemeJuice
         def setup_config
             @interaction.log "Creating config"
 
-            watch   = @interaction.prompt "Watch command to use",                               indent: 2, default: "bundle exec guard"
-            server  = @interaction.prompt "Deployment command to use",                          indent: 2, default: "bundle exec cap"
-            vendor  = @interaction.prompt "Vendor command to use",                              indent: 2, default: "composer"
-            install = @interaction.prompt "Commands to run on theme install (comma-delimited)", indent: 2, default: "composer install"
+            watch   = @interaction.prompt "Watch command to use",                               :indent => 2, :default => "bundle exec guard"
+            server  = @interaction.prompt "Deployment command to use",                          :indent => 2, :default => "bundle exec cap"
+            vendor  = @interaction.prompt "Vendor command to use",                              :indent => 2, :default => "composer"
+            install = @interaction.prompt "Commands to run on theme install (comma-delimited)", :indent => 2, :default => "composer install"
 
             File.open "#{@config_path}/tj.yml", "wb" do |file|
                 file.puts "commands:"

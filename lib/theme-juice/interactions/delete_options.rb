@@ -1,7 +1,7 @@
 # encoding: UTF-8
 
 module ThemeJuice
-    class Interaction::DeleteSiteOptions
+    class Interaction::DeleteOptions
 
         #
         # Set up interactions and environment
@@ -43,7 +43,7 @@ module ThemeJuice
         # @return {String}
         #
         def get_site_name
-            name = @interaction.choose "Which site would you like to delete?", :red, ::ThemeJuice::Service::ListSites.new.get_sites
+            name = @interaction.choose "Which site would you like to delete?", :red, ::ThemeJuice::Service::List.new.get_sites
         end
 
         #
