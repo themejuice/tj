@@ -116,7 +116,7 @@ module ThemeJuice
 
         desc "delete [NAME]", "Remove site from the VVV development environment (does not remove local site)"
         method_option :name,    :type => :string,  :aliases => "-n", :default => false, :desc => "Name of the development site"
-        method_option :restart, :type => :boolean, :aliases => "-r",                    :desc => "Restart development environment after deletion"
+        method_option :restart, :type => :boolean,                                      :desc => "Restart development environment after deletion"
         #
         # Remove all traces of site from Vagrant
         #
