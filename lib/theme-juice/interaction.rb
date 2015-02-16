@@ -267,9 +267,9 @@ module ThemeJuice
                     when "return", "linefeed", "space"
                         return list[selected]
                     when "esc", "ctrl+c"
-                        goodbye(newline: false)
+                        goodbye(:newline => false)
                     # else
-                    #     speak "You pressed: #{chr.inspect}", { color: :yellow }
+                    #     speak "You pressed: #{key.inspect}", { :color => :yellow }
                     end
                 end
             end

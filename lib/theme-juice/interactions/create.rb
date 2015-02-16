@@ -1,7 +1,7 @@
 # encoding: UTF-8
 
 module ThemeJuice
-    class Interaction::CreateOptions
+    class Interaction::Create
 
         #
         # Set up interactions and environment

@@ -78,7 +78,7 @@ module ThemeJuice
             @create.new(opts)
         end
 
-        desc "setup [SITE]", "Setup an existing SITE in development environment"
+        desc "setup [SITE]", "Setup an existing SITE within the development environment"
         method_option :site,         :type => :string,  :aliases => "-s", :default => false, :desc => "Name of the development site"
         method_option :location,     :type => :string,  :aliases => "-l", :default => false, :desc => "Location of the local site"
         method_option :url,          :type => :string,  :aliases => "-u", :default => false, :desc => "Development URL of the site"

@@ -1,7 +1,7 @@
 # encoding: UTF-8
 
 module ThemeJuice
-    class Interaction::DeleteOptions
+    class Interaction::Delete
 
         #
         # Set up interactions and environment
