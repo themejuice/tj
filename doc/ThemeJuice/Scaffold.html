@@ -1,0 +1,747 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>
+  Module: ThemeJuice::Scaffold
+  
+    &mdash; Documentation by YARD 0.8.7.6
+  
+</title>
+
+  <link rel="stylesheet" href="../css/style.css" type="text/css" charset="utf-8" />
+
+  <link rel="stylesheet" href="../css/common.css" type="text/css" charset="utf-8" />
+
+<script type="text/javascript" charset="utf-8">
+  hasFrames = window.top.frames.main ? true : false;
+  relpath = '../';
+  framesUrl = "../frames.html#!ThemeJuice/Scaffold.html";
+</script>
+
+
+  <script type="text/javascript" charset="utf-8" src="../js/jquery.js"></script>
+
+  <script type="text/javascript" charset="utf-8" src="../js/app.js"></script>
+
+
+  </head>
+  <body>
+    <div id="header">
+      <div id="menu">
+  
+    <a href="../_index.html">Index (S)</a> &raquo;
+    <span class='title'><span class='object_link'><a href="../ThemeJuice.html" title="ThemeJuice (module)">ThemeJuice</a></span></span>
+     &raquo; 
+    <span class="title">Scaffold</span>
+  
+
+  <div class="noframes"><span class="title">(</span><a href="." target="_top">no frames</a><span class="title">)</span></div>
+</div>
+
+      <div id="search">
+  
+    <a class="full_list_link" id="class_list_link"
+        href="../class_list.html">
+      Class List
+    </a>
+  
+    <a class="full_list_link" id="method_list_link"
+        href="../method_list.html">
+      Method List
+    </a>
+  
+    <a class="full_list_link" id="file_list_link"
+        href="../file_list.html">
+      File List
+    </a>
+  
+</div>
+      <div class="clear"></div>
+    </div>
+
+    <iframe id="search_frame"></iframe>
+
+    <div id="content"><h1>Module: ThemeJuice::Scaffold
+  
+  
+  
+</h1>
+
+<dl class="box">
+  
+  
+    
+      <dt class="r1">Extended by:</dt>
+      <dd class="r1">Thor::Actions, Thor::Shell</dd>
+      
+    
+  
+    
+  
+  
+  
+    <dt class="r2 last">Defined in:</dt>
+    <dd class="r2 last">lib/theme-juice/scaffold.rb</dd>
+  
+</dl>
+<div class="clear"></div>
+
+
+
+
+
+
+
+
+  
+    <h2>
+      Class Method Summary
+      <small>(<a href="#" class="summary_toggle">collapse</a>)</small>
+    </h2>
+
+    <ul class="summary">
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#create-class_method" title="create (class method)">+ (Void) <strong>create</strong>(opts) </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+<p>Set up local development environment and site.</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#delete-class_method" title="delete (class method)">+ (Void) <strong>delete</strong>(site, restart) </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+<p>Remove all traces of site from Vagrant.</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#init-class_method" title="init (class method)">+ (Void) <strong>init</strong> </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+<p>Set up local development environment.</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#list-class_method" title="list (class method)">+ (Array) <strong>list</strong> </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+<p>List all development sites.</p>
+</div></span>
+  
+</li>
+
+      
+    </ul>
+  
+
+
+  
+  
+
+  <div id="class_method_details" class="method_details_list">
+    <h2>Class Method Details</h2>
+
+    
+      <div class="method_details first">
+  <h3 class="signature first" id="create-class_method">
+  
+    + (<tt>Void</tt>) <strong>create</strong>(opts) 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>Set up local development environment and site</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  <p class="tag_title">Parameters:</p>
+<ul class="param">
+  
+    <li>
+      
+        <span class='name'>opts</span>
+      
+      
+        <span class='type'>(<tt>Hash</tt>)</span>
+      
+      
+      
+    </li>
+  
+</ul>
+
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>Void</tt>)</span>
+      
+      
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56
+57
+58
+59
+60
+61
+62
+63
+64
+65
+66
+67
+68
+69
+70
+71
+72
+73
+74
+75
+76
+77
+78
+79
+80
+81
+82
+83
+84
+85
+86
+87
+88
+89
+90
+91
+92
+93
+94
+95
+96
+97
+98
+99
+100
+101
+102
+103
+104
+105
+106
+107
+108
+109
+110</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/theme-juice/scaffold.rb', line 29</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_create'>create</span><span class='lparen'>(</span><span class='id identifier rubyid_opts'>opts</span><span class='rparen'>)</span>
+    <span class='ivar'>@opts</span> <span class='op'>=</span> <span class='id identifier rubyid_opts'>opts</span>
+
+    <span class='id identifier rubyid_say'>say</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Running setup for &#39;</span><span class='embexpr_beg'>#{</span><span class='ivar'>@opts</span><span class='lbracket'>[</span><span class='symbol'>:site_name</span><span class='rbracket'>]</span><span class='embexpr_end'>}</span><span class='tstring_content'>&#39;...</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='symbol'>:yellow</span>
+
+    <span class='kw'>unless</span> <span class='id identifier rubyid_wordpress_is_setup?'>wordpress_is_setup?</span>
+        <span class='id identifier rubyid_setup_wordpress'>setup_wordpress</span>
+    <span class='kw'>end</span>
+
+    <span class='kw'>unless</span> <span class='id identifier rubyid_vvv_is_setup?'>vvv_is_setup?</span>
+        <span class='id identifier rubyid_setup_vvv'>setup_vvv</span>
+    <span class='kw'>end</span>
+
+    <span class='kw'>unless</span> <span class='id identifier rubyid_wildcard_subdomains_is_setup?'>wildcard_subdomains_is_setup?</span>
+        <span class='id identifier rubyid_setup_wildcard_subdomains'>setup_wildcard_subdomains</span>
+    <span class='kw'>end</span>
+
+    <span class='kw'>unless</span> <span class='id identifier rubyid_hosts_is_setup?'>hosts_is_setup?</span>
+        <span class='id identifier rubyid_setup_hosts'>setup_hosts</span>
+    <span class='kw'>end</span>
+
+    <span class='kw'>unless</span> <span class='id identifier rubyid_database_is_setup?'>database_is_setup?</span>
+        <span class='id identifier rubyid_setup_database'>setup_database</span>
+    <span class='kw'>end</span>
+
+    <span class='kw'>unless</span> <span class='id identifier rubyid_nginx_is_setup?'>nginx_is_setup?</span>
+        <span class='id identifier rubyid_setup_nginx'>setup_nginx</span>
+    <span class='kw'>end</span>
+
+    <span class='kw'>unless</span> <span class='id identifier rubyid_dev_site_is_setup?'>dev_site_is_setup?</span>
+        <span class='id identifier rubyid_setup_dev_site'>setup_dev_site</span>
+    <span class='kw'>end</span>
+
+    <span class='kw'>unless</span> <span class='id identifier rubyid_env_is_setup?'>env_is_setup?</span>
+        <span class='id identifier rubyid_setup_env'>setup_env</span>
+    <span class='kw'>end</span>
+
+    <span class='kw'>unless</span> <span class='id identifier rubyid_synced_folder_is_setup?'>synced_folder_is_setup?</span>
+        <span class='id identifier rubyid_setup_synced_folder'>setup_synced_folder</span>
+    <span class='kw'>end</span>
+
+    <span class='kw'>unless</span> <span class='id identifier rubyid_wpcli_is_setup?'>wpcli_is_setup?</span>
+        <span class='id identifier rubyid_setup_wpcli'>setup_wpcli</span>
+    <span class='kw'>end</span>
+
+    <span class='kw'>if</span> <span class='ivar'>@opts</span><span class='lbracket'>[</span><span class='symbol'>:repository</span><span class='rbracket'>]</span>
+        <span class='id identifier rubyid_setup_repo'>setup_repo</span>
+    <span class='kw'>end</span>
+
+    <span class='kw'>if</span> <span class='id identifier rubyid_setup_was_successful?'>setup_was_successful?</span>
+        <span class='id identifier rubyid_say'>say</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Restarting VVV...</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='symbol'>:yellow</span>
+
+        <span class='kw'>if</span> <span class='id identifier rubyid_restart_vagrant'>restart_vagrant</span>
+
+            <span class='comment'># Get smiley ASCII art
+</span>            <span class='id identifier rubyid_smiley'>smiley</span> <span class='op'>=</span> <span class='const'>File</span><span class='period'>.</span><span class='id identifier rubyid_read'>read</span><span class='lparen'>(</span><span class='const'>File</span><span class='period'>.</span><span class='id identifier rubyid_expand_path'>expand_path</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>../ascii/smiley.txt</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='kw'>__FILE__</span><span class='rparen'>)</span><span class='rparen'>)</span>
+
+            <span class='comment'># Output welcome message
+</span>            <span class='id identifier rubyid_say'>say</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>\n</span><span class='tstring_end'>&quot;</span></span>
+            <span class='id identifier rubyid_say'>say</span> <span class='id identifier rubyid_smiley'>smiley</span><span class='comma'>,</span> <span class='symbol'>:yellow</span>
+            <span class='id identifier rubyid_say'>say</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>\n</span><span class='tstring_end'>&quot;</span></span>
+            <span class='id identifier rubyid_say'>say</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Success!</span><span class='tstring_end'>&quot;</span></span><span class='period'>.</span><span class='id identifier rubyid_center'>center</span><span class='lparen'>(</span><span class='int'>48</span><span class='rparen'>)</span><span class='comma'>,</span> <span class='symbol'>:green</span>
+            <span class='id identifier rubyid_say'>say</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>\n\n</span><span class='tstring_end'>&quot;</span></span>
+
+            <span class='comment'># Output setup info
+</span>            <span class='id identifier rubyid_say'>say</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Here&#39;s your installation info:</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='symbol'>:yellow</span>
+            <span class='id identifier rubyid_say'>say</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>---&gt; Site name: </span><span class='embexpr_beg'>#{</span><span class='ivar'>@opts</span><span class='lbracket'>[</span><span class='symbol'>:site_name</span><span class='rbracket'>]</span><span class='embexpr_end'>}</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='symbol'>:blue</span>
+            <span class='id identifier rubyid_say'>say</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>---&gt; Site location: </span><span class='embexpr_beg'>#{</span><span class='ivar'>@opts</span><span class='lbracket'>[</span><span class='symbol'>:site_location</span><span class='rbracket'>]</span><span class='embexpr_end'>}</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='symbol'>:blue</span>
+            <span class='id identifier rubyid_say'>say</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>---&gt; Starter theme: </span><span class='embexpr_beg'>#{</span><span class='ivar'>@opts</span><span class='lbracket'>[</span><span class='symbol'>:starter_theme</span><span class='rbracket'>]</span><span class='embexpr_end'>}</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='symbol'>:blue</span>
+            <span class='id identifier rubyid_say'>say</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>---&gt; Development location: </span><span class='embexpr_beg'>#{</span><span class='ivar'>@opts</span><span class='lbracket'>[</span><span class='symbol'>:dev_location</span><span class='rbracket'>]</span><span class='embexpr_end'>}</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='symbol'>:blue</span>
+            <span class='id identifier rubyid_say'>say</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>---&gt; Development url: http://</span><span class='embexpr_beg'>#{</span><span class='ivar'>@opts</span><span class='lbracket'>[</span><span class='symbol'>:dev_url</span><span class='rbracket'>]</span><span class='embexpr_end'>}</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='symbol'>:blue</span>
+            <span class='id identifier rubyid_say'>say</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>---&gt; Initialized repository: </span><span class='embexpr_beg'>#{</span><span class='ivar'>@opts</span><span class='lbracket'>[</span><span class='symbol'>:repository</span><span class='rbracket'>]</span><span class='embexpr_end'>}</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='symbol'>:blue</span>
+            <span class='id identifier rubyid_say'>say</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>---&gt; Database host: </span><span class='embexpr_beg'>#{</span><span class='ivar'>@opts</span><span class='lbracket'>[</span><span class='symbol'>:db_host</span><span class='rbracket'>]</span><span class='embexpr_end'>}</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='symbol'>:blue</span>
+            <span class='id identifier rubyid_say'>say</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>---&gt; Database name: </span><span class='embexpr_beg'>#{</span><span class='ivar'>@opts</span><span class='lbracket'>[</span><span class='symbol'>:db_name</span><span class='rbracket'>]</span><span class='embexpr_end'>}</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='symbol'>:blue</span>
+            <span class='id identifier rubyid_say'>say</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>---&gt; Database username: </span><span class='embexpr_beg'>#{</span><span class='ivar'>@opts</span><span class='lbracket'>[</span><span class='symbol'>:db_user</span><span class='rbracket'>]</span><span class='embexpr_end'>}</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='symbol'>:blue</span>
+            <span class='id identifier rubyid_say'>say</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>---&gt; Database password: </span><span class='embexpr_beg'>#{</span><span class='ivar'>@opts</span><span class='lbracket'>[</span><span class='symbol'>:db_pass</span><span class='rbracket'>]</span><span class='embexpr_end'>}</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='symbol'>:blue</span>
+        <span class='kw'>end</span>
+    <span class='kw'>else</span>
+        <span class='id identifier rubyid_say'>say</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Setup failed. Running cleanup...</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='symbol'>:red</span>
+        <span class='id identifier rubyid_delete'>delete</span> <span class='ivar'>@opts</span><span class='lbracket'>[</span><span class='symbol'>:site_name</span><span class='rbracket'>]</span><span class='comma'>,</span> <span class='kw'>false</span>
+    <span class='kw'>end</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="delete-class_method">
+  
+    + (<tt>Void</tt>) <strong>delete</strong>(site, restart) 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>Remove all traces of site from Vagrant</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  <p class="tag_title">Parameters:</p>
+<ul class="param">
+  
+    <li>
+      
+        <span class='name'>site</span>
+      
+      
+        <span class='type'>(<tt>String</tt>)</span>
+      
+      
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>restart</span>
+      
+      
+        <span class='type'>(<tt>Bool</tt>)</span>
+      
+      
+      
+    </li>
+  
+</ul>
+
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>Void</tt>)</span>
+      
+      
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+120
+121
+122
+123
+124
+125
+126
+127
+128
+129
+130
+131
+132
+133
+134
+135
+136
+137
+138
+139
+140
+141
+142
+143
+144
+145
+146
+147
+148
+149
+150
+151
+152
+153
+154
+155
+156</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/theme-juice/scaffold.rb', line 120</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_delete'>delete</span><span class='lparen'>(</span><span class='id identifier rubyid_site'>site</span><span class='comma'>,</span> <span class='id identifier rubyid_restart'>restart</span><span class='rparen'>)</span>
+
+    <span class='comment'>###
+</span>    <span class='comment'># @TODO This is a really hacky way to remove the theme. Eventually,
+</span>    <span class='comment'>#   I&#39;d like to handle state within a config file.
+</span>    <span class='comment'>###
+</span>    <span class='ivar'>@opts</span> <span class='op'>=</span> <span class='lbrace'>{</span>
+        <span class='label'>site_name:</span> <span class='id identifier rubyid_site'>site</span><span class='comma'>,</span>
+        <span class='label'>dev_location:</span> <span class='const'>File</span><span class='period'>.</span><span class='id identifier rubyid_expand_path'>expand_path</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>~/vagrant/www/tj-</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_site'>site</span><span class='embexpr_end'>}</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span>
+    <span class='rbrace'>}</span>
+
+    <span class='kw'>if</span> <span class='id identifier rubyid_dev_site_is_setup?'>dev_site_is_setup?</span>
+        <span class='id identifier rubyid_remove_dev_site'>remove_dev_site</span>
+    <span class='kw'>else</span>
+        <span class='id identifier rubyid_say'>say</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Site &#39;</span><span class='embexpr_beg'>#{</span><span class='ivar'>@opts</span><span class='lbracket'>[</span><span class='symbol'>:site_name</span><span class='rbracket'>]</span><span class='embexpr_end'>}</span><span class='tstring_content'>&#39; does not exist.</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='symbol'>:red</span>
+        <span class='id identifier rubyid_exit'>exit</span> <span class='int'>1</span>
+    <span class='kw'>end</span>
+
+    <span class='kw'>if</span> <span class='id identifier rubyid_database_is_setup?'>database_is_setup?</span>
+        <span class='id identifier rubyid_remove_database'>remove_database</span>
+    <span class='kw'>end</span>
+
+    <span class='kw'>if</span> <span class='id identifier rubyid_synced_folder_is_setup?'>synced_folder_is_setup?</span>
+        <span class='id identifier rubyid_remove_synced_folder'>remove_synced_folder</span>
+    <span class='kw'>end</span>
+
+    <span class='kw'>if</span> <span class='id identifier rubyid_removal_was_successful?'>removal_was_successful?</span>
+        <span class='id identifier rubyid_say'>say</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Site &#39;</span><span class='embexpr_beg'>#{</span><span class='ivar'>@opts</span><span class='lbracket'>[</span><span class='symbol'>:site_name</span><span class='rbracket'>]</span><span class='embexpr_end'>}</span><span class='tstring_content'>&#39; successfully removed!</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='symbol'>:green</span>
+
+        <span class='kw'>if</span> <span class='id identifier rubyid_restart'>restart</span>
+            <span class='id identifier rubyid_say'>say</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Restarting VVV...</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='symbol'>:yellow</span>
+            <span class='id identifier rubyid_restart_vagrant'>restart_vagrant</span>
+        <span class='kw'>end</span>
+    <span class='kw'>else</span>
+        <span class='id identifier rubyid_say'>say</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Site &#39;</span><span class='embexpr_beg'>#{</span><span class='ivar'>@opts</span><span class='lbracket'>[</span><span class='symbol'>:site_name</span><span class='rbracket'>]</span><span class='embexpr_end'>}</span><span class='tstring_content'>&#39; could not be fully be removed.</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='symbol'>:red</span>
+    <span class='kw'>end</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="init-class_method">
+  
+    + (<tt>Void</tt>) <strong>init</strong> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>Set up local development environment</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>Void</tt>)</span>
+      
+      
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+12
+13
+14
+15
+16
+17
+18
+19
+20</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/theme-juice/scaffold.rb', line 12</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_init'>init</span>
+    <span class='id identifier rubyid_say'>say</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Initializing development environment...</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='symbol'>:yellow</span>
+
+    <span class='kw'>if</span> <span class='id identifier rubyid_vvv_is_setup?'>vvv_is_setup?</span>
+        <span class='id identifier rubyid_say'>say</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Development environment is already set up. Aborting mission.</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='symbol'>:red</span>
+    <span class='kw'>else</span>
+        <span class='id identifier rubyid_say'>say</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Setup successful!</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='symbol'>:green</span> <span class='kw'>if</span> <span class='id identifier rubyid_setup_vvv'>setup_vvv</span>
+    <span class='kw'>end</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="list-class_method">
+  
+    + (<tt>Array</tt>) <strong>list</strong> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>List all development sites</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>Array</tt>)</span>
+      
+      
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+163
+164
+165
+166
+167
+168
+169
+170
+171
+172
+173
+174
+175
+176
+177
+178
+179</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/theme-juice/scaffold.rb', line 163</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_list'>list</span>
+    <span class='id identifier rubyid_sites'>sites</span> <span class='op'>=</span> <span class='lbracket'>[</span><span class='rbracket'>]</span>
+
+    <span class='const'>Dir</span><span class='period'>.</span><span class='id identifier rubyid_glob'>glob</span><span class='lparen'>(</span><span class='const'>File</span><span class='period'>.</span><span class='id identifier rubyid_expand_path'>expand_path</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>~/vagrant/www/*</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_each'>each</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_f'>f</span><span class='op'>|</span>
+        <span class='id identifier rubyid_sites'>sites</span> <span class='op'>&lt;&lt;</span> <span class='const'>File</span><span class='period'>.</span><span class='id identifier rubyid_basename'>basename</span><span class='lparen'>(</span><span class='id identifier rubyid_f'>f</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_gsub'>gsub</span><span class='lparen'>(</span><span class='tstring'><span class='regexp_beg'>/</span><span class='tstring_content'>(tj-)</span><span class='regexp_end'>/</span></span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span> <span class='kw'>if</span> <span class='const'>File</span><span class='period'>.</span><span class='id identifier rubyid_directory?'>directory?</span><span class='lparen'>(</span><span class='id identifier rubyid_f'>f</span><span class='rparen'>)</span> <span class='op'>&amp;&amp;</span> <span class='id identifier rubyid_f'>f</span><span class='period'>.</span><span class='id identifier rubyid_include?'>include?</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>tj-</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span>
+    <span class='kw'>end</span>
+
+    <span class='kw'>if</span> <span class='id identifier rubyid_sites'>sites</span><span class='period'>.</span><span class='id identifier rubyid_empty?'>empty?</span>
+        <span class='id identifier rubyid_say'>say</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Nothing to list. Create a new site!</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='symbol'>:yellow</span>
+    <span class='kw'>else</span>
+        <span class='id identifier rubyid_i'>i</span> <span class='op'>=</span> <span class='int'>0</span>
+        <span class='comment'># Output site to cli
+</span>        <span class='id identifier rubyid_sites'>sites</span><span class='period'>.</span><span class='id identifier rubyid_each'>each</span> <span class='lbrace'>{</span> <span class='op'>|</span><span class='id identifier rubyid_site'>site</span><span class='op'>|</span> <span class='id identifier rubyid_i'>i</span> <span class='op'>+=</span> <span class='int'>1</span><span class='semicolon'>;</span> <span class='id identifier rubyid_say'>say</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_i'>i</span><span class='embexpr_end'>}</span><span class='tstring_content'>) </span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_site'>site</span><span class='embexpr_end'>}</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='symbol'>:green</span> <span class='rbrace'>}</span>
+    <span class='kw'>end</span>
+
+    <span class='id identifier rubyid_sites'>sites</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+  </div>
+
+</div>
+
+    <div id="footer">
+  Generated on Thu Jan 29 12:52:19 2015 by
+  <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
+  0.8.7.6 (ruby-2.0.0).
+</div>
+
+  </body>
+</html>

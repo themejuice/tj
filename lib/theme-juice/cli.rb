@@ -20,8 +20,8 @@ module ThemeJuice
         # Class options
         #
         class_option :vvv_path,      :type => :string,  :default => nil, :desc => "Force path to VVV installation"
-        class_option :yolo,          :type => :boolean,                   :desc => "Say yes to anything and everything"
-        class_option :boring,        :type => :boolean,                   :desc => "Disable all the coolness"
+        class_option :yolo,          :type => :boolean,                  :desc => "Say yes to anything and everything"
+        class_option :boring,        :type => :boolean,                  :desc => "Disable all the coolness"
         class_option :no_unicode,    :type => :boolean,                  :desc => "Disable all unicode characters"
         class_option :no_colors,     :type => :boolean,                  :desc => "Disable all colored output"
         class_option :no_animations, :type => :boolean,                  :desc => "Disable all animations"
@@ -40,9 +40,9 @@ module ThemeJuice
             }
         end
 
-        desc "create", "Create new site and setup VVV environment"
+        desc "create [NAME]", "Create new site and setup VVV environment"
         method_option :bare,         :type => :boolean, :aliases => "-b",                    :desc => "Create a VVV site without a starter theme"
-        method_option :site,         :type => :string,  :aliases => "-s", :default => false, :desc => "Name of the development site"
+        method_option :name,         :type => :string,  :aliases => "-n", :default => false, :desc => "Name of the development site"
         method_option :location,     :type => :string,  :aliases => "-l", :default => false, :desc => "Location of the local site"
         method_option :theme,        :type => :string,  :aliases => "-t", :default => false, :desc => "Starter theme to install"
         method_option :url,          :type => :string,  :aliases => "-u", :default => false, :desc => "Development URL of the site"
@@ -53,18 +53,18 @@ module ThemeJuice
         #
         # Install and setup VVV environment with new site
         #
-        # @param {String} site (nil)
+        # @param {String} name (nil)
         #   Name of the site to create
         #
         # @return {Void}
         #
-        def create(site = nil)
+        def create(name = nil)
             self.set_environment
             @interaction.hello
 
             opts = {
                 :site_bare          => options[:bare],
-                :site_name          => site || options[:site],
+                :site_name          => name || options[:name],
                 :site_location      => options[:location],
                 :site_starter_theme => options[:theme],
                 :site_dev_location  => nil,
@@ -78,8 +78,8 @@ module ThemeJuice
             @create.new(opts)
         end
 
-        desc "setup [SITE]", "Setup an existing SITE within the development environment"
-        method_option :site,         :type => :string,  :aliases => "-s", :default => false, :desc => "Name of the development site"
+        desc "setup [NAME]", "Setup an existing site within the development environment"
+        method_option :name,         :type => :string,  :aliases => "-n", :default => false, :desc => "Name of the development site"
         method_option :location,     :type => :string,  :aliases => "-l", :default => false, :desc => "Location of the local site"
         method_option :url,          :type => :string,  :aliases => "-u", :default => false, :desc => "Development URL of the site"
         method_option :repository,   :type => :string,  :aliases => "-r",                    :desc => "Initialize a new Git remote repository"
@@ -89,18 +89,18 @@ module ThemeJuice
         #
         # Setup an existing WordPress install in VVV
         #
-        # @param {String} site (nil)
+        # @param {String} name (nil)
         #   Name of the site to setup
         #
         # @return {Void}
         #
-        def setup(site = nil)
+        def setup(name = nil)
             self.set_environment
             @interaction.hello
 
             opts = {
                 :site_bare          => true,
-                :site_name          => site || options[:site],
+                :site_name          => name || options[:name],
                 :site_location      => options[:location],
                 :site_starter_theme => false,
                 :site_dev_location  => nil,
@@ -114,23 +114,23 @@ module ThemeJuice
             @create.new(opts)
         end
 
-        desc "delete SITE", "Remove SITE from the VVV development environment (does not remove local site)"
-        method_option :site,    :type => :string,  :aliases => "-s", :default => false, :desc => "Name of the development site"
-        method_option :restart, :type => :boolean, :aliases => "-r",                    :desc => "Restart development environment after SITE deletion"
+        desc "delete [NAME]", "Remove site from the VVV development environment (does not remove local site)"
+        method_option :name,    :type => :string,  :aliases => "-n", :default => false, :desc => "Name of the development site"
+        method_option :restart, :type => :boolean, :aliases => "-r",                    :desc => "Restart development environment after deletion"
         #
         # Remove all traces of site from Vagrant
         #
-        # @param {String} site (nil)
+        # @param {String} name (nil)
         #   Site to delete. This will not delete your local files, only
         #   files within the VVV environment.
         #
         # @return {Void}
         #
-        def delete(site = nil)
+        def delete(name = nil)
             self.set_environment
 
             opts = {
-                :site_name         => site || options[:site],
+                :site_name         => name || options[:name],
                 :site_dev_location => nil,
                 :restart           => options[:restart]
             }
