@@ -21,7 +21,7 @@ module ThemeJuice
             @interaction.notice "Running setup for '#{@opts[:site_name]}'"
 
             setup_project_dir          unless project_dir_is_setup?
-            setup_wordpress            unless wordpress_is_setup?
+            setup_starter_theme        unless starter_theme_is_setup?
             setup_vvv                  unless vvv_is_setup?
             setup_wildcard_subdomains  unless wildcard_subdomains_is_setup?
             setup_hosts                unless hosts_is_setup?
@@ -265,25 +265,23 @@ module ThemeJuice
         end
 
         #
-        # Setup WordPress
-        #
-        # Clones starter theme into site location
+        # Clone starter theme into site location, run install
         #
         # @return {Void}
         #
-        def setup_wordpress
+        def setup_starter_theme
             unless @opts[:site_bare]
-                @interaction.log "Setting up WordPress"
+                @interaction.log "Setting up starter theme"
 
                 run [
                     "cd #{@opts[:site_location]}",
                     "git clone --depth 1 #{@opts[:site_starter_theme]} .",
                 ]
 
-                if wordpress_is_setup?
-                    install_theme_dependencies if config_is_setup?
+                if starter_theme_is_setup?
+                    install_starter_theme_dependencies if config_is_setup?
                 else
-                    @interaction.error "Could not setup WordPress. Make sure you have write capabilities to '#{@opts[:site_location]}'."
+                    @interaction.error "Could not setup starter theme. Make sure you have write capabilities to '#{@opts[:site_location]}'."
                 end
             end
         end
@@ -365,7 +363,7 @@ module ThemeJuice
         #
         # @return {Void}
         #
-        def install_theme_dependencies
+        def install_starter_theme_dependencies
             use_config
 
             @interaction.log "Installing theme dependencies"

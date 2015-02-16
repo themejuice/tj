@@ -148,8 +148,8 @@ module ThemeJuice
         #
         # @return {Bool}
         #
-        def wordpress_is_setup?
-            !Dir["#{@opts[:site_location]}/*"].select { |f| File.basename(f) =~ %r{wp(-content)?|wordpress|app|content} }.empty?
+        def starter_theme_is_setup?
+            !Dir["#{@opts[:site_location]}/*"].select { |f| File.basename(f) =~ %r{wp(-content)?|wordpress|app|public|web|content} }.empty?
         end
 
         #
