@@ -14,12 +14,9 @@ module ThemeJuice
         #
         def list
             sites = get_sites
-            
+
             if sites.empty?
-                @interaction.speak "Nothing to list. Why haven't you created a site yet?", {
-                    color: :yellow,
-                    icon: :general
-                }
+                @interaction.log "Nothing to list."
             else
                 @interaction.list "Your sites :", :green, sites
             end

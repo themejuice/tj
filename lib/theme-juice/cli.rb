@@ -8,7 +8,7 @@ module ThemeJuice
         #
         map %w[--version -v]             => :version
         map %w[new, add, build, make]    => :create
-        map %w[setup, init, prep]        => :create
+        map %w[prep]                     => :setup
         map %w[remove, trash, teardown]  => :delete
         map %w[sites, show]              => :list
         map %w[assets, dev]              => :watch
@@ -33,6 +33,8 @@ module ThemeJuice
         # @return {String}
         #
         def version
+            self.set_environment
+
             @interaction.speak ::ThemeJuice::VERSION, { color: :green }
         end
 
@@ -56,6 +58,7 @@ module ThemeJuice
         #
         def create(site = nil)
             self.set_environment
+            @interaction.hello
 
             opts = {
                 site_bare:          options[:bare],
@@ -78,12 +81,35 @@ module ThemeJuice
         # Setup an existing WordPress install in VVV
         #
         # @param {String} site (nil)
-        #   Name of the theme to create
+        #   Name of the site to setup
         #
         # @return {Void}
         #
+        method_option :site,         type: :string,  aliases: "-s", default: false, desc: "Name of the development site"
+        method_option :location,     type: :string,  aliases: "-l", default: false, desc: "Location of the local site"
+        method_option :url,          type: :string,  aliases: "-u", default: false, desc: "Development URL of the site"
+        method_option :repository,   type: :string,  aliases: "-r",                 desc: "Initialize a new Git remote repository"
+        method_option :skip_repo,    type: :boolean,                                desc: "Skip repository prompts and use defaults"
+        method_option :skip_db,      type: :boolean,                                desc: "Skip database prompts and use defaults"
+        method_option :use_defaults, type: :boolean,                                desc: "Skip all prompts and use default settings"
         def setup(site = nil)
-            invoke :create, [site], bare: true
+            self.set_environment
+            @interaction.hello
+
+            opts = {
+                site_bare:          true,
+                site_name:          site || options[:site],
+                site_location:      options[:location],
+                site_starter_theme: false,
+                site_dev_location:  nil,
+                site_dev_url:       options[:url],
+                site_repository:    options[:repository],
+                skip_repo:          options[:skip_repo],
+                skip_db:            options[:skip_db],
+                use_defaults:       options[:use_defaults]
+            }
+
+            ::ThemeJuice::Command::Create.new(opts)
         end
 
         desc "delete SITE", "Remove SITE from the VVV development environment (does not remove local site)"
@@ -270,31 +296,6 @@ module ThemeJuice
                 unless Dir.exist? @environment.vvv_path
                     @interaction.error "Cannot load VVV path (#{@environment.vvv_path}). Aborting mission before something bad happens."
                 end
-            end
-
-            #
-            # Make sure site name is valid
-            #
-            # @param {String} site
-            #
-            # @return {Void}
-            #
-            def validate_site_name(site)
-                site.match /[^0-9A-Za-z.\-]/ do |char|
-                    @interaction.error "Site name contains an invalid character '#{char}'. This name is used for creating directories, so that's not gonna work. Aborting mission."
-                end
-            end
-
-            #
-            # Output welcome message
-            #
-            # @return {Void}
-            #
-            def welcome_message
-                @interaction.speak "Welcome to Theme Juice!", {
-                    color: [:black, :on_green, :bold],
-                    row: true
-                }
             end
         end
     end

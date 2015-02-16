@@ -14,9 +14,9 @@ module ThemeJuice
             @opts         = opts
             @config_path  = opts[:site_location] || Dir.pwd
             @config_regex = %r{^(\.)?(tj.y(a)?ml)}
-        rescue => e
+        rescue => err
             @interaction.error "Whoops! Something went wrong!" do
-                puts e
+                puts err
             end
         end
 
@@ -45,7 +45,7 @@ module ThemeJuice
         def use_config
 
             if config_is_setup?
-                @config = YAML.load_file(Dir["#{@config_path}/*"].select { |f| File.basename(f) =~ @config_regex }.last)
+                @config = YAML.load_file(Dir["#{@config_path}/*"].select { |f| @config_regex =~ File.basename(f) }.last)
             else
                 @interaction.notice "Unable to find a 'tj.yml' file in '#{@config_path}'."
 
@@ -66,10 +66,7 @@ module ThemeJuice
         # @return {Void}
         #
         def restart_vagrant
-            @interaction.speak "Restarting VVV...", {
-                color: :yellow,
-                icon: :general
-            }
+            @interaction.log "Restarting VVV"
 
             run [
                 "cd #{@environment.vvv_path}",
@@ -138,7 +135,7 @@ module ThemeJuice
         # @return {Bool}
         #
         def database_is_setup?
-            File.readlines(File.expand_path("#{@environment.vvv_path}/database/init-custom.sql")).grep(/(# Begin '#{@opts[:site_name]}')/m).any?
+            File.readlines(File.expand_path("#{@environment.vvv_path}/database/init-custom.sql")).grep(/(### Begin '#{@opts[:site_name]}')/m).any?
         end
 
         #
@@ -152,14 +149,14 @@ module ThemeJuice
         # @return {Bool}
         #
         def wordpress_is_setup?
-            File.exist? File.expand_path("#{@opts[:site_location]}/app")
+            !Dir["#{@opts[:site_location]}/*"].select { |f| File.basename(f) =~ %r{wp(-content)?|wordpress|app|content} }.empty?
         end
 
         #
         # @return {Bool}
         #
         def synced_folder_is_setup?
-            File.readlines(File.expand_path("#{@environment.vvv_path}/Vagrantfile")).grep(/(# Begin '#{@opts[:site_name]}')/m).any?
+            File.readlines(File.expand_path("#{@environment.vvv_path}/Vagrantfile")).grep(/(### Begin '#{@opts[:site_name]}')/m).any?
         end
 
         #

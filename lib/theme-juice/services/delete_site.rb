@@ -26,22 +26,14 @@ module ThemeJuice
 
             if @interaction.agree? "", { color: :red, simple: true }
 
-                steps = {
-                    remove_dev_site:      :dev_site_is_setup?,
-                    remove_database:      :database_is_setup?,
-                    remove_synced_folder: :synced_folder_is_setup?,
-                }
-
-                steps.each do |action, condition|
-                    send "#{action}" if send "#{condition}"
-                end
+                remove_dev_site      if dev_site_is_setup?
+                remove_database      if database_is_setup?
+                remove_synced_folder if synced_folder_is_setup?
 
                 if removal_was_successful?
                     @interaction.success "Site '#{@opts[:site_name]}' successfully removed!"
 
-                    if @opts[:restart]
-                        restart_vagrant
-                    end
+                    restart_vagrant if @opts[:restart]
                 else
                     @interaction.error "Site '#{@opts[:site_name]}' could not be fully be removed."
                 end
@@ -62,10 +54,7 @@ module ThemeJuice
             end
 
             if run ["rm -rf #{@opts[:site_dev_location]}"]
-                @interaction.speak "Development site successfully removed...", {
-                    color: :yellow,
-                    icon: :general
-                }
+                @interaction.log "Development site removed"
             else
                 @interaction.error "Site '#{@opts[:site_name]}' could not be removed. Make sure you have write capabilities to '#{@opts[:site_dev_location]}'."
             end
@@ -78,10 +67,7 @@ module ThemeJuice
         #
         def remove_database
             if remove_traces_from_file "#{::ThemeJuice::Environment.vvv_path}/database/init-custom.sql"
-                @interaction.speak "Database successfully removed...", {
-                    color: :yellow,
-                    icon: :general
-                }
+                @interaction.log "Database removed"
             end
         end
 
@@ -92,10 +78,7 @@ module ThemeJuice
         #
         def remove_synced_folder
             if remove_traces_from_file "#{::ThemeJuice::Environment.vvv_path}/Vagrantfile"
-                @interaction.speak "Synced folders successfully removed...", {
-                    color: :yellow,
-                    icon: :general
-                }
+                @interaction.log "Synced folders removed"
             end
         end
 
@@ -113,12 +96,14 @@ module ThemeJuice
                 # Copy over contents of actual file to tempfile
                 open File.expand_path(input_file), "rb" do |file|
                     # Remove traces of theme from contents
-                    output_file.write "#{file.read}".gsub(/(# Begin '#{@opts[:site_name]}')(.*?)(# End '#{@opts[:site_name]}')\n+/m, "")
+                    output_file.write "#{file.read}".gsub(/(### Begin '#{@opts[:site_name]}')(.*?)(### End '#{@opts[:site_name]}')\n+/m, "")
                 end
                 # Move temp file to actual file location
                 FileUtils.mv output_file, File.expand_path(input_file)
             rescue LoadError => err
-                @interaction.error "#{err}"
+                @interaction.error "There was an error!" do
+                    puts err
+                end
             ensure
                 # Make sure that the tempfile closes and is cleaned up, regardless of errors
                 output_file.close

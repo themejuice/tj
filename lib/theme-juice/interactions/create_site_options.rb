@@ -28,7 +28,6 @@ module ThemeJuice
             end
 
             required_opts = [
-                :site_bare,
                 :site_name,
                 :site_name_clean,
                 :site_location,
@@ -68,15 +67,6 @@ module ThemeJuice
         end
 
         private
-
-        #
-        # Enbable bare setup
-        #
-        # @return {String}
-        #
-        def setup_site_bare
-            @opts[:site_bare]
-        end
 
         #
         # Site name

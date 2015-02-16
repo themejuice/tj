@@ -9,13 +9,7 @@ rescue LoadError => err
 end
 
 Signal.trap "INT" do
-    ::ThemeJuice::Interaction.speak "Bye bye!", {
-        color: :yellow,
-        icon: :general,
-        newline: true
-    }
-
-    exit 130
+    ::ThemeJuice::Interaction.goodbye
 end
 
 ::ThemeJuice::CLI.start

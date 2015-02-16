@@ -10,7 +10,7 @@ Gem::Specification.new do |spec|
     # Details
     spec.name = "theme-juice"
     spec.rubyforge_project = "theme-juice"
-    spec.licenses = "MIT"
+    spec.licenses = "GNU"
     spec.authors = ["Ezekiel Gabrielse"]
     spec.email = ["ezekg@yahoo.com"]
     spec.homepage = "https://github.com/ezekg/theme-juice-cli.git"
