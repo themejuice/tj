@@ -64,7 +64,7 @@ tj create [<SITE-NAME>] # Aliases: new, add, build, make
 | `-b, [--bare]`              | Bool   | Create a VVV site without a starter theme        |
 | `-s, [--site=SITE]`         | String | Name of the development site                     |
 | `-l, [--location=LOCATION]` | Path   | Location of the local site                       |
-| `-t, [--theme=THEME]`       | URL    | Starter theme to install (can use `none`)        |
+| `-t, [--theme=THEME]`       | URL    | Starter theme to install                         |
 | `-u, [--url=URL]`           | URL    | Development URL of the site (must end in `.dev`) |
 | `-r, [--repository]`        | String | Initialize a new Git remote repository           |
 | `[--skip-repo]`             | Bool   | Skip repository prompts and set to `none`        |
