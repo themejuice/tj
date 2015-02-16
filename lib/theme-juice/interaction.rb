@@ -24,7 +24,7 @@ module ThemeJuice
         NU_SELECTED   = "[x]"
         NU_UNSELECTED = "[ ]"
 
-        # Map escape sequence to key
+        # Escape sequences
         KEYS = {
             "\e[A" => "up",
             "\e[B" => "down",
