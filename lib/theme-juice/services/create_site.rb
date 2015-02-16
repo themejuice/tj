@@ -277,10 +277,14 @@ module ThemeJuice
 
                 run [
                     "cd #{@opts[:site_location]}",
-                    "git clone --depth 1 #{@opts[:starter_theme]} .",
+                    "git clone --depth 1 #{@opts[:site_starter_theme]} .",
                 ]
 
-                install_theme_dependencies unless config_is_setup?
+                if wordpress_is_setup?
+                    install_theme_dependencies unless config_is_setup?
+                else
+                    @interaction.error "Could not setup WordPress. Make sure you have write capabilities to '#{@opts[:site_location]}'."
+                end
             end
         end
 

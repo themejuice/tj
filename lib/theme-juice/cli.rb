@@ -19,12 +19,12 @@ module ThemeJuice
         #
         # Class options
         #
-        class_option :vvv_path,      :type => :string,  :aliases => "-fp", :default => nil, :desc => "Force path to VVV installation"
-        class_option :yolo,          :type => :boolean, :aliases => "-y",                   :desc => "Say yes to anything and everything"
-        class_option :boring,        :type => :boolean, :aliases => "-b",                   :desc => "Disable all the coolness"
-        class_option :no_unicode,    :type => :boolean, :aliases => "-nu",                  :desc => "Disable all unicode characters"
-        class_option :no_colors,     :type => :boolean, :aliases => "-nc",                  :desc => "Disable all colored output"
-        class_option :no_animations, :type => :boolean, :aliases => "-na",                  :desc => "Disable all animations"
+        class_option :vvv_path,      :type => :string,  :default => nil, :desc => "Force path to VVV installation"
+        class_option :yolo,          :type => :boolean,                   :desc => "Say yes to anything and everything"
+        class_option :boring,        :type => :boolean,                   :desc => "Disable all the coolness"
+        class_option :no_unicode,    :type => :boolean,                  :desc => "Disable all unicode characters"
+        class_option :no_colors,     :type => :boolean,                  :desc => "Disable all colored output"
+        class_option :no_animations, :type => :boolean,                  :desc => "Disable all animations"
 
         desc "--version, -v", "Print current version"
         #
@@ -35,7 +35,9 @@ module ThemeJuice
         def version
             self.set_environment
 
-            @interaction.speak @version, { color: :green }
+            @interaction.speak @version, {
+                :color => :green
+            }
         end
 
         desc "create", "Create new site and setup VVV environment"
@@ -99,7 +101,7 @@ module ThemeJuice
             opts = {
                 :site_bare          => true,
                 :site_name          => site || options[:site],
-                :site_location      =>  options[:location],
+                :site_location      => options[:location],
                 :site_starter_theme => false,
                 :site_dev_location  => nil,
                 :site_dev_url       => options[:url],

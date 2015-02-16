@@ -39,18 +39,18 @@ List all commands for `tj`.
 tj
 ```
 
-#### Global flags:
-| Flag                     | Type   | Description                                |
-|:-------------------------|:------ |:------------------------------------------ |
-| `-nu, [--no-unicode]`    | Bool   | Disable all unicode characters             |
-| `-nc, [--no-colors]`     | Bool   | Disable colored output                     |
-| `-fp, [--vvv-path=PATH]` | String | Force custom path to your VVV installation |
-
 ### Print version:
 This command will print the current version of `tj`.
 ```bash
 tj --version # Aliases: -v, version
 ```
+
+### Global flags:
+| Flag                | Type   | Description                                |
+|:--------------------|:------ |:------------------------------------------ |
+| `[--no-unicode]`    | Bool   | Disable all unicode characters             |
+| `[--no-colors]`     | Bool   | Disable colored output                     |
+| `[--vvv-path=PATH]` | String | Force custom path to your VVV installation |
 
 ### Creating a new development site:
 Use this to create a new development site. It will automagically set up your entire development environment, including a local development site at `http://<sites-dev-url>.dev` with WordPress installed and a fresh WP database. It will sync up your local site installation with the Vagrant VM. This task will also install and configure Vagrant/VVV into your `~/` directory if it has not already been installed. Site name is optional, as it will be asked for if not given.
@@ -74,7 +74,7 @@ tj create [<SITE-NAME>] # Aliases: new, add, build, make
 ### Setting up an existing site:
 Use this to setup an existing local site installation within the development environment. You will go through the setup process to create the necessary files for the VM, including `vvv-hosts`, `vvv-nginx.conf`, and a fresh database (unless one already exists by the name chosen). Site name is optional, as it will be asked for if not given.
 ```bash
-tj setup [<SITE-NAME>] # Aliases: init, prep
+tj setup [<SITE-NAME>] # Aliases: prep
 ```
 
 ### Deleting a site from the VM: _(Does not remove your local site)_
