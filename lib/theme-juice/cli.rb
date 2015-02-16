@@ -151,7 +151,6 @@ module ThemeJuice
         end
 
         desc "install", "Run installation for the starter theme"
-        method_option :config, :type => :string, :aliases => "-c", :default => nil, :desc => "Force path to config file"
         #
         # Install and setup starter theme
         #
