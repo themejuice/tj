@@ -161,6 +161,7 @@ module ThemeJuice
             @install.new
         end
 
+        desc "watch [COMMANDS]", "Watch and compile assets"
         #
         # Assets
         #
@@ -169,7 +170,6 @@ module ThemeJuice
         #
         # @return {Void}
         #
-        desc "watch [COMMANDS]", "Watch and compile assets"
         def watch(*commands)
             self.set_environment
 
@@ -181,6 +181,7 @@ module ThemeJuice
             @subcommand.new(opts)
         end
 
+        desc "vendor [COMMANDS]", "Manage vendor dependencies"
         #
         # Vendor dependencies
         #
@@ -189,7 +190,6 @@ module ThemeJuice
         #
         # @return {Void}
         #
-        desc "vendor [COMMANDS]", "Manage vendor dependencies"
         def vendor(*commands)
             self.set_environment
 
@@ -201,6 +201,7 @@ module ThemeJuice
             @subcommand.new(opts)
         end
 
+        desc "server [COMMANDS]", "Manage deployment and migration"
         #
         # Server/Deployment
         #
@@ -209,7 +210,6 @@ module ThemeJuice
         #
         # @return {Void}
         #
-        desc "server [COMMANDS]", "Manage deployment and migration"
         def server(*commands)
             self.set_environment
 
@@ -221,6 +221,7 @@ module ThemeJuice
             @subcommand.new(opts)
         end
 
+        desc "vm [COMMANDS]", "Manage virtual development environment with Vagrant"
         #
         # Vagrant
         #
@@ -229,7 +230,6 @@ module ThemeJuice
         #
         # @return {Void}
         #
-        desc "vm [COMMANDS]", "Manage virtual development environment with Vagrant"
         def vm(*commands)
             self.set_environment
 
