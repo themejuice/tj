@@ -35,7 +35,7 @@ module ThemeJuice
         def version
             self.set_environment
 
-            @interaction.speak ::ThemeJuice::VERSION, { color: :green }
+            @interaction.speak @version, { color: :green }
         end
 
         desc "create", "Create new site and setup VVV environment"
@@ -73,10 +73,17 @@ module ThemeJuice
                 :use_defaults       => options[:use_defaults]
             }
 
-            ::ThemeJuice::Command::Create.new(opts)
+            @create.new(opts)
         end
 
         desc "setup [SITE]", "Setup an existing SITE in development environment"
+        method_option :site,         :type => :string,  :aliases => "-s", :default => false, :desc => "Name of the development site"
+        method_option :location,     :type => :string,  :aliases => "-l", :default => false, :desc => "Location of the local site"
+        method_option :url,          :type => :string,  :aliases => "-u", :default => false, :desc => "Development URL of the site"
+        method_option :repository,   :type => :string,  :aliases => "-r",                    :desc => "Initialize a new Git remote repository"
+        method_option :skip_repo,    :type => :boolean,                                      :desc => "Skip repository prompts and use defaults"
+        method_option :skip_db,      :type => :boolean,                                      :desc => "Skip database prompts and use defaults"
+        method_option :use_defaults, :type => :boolean,                                      :desc => "Skip all prompts and use default settings"
         #
         # Setup an existing WordPress install in VVV
         #
@@ -85,13 +92,6 @@ module ThemeJuice
         #
         # @return {Void}
         #
-        method_option :site,         :type => :string,  :aliases => "-s", :default => false, :desc => "Name of the development site"
-        method_option :location,     :type => :string,  :aliases => "-l", :default => false, :desc => "Location of the local site"
-        method_option :url,          :type => :string,  :aliases => "-u", :default => false, :desc => "Development URL of the site"
-        method_option :repository,   :type => :string,  :aliases => "-r",                    :desc => "Initialize a new Git remote repository"
-        method_option :skip_repo,    :type => :boolean,                                      :desc => "Skip repository prompts and use defaults"
-        method_option :skip_db,      :type => :boolean,                                      :desc => "Skip database prompts and use defaults"
-        method_option :use_defaults, :type => :boolean,                                      :desc => "Skip all prompts and use default settings"
         def setup(site = nil)
             self.set_environment
             @interaction.hello
@@ -109,7 +109,7 @@ module ThemeJuice
                 :use_defaults       => options[:use_defaults]
             }
 
-            ::ThemeJuice::Command::Create.new(opts)
+            @create.new(opts)
         end
 
         desc "delete SITE", "Remove SITE from the VVV development environment (does not remove local site)"
@@ -133,7 +133,7 @@ module ThemeJuice
                 :restart           => options[:restart]
             }
 
-            ::ThemeJuice::Command::Delete.new(opts)
+            @delete.new(opts)
         end
 
         desc "list", "List all sites within the VVV development environment"
@@ -145,7 +145,7 @@ module ThemeJuice
         def list
             self.set_environment
 
-            ::ThemeJuice::Command::List.new
+            @list.new
         end
 
         desc "install", "Run installation for the starter theme"
@@ -158,7 +158,7 @@ module ThemeJuice
         def install
             self.set_environment
 
-            ::ThemeJuice::Command::Install.new
+            @install.new
         end
 
         #
@@ -178,7 +178,7 @@ module ThemeJuice
                 :commands   => commands.join(" ")
             }
 
-            ::ThemeJuice::Command::Subcommand.new(opts)
+            @subcommand.new(opts)
         end
 
         #
@@ -198,7 +198,7 @@ module ThemeJuice
                 :commands   => commands.join(" ")
             }
 
-            ::ThemeJuice::Command::Subcommand.new(opts)
+            @subcommand.new(opts)
         end
 
         #
@@ -218,7 +218,7 @@ module ThemeJuice
                 :commands   => commands.join(" ")
             }
 
-            ::ThemeJuice::Command::Subcommand.new(opts)
+            @subcommand.new(opts)
         end
 
         #
@@ -247,8 +247,14 @@ module ThemeJuice
             # @return {Void}
             #
             def set_environment
+                @version     = ::ThemeJuice::VERSION
                 @environment = ::ThemeJuice::Environment
                 @interaction = ::ThemeJuice::Interaction
+                @create      = ::ThemeJuice::Command::Create
+                @delete      = ::ThemeJuice::Command::Delete
+                @list        = ::ThemeJuice::Command::List
+                @install     = ::ThemeJuice::Command::Install
+                @subcommand  = ::ThemeJuice::Command::Subcommand
 
                 @environment.no_colors     = if self.boring? then true else options[:no_colors]     end
                 @environment.no_unicode    = if self.boring? then true else options[:no_unicode]    end
