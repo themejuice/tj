@@ -3,26 +3,31 @@
 module ThemeJuice
     module Interaction
 
-        # Unicode icons
-        SUCCESS       = "\u2713"
-        ERROR         = "\u2191"
-        NOTICE        = "\u2192"
-        QUESTION      = "\u2022"
-        GENERAL       = "\u2022"
-        LOG           = "\u2026"
-        RESTART       = "\u21AA"
-        SELECTED      = "\u2022"
-        UNSELECTED    = "\u25CB"
+        # Icons
+        ICONS = {
 
-        # Fallback icons
-        NU_SUCCESS    = "+"
-        NU_ERROR      = "!"
-        NU_NOTICE     = "-"
-        NU_QUESTION   = "?"
-        NU_GENERAL    = "-"
-        NU_RESTART    = "!"
-        NU_SELECTED   = "[x]"
-        NU_UNSELECTED = "[ ]"
+            # Unicode
+            :success       => "\u2713",
+            :error         => "\u2191",
+            :notice        => "\u2192",
+            :question      => "\u2022",
+            :general       => "\u2022",
+            :log           => "\u2026",
+            :restart       => "\u21AA",
+            :selected      => "\u2022",
+            :unselected    => "\u25CB",
+
+            # Fallback
+            :nu_success    => "+",
+            :nu_error      => "!",
+            :nu_notice     => "-",
+            :nu_question   => "?",
+            :nu_general    => "-",
+            :nu_log        => "...",
+            :nu_restart    => "!",
+            :nu_selected   => "[x]",
+            :nu_unselected => "[ ]"
+        }
 
         # Escape sequences
         KEYS = {
@@ -32,10 +37,10 @@ module ThemeJuice
             "\e[D" => "left",
             "\003" => "ctrl+c",
             "\004" => "ctrl+d",
-            "\e" => "escape",
-            "\n" => "linefeed",
-            "\r" => "return",
-            " " => "space"
+            "\e"   => "escape",
+            "\n"   => "linefeed",
+            "\r"   => "return",
+            " "    => "space"
         }
 
         # Get the environment
@@ -68,8 +73,8 @@ module ThemeJuice
             #
             def prompt(question, *opts)
                 format_message question, {
-                    color: :blue,
-                    icon: :question
+                    :color => :blue,
+                    :icon => :question
                 }
 
                 opts.each do |opt|
@@ -99,8 +104,8 @@ module ThemeJuice
             def agree?(question, opts = {})
 
                 format_message question, {
-                    color: opts[:color] || :blue,
-                    icon: :question
+                    :color => opts[:color] || :blue,
+                    :icon => :question
                 }
 
                 if opts[:simple]
@@ -119,8 +124,8 @@ module ThemeJuice
             #
             def log(message)
                 speak message, {
-                    color: :yellow,
-                    icon: :log
+                    :color => :yellow,
+                    :icon => :log
                 }
             end
 
@@ -133,9 +138,9 @@ module ThemeJuice
             #
             def success(message)
                 speak message, {
-                    color: [:black, :on_green, :bold],
-                    icon: :success,
-                    row: true
+                    :color => [:black, :on_green, :bold],
+                    :icon => :success,
+                    :row => true
                 }
             end
 
@@ -148,9 +153,9 @@ module ThemeJuice
             #
             def notice(message)
                 speak message, {
-                    color: [:black, :on_yellow],
-                    icon: :notice,
-                    row: true
+                    :color => [:black, :on_yellow],
+                    :icon => :notice,
+                    :row => true
                 }
             end
 
@@ -164,9 +169,9 @@ module ThemeJuice
             #
             def error(message)
                 speak message, {
-                    color: [:white, :on_red],
-                    icon: :error,
-                    row: true
+                    :color => [:white, :on_red],
+                    :icon => :error,
+                    :row => true
                 }
 
                 yield if block_given?
@@ -183,8 +188,8 @@ module ThemeJuice
             #
             def hello(opts = {})
                 speak "Welcome to Theme Juice!", {
-                    color: [:black, :on_green, :bold],
-                    row: true
+                    :color => [:black, :on_green, :bold],
+                    :row => true
                 }.merge(opts)
             end
 
@@ -197,9 +202,9 @@ module ThemeJuice
             #
             def goodbye(opts = {})
                 speak "Bye bye!", {
-                    color: :yellow,
-                    icon: :general,
-                    newline: true
+                    :color => :yellow,
+                    :icon => :general,
+                    :newline => true
                 }.merge(opts)
 
                 exit 130
@@ -216,15 +221,15 @@ module ThemeJuice
             #
             def list(header, color, list)
                 speak header, {
-                    color: [:black, :"on_#{color}"],
-                    icon: :notice,
-                    row: true
+                    :color => [:black, :"on_#{color}"],
+                    :icon => :notice,
+                    :row => true
                 }
 
                 list.each do |item|
                     speak item, {
-                        color: :"#{color}",
-                        icon: :general
+                        :color => :"#{color}",
+                        :icon => :general
                     }
                 end
             end
@@ -240,8 +245,8 @@ module ThemeJuice
             #
             def choose(header, color, list)
                 speak "#{header} (use arrow keys and press enter)", {
-                    color: :"#{color}",
-                    icon: :question
+                    :color => :"#{color}",
+                    :icon => :question
                 }
 
                 print "\n" * list.size
@@ -312,7 +317,7 @@ module ThemeJuice
                 icon = if @environment.no_unicode then "nu_#{@opts[:icon]}" else "#{@opts[:icon]}" end
 
                 if @opts[:icon]
-                    set(@message) { |msg| " #{const_get(icon.to_s.upcase)}" << if @opts[:empty] then nil else " #{msg}" end }
+                    set(@message) { |msg| " #{ICONS[:"#{icon}"]}" << if @opts[:empty] then nil else " #{msg}" end }
                 else
                     set(@message) { |msg| " " << msg }
                 end
@@ -385,9 +390,9 @@ module ThemeJuice
                 list.each_with_index do |item, i|
                     icon = if i == selected then "selected" else "unselected" end
                     speak "#{item}", {
-                        color: :"#{color}",
-                        icon: :"#{icon}",
-                        indent: 2
+                        :color => :"#{color}",
+                        :icon => :"#{icon}",
+                        :indent => 2
                     }
                 end
             end

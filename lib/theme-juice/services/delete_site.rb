@@ -19,9 +19,9 @@ module ThemeJuice
         #
         def delete
             @interaction.speak "Are you sure you want to delete '#{@opts[:site_name]}'? (y/N)", {
-                color: [:white, :on_red],
-                icon: :notice,
-                row: true
+                :color => [:white, :on_red],
+                :icon  => :notice,
+                :row   => true
             }
 
             if @interaction.agree? "", { color: :red, simple: true }
@@ -66,7 +66,7 @@ module ThemeJuice
         # @return {Void}
         #
         def remove_database
-            if remove_traces_from_file "#{::ThemeJuice::Environment.vvv_path}/database/init-custom.sql"
+            if remove_traces_from_file "#{@environment.vvv_path}/database/init-custom.sql"
                 @interaction.log "Database removed"
             end
         end
@@ -77,7 +77,7 @@ module ThemeJuice
         # @return {Void}
         #
         def remove_synced_folder
-            if remove_traces_from_file "#{::ThemeJuice::Environment.vvv_path}/Vagrantfile"
+            if remove_traces_from_file "#{@environment.vvv_path}/Vagrantfile"
                 @interaction.log "Synced folders removed"
             end
         end

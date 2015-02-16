@@ -19,12 +19,12 @@ module ThemeJuice
         #
         # Class options
         #
-        class_option :vvv_path,      type: :string,  aliases: "-fp", default: nil, desc: "Force path to VVV installation"
-        class_option :yolo,          type: :boolean, aliases: "-y",                desc: "Say yes to anything and everything"
-        class_option :boring,        type: :boolean, aliases: "-b",                desc: "Disable all the coolness"
-        class_option :no_unicode,    type: :boolean, aliases: "-nu",               desc: "Disable all unicode characters"
-        class_option :no_colors,     type: :boolean, aliases: "-nc",               desc: "Disable all colored output"
-        class_option :no_animations, type: :boolean, aliases: "-na",               desc: "Disable all animations"
+        class_option :vvv_path,      :type => :string,  :aliases => "-fp", :default => nil, :desc => "Force path to VVV installation"
+        class_option :yolo,          :type => :boolean, :aliases => "-y",                   :desc => "Say yes to anything and everything"
+        class_option :boring,        :type => :boolean, :aliases => "-b",                   :desc => "Disable all the coolness"
+        class_option :no_unicode,    :type => :boolean, :aliases => "-nu",                  :desc => "Disable all unicode characters"
+        class_option :no_colors,     :type => :boolean, :aliases => "-nc",                  :desc => "Disable all colored output"
+        class_option :no_animations, :type => :boolean, :aliases => "-na",                  :desc => "Disable all animations"
 
         desc "--version, -v", "Print current version"
         #
@@ -39,15 +39,15 @@ module ThemeJuice
         end
 
         desc "create", "Create new site and setup VVV environment"
-        method_option :bare,         type: :boolean, aliases: "-b",                 desc: "Create a VVV site without a starter theme"
-        method_option :site,         type: :string,  aliases: "-s", default: false, desc: "Name of the development site"
-        method_option :location,     type: :string,  aliases: "-l", default: false, desc: "Location of the local site"
-        method_option :theme,        type: :string,  aliases: "-t", default: false, desc: "Starter theme to install"
-        method_option :url,          type: :string,  aliases: "-u", default: false, desc: "Development URL of the site"
-        method_option :repository,   type: :string,  aliases: "-r",                 desc: "Initialize a new Git remote repository"
-        method_option :skip_repo,    type: :boolean,                                desc: "Skip repository prompts and use defaults"
-        method_option :skip_db,      type: :boolean,                                desc: "Skip database prompts and use defaults"
-        method_option :use_defaults, type: :boolean,                                desc: "Skip all prompts and use default settings"
+        method_option :bare,         :type => :boolean, :aliases => "-b",                    :desc => "Create a VVV site without a starter theme"
+        method_option :site,         :type => :string,  :aliases => "-s", :default => false, :desc => "Name of the development site"
+        method_option :location,     :type => :string,  :aliases => "-l", :default => false, :desc => "Location of the local site"
+        method_option :theme,        :type => :string,  :aliases => "-t", :default => false, :desc => "Starter theme to install"
+        method_option :url,          :type => :string,  :aliases => "-u", :default => false, :desc => "Development URL of the site"
+        method_option :repository,   :type => :string,  :aliases => "-r",                    :desc => "Initialize a new Git remote repository"
+        method_option :skip_repo,    :type => :boolean,                                      :desc => "Skip repository prompts and use defaults"
+        method_option :skip_db,      :type => :boolean,                                      :desc => "Skip database prompts and use defaults"
+        method_option :use_defaults, :type => :boolean,                                      :desc => "Skip all prompts and use default settings"
         #
         # Install and setup VVV environment with new site
         #
@@ -61,16 +61,16 @@ module ThemeJuice
             @interaction.hello
 
             opts = {
-                site_bare:          options[:bare],
-                site_name:          site || options[:site],
-                site_location:      options[:location],
-                site_starter_theme: options[:theme],
-                site_dev_location:  nil,
-                site_dev_url:       options[:url],
-                site_repository:    options[:repository],
-                skip_repo:          options[:skip_repo],
-                skip_db:            options[:skip_db],
-                use_defaults:       options[:use_defaults]
+                :site_bare          => options[:bare],
+                :site_name          => site || options[:site],
+                :site_location      => options[:location],
+                :site_starter_theme => options[:theme],
+                :site_dev_location  => nil,
+                :site_dev_url       => options[:url],
+                :site_repository    => options[:repository],
+                :skip_repo          => options[:skip_repo],
+                :skip_db            => options[:skip_db],
+                :use_defaults       => options[:use_defaults]
             }
 
             ::ThemeJuice::Command::Create.new(opts)
@@ -85,36 +85,36 @@ module ThemeJuice
         #
         # @return {Void}
         #
-        method_option :site,         type: :string,  aliases: "-s", default: false, desc: "Name of the development site"
-        method_option :location,     type: :string,  aliases: "-l", default: false, desc: "Location of the local site"
-        method_option :url,          type: :string,  aliases: "-u", default: false, desc: "Development URL of the site"
-        method_option :repository,   type: :string,  aliases: "-r",                 desc: "Initialize a new Git remote repository"
-        method_option :skip_repo,    type: :boolean,                                desc: "Skip repository prompts and use defaults"
-        method_option :skip_db,      type: :boolean,                                desc: "Skip database prompts and use defaults"
-        method_option :use_defaults, type: :boolean,                                desc: "Skip all prompts and use default settings"
+        method_option :site,         :type => :string,  :aliases => "-s", :default => false, :desc => "Name of the development site"
+        method_option :location,     :type => :string,  :aliases => "-l", :default => false, :desc => "Location of the local site"
+        method_option :url,          :type => :string,  :aliases => "-u", :default => false, :desc => "Development URL of the site"
+        method_option :repository,   :type => :string,  :aliases => "-r",                    :desc => "Initialize a new Git remote repository"
+        method_option :skip_repo,    :type => :boolean,                                      :desc => "Skip repository prompts and use defaults"
+        method_option :skip_db,      :type => :boolean,                                      :desc => "Skip database prompts and use defaults"
+        method_option :use_defaults, :type => :boolean,                                      :desc => "Skip all prompts and use default settings"
         def setup(site = nil)
             self.set_environment
             @interaction.hello
 
             opts = {
-                site_bare:          true,
-                site_name:          site || options[:site],
-                site_location:      options[:location],
-                site_starter_theme: false,
-                site_dev_location:  nil,
-                site_dev_url:       options[:url],
-                site_repository:    options[:repository],
-                skip_repo:          options[:skip_repo],
-                skip_db:            options[:skip_db],
-                use_defaults:       options[:use_defaults]
+                :site_bare          => true,
+                :site_name          => site || options[:site],
+                :site_location      =>  options[:location],
+                :site_starter_theme => false,
+                :site_dev_location  => nil,
+                :site_dev_url       => options[:url],
+                :site_repository    => options[:repository],
+                :skip_repo          => options[:skip_repo],
+                :skip_db            => options[:skip_db],
+                :use_defaults       => options[:use_defaults]
             }
 
             ::ThemeJuice::Command::Create.new(opts)
         end
 
         desc "delete SITE", "Remove SITE from the VVV development environment (does not remove local site)"
-        method_option :site,    type: :string,  aliases: "-s", default: false, desc: "Name of the development site"
-        method_option :restart, type: :boolean, aliases: "-r",                 desc: "Restart development environment after SITE deletion"
+        method_option :site,    :type => :string,  :aliases => "-s", :default => false, :desc => "Name of the development site"
+        method_option :restart, :type => :boolean, :aliases => "-r",                    :desc => "Restart development environment after SITE deletion"
         #
         # Remove all traces of site from Vagrant
         #
@@ -128,9 +128,9 @@ module ThemeJuice
             self.set_environment
 
             opts = {
-                site_name:         site || options[:site],
-                site_dev_location: nil,
-                restart:           options[:restart]
+                :site_name         => site || options[:site],
+                :site_dev_location => nil,
+                :restart           => options[:restart]
             }
 
             ::ThemeJuice::Command::Delete.new(opts)
@@ -149,7 +149,7 @@ module ThemeJuice
         end
 
         desc "install", "Run installation for the starter theme"
-        method_option :config, type: :string, aliases: "-c", default: nil, desc: "Force path to config file"
+        method_option :config, :type => :string, :aliases => "-c", :default => nil, :desc => "Force path to config file"
         #
         # Install and setup starter theme
         #
@@ -174,8 +174,8 @@ module ThemeJuice
             self.set_environment
 
             opts = {
-                subcommand: "watch",
-                commands: commands.join(" ")
+                :subcommand => "watch",
+                :commands   => commands.join(" ")
             }
 
             ::ThemeJuice::Command::Subcommand.new(opts)
@@ -194,8 +194,8 @@ module ThemeJuice
             self.set_environment
 
             opts = {
-                subcommand: "vendor",
-                commands: commands.join(" ")
+                :subcommand => "vendor",
+                :commands   => commands.join(" ")
             }
 
             ::ThemeJuice::Command::Subcommand.new(opts)
@@ -214,8 +214,8 @@ module ThemeJuice
             self.set_environment
 
             opts = {
-                subcommand: "server",
-                commands: commands.join(" ")
+                :subcommand => "server",
+                :commands   => commands.join(" ")
             }
 
             ::ThemeJuice::Command::Subcommand.new(opts)
