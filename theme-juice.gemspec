@@ -37,5 +37,4 @@ Gem::Specification.new do |spec|
     # Dependencies
     spec.add_dependency "faker"
     spec.add_dependency "thor"
-    spec.add_dependency "os"
 end
