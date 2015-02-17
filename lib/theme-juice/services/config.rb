@@ -37,7 +37,7 @@ module ThemeJuice
             if @config["commands"][subcommand]
                 run ["#{@config["commands"][subcommand]} #{command}"], false
             else
-                ::ThemeJuice::Interaction.error "Unable to find '#{subcommand}' command in '#{@config_path}/tj.yml'. Aborting mission."
+                @interaction.error "Unable to find '#{subcommand}' command in '#{@config_path}/tj.yml'. Aborting mission."
             end
         end
     end
