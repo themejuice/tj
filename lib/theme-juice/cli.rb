@@ -6,15 +6,15 @@ module ThemeJuice
         #
         # Command aliases
         #
-        map %w[--version -v]            => :version
-        map %w[new, add, build, make]   => :create
-        map %w[prep]                    => :setup
-        map %w[remove, trash, teardown] => :delete
-        map %w[sites, show]             => :list
-        map %w[assets, dev]             => :watch
-        map %w[dependencies, deps]      => :vendor
-        map %w[deploy, remote]          => :server
-        map %w[vagrant, vvv]            => :vm
+        map %w[--version -v]                => :version
+        map %w[new, add, build, make]       => :create
+        map %w[prep]                        => :setup
+        map %w[rm, remove, trash, teardown] => :delete
+        map %w[ls, sites, show]             => :list
+        map %w[assets, dev]                 => :watch
+        map %w[dependencies, deps]          => :vendor
+        map %w[deploy, remote]              => :server
+        map %w[vagrant, vvv]                => :vm
 
         #
         # Class options
