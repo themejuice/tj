@@ -93,7 +93,7 @@ module ThemeJuice
                 # Create new tempfile
                 output_file = Tempfile.new File.basename(input_file)
                 # Copy over contents of actual file to tempfile
-                open File.expand_path(input_file), "rb" do |file|
+                open File.expand_path(input_file), "r" do |file|
                     # Remove traces of theme from contents
                     output_file.write "#{file.read}".gsub(/(### Begin '#{@opts[:site_name]}')(.*?)(### End '#{@opts[:site_name]}')\n+/m, "")
                 end
