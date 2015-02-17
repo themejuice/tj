@@ -6,15 +6,15 @@ module ThemeJuice
         #
         # Command aliases
         #
-        map %w[--version -v]             => :version
-        map %w[new, add, build, make]    => :create
-        map %w[prep]                     => :setup
-        map %w[remove, trash, teardown]  => :delete
-        map %w[sites, show]              => :list
-        map %w[assets, dev]              => :watch
-        map %w[dependencies, deps]       => :vendor
-        map %w[deploy, remote]           => :server
-        map %w[vagrant, vvv]             => :vm
+        map %w[--version -v]            => :version
+        map %w[new, add, build, make]   => :create
+        map %w[prep]                    => :setup
+        map %w[remove, trash, teardown] => :delete
+        map %w[sites, show]             => :list
+        map %w[assets, dev]             => :watch
+        map %w[dependencies, deps]      => :vendor
+        map %w[deploy, remote]          => :server
+        map %w[vagrant, vvv]            => :vm
 
         #
         # Class options
@@ -41,12 +41,12 @@ module ThemeJuice
         end
 
         desc "create [NAME]", "Create new site and setup VVV environment"
-        method_option :bare,         :type => :boolean, :aliases => "-b",                    :desc => "Create a VVV site without a starter theme"
         method_option :name,         :type => :string,  :aliases => "-n", :default => false, :desc => "Name of the development site"
         method_option :location,     :type => :string,  :aliases => "-l", :default => false, :desc => "Location of the local site"
         method_option :theme,        :type => :string,  :aliases => "-t", :default => false, :desc => "Starter theme to install"
         method_option :url,          :type => :string,  :aliases => "-u", :default => false, :desc => "Development URL of the site"
         method_option :repository,   :type => :string,  :aliases => "-r",                    :desc => "Initialize a new Git remote repository"
+        method_option :bare,         :type => :boolean,                                      :desc => "Create a VVV site without a starter theme"
         method_option :skip_repo,    :type => :boolean,                                      :desc => "Skip repository prompts and use defaults"
         method_option :skip_db,      :type => :boolean,                                      :desc => "Skip database prompts and use defaults"
         method_option :use_defaults, :type => :boolean,                                      :desc => "Skip all prompts and use default settings"
@@ -63,13 +63,13 @@ module ThemeJuice
             @interaction.hello
 
             opts = {
-                :site_bare          => options[:bare],
                 :site_name          => name || options[:name],
                 :site_location      => options[:location],
                 :site_starter_theme => options[:theme],
                 :site_dev_location  => nil,
                 :site_dev_url       => options[:url],
                 :site_repository    => options[:repository],
+                :site_bare          => options[:bare],
                 :skip_repo          => options[:skip_repo],
                 :skip_db            => options[:skip_db],
                 :use_defaults       => options[:use_defaults]
@@ -99,13 +99,13 @@ module ThemeJuice
             @interaction.hello
 
             opts = {
-                :site_bare          => true,
                 :site_name          => name || options[:name],
                 :site_location      => options[:location],
                 :site_starter_theme => false,
                 :site_dev_location  => nil,
                 :site_dev_url       => options[:url],
                 :site_repository    => options[:repository],
+                :site_bare          => true,
                 :skip_repo          => options[:skip_repo],
                 :skip_db            => options[:skip_db],
                 :use_defaults       => options[:use_defaults]

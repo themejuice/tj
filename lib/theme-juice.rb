@@ -6,7 +6,6 @@ require "fileutils"
 require "pathname"
 require "tempfile"
 require "yaml"
-require "os"
 
 module ThemeJuice
 end

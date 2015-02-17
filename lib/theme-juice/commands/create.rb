@@ -10,7 +10,6 @@ module ThemeJuice
         #
         def initialize(opts = {})
             super
-
             ::ThemeJuice::Service::Create.new(@opts).create
         end
     end

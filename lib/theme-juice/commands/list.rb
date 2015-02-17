@@ -10,7 +10,6 @@ module ThemeJuice
         #
         def initialize(opts = {})
             super
-
             ::ThemeJuice::Service::List.new.list
         end
     end

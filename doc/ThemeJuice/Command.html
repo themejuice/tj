@@ -135,7 +135,7 @@
         <li class="public ">
   <span class="summary_signature">
     
-      <a href="#initialize-instance_method" title="#initialize (instance method)">- (Command) <strong>initialize</strong>(opts = {}) </a>
+      <a href="#initialize-instance_method" title="#initialize (instance method)">- (Void) <strong>initialize</strong>(opts = {}) </a>
     
 
     
@@ -151,9 +151,7 @@
   
 
   
-    <span class="summary_desc"><div class='inline'>
-<p>A new instance of Command.</p>
-</div></span>
+    <span class="summary_desc"><div class='inline'></div></span>
   
 </li>
 
@@ -169,7 +167,7 @@
     <div class="method_details first">
   <h3 class="signature first" id="initialize-instance_method">
   
-    - (<tt><span class='object_link'><a href="" title="ThemeJuice::Command (class)">Command</a></span></tt>) <strong>initialize</strong>(opts = {}) 
+    - (<tt>Void</tt>) <strong>initialize</strong>(opts = {}) 
   
 
   
@@ -178,13 +176,28 @@
 </h3><div class="docstring">
   <div class="discussion">
     
-<p>Returns a new instance of Command</p>
-
 
   </div>
 </div>
 <div class="tags">
+  <p class="tag_title">Parameters:</p>
+<ul class="param">
   
+    <li>
+      
+        <span class='name'>opts</span>
+      
+      
+        <span class='type'>(<tt>Hash</tt>)</span>
+      
+      
+        <em class="default">(defaults to: <tt>{}</tt>)</em>
+      
+      
+    </li>
+  
+</ul>
+
 
 </div><table class="source_code">
   <tr>
@@ -192,14 +205,14 @@
       <pre class="lines">
 
 
-8
-9
-10
-11
-12</pre>
+13
+14
+15
+16
+17</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/theme-juice/command.rb', line 8</span>
+      <pre class="code"><span class="info file"># File 'lib/theme-juice/command.rb', line 13</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_initialize'>initialize</span><span class='lparen'>(</span><span class='id identifier rubyid_opts'>opts</span> <span class='op'>=</span> <span class='lbrace'>{</span><span class='rbrace'>}</span><span class='rparen'>)</span>
     <span class='ivar'>@environment</span> <span class='op'>=</span> <span class='op'>::</span><span class='const'>ThemeJuice</span><span class='op'>::</span><span class='const'>Environment</span>
@@ -217,7 +230,7 @@
 </div>
 
     <div id="footer">
-  Generated on Mon Feb 16 17:49:19 2015 by
+  Generated on Tue Feb 17 08:34:45 2015 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.8.7.6 (ruby-2.0.0).
 </div>

@@ -7,8 +7,7 @@ module ThemeJuice
         # @param {Hash} opts
         #
         def initialize(opts)
-            opts = ThemeJuice::Interaction::Delete.new.get_site_options(opts)
-
+            opts = ThemeJuice::Interaction::Delete.get_site_options(opts)
             super
         end
 

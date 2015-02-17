@@ -10,7 +10,6 @@ module ThemeJuice
         #
         def initialize(opts = {})
             super
-
             ::ThemeJuice::Service::Config.new.install
         end
     end

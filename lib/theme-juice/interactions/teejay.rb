@@ -3,14 +3,10 @@
 module ThemeJuice
     class Interaction::TeeJay
 
-        #
-        # Set up interactions and environment
-        #
-        # @return {Void}
-        #
-        def initialize
-            @environment = ::ThemeJuice::Environment
-            @interaction = ::ThemeJuice::Interaction
+        @environment = ::ThemeJuice::Environment
+        @interaction = ::ThemeJuice::Interaction
+
+        class << self
         end
     end
 end

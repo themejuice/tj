@@ -10,7 +10,6 @@ module ThemeJuice
         #
         def initialize(opts = {})
             super
-
             ::ThemeJuice::Service::Delete.new(@opts).delete
         end
     end

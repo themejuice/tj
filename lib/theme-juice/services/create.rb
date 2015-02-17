@@ -7,8 +7,7 @@ module ThemeJuice
         # @param {Hash} opts
         #
         def initialize(opts = {})
-            opts = ::ThemeJuice::Interaction::Create.new.setup_site_options(opts)
-
+            opts = ::ThemeJuice::Interaction::Create.setup_site_options(opts)
             super
         end
 
@@ -60,13 +59,14 @@ module ThemeJuice
                             "Database password: #{@opts[:site_db_pass]}"
                         ]
 
-                        unless OS.windows?
-                            @interaction.notice "Do you want to open up your new site 'http://#{@opts[:site_dev_url]}' now? (y/N)"
+                        @interaction.speak "Do you want to open up your new site 'http://#{@opts[:site_dev_url]}' now? (y/N)", {
+                            :color => [:black, :on_blue],
+                            :icon  => :restart,
+                            :row   => true
+                        }
 
-                            run ["open http://#{@opts[:site_dev_url]}"] if @interaction.agree? "", {
-                                :color  => :yellow,
-                                :simple => true
-                            }
+                        if @interaction.agree? "", { :simple => true }
+                            run ["open http://#{@opts[:site_dev_url]}"]
                         end
                     end
                 else
@@ -75,7 +75,7 @@ module ThemeJuice
                 end
             else
                 @interaction.error "Setup failed. Running cleanup" do
-                    ::ThemeJuice::Service::Delete.new({ site_name: @opts[:site_name], :restart => false }).delete
+                    ::ThemeJuice::Service::Delete.new({ :site_name => @opts[:site_name], :restart => false }).delete
                 end
             end
         end

@@ -102,7 +102,6 @@ module ThemeJuice
             # @return {Bool}
             #
             def agree?(question, opts = {})
-
                 format_message question, {
                     :color => opts[:color] || :blue,
                     :icon  => :question
