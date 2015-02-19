@@ -364,7 +364,7 @@ module ThemeJuice
         # @return {Void}
         #
         def install_starter_theme_dependencies
-            use_config
+            load_config
 
             @interaction.log "Installing theme dependencies"
 

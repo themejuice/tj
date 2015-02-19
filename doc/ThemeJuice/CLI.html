@@ -427,7 +427,6 @@
       <pre class="lines">
 
 
-61
 62
 63
 64
@@ -445,10 +444,11 @@
 76
 77
 78
-79</pre>
+79
+80</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/theme-juice/cli.rb', line 61</span>
+      <pre class="code"><span class="info file"># File 'lib/theme-juice/cli.rb', line 62</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_create'>create</span><span class='lparen'>(</span><span class='id identifier rubyid_name'>name</span> <span class='op'>=</span> <span class='kw'>nil</span><span class='rparen'>)</span>
     <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_set_environment'>set_environment</span>
@@ -536,7 +536,6 @@ within the VVV environment.</p>
       <pre class="lines">
 
 
-129
 130
 131
 132
@@ -546,10 +545,11 @@ within the VVV environment.</p>
 136
 137
 138
-139</pre>
+139
+140</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/theme-juice/cli.rb', line 129</span>
+      <pre class="code"><span class="info file"># File 'lib/theme-juice/cli.rb', line 130</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_delete'>delete</span><span class='lparen'>(</span><span class='id identifier rubyid_name'>name</span> <span class='op'>=</span> <span class='kw'>nil</span><span class='rparen'>)</span>
     <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_set_environment'>set_environment</span>
@@ -606,14 +606,14 @@ within the VVV environment.</p>
       <pre class="lines">
 
 
-159
 160
 161
 162
-163</pre>
+163
+164</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/theme-juice/cli.rb', line 159</span>
+      <pre class="code"><span class="info file"># File 'lib/theme-juice/cli.rb', line 160</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_install'>install</span>
     <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_set_environment'>set_environment</span>
@@ -664,14 +664,14 @@ within the VVV environment.</p>
       <pre class="lines">
 
 
-147
 148
 149
 150
-151</pre>
+151
+152</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/theme-juice/cli.rb', line 147</span>
+      <pre class="code"><span class="info file"># File 'lib/theme-juice/cli.rb', line 148</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_list'>list</span>
     <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_set_environment'>set_environment</span>
@@ -742,7 +742,6 @@ within the VVV environment.</p>
       <pre class="lines">
 
 
-214
 215
 216
 217
@@ -751,10 +750,17 @@ within the VVV environment.</p>
 220
 221
 222
-223</pre>
+223
+224
+225
+226
+227
+228
+229
+230</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/theme-juice/cli.rb', line 214</span>
+      <pre class="code"><span class="info file"># File 'lib/theme-juice/cli.rb', line 215</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_server'>server</span><span class='lparen'>(</span><span class='op'>*</span><span class='id identifier rubyid_commands'>commands</span><span class='rparen'>)</span>
     <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_set_environment'>set_environment</span>
@@ -764,7 +770,13 @@ within the VVV environment.</p>
         <span class='symbol'>:commands</span>   <span class='op'>=&gt;</span> <span class='id identifier rubyid_commands'>commands</span><span class='period'>.</span><span class='id identifier rubyid_join'>join</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'> </span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span>
     <span class='rbrace'>}</span>
 
-    <span class='ivar'>@subcommand</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='id identifier rubyid_opts'>opts</span><span class='rparen'>)</span>
+    <span class='kw'>if</span> <span class='ivar'>@deployer</span>
+        <span class='ivar'>@interaction</span><span class='period'>.</span><span class='id identifier rubyid_speak'>speak</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Using Deployer</span><span class='tstring_end'>&quot;</span></span>
+        <span class='ivar'>@deployer</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='period'>.</span><span class='id identifier rubyid_invoke'>invoke</span><span class='lparen'>(</span><span class='id identifier rubyid_opts'>opts</span><span class='lbracket'>[</span><span class='symbol'>:commands</span><span class='rbracket'>]</span><span class='rparen'>)</span>
+    <span class='kw'>else</span>
+        <span class='ivar'>@interaction</span><span class='period'>.</span><span class='id identifier rubyid_speak'>speak</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Using subcommand</span><span class='tstring_end'>&quot;</span></span>
+        <span class='ivar'>@subcommand</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='id identifier rubyid_opts'>opts</span><span class='rparen'>)</span>
+    <span class='kw'>end</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -832,7 +844,6 @@ within the VVV environment.</p>
       <pre class="lines">
 
 
-97
 98
 99
 100
@@ -850,10 +861,11 @@ within the VVV environment.</p>
 112
 113
 114
-115</pre>
+115
+116</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/theme-juice/cli.rb', line 97</span>
+      <pre class="code"><span class="info file"># File 'lib/theme-juice/cli.rb', line 98</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_setup'>setup</span><span class='lparen'>(</span><span class='id identifier rubyid_name'>name</span> <span class='op'>=</span> <span class='kw'>nil</span><span class='rparen'>)</span>
     <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_set_environment'>set_environment</span>
@@ -938,7 +950,6 @@ within the VVV environment.</p>
       <pre class="lines">
 
 
-194
 195
 196
 197
@@ -947,10 +958,11 @@ within the VVV environment.</p>
 200
 201
 202
-203</pre>
+203
+204</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/theme-juice/cli.rb', line 194</span>
+      <pre class="code"><span class="info file"># File 'lib/theme-juice/cli.rb', line 195</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_vendor'>vendor</span><span class='lparen'>(</span><span class='op'>*</span><span class='id identifier rubyid_commands'>commands</span><span class='rparen'>)</span>
     <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_set_environment'>set_environment</span>
@@ -1006,16 +1018,16 @@ within the VVV environment.</p>
       <pre class="lines">
 
 
-35
 36
 37
 38
 39
 40
-41</pre>
+41
+42</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/theme-juice/cli.rb', line 35</span>
+      <pre class="code"><span class="info file"># File 'lib/theme-juice/cli.rb', line 36</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_version'>version</span>
     <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_set_environment'>set_environment</span>
@@ -1088,14 +1100,14 @@ within the VVV environment.</p>
       <pre class="lines">
 
 
-234
-235
-236
-237
-238</pre>
+241
+242
+243
+244
+245</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/theme-juice/cli.rb', line 234</span>
+      <pre class="code"><span class="info file"># File 'lib/theme-juice/cli.rb', line 241</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_vm'>vm</span><span class='lparen'>(</span><span class='op'>*</span><span class='id identifier rubyid_commands'>commands</span><span class='rparen'>)</span>
     <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_set_environment'>set_environment</span>
@@ -1166,7 +1178,6 @@ within the VVV environment.</p>
       <pre class="lines">
 
 
-174
 175
 176
 177
@@ -1175,10 +1186,11 @@ within the VVV environment.</p>
 180
 181
 182
-183</pre>
+183
+184</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/theme-juice/cli.rb', line 174</span>
+      <pre class="code"><span class="info file"># File 'lib/theme-juice/cli.rb', line 175</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_watch'>watch</span><span class='lparen'>(</span><span class='op'>*</span><span class='id identifier rubyid_commands'>commands</span><span class='rparen'>)</span>
     <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_set_environment'>set_environment</span>
@@ -1200,7 +1212,7 @@ within the VVV environment.</p>
 </div>
 
     <div id="footer">
-  Generated on Tue Feb 17 08:34:45 2015 by
+  Generated on Wed Feb 18 11:09:08 2015 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.8.7.6 (ruby-2.0.0).
 </div>

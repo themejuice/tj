@@ -38,11 +38,11 @@ module ThemeJuice
         end
 
         #
-        # Verify config is properly setup, set global var
+        # Verify config is properly setup and load it
         #
         # @return {Void}
         #
-        def use_config
+        def load_config
 
             if config_is_setup?
                 @config = YAML.load_file(Dir["#{@config_path}/*"].select { |f| @config_regex =~ File.basename(f) }.last)
@@ -76,12 +76,17 @@ module ThemeJuice
         end
 
         #
+        # Test if site creation was successful
+        #
         # @return {Bool}
         #
         def setup_was_successful?
             vvv_is_setup? and dev_site_is_setup? and hosts_is_setup? and database_is_setup? and nginx_is_setup?
         end
 
+        #
+        # Test if site removal was successful. This just reverses the check
+        #  for a successful setup.
         #
         # @return {Bool}
         #
@@ -90,6 +95,8 @@ module ThemeJuice
         end
 
         #
+        # Test if project directory tree has been created
+        #
         # @return {Bool}
         #
         def project_dir_is_setup?
@@ -97,12 +104,16 @@ module ThemeJuice
         end
 
         #
+        # Test if config file is in current working directory
+        #
         # @return {Bool}
         #
         def config_is_setup?
-            !Dir["#{@config_path}/*"].select { |f| File.basename(f) =~ @config_regex }.empty?
+            !Dir["#{@config_path}/*"].select { |f| @config_regex =~ File.basename(f) }.empty?
         end
 
+        #
+        # Test if VVV has been cloned
         #
         # @return {Bool}
         #
@@ -111,12 +122,16 @@ module ThemeJuice
         end
 
         #
+        # Test if landrush block has been placed
+        #
         # @return {Bool}
         #
         def wildcard_subdomains_is_setup?
             File.readlines(File.expand_path("#{@environment.vvv_path}/Vagrantfile")).grep(/(config.landrush.enabled = true)/m).any?
         end
 
+        #
+        # Test if VVV development location has been created
         #
         # @return {Bool}
         #
@@ -125,12 +140,16 @@ module ThemeJuice
         end
 
         #
+        # Test if hosts file has been created
+        #
         # @return {Bool}
         #
         def hosts_is_setup?
             File.exist? "#{@opts[:site_location]}/vvv-hosts"
         end
 
+        #
+        # Test if database block has been placed
         #
         # @return {Bool}
         #
@@ -139,6 +158,8 @@ module ThemeJuice
         end
 
         #
+        # Test if nginx config has been created
+        #
         # @return {Bool}
         #
         def nginx_is_setup?
@@ -146,12 +167,17 @@ module ThemeJuice
         end
 
         #
+        # Test if starter theme has been set up by checking for common
+        #  WordPress directories
+        #
         # @return {Bool}
         #
         def starter_theme_is_setup?
-            !Dir["#{@opts[:site_location]}/*"].select { |f| File.basename(f) =~ %r{wp(-content)?|wordpress|app|public|web|content} }.empty?
+            !Dir["#{@opts[:site_location]}/*"].select { |f| %r{wp(-content)?|wordpress|app|public|web|content} =~ File.basename(f) }.empty?
         end
 
+        #
+        # Test if synced folder block has been placed
         #
         # @return {Bool}
         #
@@ -160,12 +186,16 @@ module ThemeJuice
         end
 
         #
+        # Test if repository has been set up
+        #
         # @return {Bool}
         #
         def repo_is_setup?
             File.exist? File.expand_path("#{@opts[:site_location]}/.git")
         end
 
+        #
+        # Test if .env file has been created
         #
         # @return {Bool}
         #
@@ -174,12 +204,16 @@ module ThemeJuice
         end
 
         #
+        # Test if local wp-cli file has been created
+        #
         # @return {Bool}
         #
         def wpcli_is_setup?
             File.exist? File.expand_path("#{@opts[:site_location]}/wp-cli.local.yml")
         end
 
+        #
+        # Test if we're initializing a new repository
         #
         # @return {Bool}
         #

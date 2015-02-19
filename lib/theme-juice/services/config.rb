@@ -16,7 +16,7 @@ module ThemeJuice
         # @return {Void}
         #
         def install
-            use_config
+            load_config
 
             @config["commands"]["install"].each do |command|
                 run ["cd #{@config_path}", command], false
@@ -32,7 +32,7 @@ module ThemeJuice
         # @return {Void}
         #
         def subcommand(subcommand, command)
-            use_config
+            load_config
 
             if @config["commands"][subcommand]
                 run ["#{@config["commands"][subcommand]} #{command}"], false

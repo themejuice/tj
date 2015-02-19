@@ -24,7 +24,8 @@ module ThemeJuice
         class_option :boring,        :type => :boolean,                  :desc => "Disable all the coolness"
         class_option :no_unicode,    :type => :boolean,                  :desc => "Disable all unicode characters"
         class_option :no_colors,     :type => :boolean,                  :desc => "Disable all colored output"
-        class_option :no_animations, :type => :boolean,                  :desc => "Disable all animations"
+        # class_option :no_animations, :type => :boolean,                  :desc => "Disable all animations"
+        # class_option :no_deployer,   :type => :boolean,                  :desc => "Disable deployer"
 
         desc "--version, -v", "Print current version"
         #
@@ -248,40 +249,48 @@ module ThemeJuice
             # @return {Void}
             #
             def set_environment
-                @version     = ::ThemeJuice::VERSION
-                @environment = ::ThemeJuice::Environment
-                @interaction = ::ThemeJuice::Interaction
-                @create      = ::ThemeJuice::Command::Create
-                @delete      = ::ThemeJuice::Command::Delete
-                @list        = ::ThemeJuice::Command::List
-                @install     = ::ThemeJuice::Command::Install
-                @subcommand  = ::ThemeJuice::Command::Subcommand
-
-                @environment.no_colors     = if self.boring? then true else options[:no_colors]     end
-                @environment.no_unicode    = if self.boring? then true else options[:no_unicode]    end
-                @environment.no_animations = if self.boring? then true else options[:no_animations] end
+                @version      = ::ThemeJuice::VERSION
+                @environment  = ::ThemeJuice::Environment
+                @interaction  = ::ThemeJuice::Interaction
+                @create       = ::ThemeJuice::Command::Create
+                @delete       = ::ThemeJuice::Command::Delete
+                @list         = ::ThemeJuice::Command::List
+                @install      = ::ThemeJuice::Command::Install
+                @subcommand   = ::ThemeJuice::Command::Subcommand
 
                 self.force_vvv_path?
-                self.yolo?
+
+                @environment.yolo          = options[:yolo]
+                @environment.boring        = options[:boring]
+                # @environment.no_deployer   = options[:no_deployer]
+                @environment.no_colors     = if @environment.boring then true else options[:no_colors]     end
+                @environment.no_unicode    = if @environment.boring then true else options[:no_unicode]    end
+                # @environment.no_animations = if @environment.boring then true else options[:no_animations] end
+
+                # if self.deployer?
+                #     @deployer = ::ThemeJuiceDeploy::Deployer
+                # else
+                #     @deployer = nil
+                # end
             end
 
-            #
-            # Enable boring-mode
-            #
-            # @return {Bool}
-            #
-            def boring?
-                @environment.boring = options[:boring]
-            end
-
-            #
-            # Enable yolo-mode
-            #
-            # @return {Bool}
-            #
-            def yolo?
-                @environment.yolo = options[:yolo]
-            end
+            # #
+            # # Load deployer if installed
+            # #
+            # # @return {Bool}
+            # #
+            # def deployer?
+            #     if @environment.no_deployer
+            #         false
+            #     else
+            #         begin
+            #             require "theme-juice-deploy"
+            #             true
+            #         rescue LoadError
+            #             false
+            #         end
+            #     end
+            # end
 
             #
             # Set VVV path

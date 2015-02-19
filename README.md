@@ -47,9 +47,11 @@ tj --version # Aliases: -v, version
 
 ### Global flags:
 | Flag                | Type   | Description                                |
-|:--------------------|:------ |:------------------------------------------ |
+|:------------------- |:------ |:------------------------------------------ |
 | `[--no-unicode]`    | Bool   | Disable all unicode characters             |
 | `[--no-colors]`     | Bool   | Disable colored output                     |
+<!-- | `[--no-animations]` | Bool   | Disable animations                         | -->
+<!-- | `[--no-deployer]`   | Bool   | Disable deployer                           | -->
 | `[--vvv-path=PATH]` | String | Force custom path to your VVV installation |
 
 ### Creating a new development site:
