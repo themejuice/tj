@@ -102,7 +102,7 @@
         <li class="public ">
   <span class="summary_signature">
     
-      <a href="#get_site_options-class_method" title="get_site_options (class method)">+ (Hash) <strong>get_site_options</strong>(opts = {}) </a>
+      <a href="#get_project_options-class_method" title="get_project_options (class method)">+ (Hash) <strong>get_project_options</strong>(opts = {}) </a>
     
 
     
@@ -133,9 +133,9 @@
 
     
       <div class="method_details first">
-  <h3 class="signature first" id="get_site_options-class_method">
+  <h3 class="signature first" id="get_project_options-class_method">
   
-    + (<tt>Hash</tt>) <strong>get_site_options</strong>(opts = {}) 
+    + (<tt>Hash</tt>) <strong>get_project_options</strong>(opts = {}) 
   
 
   
@@ -200,11 +200,11 @@
     <td>
       <pre class="code"><span class="info file"># File 'lib/theme-juice/interactions/delete.rb', line 18</span>
 
-<span class='kw'>def</span> <span class='id identifier rubyid_get_site_options'>get_site_options</span><span class='lparen'>(</span><span class='id identifier rubyid_opts'>opts</span> <span class='op'>=</span> <span class='lbrace'>{</span><span class='rbrace'>}</span><span class='rparen'>)</span>
+<span class='kw'>def</span> <span class='id identifier rubyid_get_project_options'>get_project_options</span><span class='lparen'>(</span><span class='id identifier rubyid_opts'>opts</span> <span class='op'>=</span> <span class='lbrace'>{</span><span class='rbrace'>}</span><span class='rparen'>)</span>
     <span class='ivar'>@opts</span> <span class='op'>=</span> <span class='id identifier rubyid_opts'>opts</span>
 
-    <span class='ivar'>@opts</span><span class='lbracket'>[</span><span class='symbol'>:site_name</span><span class='rbracket'>]</span>         <span class='op'>||=</span> <span class='id identifier rubyid_get_site_name'>get_site_name</span>
-    <span class='ivar'>@opts</span><span class='lbracket'>[</span><span class='symbol'>:site_dev_location</span><span class='rbracket'>]</span> <span class='op'>||=</span> <span class='id identifier rubyid_get_site_dev_location'>get_site_dev_location</span>
+    <span class='ivar'>@opts</span><span class='lbracket'>[</span><span class='symbol'>:project_name</span><span class='rbracket'>]</span>         <span class='op'>||=</span> <span class='id identifier rubyid_get_project_name'>get_project_name</span>
+    <span class='ivar'>@opts</span><span class='lbracket'>[</span><span class='symbol'>:project_dev_location</span><span class='rbracket'>]</span> <span class='op'>||=</span> <span class='id identifier rubyid_get_project_dev_location'>get_project_dev_location</span>
 
     <span class='ivar'>@opts</span>
 <span class='kw'>end</span></pre>

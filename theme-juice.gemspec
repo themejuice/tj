@@ -2,39 +2,24 @@
 
 require_relative "lib/theme-juice"
 
-Gem::Specification.new do |spec|
+Gem::Specification.new do |gem|
+  gem.name           = "theme-juice"
+  gem.version        = ::ThemeJuice::VERSION
+  gem.authors        = ["Ezekiel Gabrielse"]
+  gem.email          = ["ezekg@yahoo.com"]
+  gem.description    = %q{Theme Juice is a WordPress development command line utility that allows you to scaffold out entire Vagrant development environments in seconds, manage dependencies and build tools, and even handle deployments.}
+  gem.summary        = %q{Theme Juice - WordPress development made easy}
+  gem.homepage       = "https://themejuice.it"
 
-    # Version
-    spec.version = ::ThemeJuice::VERSION
+  gem.licenses       = "GNU"
 
-    # Details
-    spec.name = "theme-juice"
-    spec.rubyforge_project = "theme-juice"
-    spec.licenses = "GNU"
-    spec.authors = ["Ezekiel Gabrielse"]
-    spec.email = ["ezekg@yahoo.com"]
-    spec.homepage = "https://github.com/ezekg/theme-juice-cli.git"
+  gem.files          = Dir.glob("lib/**/*.*")
+  gem.files         += ["README.md"]
+  gem.test_files     = gem.files.grep(%r{^(test|spec|features)/})
+  gem.executables    = ["tj"]
+  gem.require_paths  = ["lib"]
 
-    # Description
-    spec.summary = %q{A WordPress development framework.}
-    spec.description = %q{A WordPress development framework that scaffolds out an entire Vagrant development environment in seconds. Uses trendy tech like Haml, Sass and CoffeeScript.}
-
-    # Library
-    spec.files += Dir.glob("lib/**/*.*")
-
-    # Other
-    spec.files += ["LICENSE", "README.md"]
-
-    # Executable
-    spec.executables = ["tj"]
-
-    # Test
-    # spec.test_files += Dir.glob("tests/**/*.*")
-
-    # Required Ruby version
-    spec.required_ruby_version = ">= 1.9.3"
-
-    # Dependencies
-    spec.add_dependency "faker"
-    spec.add_dependency "thor"
+  gem.required_ruby_version = ">= 1.9.3"
+  gem.add_dependency "faker", "~> 1.4"
+  gem.add_dependency "thor", "~> 0.19"
 end

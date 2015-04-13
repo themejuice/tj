@@ -2,14 +2,14 @@
 # encoding: UTF-8
 
 begin
-    require_relative "../lib/theme-juice"
+  require_relative "../lib/theme-juice"
 rescue LoadError => err
-    warn err
-    exit 1
+  warn err
+  exit 1
 end
 
 Signal.trap "INT" do
-    ::ThemeJuice::Interaction.goodbye
+  ::ThemeJuice::Interaction.goodbye
 end
 
 ::ThemeJuice::CLI.start

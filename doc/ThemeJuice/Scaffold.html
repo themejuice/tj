@@ -353,7 +353,7 @@
 <span class='kw'>def</span> <span class='id identifier rubyid_create'>create</span><span class='lparen'>(</span><span class='id identifier rubyid_opts'>opts</span><span class='rparen'>)</span>
     <span class='ivar'>@opts</span> <span class='op'>=</span> <span class='id identifier rubyid_opts'>opts</span>
 
-    <span class='id identifier rubyid_say'>say</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Running setup for &#39;</span><span class='embexpr_beg'>#{</span><span class='ivar'>@opts</span><span class='lbracket'>[</span><span class='symbol'>:site_name</span><span class='rbracket'>]</span><span class='embexpr_end'>}</span><span class='tstring_content'>&#39;...</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='symbol'>:yellow</span>
+    <span class='id identifier rubyid_say'>say</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Running setup for &#39;</span><span class='embexpr_beg'>#{</span><span class='ivar'>@opts</span><span class='lbracket'>[</span><span class='symbol'>:project_name</span><span class='rbracket'>]</span><span class='embexpr_end'>}</span><span class='tstring_content'>&#39;...</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='symbol'>:yellow</span>
 
     <span class='kw'>unless</span> <span class='id identifier rubyid_wordpress_is_setup?'>wordpress_is_setup?</span>
         <span class='id identifier rubyid_setup_wordpress'>setup_wordpress</span>
@@ -379,7 +379,7 @@
         <span class='id identifier rubyid_setup_nginx'>setup_nginx</span>
     <span class='kw'>end</span>
 
-    <span class='kw'>unless</span> <span class='id identifier rubyid_dev_site_is_setup?'>dev_site_is_setup?</span>
+    <span class='kw'>unless</span> <span class='id identifier rubyid_dev_project_is_setup?'>dev_project_is_setup?</span>
         <span class='id identifier rubyid_setup_dev_site'>setup_dev_site</span>
     <span class='kw'>end</span>
 
@@ -416,8 +416,8 @@
 
             <span class='comment'># Output setup info
 </span>            <span class='id identifier rubyid_say'>say</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Here&#39;s your installation info:</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='symbol'>:yellow</span>
-            <span class='id identifier rubyid_say'>say</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>---&gt; Site name: </span><span class='embexpr_beg'>#{</span><span class='ivar'>@opts</span><span class='lbracket'>[</span><span class='symbol'>:site_name</span><span class='rbracket'>]</span><span class='embexpr_end'>}</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='symbol'>:blue</span>
-            <span class='id identifier rubyid_say'>say</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>---&gt; Site location: </span><span class='embexpr_beg'>#{</span><span class='ivar'>@opts</span><span class='lbracket'>[</span><span class='symbol'>:site_location</span><span class='rbracket'>]</span><span class='embexpr_end'>}</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='symbol'>:blue</span>
+            <span class='id identifier rubyid_say'>say</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>---&gt; Site name: </span><span class='embexpr_beg'>#{</span><span class='ivar'>@opts</span><span class='lbracket'>[</span><span class='symbol'>:project_name</span><span class='rbracket'>]</span><span class='embexpr_end'>}</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='symbol'>:blue</span>
+            <span class='id identifier rubyid_say'>say</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>---&gt; Site location: </span><span class='embexpr_beg'>#{</span><span class='ivar'>@opts</span><span class='lbracket'>[</span><span class='symbol'>:project_location</span><span class='rbracket'>]</span><span class='embexpr_end'>}</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='symbol'>:blue</span>
             <span class='id identifier rubyid_say'>say</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>---&gt; Starter theme: </span><span class='embexpr_beg'>#{</span><span class='ivar'>@opts</span><span class='lbracket'>[</span><span class='symbol'>:starter_theme</span><span class='rbracket'>]</span><span class='embexpr_end'>}</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='symbol'>:blue</span>
             <span class='id identifier rubyid_say'>say</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>---&gt; Development location: </span><span class='embexpr_beg'>#{</span><span class='ivar'>@opts</span><span class='lbracket'>[</span><span class='symbol'>:dev_location</span><span class='rbracket'>]</span><span class='embexpr_end'>}</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='symbol'>:blue</span>
             <span class='id identifier rubyid_say'>say</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>---&gt; Development url: http://</span><span class='embexpr_beg'>#{</span><span class='ivar'>@opts</span><span class='lbracket'>[</span><span class='symbol'>:dev_url</span><span class='rbracket'>]</span><span class='embexpr_end'>}</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='symbol'>:blue</span>
@@ -429,7 +429,7 @@
         <span class='kw'>end</span>
     <span class='kw'>else</span>
         <span class='id identifier rubyid_say'>say</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Setup failed. Running cleanup...</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='symbol'>:red</span>
-        <span class='id identifier rubyid_delete'>delete</span> <span class='ivar'>@opts</span><span class='lbracket'>[</span><span class='symbol'>:site_name</span><span class='rbracket'>]</span><span class='comma'>,</span> <span class='kw'>false</span>
+        <span class='id identifier rubyid_delete'>delete</span> <span class='ivar'>@opts</span><span class='lbracket'>[</span><span class='symbol'>:project_name</span><span class='rbracket'>]</span><span class='comma'>,</span> <span class='kw'>false</span>
     <span class='kw'>end</span>
 <span class='kw'>end</span></pre>
     </td>
@@ -550,14 +550,14 @@
 </span>    <span class='comment'>#   I&#39;d like to handle state within a config file.
 </span>    <span class='comment'>###
 </span>    <span class='ivar'>@opts</span> <span class='op'>=</span> <span class='lbrace'>{</span>
-        <span class='label'>site_name:</span> <span class='id identifier rubyid_site'>site</span><span class='comma'>,</span>
+        <span class='label'>project_name:</span> <span class='id identifier rubyid_site'>site</span><span class='comma'>,</span>
         <span class='label'>dev_location:</span> <span class='const'>File</span><span class='period'>.</span><span class='id identifier rubyid_expand_path'>expand_path</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>~/vagrant/www/tj-</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_site'>site</span><span class='embexpr_end'>}</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span>
     <span class='rbrace'>}</span>
 
-    <span class='kw'>if</span> <span class='id identifier rubyid_dev_site_is_setup?'>dev_site_is_setup?</span>
+    <span class='kw'>if</span> <span class='id identifier rubyid_dev_project_is_setup?'>dev_project_is_setup?</span>
         <span class='id identifier rubyid_remove_dev_site'>remove_dev_site</span>
     <span class='kw'>else</span>
-        <span class='id identifier rubyid_say'>say</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Site &#39;</span><span class='embexpr_beg'>#{</span><span class='ivar'>@opts</span><span class='lbracket'>[</span><span class='symbol'>:site_name</span><span class='rbracket'>]</span><span class='embexpr_end'>}</span><span class='tstring_content'>&#39; does not exist.</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='symbol'>:red</span>
+        <span class='id identifier rubyid_say'>say</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Site &#39;</span><span class='embexpr_beg'>#{</span><span class='ivar'>@opts</span><span class='lbracket'>[</span><span class='symbol'>:project_name</span><span class='rbracket'>]</span><span class='embexpr_end'>}</span><span class='tstring_content'>&#39; does not exist.</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='symbol'>:red</span>
         <span class='id identifier rubyid_exit'>exit</span> <span class='int'>1</span>
     <span class='kw'>end</span>
 
@@ -570,14 +570,14 @@
     <span class='kw'>end</span>
 
     <span class='kw'>if</span> <span class='id identifier rubyid_removal_was_successful?'>removal_was_successful?</span>
-        <span class='id identifier rubyid_say'>say</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Site &#39;</span><span class='embexpr_beg'>#{</span><span class='ivar'>@opts</span><span class='lbracket'>[</span><span class='symbol'>:site_name</span><span class='rbracket'>]</span><span class='embexpr_end'>}</span><span class='tstring_content'>&#39; successfully removed!</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='symbol'>:green</span>
+        <span class='id identifier rubyid_say'>say</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Site &#39;</span><span class='embexpr_beg'>#{</span><span class='ivar'>@opts</span><span class='lbracket'>[</span><span class='symbol'>:project_name</span><span class='rbracket'>]</span><span class='embexpr_end'>}</span><span class='tstring_content'>&#39; successfully removed!</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='symbol'>:green</span>
 
         <span class='kw'>if</span> <span class='id identifier rubyid_restart'>restart</span>
             <span class='id identifier rubyid_say'>say</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Restarting VVV...</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='symbol'>:yellow</span>
             <span class='id identifier rubyid_restart_vagrant'>restart_vagrant</span>
         <span class='kw'>end</span>
     <span class='kw'>else</span>
-        <span class='id identifier rubyid_say'>say</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Site &#39;</span><span class='embexpr_beg'>#{</span><span class='ivar'>@opts</span><span class='lbracket'>[</span><span class='symbol'>:site_name</span><span class='rbracket'>]</span><span class='embexpr_end'>}</span><span class='tstring_content'>&#39; could not be fully be removed.</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='symbol'>:red</span>
+        <span class='id identifier rubyid_say'>say</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Site &#39;</span><span class='embexpr_beg'>#{</span><span class='ivar'>@opts</span><span class='lbracket'>[</span><span class='symbol'>:project_name</span><span class='rbracket'>]</span><span class='embexpr_end'>}</span><span class='tstring_content'>&#39; could not be fully be removed.</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='symbol'>:red</span>
     <span class='kw'>end</span>
 <span class='kw'>end</span></pre>
     </td>
