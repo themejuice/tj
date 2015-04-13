@@ -96,20 +96,20 @@ module ThemeJuice
     def setup(name = nil)
       @interaction.hello
 
-      @project.name         = name || options[:name]
-      @project.location     = options[:location]
-      @project.url          = options[:url]
-      @project.theme        = false
-      @project.dev_location = nil
-      @project.repository   = options[:repository]
-      @project.bare         = true
-      @project.skip_repo    = options[:skip_repo]
-      @project.skip_db      = options[:skip_db]
-      @project.use_defaults = options[:use_defaults]
-      @project.no_wp        = options[:no_wp]
-      @project.no_db        = options[:no_db]
+      # @project.name         = name || options[:name]
+      # @project.location     = options[:location]
+      # @project.url          = options[:url]
+      # @project.theme        = false
+      # @project.dev_location = nil
+      # @project.repository   = options[:repository]
+      # @project.bare         = true
+      # @project.skip_repo    = options[:skip_repo]
+      # @project.skip_db      = options[:skip_db]
+      # @project.use_defaults = options[:use_defaults]
+      # @project.no_wp        = options[:no_wp]
+      # @project.no_db        = options[:no_db]
 
-      @create.new.execute
+      @create.new(options).execute
     end
 
     desc "delete [NAME]", "Remove project (does not remove local project)"
@@ -167,6 +167,13 @@ module ThemeJuice
     def module
     end
 
+    desc "skin", "Manage project skins"
+    #
+    # @return {Void}
+    #
+    def skin
+    end
+
     desc "test", "Manage and run project tests"
     #
     # @return {Void}
@@ -174,11 +181,11 @@ module ThemeJuice
     def test
     end
 
-    desc "skin", "Manage project skins"
+    desc "update", "Update tj and its dependencies"
     #
     # @return {Void}
     #
-    def skin
+    def update
     end
 
     desc "watch [COMMANDS]", "Watch and compile assets"
@@ -279,7 +286,7 @@ module ThemeJuice
         @environment = ::ThemeJuice::Environment
         @interaction = ::ThemeJuice::Interaction
         @project     = ::ThemeJuice::Project
-        @create      = ::ThemeJuice::Command::Create
+        @create      = ::ThemeJuice::Commands::Create
         @delete      = ::ThemeJuice::Command::Delete
         @list        = ::ThemeJuice::Command::List
         @install     = ::ThemeJuice::Command::Install

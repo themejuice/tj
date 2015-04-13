@@ -410,7 +410,7 @@ module ThemeJuice
         icon = @environment.no_unicode ? "fallback_#{@opts[:icon]}" : "#{@opts[:icon]}"
 
         if @opts[:icon]
-          set(@message) { |msg| "#{ICONS[:"#{icon}"]}" << (@opts[:empty] ? nil : "#{msg}") }
+          set(@message) { |msg| "#{ICONS[:"#{icon}"]}" << (@opts[:empty] ? nil : " #{msg}") }
         else
           set(@message) { |msg| "" << msg }
         end

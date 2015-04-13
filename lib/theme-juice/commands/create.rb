@@ -1,16 +1,18 @@
 # encoding: UTF-8
 
 module ThemeJuice
-  class Command::Create < ::ThemeJuice::Command
+  module Commands
+    class Create < Command
 
-    #
-    # @param {Hash} opts
-    #
-    # @return {Void}
-    #
-    def initialize(opts = {})
-      super
-      ::ThemeJuice::Service::Create.new(@opts).create
+      def initialize(opts = {})
+        super do |tasks|
+          tasks << ::ThemeJuice::Tasks::VVV.new
+        end
+      end
+
+      def execute
+        @tasks.each { |task| task.create }
+      end
     end
   end
 end
