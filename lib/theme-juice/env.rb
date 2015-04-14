@@ -1,7 +1,7 @@
 # encoding: UTF-8
 
 module ThemeJuice
-  module Environment
+  module Env
     class << self
       attr_accessor :vvv_path
       attr_accessor :yolo
@@ -10,6 +10,7 @@ module ThemeJuice
       attr_accessor :no_colors
       attr_accessor :no_animations
       attr_accessor :no_deployer
+      attr_accessor :vm_prefix
     end
   end
 end

@@ -9,7 +9,7 @@ rescue LoadError => err
 end
 
 Signal.trap "INT" do
-  ::ThemeJuice::Interaction.goodbye
+  ::ThemeJuice::Interact.goodbye
 end
 
 ::ThemeJuice::CLI.start

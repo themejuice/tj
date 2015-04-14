@@ -1,12 +1,12 @@
-# encoding: UTF-8
-
-module ThemeJuice
-  module Interaction::TeeJay
-
-    @environment = ::ThemeJuice::Environment
-    @interaction = ::ThemeJuice::Interaction
-
-    class << self
-    end
-  end
-end
+# # encoding: UTF-8
+#
+# module ThemeJuice
+#   module Interactions::TeeJay
+#
+#     @env = ::ThemeJuice::Env
+#     @interact = ::ThemeJuice::Interact
+#
+#     class << self
+#     end
+#   end
+# end

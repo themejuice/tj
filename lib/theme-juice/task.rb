@@ -6,14 +6,23 @@ module ThemeJuice
     include ::Thor::Shell
 
     def initialize(opts = {})
-      @environment = ::ThemeJuice::Environment
-      @interaction = ::ThemeJuice::Interaction
-      @opts        = opts
-      @tasks       = []
+      @env      = Env
+      @interact = Interact
+      @project  = Project
+      @opts     = opts.dup
+      @tasks    = []
+    end
 
-      yield @tasks if block_given?
+    def runner
+      yield @tasks
+    end
 
-      @tasks
+    def do
+      @interact.error "Method 'do' not implemented for #{self}"
+    end
+
+    def undo
+      @interact.error "Method 'undo' not implemented for #{self}"
     end
   end
 end

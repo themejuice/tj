@@ -5,23 +5,25 @@ module ThemeJuice
     class VVV < Task
 
       def initialize(opts = {})
-        super do |tasks|
+        super
+
+        runner do |tasks|
           tasks << path
         end
       end
 
-      def create
-        puts "Running create method for VVV task ..."
+      def do
+        @interact.log "Running 'do' method for VVV task"
       end
 
-      def delete
-        puts "Running delete method for VVV task ..."
+      def undo
+        @interact.log "Running 'undo' method for VVV task"
       end
 
-      private
+    private
 
       def path
-        @interaction.prompt "Path" unless @opts.fetch "path", nil
+        @interact.prompt "Path" unless @opts.fetch "path", nil
       end
     end
   end

@@ -1,7 +1,7 @@
 # encoding: UTF-8
 
 module ThemeJuice
-  module Interaction
+  module Interact
 
     # Unicode icons
     ICONS = {
@@ -40,7 +40,7 @@ module ThemeJuice
     }
 
     # Get the environment
-    @environment = ::ThemeJuice::Environment
+    @env = ::ThemeJuice::Env
 
     class << self
       include ::Thor::Actions
@@ -76,7 +76,7 @@ module ThemeJuice
         opts.each do |opt|
 
           # if opt[:default]
-          #   opt[:default] = set_color(opt[:default], :black, :bold) unless @environment.no_colors
+          #   opt[:default] = set_color(opt[:default], :black, :bold) unless @env.no_colors
           # end
 
           if opt[:indent]
@@ -407,7 +407,7 @@ module ThemeJuice
       # @return {String}
       #
       def format_message_icon
-        icon = @environment.no_unicode ? "fallback_#{@opts[:icon]}" : "#{@opts[:icon]}"
+        icon = @env.no_unicode ? "fallback_#{@opts[:icon]}" : "#{@opts[:icon]}"
 
         if @opts[:icon]
           set(@message) { |msg| "#{ICONS[:"#{icon}"]}" << (@opts[:empty] ? nil : " #{msg}") }
@@ -431,7 +431,7 @@ module ThemeJuice
       # @return {String}
       #
       def format_message_color
-        unless @environment.no_colors
+        unless @env.no_colors
           set(@message) { |msg| set_color(msg, *@opts[:color]) } if @opts[:color]
         end
       end

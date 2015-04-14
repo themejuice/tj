@@ -35,46 +35,32 @@ module ThemeJuice
     # @return {String}
     #
     def version
-      @interaction.speak @version, {
+      @interact.speak @version, {
         :color => :green
       }
     end
 
     desc "create [NAME]", "Create new project"
-    method_option :name,         :type => :string,  :aliases => "-n", :default => false, :desc => "Name of the project"
-    method_option :location,     :type => :string,  :aliases => "-l", :default => false, :desc => "Location of the local project"
-    method_option :theme,        :type => :string,  :aliases => "-t", :default => false, :desc => "Starter theme to install"
-    method_option :url,          :type => :string,  :aliases => "-u", :default => false, :desc => "Development URL for the project"
-    method_option :repository,   :type => :string,  :aliases => "-r",                    :desc => "Initialize a new Git remote repository"
-    method_option :bare,         :type => :boolean,                                      :desc => "Create a VVV project without a starter theme"
-    method_option :skip_repo,    :type => :boolean,                                      :desc => "Skip repository prompts and use default settings"
-    method_option :skip_db,      :type => :boolean,                                      :desc => "Skip database prompts and use default settings"
-    method_option :use_defaults, :type => :boolean,                                      :desc => "Skip all prompts and use default settings"
-    method_option :no_wp,        :type => :boolean,                                      :desc => "New project is not a WordPress install"
-    method_option :no_db,        :type => :boolean,                                      :desc => "New project does not need a database"
+    method_option :name,         :type => :string,  :aliases => "-n", :default => nil, :desc => "Name of the project"
+    method_option :location,     :type => :string,  :aliases => "-l", :default => nil, :desc => "Location of the local project"
+    method_option :theme,        :type => :string,  :aliases => "-t", :default => nil, :desc => "Starter theme to install"
+    method_option :url,          :type => :string,  :aliases => "-u", :default => nil, :desc => "Development URL for the project"
+    method_option :repository,   :type => :string,  :aliases => "-r",                  :desc => "Initialize a new Git remote repository"
+    method_option :bare,         :type => :boolean,                                    :desc => "Create a VVV project without a starter theme"
+    method_option :skip_repo,    :type => :boolean,                                    :desc => "Skip repository prompts and use default settings"
+    method_option :skip_db,      :type => :boolean,                                    :desc => "Skip database prompts and use default settings"
+    method_option :use_defaults, :type => :boolean,                                    :desc => "Skip all prompts and use default settings"
+    method_option :no_wp,        :type => :boolean,                                    :desc => "New project is not a WordPress install"
+    method_option :no_db,        :type => :boolean,                                    :desc => "New project does not need a database"
     #
     # @param {String} name (nil)
     #   Name of the project to create
     #
     # @return {Void}
     #
-    def create(name = nil)
-      @interaction.hello
-
-      @project.name         = name || options[:name]
-      @project.location     = options[:location]
-      @project.url          = options[:url]
-      @project.theme        = options[:theme]
-      @project.dev_location = nil
-      @project.repository   = options[:repository]
-      @project.bare         = options[:bare]
-      @project.skip_repo    = options[:skip_repo]
-      @project.skip_db      = options[:skip_db]
-      @project.use_defaults = options[:use_defaults]
-      @project.no_wp        = options[:no_wp]
-      @project.no_db        = options[:no_db]
-
-      @create.new.execute
+    def create
+      @interact.hello
+      @create.new(options).do
     end
 
     desc "setup [NAME]", "Setup existing project"
@@ -94,7 +80,7 @@ module ThemeJuice
     # @return {Void}
     #
     def setup(name = nil)
-      @interaction.hello
+      @interact.hello
 
       # @project.name         = name || options[:name]
       # @project.location     = options[:location]
@@ -236,9 +222,9 @@ module ThemeJuice
 
         case commands.length
         when 1
-          @interaction.error "You did not specify any commands to execute on '#{opts[:stage]}'. Aborting mission."
+          @interact.error "You did not specify any commands to execute on '#{opts[:stage]}'. Aborting mission."
         when 0
-          @interaction.error "You did not specify a stage or any commands to execute. Aborting mission."
+          @interact.error "You did not specify a stage or any commands to execute. Aborting mission."
         else
           @deployer.new(opts[:stage]).execute(opts[:commands])
         end
@@ -260,7 +246,7 @@ module ThemeJuice
     # @return {Void}
     #
     def vm(*commands)
-      system "cd #{@environment.vvv_path} && vagrant #{commands.join(" ")}"
+      system "cd #{@env.vvv_path} && vagrant #{commands.join(" ")}"
     end
 
     #
@@ -282,26 +268,27 @@ module ThemeJuice
       # @return {Void}
       #
       def set_environment
-        @version     = ::ThemeJuice::VERSION
-        @environment = ::ThemeJuice::Environment
-        @interaction = ::ThemeJuice::Interaction
-        @project     = ::ThemeJuice::Project
-        @create      = ::ThemeJuice::Commands::Create
-        @delete      = ::ThemeJuice::Command::Delete
-        @list        = ::ThemeJuice::Command::List
-        @install     = ::ThemeJuice::Command::Install
-        @subcommand  = ::ThemeJuice::Command::Subcommand
-        @deployer    = ::ThemeJuice::Command::Deployer
+        @version    = ::ThemeJuice::VERSION
+        @env        = ::ThemeJuice::Env
+        @interact   = ::ThemeJuice::Interact
+        @project    = ::ThemeJuice::Project
+        @create     = ::ThemeJuice::Commands::Create
+        @delete     = nil # ::ThemeJuice::Command::Delete
+        @list       = nil # ::ThemeJuice::Command::List
+        @install    = nil # ::ThemeJuice::Command::Install
+        @subcommand = nil # ::ThemeJuice::Command::Subcommand
+        @deployer   = nil # ::ThemeJuice::Command::Deployer
 
         # Check if we're forcing a different VVV path
         self.force_vvv_path?
 
-        @environment.yolo          = options[:yolo]
-        @environment.boring        = options[:boring]
-        @environment.no_deployer   = options[:no_deployer]
-        @environment.no_colors     = options[:boring] ? true : options[:no_colors]
-        @environment.no_unicode    = options[:boring] ? true : options[:no_unicode]
-        @environment.no_animations = options[:boring] ? true : options[:no_animations]
+        @env.yolo          = options[:yolo]
+        @env.boring        = options[:boring]
+        @env.no_deployer   = options[:no_deployer]
+        @env.no_colors     = options[:boring] ? true : options[:no_colors]
+        @env.no_unicode    = options[:boring] ? true : options[:no_unicode]
+        @env.no_animations = options[:boring] ? true : options[:no_animations]
+        @env.vm_prefix     = "tj"
 
         # if self.deployer?
         #   @deployer = ::ThemeJuice::Deploy::Deployer
@@ -316,7 +303,7 @@ module ThemeJuice
       # @return {Bool}
       #
       # def deployer?
-      #   if @environment.no_deployer
+      #   if @env.no_deployer
       #     false
       #   else
       #     begin
@@ -335,18 +322,18 @@ module ThemeJuice
       #
       def force_vvv_path?
         if options[:vvv_path].nil?
-          @environment.vvv_path = File.expand_path("~/vagrant")
+          @env.vvv_path = File.expand_path("~/vagrant")
         else
-          @environment.vvv_path = options[:vvv_path]
-          @interaction.notice "You're using a custom VVV path : (#{@environment.vvv_path})"
+          @env.vvv_path = options[:vvv_path]
+          @interact.notice "You're using a custom VVV path : (#{@env.vvv_path})"
 
-          unless @interaction.agree? "Is this path correct?"
-            @interaction.error "Good call! Let's create things, not break things. Aborting mission."
+          unless @interact.agree? "Is this path correct?"
+            @interact.error "Good call! Let's create things, not break things. Aborting mission."
           end
         end
 
-        unless Dir.exist? @environment.vvv_path
-          @interaction.error "Cannot load VVV path (#{@environment.vvv_path}). Aborting mission before something bad happens."
+        unless Dir.exist? @env.vvv_path
+          @interact.error "Cannot load VVV path (#{@env.vvv_path}). Aborting mission before something bad happens."
         end
       end
     end

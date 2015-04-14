@@ -6,9 +6,5 @@ module ThemeJuice
     def initialize(opts = {})
       super
     end
-
-    def execute
-      @interaction.error "Execute method not implemented ... exiting"
-    end
   end
 end

@@ -11,10 +11,10 @@ module ThemeJuice
 end
 
 require_relative "theme-juice/version"
-require_relative "theme-juice/environment"
+require_relative "theme-juice/env"
 require_relative "theme-juice/project"
 
-require_relative "theme-juice/interaction"
+require_relative "theme-juice/interact"
 require_relative "theme-juice/interactions/teejay"
 require_relative "theme-juice/interactions/create"
 require_relative "theme-juice/interactions/delete"
