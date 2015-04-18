@@ -19,19 +19,19 @@ module ThemeJuice
 
       def unexecute
         @interact.log "Running method 'unexecute' for #{self.class.name}"
-        @tasks.each { |task| self.send "unexecute_#{task}" }
+        @tasks.reverse.each { |task| self.send "unexecute_#{task}" }
       end
 
       private
 
       def execute_path
         @interact.log "Creating path"
-        @utils.create_file "foo.rb", "bar"
+        @util.create_file "foo.rb", "bar"
       end
 
       def unexecute_path
         @interact.log "Removing path"
-        @utils.remove_file "foo.rb", "bar"
+        @util.remove_file "foo.rb", "bar"
       end
     end
   end
