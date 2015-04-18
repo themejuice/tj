@@ -76,7 +76,7 @@ module ThemeJuice
       @create.new(options.dup.merge(:bare => true)).execute
     end
 
-    desc "delete [NAME]", "Remove project (does not remove local project)"
+    desc "delete [NAME]", "Delete project (does not delete local project)"
     method_option :name,    :type => :string,  :aliases => "-n", :default => false, :desc => "Name of the development project"
     method_option :restart, :type => :boolean,                                      :desc => "Restart development environment after deletion"
     #
