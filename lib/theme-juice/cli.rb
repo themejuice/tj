@@ -246,11 +246,11 @@ module ThemeJuice
       # @return {Void}
       #
       def set_environment
-        @version    = ::ThemeJuice::VERSION
-        @env        = ::ThemeJuice::Env
-        @interact   = ::ThemeJuice::Interact
-        @project    = ::ThemeJuice::Project
-        @create     = ::ThemeJuice::Commands::Create
+        @version    = VERSION
+        @env        = Env
+        @interact   = Interact
+        @project    = Project
+        @create     = Commands::Create
         @delete     = nil # ::ThemeJuice::Command::Delete
         @list       = nil # ::ThemeJuice::Command::List
         @install    = nil # ::ThemeJuice::Command::Install

@@ -26,12 +26,12 @@ module ThemeJuice
 
       def execute_path
         @interact.log "Creating path"
-        @io.create_file "foo.rb", "bar"
+        @utils.create_file "foo.rb", "bar"
       end
 
       def unexecute_path
         @interact.log "Removing path"
-        @io.remove_file "foo.rb", "bar"
+        @utils.remove_file "foo.rb", "bar"
       end
     end
   end
