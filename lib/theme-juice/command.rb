@@ -7,14 +7,14 @@ module ThemeJuice
       super
     end
 
-    def do
-      @interact.log "Running method 'do' for #{self.class.name}"
-      @tasks.each { |task| task.do }
+    def execute
+      @interact.log "Running method 'execute' for #{self.class.name}"
+      @tasks.each { |task| task.execute }
     end
 
-    def undo
-      @interact.log "Running method 'undo' for #{self.class.name}"
-      @tasks.each { |task| task.undo }
+    def unexecute
+      @interact.log "Running method 'unexecute' for #{self.class.name}"
+      @tasks.reverse.each { |task| task.unexecute }
     end
 
     private

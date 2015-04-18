@@ -55,7 +55,7 @@ module ThemeJuice
     #
     def create
       @interact.hello
-      @create.new(options).do
+      @create.new(options).execute
     end
 
     desc "setup", "Setup existing project"
@@ -73,7 +73,7 @@ module ThemeJuice
     #
     def setup
       @interact.hello
-      @create.new(options.dup.merge(:bare => true)).do
+      @create.new(options.dup.merge(:bare => true)).execute
     end
 
     desc "delete [NAME]", "Remove project (does not remove local project)"

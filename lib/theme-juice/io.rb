@@ -1,10 +1,8 @@
 # encoding: UTF-8
 
 module ThemeJuice
-  module IO
+  class IO < Thor
     include Thor::Actions
     include Thor::Shell
-
-    extend self
   end
 end

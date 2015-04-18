@@ -23,6 +23,7 @@ module ThemeJuice
         @project.db_user      = @opts.fetch("db_user") { db_user }
         @project.db_pass      = @opts.fetch("db_pass") { db_pass }
         @project.vm_location  = vm_location
+        
         puts @project.inspect
 
         runner do |tasks|

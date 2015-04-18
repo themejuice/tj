@@ -16,12 +16,12 @@ module ThemeJuice
       yield @tasks
     end
 
-    def do
-      @interact.error "Method 'do' not implemented for #{self.class.name}"
+    def execute
+      @interact.error "Method 'execute' not implemented for #{self.class.name}"
     end
 
-    def undo
-      @interact.error "Method 'undo' not implemented for #{self.class.name}"
+    def unexecute
+      @interact.error "Method 'unexecute' not implemented for #{self.class.name}"
     end
   end
 end
