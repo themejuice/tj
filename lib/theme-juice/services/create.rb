@@ -93,8 +93,8 @@
 #         "vagrant plugin install vagrant-hostsupdater --plugin-version 0.0.11",
 #         "vagrant plugin install vagrant-triggers --plugin-version 0.5.0",
 #         "vagrant plugin install landrush --plugin-version 0.18.0",
-#         "git clone --branch '1.2.0' https://github.com/Varying-Vagrant-Vagrants/VVV.git #{@env.vvv_path}",
-#         "touch #{@env.vvv_path}/database/init-custom.sql"
+#         "git clone --branch '1.2.0' https://github.com/Varying-Vagrant-Vagrants/VVV.git #{@env.vm_path}",
+#         "touch #{@env.vm_path}/database/init-custom.sql"
 #       ]
 #     end
 #
@@ -120,7 +120,7 @@
 #     def setup_wildcard_subdomains
 #       @interact.log "Setting up wildcard subdomains"
 #
-#       File.open File.expand_path("#{@env.vvv_path}/Customfile"), "a+" do |file|
+#       File.open File.expand_path("#{@env.vm_path}/Customfile"), "a+" do |file|
 #         file.puts "# Enable wildcard subdomains"
 #         file.puts "\tconfig.landrush.enabled = true"
 #         file.puts "\tconfig.landrush.tld = 'dev'"
@@ -137,7 +137,7 @@
 #       @interact.log "Setting up new project in VM"
 #
 #       run [
-#         "cd #{@env.vvv_path}/www",
+#         "cd #{@env.vm_path}/www",
 #         "mkdir tj-#{@opts[:project_name]}",
 #       ]
 #     end
@@ -196,7 +196,7 @@
 #     def setup_database
 #       @interact.log "Setting up database"
 #
-#       File.open File.expand_path("#{@env.vvv_path}/database/init-custom.sql"), "a+" do |file|
+#       File.open File.expand_path("#{@env.vm_path}/database/init-custom.sql"), "a+" do |file|
 #         file.puts "# Begin '#{@opts[:project_name]}'"
 #         file.puts "CREATE DATABASE IF NOT EXISTS `#{@opts[:project_db_name]}`;"
 #         file.puts "GRANT ALL PRIVILEGES ON `#{@opts[:project_db_name]}`.* TO '#{@opts[:project_db_user]}'@'localhost' IDENTIFIED BY '#{@opts[:project_db_pass]}';"
@@ -205,7 +205,7 @@
 #       end
 #
 #       unless database_is_setup?
-#         @interact.error "Could not add database info for '#{@opts[:project_name]}' to 'init-custom.sql'. Make sure you have write capabilities to '#{@env.vvv_path}'."
+#         @interact.error "Could not add database info for '#{@opts[:project_name]}' to 'init-custom.sql'. Make sure you have write capabilities to '#{@env.vm_path}'."
 #       end
 #     end
 #
@@ -221,7 +221,7 @@
 #         file.puts "server {"
 #         file.puts "\tlisten 80;"
 #         file.puts "\tserver_name .#{@opts[:project_dev_url]};"
-#         file.puts "\troot {vvv_path_to_folder};"
+#         file.puts "\troot {vm_path_to_folder};"
 #         file.puts "\tinclude /etc/nginx/nginx-wp-common.conf;"
 #         file.puts "}"
 #       end
@@ -283,7 +283,7 @@
 #     def setup_synced_folder
 #       @interact.log "Syncing host theme with VM"
 #
-#       File.open File.expand_path("#{@env.vvv_path}/Customfile"), "a+" do |file|
+#       File.open File.expand_path("#{@env.vm_path}/Customfile"), "a+" do |file|
 #         file.puts "# Begin '#{@opts[:project_name]}'"
 #         file.puts "config.vm.synced_folder '#{@opts[:project_location]}', '/srv/www/tj-#{@opts[:project_name]}', mount_options: ['dmode=777','fmode=777']"
 #         file.puts "config.landrush.host '#{@opts[:project_dev_url]}', '192.168.50.4'"
@@ -292,7 +292,7 @@
 #       end
 #
 #       unless synced_folder_is_setup?
-#         @interact.error "Could not sync folders for '#{@opts[:project_name]}' in 'Customfile'. Make sure you have write capabilities to '#{@env.vvv_path}'."
+#         @interact.error "Could not sync folders for '#{@opts[:project_name]}' in 'Customfile'. Make sure you have write capabilities to '#{@env.vm_path}'."
 #       end
 #     end
 #
@@ -333,7 +333,7 @@
 #         file.puts "\tvagrant:"
 #         file.puts "\t\turl: #{@opts[:project_dev_url]}"
 #         file.puts "\t\tpath: /srv/www/tj-#{@opts[:project_name]}"
-#         file.puts "\t\tcmd: cd #{@env.vvv_path} && vagrant ssh-config > /tmp/vagrant_ssh_config && ssh -q %pseudotty% -F /tmp/vagrant_ssh_config default %cmd%"
+#         file.puts "\t\tcmd: cd #{@env.vm_path} && vagrant ssh-config > /tmp/vagrant_ssh_config && ssh -q %pseudotty% -F /tmp/vagrant_ssh_config default %cmd%"
 #         file.puts "\n"
 #       end
 #

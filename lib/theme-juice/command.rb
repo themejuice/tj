@@ -20,7 +20,7 @@ module ThemeJuice
     private
 
     def vm_location
-      File.expand_path "#{@env.vvv_path}/www/#{@env.vm_prefix}-#{@project.name}"
+      File.expand_path "#{@env.vm_path}/www/#{@env.vm_prefix}-#{@project.name}"
     end
 
     #

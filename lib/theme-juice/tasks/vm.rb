@@ -2,7 +2,7 @@
 
 module ThemeJuice
   module Tasks
-    class VVV < Task
+    class VM < Task
 
       def initialize(opts = {})
         super

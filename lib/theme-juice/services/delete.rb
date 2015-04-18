@@ -48,7 +48,7 @@
 #     #
 #     def remove_dev_site
 #
-#       unless Dir.entries("#{@env.vvv_path}").include? "www"
+#       unless Dir.entries("#{@env.vm_path}").include? "www"
 #         @interact.error "Cannot load VVV path. Aborting mission before something bad happens."
 #       end
 #
@@ -65,7 +65,7 @@
 #     # @return {Void}
 #     #
 #     def remove_database
-#       if remove_traces_from_file "#{@env.vvv_path}/database/init-custom.sql"
+#       if remove_traces_from_file "#{@env.vm_path}/database/init-custom.sql"
 #         @interact.log "Database removed"
 #       end
 #     end
@@ -76,7 +76,7 @@
 #     # @return {Void}
 #     #
 #     def remove_synced_folder
-#       if remove_traces_from_file "#{@env.vvv_path}/Vagrantfile"
+#       if remove_traces_from_file "#{@env.vm_path}/Vagrantfile"
 #         @interact.log "Synced folders removed"
 #       end
 #     end

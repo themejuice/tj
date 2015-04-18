@@ -21,7 +21,7 @@ require_relative "theme-juice/interactions/create"
 require_relative "theme-juice/interactions/delete"
 
 require_relative "theme-juice/task"
-require_relative "theme-juice/tasks/vvv"
+require_relative "theme-juice/tasks/vm"
 
 require_relative "theme-juice/service"
 require_relative "theme-juice/services/configuration"

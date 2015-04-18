@@ -20,7 +20,7 @@ module ThemeJuice
     #
     # Class options
     #
-    class_option :vvv_path,      :type => :string,  :default => nil, :desc => "Force path to VVV installation"
+    class_option :vm_path,       :type => :string,  :default => nil, :desc => "Force path to VM"
     class_option :yolo,          :type => :boolean,                  :desc => "Say yes to anything and everything"
     class_option :boring,        :type => :boolean,                  :desc => "Disable all the coolness"
     class_option :no_unicode,    :type => :boolean,                  :desc => "Disable all unicode characters"
@@ -44,7 +44,7 @@ module ThemeJuice
     method_option :theme,        :type => :string,  :aliases => "-t", :default => nil, :desc => "Starter theme to install"
     method_option :url,          :type => :string,  :aliases => "-u", :default => nil, :desc => "Development URL for the project"
     method_option :repository,   :type => :string,  :aliases => "-r",                  :desc => "Initialize a new Git remote repository"
-    method_option :bare,         :type => :boolean,                                    :desc => "Create a VVV project without a starter theme"
+    method_option :bare,         :type => :boolean,                                    :desc => "Create a project without a starter theme"
     method_option :skip_repo,    :type => :boolean,                                    :desc => "Skip repository prompts and use default settings"
     method_option :skip_db,      :type => :boolean,                                    :desc => "Skip database prompts and use default settings"
     method_option :use_defaults, :type => :boolean,                                    :desc => "Skip all prompts and use default settings"
@@ -224,7 +224,7 @@ module ThemeJuice
     # @return {Void}
     #
     def vm(*commands)
-      system "cd #{@env.vvv_path} && vagrant #{commands.join(" ")}"
+      system "cd #{@env.vm_path} && vagrant #{commands.join(" ")}"
     end
 
     #
@@ -258,7 +258,7 @@ module ThemeJuice
         @deployer   = nil # ::ThemeJuice::Command::Deployer
 
         # Check if we're forcing a different VVV path
-        self.force_vvv_path?
+        self.force_vm_path?
 
         @env.yolo          = options[:yolo]
         @env.boring        = options[:boring]
@@ -298,20 +298,20 @@ module ThemeJuice
       #
       # @return {Void}
       #
-      def force_vvv_path?
-        if options[:vvv_path].nil?
-          @env.vvv_path = File.expand_path("~/vagrant")
+      def force_vm_path?
+        if options[:vm_path].nil?
+          @env.vm_path = File.expand_path("~/vagrant")
         else
-          @env.vvv_path = options[:vvv_path]
-          @interact.notice "You're using a custom VVV path : (#{@env.vvv_path})"
+          @env.vm_path = options[:vm_path]
+          @interact.notice "You're using a custom VVV path : (#{@env.vm_path})"
 
           unless @interact.agree? "Is this path correct?"
             @interact.error "Good call! Let's create things, not break things. Aborting mission."
           end
         end
 
-        unless Dir.exist? @env.vvv_path
-          @interact.error "Cannot load VVV path (#{@env.vvv_path}). Aborting mission before something bad happens."
+        unless Dir.exist? @env.vm_path
+          @interact.error "Cannot load VVV path (#{@env.vm_path}). Aborting mission before something bad happens."
         end
       end
     end

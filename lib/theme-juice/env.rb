@@ -2,7 +2,7 @@
 
 module ThemeJuice
   module Env
-    attr_accessor :vvv_path
+    attr_accessor :vm_path
     attr_accessor :yolo
     attr_accessor :boring
     attr_accessor :no_unicode

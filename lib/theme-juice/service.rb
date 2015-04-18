@@ -69,10 +69,10 @@
 #       @interact.log "Restarting VVV"
 #
 #       # Halt if already running
-#       run ["cd #{@env.vvv_path}", "vagrant halt"]
+#       run ["cd #{@env.vm_path}", "vagrant halt"]
 #
 #       # Up, up, up!
-#       if run ["cd #{@env.vvv_path}", "vagrant up --provision"], false
+#       if run ["cd #{@env.vm_path}", "vagrant up --provision"], false
 #         true
 #       else
 #         false
@@ -122,7 +122,7 @@
 #     # @return {Bool}
 #     #
 #     def vvv_is_setup?
-#       File.exist? File.expand_path(@env.vvv_path)
+#       File.exist? File.expand_path(@env.vm_path)
 #     end
 #
 #     #
@@ -131,7 +131,7 @@
 #     # @return {Bool}
 #     #
 #     def wildcard_subdomains_is_setup?
-#       File.readlines(File.expand_path("#{@env.vvv_path}/Vagrantfile")).grep(/(config.landrush.enabled = true)/m).any?
+#       File.readlines(File.expand_path("#{@env.vm_path}/Vagrantfile")).grep(/(config.landrush.enabled = true)/m).any?
 #     end
 #
 #     #
@@ -158,7 +158,7 @@
 #     # @return {Bool}
 #     #
 #     def database_is_setup?
-#       File.readlines(File.expand_path("#{@env.vvv_path}/database/init-custom.sql")).grep(/(#(#*)? Begin '#{@opts[:project_name]}')/m).any?
+#       File.readlines(File.expand_path("#{@env.vm_path}/database/init-custom.sql")).grep(/(#(#*)? Begin '#{@opts[:project_name]}')/m).any?
 #     end
 #
 #     #
@@ -186,7 +186,7 @@
 #     # @return {Bool}
 #     #
 #     def synced_folder_is_setup?
-#       File.readlines(File.expand_path("#{@env.vvv_path}/Vagrantfile")).grep(/(#(#*)? Begin '#{@opts[:project_name]}')/m).any?
+#       File.readlines(File.expand_path("#{@env.vm_path}/Vagrantfile")).grep(/(#(#*)? Begin '#{@opts[:project_name]}')/m).any?
 #     end
 #
 #     #

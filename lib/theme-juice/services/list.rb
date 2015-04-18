@@ -30,7 +30,7 @@
 #     def get_sites
 #       sites = []
 #
-#       Dir.glob(File.expand_path("#{@env.vvv_path}/www/*")).each do |f|
+#       Dir.glob(File.expand_path("#{@env.vm_path}/www/*")).each do |f|
 #         sites << File.basename(f).gsub(/(tj-)/, "") if File.directory?(f) && f.include?("tj-")
 #       end
 #

@@ -41,7 +41,7 @@
 #       # @return {String}
 #       #
 #       def get_project_dev_location
-#         dev_location = File.expand_path("#{@env.vvv_path}/www/tj-#{@opts[:project_name]}")
+#         dev_location = File.expand_path("#{@env.vm_path}/www/tj-#{@opts[:project_name]}")
 #       end
 #     end
 #   end
