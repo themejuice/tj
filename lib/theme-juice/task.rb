@@ -2,13 +2,12 @@
 
 module ThemeJuice
   class Task
-    include ::Thor::Actions
-    include ::Thor::Shell
 
     def initialize(opts = {})
       @env      = Env
       @interact = Interact
       @project  = Project
+      @io       = IO
       @opts     = opts.dup
       @tasks    = []
     end
@@ -18,11 +17,11 @@ module ThemeJuice
     end
 
     def do
-      @interact.error "Method 'do' not implemented for #{self}"
+      @interact.error "Method 'do' not implemented for #{self.class.name}"
     end
 
     def undo
-      @interact.error "Method 'undo' not implemented for #{self}"
+      @interact.error "Method 'undo' not implemented for #{self.class.name}"
     end
   end
 end

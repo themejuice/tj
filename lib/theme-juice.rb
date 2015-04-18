@@ -13,6 +13,7 @@ end
 require_relative "theme-juice/version"
 require_relative "theme-juice/env"
 require_relative "theme-juice/project"
+require_relative "theme-juice/io"
 
 require_relative "theme-juice/interact"
 require_relative "theme-juice/interactions/teejay"

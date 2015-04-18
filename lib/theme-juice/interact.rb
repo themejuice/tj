@@ -2,10 +2,7 @@
 
 module ThemeJuice
   module Interact
-    include ::Thor::Actions
-    include ::Thor::Shell
-
-    extend self
+    include Thor::Shell
 
     # Unicode icons
     ICONS = {
@@ -471,5 +468,7 @@ module ThemeJuice
     def output_message
       @opts[:quiet] ? @message : say(@message)
     end
+
+    extend self
   end
 end

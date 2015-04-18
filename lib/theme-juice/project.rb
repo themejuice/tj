@@ -2,14 +2,16 @@
 
 module ThemeJuice
   module Project
-    extend self
-
     attr_accessor :name
     attr_accessor :location
     attr_accessor :url
     attr_accessor :theme
     attr_accessor :vm_location
     attr_accessor :repository
+    attr_accessor :db_host
+    attr_accessor :db_name
+    attr_accessor :db_user
+    attr_accessor :db_pass
     attr_accessor :bare
     attr_accessor :skip_repo
     attr_accessor :skip_db
@@ -18,7 +20,11 @@ module ThemeJuice
     attr_accessor :no_db
 
     def inspect
-      self.instance_variables.each { |k, v| puts "#{k}: #{instance_variable_get(k)}" }
+      res = []
+      self.instance_variables.each { |k, v| res << "#{k[1..-1]}: #{instance_variable_get(k)}" }
+      res
     end
+
+    extend self
   end
 end

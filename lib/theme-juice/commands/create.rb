@@ -7,33 +7,34 @@ module ThemeJuice
       def initialize(opts = {})
         super
 
-        @project.name        = @opts.fetch("name") { name }
-        @project.location    = @opts.fetch("location") { location }
-        @project.url         = @opts.fetch("url") { url }
-        @project.theme       = @opts.fetch("theme") { theme }
-        @project.vm_location = vm_location
-        @project.inspect
+        @project.use_defaults = @opts.fetch("use_defaults", false)
+        @project.bare         = @opts.fetch("bare", false)
+        @project.skip_repo    = @opts.fetch("skip_repo", false)
+        @project.skip_db      = @opts.fetch("skip_db", false)
+        @project.no_wp        = @opts.fetch("no_wp", false)
+        @project.no_db        = @opts.fetch("no_db", false)
+        @project.name         = @opts.fetch("name") { name }
+        @project.location     = @opts.fetch("location") { location }
+        @project.url          = @opts.fetch("url") { url }
+        @project.theme        = @opts.fetch("theme") { theme }
+        @project.repository   = @opts.fetch("repository") { repository }
+        @project.db_host      = @opts.fetch("db_host") { db_host }
+        @project.db_name      = @opts.fetch("db_name") { db_name }
+        @project.db_user      = @opts.fetch("db_user") { db_user }
+        @project.db_pass      = @opts.fetch("db_pass") { db_pass }
+        @project.vm_location  = vm_location
+        puts @project.inspect
 
         runner do |tasks|
           tasks << Tasks::VVV.new
         end
       end
 
-      def do
-        @interact.log "Running method 'do' for create command"
-        @tasks.each { |task| task.do }
-      end
-
-      def undo
-        @interact.log "Running method 'undo' for create command"
-        @tasks.each { |task| task.undo }
-      end
-
       private
 
       def name
         if @env.yolo
-          name =  Faker::Internet.domain_word
+          name = Faker::Internet.domain_word
         else
           name = @interact.prompt "What's the project name? (letters, numbers and dashes only)"
         end
@@ -94,6 +95,7 @@ module ThemeJuice
       def theme
         return false if @project.bare
 
+        theme = nil
         themes = {
           "theme-juice/theme-juice-starter" => "https://github.com/ezekg/theme-juice-starter.git",
           "other"                           => nil,
@@ -121,8 +123,66 @@ module ThemeJuice
         theme
       end
 
-      def vm_location
-        File.expand_path "#{@env.vvv_path}/www/#{@env.vm_prefix}-#{@project.name}"
+      def repository
+        return false if @project.skip_repo || @project.use_defaults
+
+        if @interact.agree? "Would you like to initialize a new Git repository?"
+          repo = @interact.prompt "What is the repository's remote URL?", :indent => 2
+        else
+          repo = false
+        end
+
+        repo
+      end
+
+      def db_host
+        return false if @project.no_db || @project.no_wp
+
+        if @project.skip_db || @project.use_defaults
+          db_host = "vvv"
+        else
+          db_host = @interact.prompt "Database host", :default => "vvv"
+        end
+
+        db_host
+      end
+
+      def db_name
+        return false if @project.no_db || @project.no_wp
+
+        if @project.skip_db || @project.use_defaults
+          db_name = "#{clean_name}_db"
+        else
+          db_name = @interact.prompt "Database name", :default => "#{clean_name}_db"
+        end
+
+        db_name
+      end
+
+      def db_user
+        return false if @project.no_db || @project.no_wp
+
+        if @project.skip_db || @project.use_defaults
+          db_user = "#{clean_name}_user"
+        else
+          db_user = @interact.prompt "Database username", :default => "#{clean_name}_user"
+        end
+
+        db_user
+      end
+
+      def db_pass
+        return false if @project.no_db || @project.no_wp
+
+        pass = Faker::Internet.password 24
+
+        if @project.skip_db || @project.use_defaults
+          db_pass = pass
+        else
+          db_pass = @interact.prompt "Database password", :default => pass
+        end
+
+        db_pass
       end
     end
   end

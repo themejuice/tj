@@ -35,12 +35,10 @@ module ThemeJuice
     # @return {String}
     #
     def version
-      @interact.speak @version, {
-        :color => :green
-      }
+      @interact.speak @version, :color => :green
     end
 
-    desc "create [NAME]", "Create new project"
+    desc "create", "Create new project"
     method_option :name,         :type => :string,  :aliases => "-n", :default => nil, :desc => "Name of the project"
     method_option :location,     :type => :string,  :aliases => "-l", :default => nil, :desc => "Location of the local project"
     method_option :theme,        :type => :string,  :aliases => "-t", :default => nil, :desc => "Starter theme to install"
@@ -53,9 +51,6 @@ module ThemeJuice
     method_option :no_wp,        :type => :boolean,                                    :desc => "New project is not a WordPress install"
     method_option :no_db,        :type => :boolean,                                    :desc => "New project does not need a database"
     #
-    # @param {String} name (nil)
-    #   Name of the project to create
-    #
     # @return {Void}
     #
     def create
@@ -63,39 +58,22 @@ module ThemeJuice
       @create.new(options).do
     end
 
-    desc "setup [NAME]", "Setup existing project"
-    method_option :name,         :type => :string,  :aliases => "-n", :default => false, :desc => "Name of the project"
-    method_option :location,     :type => :string,  :aliases => "-l", :default => false, :desc => "Location of the local project"
-    method_option :url,          :type => :string,  :aliases => "-u", :default => false, :desc => "Development URL for the project"
-    method_option :repository,   :type => :string,  :aliases => "-r",                    :desc => "Initialize a new Git remote repository"
-    method_option :skip_repo,    :type => :boolean,                                      :desc => "Skip repository prompts and use defaults"
-    method_option :skip_db,      :type => :boolean,                                      :desc => "Skip database prompts and use default settings"
-    method_option :use_defaults, :type => :boolean,                                      :desc => "Skip all prompts and use default settings"
-    method_option :no_wp,        :type => :boolean,                                      :desc => "New project is not a WordPress install"
-    method_option :no_db,        :type => :boolean,                                      :desc => "New project does not need a database"
-    #
-    # @param {String} name (nil)
-    #   Name of the project to setup
+    desc "setup", "Setup existing project"
+    method_option :name,         :type => :string,  :aliases => "-n", :default => nil, :desc => "Name of the project"
+    method_option :location,     :type => :string,  :aliases => "-l", :default => nil, :desc => "Location of the local project"
+    method_option :url,          :type => :string,  :aliases => "-u", :default => nil, :desc => "Development URL for the project"
+    method_option :repository,   :type => :string,  :aliases => "-r",                  :desc => "Initialize a new Git remote repository"
+    method_option :skip_repo,    :type => :boolean,                                    :desc => "Skip repository prompts and use default settings"
+    method_option :skip_db,      :type => :boolean,                                    :desc => "Skip database prompts and use default settings"
+    method_option :use_defaults, :type => :boolean,                                    :desc => "Skip all prompts and use default settings"
+    method_option :no_wp,        :type => :boolean,                                    :desc => "New project is not a WordPress install"
+    method_option :no_db,        :type => :boolean,                                    :desc => "New project does not need a database"
     #
     # @return {Void}
     #
-    def setup(name = nil)
+    def setup
       @interact.hello
-
-      # @project.name         = name || options[:name]
-      # @project.location     = options[:location]
-      # @project.url          = options[:url]
-      # @project.theme        = false
-      # @project.dev_location = nil
-      # @project.repository   = options[:repository]
-      # @project.bare         = true
-      # @project.skip_repo    = options[:skip_repo]
-      # @project.skip_db      = options[:skip_db]
-      # @project.use_defaults = options[:use_defaults]
-      # @project.no_wp        = options[:no_wp]
-      # @project.no_db        = options[:no_db]
-
-      @create.new(options).execute
+      @create.new(options.dup.merge(:bare => true)).do
     end
 
     desc "delete [NAME]", "Remove project (does not remove local project)"

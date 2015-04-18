@@ -7,23 +7,33 @@ module ThemeJuice
       def initialize(opts = {})
         super
 
+        @io.destination_root = @project.location
+
         runner do |tasks|
-          tasks << path
+          tasks << :path
         end
       end
 
       def do
-        @interact.log "Running 'do' method for VVV task"
+        @interact.log "Running method 'do' for #{self.class.name}"
+        @tasks.each { |task| self.send "do_#{task}" }
       end
 
       def undo
-        @interact.log "Running 'undo' method for VVV task"
+        @interact.log "Running method 'undo' for #{self.class.name}"
+        @tasks.each { |task| self.send "undo_#{task}" }
       end
 
-    private
+      private
 
-      def path
-        @interact.prompt "Path" unless @opts.fetch "path", nil
+      def do_path
+        @interact.log "Creating path"
+        @io.create_file "foo.rb", "bar"
+      end
+
+      def undo_path
+        @interact.log "Removing path"
+        @io.remove_file "foo.rb", "bar"
       end
     end
   end
