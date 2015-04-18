@@ -96,12 +96,12 @@ module ThemeJuice
     #
     def agree?(question, opts = {})
       format_message question, {
-        :color => opts[:color] || :blue,
+        :color => opts.fetch("color", :blue),
         :icon  => :question
       }
 
       if opts[:simple]
-        yes? " :", if opts[:color] then opts[:color] end
+        yes? " :", opts.fetch("color", {})
       else
         yes? "#{question} (y/N) :"
       end
