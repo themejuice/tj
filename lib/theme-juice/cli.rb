@@ -225,7 +225,7 @@ module ThemeJuice
     # @return {Void}
     #
     def vm(*commands)
-      @util.run "cd #{@env.vm_path} && vagrant #{commands.join(" ")}", :verbose => false
+      @util.run "cd #{@env.vm_path} && vagrant #{commands.join(" ")}", :verbose => @env.verbose
     end
 
     #
