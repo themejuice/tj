@@ -108,8 +108,6 @@ module ThemeJuice
     method_option :restart, :type => :boolean,                                      :desc => "Restart development environment after deletion"
     #
     # @param {String} name (nil)
-    #   Project to delete. This will not delete your local files, only
-    #     files within the VVV environment
     #
     # @return {Void}
     #
@@ -182,7 +180,6 @@ module ThemeJuice
     desc "watch [COMMANDS]", "Watch and compile assets"
     #
     # @param {*} commands
-    #   Commands to run
     #
     # @return {Void}
     #
@@ -198,7 +195,6 @@ module ThemeJuice
     desc "vendor [COMMANDS]", "Manage vendor dependencies"
     #
     # @param {*} commands
-    #   Commands to run
     #
     # @return {Void}
     #
@@ -214,7 +210,6 @@ module ThemeJuice
     desc "deployer [COMMANDS]", "Manage deployment and migration"
     #
     # @param {*} commands
-    #   Commands to run
     #
     # @return {Void}
     #
@@ -246,7 +241,6 @@ module ThemeJuice
     desc "vm [COMMANDS]", "Manage development environment (alias for 'vagrant' commands)"
     #
     # @param {*} commands
-    #   Commands to run
     #
     # @return {Void}
     #
