@@ -27,6 +27,8 @@ module ThemeJuice
         puts @project.inspect
 
         runner do |tasks|
+          tasks << Tasks::Location.new
+          tasks << Tasks::Theme.new
           tasks << Tasks::VM.new
         end
       end

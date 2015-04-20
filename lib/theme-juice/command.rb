@@ -8,12 +8,10 @@ module ThemeJuice
     end
 
     def execute
-      @interact.log "Running method 'execute' for #{self.class.name}"
       @tasks.each { |task| task.execute }
     end
 
     def unexecute
-      @interact.log "Running method 'unexecute' for #{self.class.name}"
       @tasks.reverse.each { |task| task.unexecute }
     end
 
