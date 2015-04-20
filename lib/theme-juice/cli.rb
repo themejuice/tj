@@ -27,6 +27,7 @@ module ThemeJuice
     class_option :no_colors,     :type => :boolean,                  :desc => "Disable all colored output"
     class_option :no_animations, :type => :boolean,                  :desc => "Disable all animations"
     class_option :no_deployer,   :type => :boolean,                  :desc => "Disable deployer"
+    class_option :verbose,       :type => :boolean,                  :desc => "Verbose output"
 
     desc "--version, -v", "Print current version"
     #
@@ -224,7 +225,7 @@ module ThemeJuice
     # @return {Void}
     #
     def vm(*commands)
-      system "cd #{@env.vm_path} && vagrant #{commands.join(" ")}"
+      @util.run "cd #{@env.vm_path} && vagrant #{commands.join(" ")}", :verbose => false
     end
 
     #
@@ -250,6 +251,7 @@ module ThemeJuice
         @env        = Env
         @interact   = Interact
         @project    = Project
+        @util       = Util.new
         @create     = Commands::Create
         @delete     = nil # ::ThemeJuice::Command::Delete
         @list       = nil # ::ThemeJuice::Command::List
@@ -266,6 +268,7 @@ module ThemeJuice
         @env.no_colors     = options[:boring] ? true : options[:no_colors]
         @env.no_unicode    = options[:boring] ? true : options[:no_unicode]
         @env.no_animations = options[:boring] ? true : options[:no_animations]
+        @env.verbose       = options[:verbose]
         @env.vm_prefix     = "tj"
 
         # if self.deployer?

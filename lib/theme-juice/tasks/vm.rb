@@ -6,41 +6,28 @@ module ThemeJuice
 
       def initialize(opts = {})
         super
-
-        runner do |tasks|
-          tasks << :path
-        end
       end
 
       def execute
         @interact.log "Running method 'execute' for #{self.class.name}"
-        @tasks.each { |task| self.send task, :execute }
+        create_path
       end
 
       def unexecute
         @interact.log "Running method 'unexecute' for #{self.class.name}"
-        @tasks.reverse.each { |task| self.send task, :unexecute }
+        remove_path
       end
 
       private
 
-      def path(action)
-        case action
-        when :execute
-          execute_path
-        when :unexcute
-          unexecute_path
-        end
-      end
-
-      def execute_path
+      def create_path
         @interact.log "Creating path"
-        @util.create_file "foo.rb", "bar"
+        @util.create_file "foo.rb", "bar", :verbose => @env.verbose
       end
 
-      def unexecute_path
+      def remove_path
         @interact.log "Removing path"
-        @util.remove_file "foo.rb", "bar"
+        @util.remove_file "foo.rb", "bar", :verbose => @env.verbose
       end
     end
   end

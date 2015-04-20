@@ -10,6 +10,7 @@ module ThemeJuice
     attr_accessor :no_animations
     attr_accessor :no_deployer
     attr_accessor :vm_prefix
+    attr_accessor :verbose
 
     extend self
   end
