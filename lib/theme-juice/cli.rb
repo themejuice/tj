@@ -29,9 +29,6 @@ module ThemeJuice
       @env.no_animations = @env.boring ? true : options.fetch("no_animations", false)
     end
 
-    #
-    # Command aliases
-    #
     map %w[--version -v]                => :version
     map %w[mk new add]                  => :create
     map %w[up prep init]                => :setup
@@ -43,9 +40,6 @@ module ThemeJuice
     map %w[deploy server remote]        => :deployer
     map %w[vagrant vvv]                 => :vm
 
-    #
-    # Class options
-    #
     class_option :vm_path,       :type => :string,  :default => nil, :desc => "Force path to VM"
     class_option :yolo,          :type => :boolean,                  :desc => "Say yes to anything and everything"
     class_option :boring,        :type => :boolean,                  :desc => "Disable all the coolness"
@@ -56,8 +50,6 @@ module ThemeJuice
     class_option :verbose,       :type => :boolean,                  :desc => "Verbose output"
 
     desc "--version, -v", "Print current version"
-    #
-    # Print current version
     #
     # @return {String}
     #
