@@ -3,6 +3,32 @@
 module ThemeJuice
   class CLI < Thor
 
+    def initialize(*)
+      super
+
+      @version    = VERSION
+      @env        = Env
+      @interact   = Interact
+      @project    = Project
+      @util       = Util.new
+      @create     = Commands::Create
+      @delete     = nil # ::ThemeJuice::Command::Delete
+      @list       = nil # ::ThemeJuice::Command::List
+      @install    = nil # ::ThemeJuice::Command::Install
+      @subcommand = nil # ::ThemeJuice::Command::Subcommand
+      @deployer   = nil # ::ThemeJuice::Command::Deployer
+
+      @env.vm_path       = options.fetch("vm_path", File.expand_path("~/vagrant"))
+      @env.vm_prefix     = "tj"
+      @env.yolo          = options.fetch("yolo", false)
+      @env.boring        = options.fetch("boring", false)
+      @env.verbose       = options.fetch("verbose", false)
+      @env.no_deployer   = options.fetch("no_deployer", false)
+      @env.no_colors     = @env.boring ? true : options.fetch("no_colors", false)
+      @env.no_unicode    = @env.boring ? true : options.fetch("no_unicode", false)
+      @env.no_animations = @env.boring ? true : options.fetch("no_animations", false)
+    end
+
     #
     # Command aliases
     #
@@ -226,97 +252,6 @@ module ThemeJuice
     #
     def vm(*commands)
       @util.run "cd #{@env.vm_path} && vagrant #{commands.join(" ")}", :verbose => @env.verbose
-    end
-
-    #
-    # Non-Thor commands
-    #
-    no_commands do
-
-      #
-      # Initializer
-      #
-      def initialize(*args)
-        super(*args)
-        self.set_environment
-      end
-
-      #
-      # Set up the environment
-      #
-      # @return {Void}
-      #
-      def set_environment
-        @version    = VERSION
-        @env        = Env
-        @interact   = Interact
-        @project    = Project
-        @util       = Util.new
-        @create     = Commands::Create
-        @delete     = nil # ::ThemeJuice::Command::Delete
-        @list       = nil # ::ThemeJuice::Command::List
-        @install    = nil # ::ThemeJuice::Command::Install
-        @subcommand = nil # ::ThemeJuice::Command::Subcommand
-        @deployer   = nil # ::ThemeJuice::Command::Deployer
-
-        # Check if we're forcing a different VVV path
-        self.force_vm_path?
-
-        @env.yolo          = options[:yolo]
-        @env.boring        = options[:boring]
-        @env.no_deployer   = options[:no_deployer]
-        @env.no_colors     = options[:boring] ? true : options[:no_colors]
-        @env.no_unicode    = options[:boring] ? true : options[:no_unicode]
-        @env.no_animations = options[:boring] ? true : options[:no_animations]
-        @env.verbose       = options[:verbose]
-        @env.vm_prefix     = "tj"
-
-        # if self.deployer?
-        #   @deployer = ::ThemeJuice::Deploy::Deployer
-        # else
-        #   @deployer = false
-        # end
-      end
-
-      #
-      # Load deployer if installed
-      #
-      # @return {Bool}
-      #
-      # def deployer?
-      #   if @env.no_deployer
-      #     false
-      #   else
-      #     begin
-      #       require "theme-juice-deploy"
-      #       true
-      #     rescue LoadError
-      #       false
-      #     end
-      #   end
-      # end
-
-      #
-      # Set VVV path
-      #
-      # @return {Void}
-      #
-      def force_vm_path?
-        if options[:vm_path].nil?
-          @env.vm_path = File.expand_path("~/vagrant")
-        else
-          @env.vm_path = options[:vm_path]
-          @interact.notice "You're using a custom VVV path : (#{@env.vm_path})"
-
-          unless @interact.agree? "Is this path correct?"
-            @interact.error "Good call! Let's create things, not break things. Aborting mission."
-          end
-        end
-
-        unless Dir.exist? @env.vm_path
-          @interact.error "Cannot load VVV path (#{@env.vm_path}). Aborting mission before something bad happens."
-        end
-      end
     end
   end
 end
