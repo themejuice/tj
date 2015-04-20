@@ -20,6 +20,8 @@ require_relative "theme-juice/interactions/teejay"
 require_relative "theme-juice/interactions/create"
 require_relative "theme-juice/interactions/delete"
 
+require_relative "theme-juice/config"
+
 require_relative "theme-juice/task"
 require_relative "theme-juice/tasks/vm"
 require_relative "theme-juice/tasks/location"

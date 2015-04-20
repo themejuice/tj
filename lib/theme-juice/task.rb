@@ -7,6 +7,7 @@ module ThemeJuice
       @env      = Env
       @interact = Interact
       @project  = Project
+      @config   = Config
       @util     = Util.new
       @opts     = opts.dup
       @tasks    = []

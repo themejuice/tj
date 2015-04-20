@@ -28,6 +28,7 @@ module ThemeJuice
 
       def install_theme
         @interact.log "Running theme install"
+        @config.install
       end
     end
   end
