@@ -5,11 +5,11 @@ module ThemeJuice
     include Thor::Actions
 
     def initialize(*)
+      super
+
       @env      = Env
       @interact = Interact
       @project  = Project
-
-      super
     end
 
     def self.destination_root
