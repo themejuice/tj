@@ -9,8 +9,10 @@ module ThemeJuice
       end
 
       def execute
-        clone_theme
-        install_theme
+        if @project.theme
+          clone_theme
+          install_theme
+        end
       end
 
       private

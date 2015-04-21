@@ -24,7 +24,7 @@ module ThemeJuice
         @project.db_pass      = @opts.fetch("db_pass") { db_pass }
         @project.vm_location  = vm_location
 
-        puts @project.inspect
+        # puts @project.inspect
 
         runner do |tasks|
           tasks << Tasks::Location.new

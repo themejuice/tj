@@ -9,7 +9,9 @@ module ThemeJuice
       end
 
       def execute
-        create_dot_env_file unless dot_env_is_setup?
+        unless @project.no_wp
+          create_dot_env_file unless dot_env_is_setup?
+        end
       end
 
       def unexecute

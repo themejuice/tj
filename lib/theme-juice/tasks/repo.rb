@@ -9,7 +9,9 @@ module ThemeJuice
       end
 
       def execute
-        create_repo
+        if @project.repository
+          create_repo
+        end
       end
 
       private

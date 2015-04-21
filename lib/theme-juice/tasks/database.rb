@@ -9,8 +9,10 @@ module ThemeJuice
       end
 
       def execute
-        create_custom_file unless custom_file_is_setup?
-        create_database    unless database_is_setup?
+        unless @project.no_db || @project.no_wp
+          create_custom_file unless custom_file_is_setup?
+          create_database    unless database_is_setup?
+        end
       end
 
       def unexecute
