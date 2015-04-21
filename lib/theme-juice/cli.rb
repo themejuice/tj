@@ -22,12 +22,12 @@ module ThemeJuice
       @env.vm_prefix     = "tj"
       @env.yolo          = options.fetch("yolo", false)
       @env.boring        = options.fetch("boring", false)
+      @env.no_unicode    = @env.boring ? true : options.fetch("no_unicode", false)
+      @env.no_colors     = @env.boring ? true : options.fetch("no_colors", false)
+      @env.no_animations = @env.boring ? true : options.fetch("no_animations", false)
+      @env.no_deployer   = options.fetch("no_deployer", false)
       @env.verbose       = options.fetch("verbose", false)
       @env.dryrun        = options.fetch("dryrun", false)
-      @env.no_deployer   = options.fetch("no_deployer", false)
-      @env.no_colors     = @env.boring ? true : options.fetch("no_colors", false)
-      @env.no_unicode    = @env.boring ? true : options.fetch("no_unicode", false)
-      @env.no_animations = @env.boring ? true : options.fetch("no_animations", false)
     end
 
     map %w[--version -v]                => :version
