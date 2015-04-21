@@ -106,11 +106,7 @@ module ThemeJuice
     # @return {Void}
     #
     def delete(name = nil)
-      @project.name         = name || options[:name]
-      @project.dev_location = nil
-      @project.restart      = options[:restart]
-
-      @delete.new.execute
+      @delete.new(options).execute
     end
 
     desc "list", "List all projects"
@@ -118,7 +114,7 @@ module ThemeJuice
     # @return {Void}
     #
     def list
-      @list.new.execute
+      @list.new(options).execute
     end
 
     desc "install", "Run installation for the starter theme"
@@ -126,7 +122,7 @@ module ThemeJuice
     # @return {Void}
     #
     def install
-      @install.new.execute
+      @install.new(options).execute
     end
 
     desc "share", "Share project with Vagrant Share"
@@ -232,14 +228,16 @@ module ThemeJuice
       end
     end
 
-    desc "vm [COMMANDS]", "Manage development environment (alias for 'vagrant' commands)"
+    desc "vm [COMMANDS]", "Manage development environment"
     #
     # @param {*} commands
     #
     # @return {Void}
     #
     def vm(*commands)
-      @util.run "cd #{@env.vm_path} && vagrant #{commands.join(" ")}", :verbose => @env.verbose
+      @util.inside @env.vm_path do
+        @util.run "vagrant #{commands.join(" ")}", :verbose => @env.verbose
+      end
     end
   end
 end
