@@ -24,9 +24,8 @@ module ThemeJuice
         @project.db_pass      = @opts.fetch("db_pass") { db_pass }
         @project.vm_location  = vm_location
 
-        # puts @project.inspect
-
         runner do |tasks|
+          tasks << Tasks::Confirm.new
           tasks << Tasks::Location.new
           tasks << Tasks::Theme.new
           tasks << Tasks::VM.new
@@ -40,6 +39,7 @@ module ThemeJuice
           tasks << Tasks::SyncedFolder.new
           tasks << Tasks::WPCLI.new
           tasks << Tasks::Repo.new
+          tasks << Tasks::Success.new
         end
       end
 
