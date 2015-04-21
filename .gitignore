@@ -1,9 +1,9 @@
 .yardoc
 .DS_Store
 *.gem
-
-# Configs
 tj.*
 .tj.*
 Juicefile
 juicefile
+vvv-hosts
+vvv-nginx.conf

@@ -9,12 +9,28 @@ module ThemeJuice
       end
 
       def execute
+        create_hosts_file
       end
 
       def unexecute
+        remove_hosts_file
       end
 
       private
+
+      def hosts_file
+        "#{@project.location}/vvv-hosts"
+      end
+
+      def create_hosts_file
+        @interact.log "Creating hosts file"
+        @util.create_file hosts_file, "#{@project.url}", :verbose => @env.verbose
+      end
+
+      def remove_hosts_file
+        @interact.log "Removing hosts file"
+        @util.remove_file hosts_file, :verbose => @env.verbose
+      end
     end
   end
 end
