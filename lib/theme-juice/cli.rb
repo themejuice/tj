@@ -23,6 +23,7 @@ module ThemeJuice
       @env.yolo          = options.fetch("yolo", false)
       @env.boring        = options.fetch("boring", false)
       @env.verbose       = options.fetch("verbose", false)
+      @env.dryrun        = options.fetch("dryrun", false)
       @env.no_deployer   = options.fetch("no_deployer", false)
       @env.no_colors     = @env.boring ? true : options.fetch("no_colors", false)
       @env.no_unicode    = @env.boring ? true : options.fetch("no_unicode", false)
@@ -48,6 +49,7 @@ module ThemeJuice
     class_option :no_animations, :type => :boolean,                  :desc => "Disable all animations"
     class_option :no_deployer,   :type => :boolean,                  :desc => "Disable deployer"
     class_option :verbose,       :type => :boolean,                  :desc => "Verbose output"
+    class_option :dryrun,        :type => :boolean,                  :desc => "Disable running all commands"
 
     desc "--version, -v", "Print current version"
     #

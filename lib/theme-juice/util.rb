@@ -25,10 +25,22 @@ module ThemeJuice
         if command.is_a? Array
           yield command if block_given?
 
-          _run command.join("&&"), config
+          if @env.dryrun
+            _run "echo #{escape_command(command.join("&&"))}", config
+          else
+            _run command.join("&&"), config
+          end
         else
-          _run command, config
+          if @env.dryrun
+            _run "echo #{escape_command(command)}", config
+          else
+            _run command, config
+          end
         end
+      end
+
+      def escape_command(command)
+        Shellwords.escape(command)
       end
     end
   end

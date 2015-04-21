@@ -5,6 +5,7 @@ require "faker"
 require "fileutils"
 require "pathname"
 require "tempfile"
+require "shellwords"
 require "yaml"
 
 module ThemeJuice

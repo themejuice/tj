@@ -11,6 +11,7 @@ module ThemeJuice
     attr_accessor :no_deployer
     attr_accessor :vm_prefix
     attr_accessor :verbose
+    attr_accessor :dryrun
 
     extend self
   end
