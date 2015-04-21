@@ -20,8 +20,12 @@ module ThemeJuice
     end
 
     def config
-      YAML.load_file Dir["#{@project.location}/*"].select { |f| %r{^(\.)?(tj.y(a)?ml)} =~ File.basename(f) }.last ||
+      YAML.load_file Dir["#{@project.location}/*"].select { |f| regex =~ File.basename(f) }.last ||
         @interact.error("Config file not found")
+    end
+
+    def regex
+      %r{^((\.)?(tj.y(a)?ml)|((J|j)uicefile))}
     end
 
     extend self
