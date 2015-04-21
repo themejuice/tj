@@ -19,6 +19,7 @@ module ThemeJuice
       @deployer   = nil # ::ThemeJuice::Command::Deployer
 
       @env.vm_path       = options.fetch("vm_path", File.expand_path("~/vagrant"))
+      @env.vm_ip         = options.fetch("vm_ip", "192.168.50.4")
       @env.vm_prefix     = "tj"
       @env.yolo          = options.fetch("yolo", false)
       @env.boring        = options.fetch("boring", false)
@@ -42,6 +43,7 @@ module ThemeJuice
     map %w[vagrant vvv]                 => :vm
 
     class_option :vm_path,       :type => :string,  :default => nil, :desc => "Force path to VM"
+    class_option :vm_ip,         :type => :string,  :default => nil, :desc => "Force IP address for VM"
     class_option :yolo,          :type => :boolean,                  :desc => "Say yes to anything and everything"
     class_option :boring,        :type => :boolean,                  :desc => "Disable all the coolness"
     class_option :no_unicode,    :type => :boolean,                  :desc => "Disable all unicode characters"

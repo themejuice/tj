@@ -31,7 +31,7 @@ module ThemeJuice
         @util.append_to_file custom_file, :verbose => @env.verbose do
 %Q{# Begin '#{@project.name}'
 config.vm.synced_folder '#{@project.location}', '/srv/www/tj-#{@project.name}', mount_options: ['dmode=777','fmode=777']
-config.landrush.host '#{@project.url}', '192.168.50.4'
+config.landrush.host '#{@project.url}', '#{@env.vm_ip}'
 # End '#{@project.name}'
 
 }

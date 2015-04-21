@@ -12,9 +12,6 @@ module ThemeJuice
         create_path
       end
 
-      def unexecute
-      end
-
       private
 
       def create_path

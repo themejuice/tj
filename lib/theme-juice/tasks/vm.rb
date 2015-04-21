@@ -12,9 +12,6 @@ module ThemeJuice
         install_vvv unless vvv_is_installed?
       end
 
-      def unexecute
-      end
-
       private
 
       def vvv_is_installed?

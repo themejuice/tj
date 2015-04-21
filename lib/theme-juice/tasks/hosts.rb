@@ -9,7 +9,7 @@ module ThemeJuice
       end
 
       def execute
-        create_hosts_file
+        create_hosts_file unless hosts_is_setup?
       end
 
       def unexecute
@@ -20,6 +20,10 @@ module ThemeJuice
 
       def hosts_file
         "#{@project.location}/vvv-hosts"
+      end
+
+      def hosts_is_setup?
+        File.exist? hosts_file
       end
 
       def create_hosts_file

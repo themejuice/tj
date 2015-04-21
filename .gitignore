@@ -7,3 +7,5 @@ Juicefile
 juicefile
 vvv-hosts
 vvv-nginx.conf
+.env.*
+wp-cli.*

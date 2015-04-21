@@ -3,6 +3,7 @@
 module ThemeJuice
   module Env
     attr_accessor :vm_path
+    attr_accessor :vm_ip
     attr_accessor :yolo
     attr_accessor :boring
     attr_accessor :no_unicode

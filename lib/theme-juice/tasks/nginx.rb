@@ -9,7 +9,7 @@ module ThemeJuice
       end
 
       def execute
-        create_nginx_file
+        create_nginx_file unless nginx_is_setup?
       end
 
       def unexecute
@@ -20,6 +20,10 @@ module ThemeJuice
 
       def nginx_file
         "#{@project.location}/vvv-nginx.conf"
+      end
+
+      def nginx_is_setup?
+        File.exist? nginx_file
       end
 
       def create_nginx_file

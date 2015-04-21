@@ -13,9 +13,6 @@ module ThemeJuice
         install_theme
       end
 
-      def unexecute
-      end
-
       private
 
       def clone_theme

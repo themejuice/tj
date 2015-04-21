@@ -14,9 +14,6 @@ module ThemeJuice
         install_vagrant_plugin "landrush", "0.18.0"
       end
 
-      def unexecute
-      end
-
       private
 
       def install_vagrant_plugin(plugin, version)
