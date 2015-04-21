@@ -9,12 +9,16 @@ module ThemeJuice
       end
 
       def execute
+        confirm
       end
 
       private
 
-      def list_settings
-        @project.inspect
+      def confirm
+        @interact.list "Your settings :", :yellow, @project.inspect
+        unless @interact.agree? "Do these settings look correct?"
+          @interact.error "Dang typos..."
+        end
       end
     end
   end
