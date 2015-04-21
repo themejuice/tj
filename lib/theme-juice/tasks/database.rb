@@ -9,7 +9,7 @@ module ThemeJuice
       end
 
       def execute
-        unless @project.no_db || @project.no_wp
+        if @project.db_host && @project.db_name && @project.db_user && @project.db_pass
           create_custom_file unless custom_file_is_setup?
           create_database    unless database_is_setup?
         end

@@ -31,8 +31,8 @@ module ThemeJuice
 
         @util.inside @project.location do
           @util.run [], :verbose => @env.verbose do |cmds|
-            cmds << "git init",
-            cmds << "git remote add origin #{@project.repository}",
+            cmds << "git init"
+            cmds << "git remote add origin #{@project.repository}"
           end
         end
       end
