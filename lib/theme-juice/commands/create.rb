@@ -30,6 +30,16 @@ module ThemeJuice
           tasks << Tasks::Location.new
           tasks << Tasks::Theme.new
           tasks << Tasks::VM.new
+          tasks << Tasks::VMPlugins.new
+          tasks << Tasks::VMLocation.new
+          tasks << Tasks::Landrush.new
+          tasks << Tasks::Hosts.new
+          tasks << Tasks::Database.new
+          tasks << Tasks::Nginx.new
+          tasks << Tasks::DotEnv.new
+          tasks << Tasks::SyncedFolder.new
+          tasks << Tasks::WPCLI.new
+          tasks << Tasks::Repo.new
         end
       end
 

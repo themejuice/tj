@@ -19,39 +19,59 @@ module ThemeJuice
     no_commands do
 
       alias_method :_run, :run
+      alias_method :_create_file, :create_file
+      alias_method :_append_to_file, :append_to_file
 
       def run(command, config = {}, &block)
 
         if command.is_a? Array
           yield command if block_given?
 
-          handle_multi_command command, config
+          run_multi_command command, config
         else
-          handle_single_command command, config
+          run_single_command command, config
+        end
+      end
+
+      def create_file(destination, *args, &block)
+        if @env.dryrun
+          data = block_given? ? block : args.shift
+          _run "echo 'write #{escape(data)} to #{destination}'"
+        else
+          _create_file destination, *args, &block
+        end
+      end
+
+      def append_to_file(path, *args, &block)
+        if @env.dryrun
+          data = block_given? ? block : args.shift
+          _run "echo 'write #{escape(data)} to #{destination}'"
+        else
+          _append_to_file path, *args, &block
         end
       end
 
       private
 
-      def handle_multi_command(commands, config)
+      def run_multi_command(commands, config)
         commands = commands.join "&&"
 
         if @env.dryrun
-          _run "echo #{escape_command(commands)}", config
+          _run "echo #{escape(commands)}", config
         else
           _run commands, config
         end
       end
 
-      def handle_single_command(command, config)
+      def run_single_command(command, config)
         if @env.dryrun
-          _run "echo #{escape_command(command)}", config
+          _run "echo #{escape(command)}", config
         else
           _run command, config
         end
       end
 
-      def escape_command(command)
+      def escape(command)
         Shellwords.escape(command)
       end
     end

@@ -9,23 +9,24 @@ module ThemeJuice
       end
 
       def execute
-        create_path
+        @interact.log "Setting up VM"
+
+        install_vvv unless vvv_is_installed?
       end
 
       def unexecute
-        remove_path
       end
 
       private
 
-      def create_path
-        @interact.log "Setting up VM"
-        # @util.create_file "foo.rb", "bar", :verbose => @env.verbose
+      def vvv_is_installed?
+        File.exist? @env.vm_path
       end
 
-      def remove_path
-        @interact.log "Removing VM"
-        # @util.remove_file "foo.rb", "bar", :verbose => @env.verbose
+      def install_vvv
+        @interact.log "Installing VVV"
+
+        @util.run "git clone --branch '1.2.0' https://github.com/Varying-Vagrant-Vagrants/VVV.git #{@env.vm_path}", :verbose => @env.verbose
       end
     end
   end

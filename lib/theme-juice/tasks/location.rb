@@ -19,7 +19,7 @@ module ThemeJuice
 
       def create_path
         @interact.log "Creating project location"
-        # @util.empty_directory @project.location, :verbose => @env.verbose
+        @util.empty_directory @project.location, :verbose => @env.verbose
       end
     end
   end
