@@ -6,16 +6,14 @@ module ThemeJuice
 
       def initialize(opts = {})
         super
-
-        @name = "landrush"
       end
 
       def execute
-        setup_wildcard_subdomains
+        setup_landrush unless landrush_is_setup?
       end
 
       def unexecute
-        remove_wildcard_subdomains
+        remove_landrush
       end
 
       private
@@ -24,25 +22,25 @@ module ThemeJuice
         File.expand_path "#{@env.vm_path}/Customfile"
       end
 
-      def wildcard_subdomains_is_setup?
-        File.readlines(custom_file).grep(/(#(#*)? Begin '#{@name}')/m).any?
+      def landrush_is_setup?
+        File.readlines(custom_file).grep(/(#(#*)? Begin 'landrush')/m).any?
       end
 
-      def setup_wildcard_subdomains
-        @interact.log "Creating landrush wildcard subdomains"
+      def setup_landrush
+        @interact.log "Creating landrush config"
         @util.append_to_file custom_file, :verbose => @env.verbose do
-%Q{# Begin '#{@name}'
+%Q{# Begin 'landrush'
 config.landrush.enabled = true
 config.landrush.tld = 'dev'
-# End '#{@name}'
+# End 'landrush'
 
 }
         end
       end
 
-      def remove_wildcard_subdomains
-        @interact.log "Removing landrush wildcard subdomains"
-        @util.gsub_file custom_file, /(#(#*)? Begin '#{@name}')(.*?)(#(#*)? End '#{@name}')\n+/m,
+      def remove_landrush
+        @interact.log "Removing landrush config"
+        @util.gsub_file custom_file, /(#(#*)? Begin 'landrush')(.*?)(#(#*)? End 'landrush')\n+/m,
           "", :verbose => @env.verbose
       end
     end
