@@ -19,8 +19,8 @@ module ThemeJuice
     no_commands do
 
       alias_method :_run, :run
-      alias_method :_create_file, :create_file
-      alias_method :_append_to_file, :append_to_file
+      # alias_method :_create_file, :create_file
+      # alias_method :_append_to_file, :append_to_file
 
       def run(command, config = {}, &block)
 
@@ -33,23 +33,23 @@ module ThemeJuice
         end
       end
 
-      def create_file(destination, *args, &block)
-        if @env.dryrun
-          data = block_given? ? block : args.shift
-          _run "echo 'write #{escape(data)} to #{destination}'"
-        else
-          _create_file destination, *args, &block
-        end
-      end
-
-      def append_to_file(path, *args, &block)
-        if @env.dryrun
-          data = block_given? ? block : args.shift
-          _run "echo 'write #{escape(data)} to #{destination}'"
-        else
-          _append_to_file path, *args, &block
-        end
-      end
+      # def create_file(destination, *args, &block)
+      #   if @env.dryrun
+      #     data = block_given? ? block : args.shift
+      #     _run "echo 'write #{escape(data)} to #{destination}'"
+      #   else
+      #     _create_file destination, *args, &block
+      #   end
+      # end
+      #
+      # def append_to_file(path, *args, &block)
+      #   if @env.dryrun
+      #     data = block_given? ? block : args.shift
+      #     _run "echo 'write #{escape(data)} to #{path}'"
+      #   else
+      #     _append_to_file path, *args, &block
+      #   end
+      # end
 
       private
 

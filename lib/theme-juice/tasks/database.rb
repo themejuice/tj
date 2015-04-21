@@ -44,11 +44,12 @@ module ThemeJuice
         @interact.log "Creating database"
 
         @util.append_to_file custom_file, :verbose => @env.verbose do
-%Q{
-# Begin '#{@project.name}'
+%Q{# Begin '#{@project.name}'
 CREATE DATABASE IF NOT EXISTS `#{@project.db_name}`;
 GRANT ALL PRIVILEGES ON `#{@project.db_name}`.* TO '#{@project.db_user}'@'localhost' IDENTIFIED BY '#{@project.db_pass}';
-# End '#{@project.name}'}
+# End '#{@project.name}'
+
+}
         end
       end
 
@@ -56,7 +57,7 @@ GRANT ALL PRIVILEGES ON `#{@project.db_name}`.* TO '#{@project.db_user}'@'localh
         @interact.log "Removing database"
 
         @util.gsub_file custom_file, /(#(#*)? Begin '#{@project.name}')(.*?)(#(#*)? End '#{@project.name}')\n+/m,
-          "", :verbose => @env.verbose do
+          "", :verbose => @env.verbose
       end
 
       def drop_database
