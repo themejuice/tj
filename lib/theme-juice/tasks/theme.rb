@@ -20,11 +20,8 @@ module ThemeJuice
 
       def clone_theme
         @interact.log "Cloning theme"
-
         @util.inside @project.location do
-          @util.run [], :verbose => @env.verbose do |cmds|
-            cmds << "git clone --depth 1 #{@project.theme} ."
-          end
+          @util.run "git clone --depth 1 #{@project.theme} .", :verbose => @env.verbose
         end
       end
 

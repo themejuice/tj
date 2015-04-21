@@ -9,8 +9,6 @@ module ThemeJuice
       end
 
       def execute
-        @interact.log "Setting up database"
-
         create_custom_file unless custom_file_is_setup?
         create_database    unless database_is_setup?
       end
@@ -32,7 +30,6 @@ module ThemeJuice
 
       def create_custom_file
         @interact.log "Creating custom file"
-
         @util.create_file custom_file, nil, :verbose => @env.verbose
       end
 
@@ -42,7 +39,6 @@ module ThemeJuice
 
       def create_database
         @interact.log "Creating database"
-
         @util.append_to_file custom_file, :verbose => @env.verbose do
 %Q{# Begin '#{@project.name}'
 CREATE DATABASE IF NOT EXISTS `#{@project.db_name}`;
@@ -55,7 +51,6 @@ GRANT ALL PRIVILEGES ON `#{@project.db_name}`.* TO '#{@project.db_user}'@'localh
 
       def remove_database
         @interact.log "Removing database"
-
         @util.gsub_file custom_file, /(#(#*)? Begin '#{@project.name}')(.*?)(#(#*)? End '#{@project.name}')\n+/m,
           "", :verbose => @env.verbose
       end
