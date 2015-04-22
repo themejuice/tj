@@ -40,6 +40,7 @@ module ThemeJuice
           tasks << Tasks::WPCLI.new
           tasks << Tasks::Repo.new
           tasks << Tasks::Success.new
+          tasks << Tasks::VMProvision.new
         end
       end
 

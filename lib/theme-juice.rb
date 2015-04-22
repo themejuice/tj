@@ -32,7 +32,7 @@ require_relative "theme-juice/tasks/repo"
 require_relative "theme-juice/tasks/synced_folder"
 require_relative "theme-juice/tasks/vm_plugins"
 require_relative "theme-juice/tasks/vm_location"
-require_relative "theme-juice/tasks/vm_restart"
+require_relative "theme-juice/tasks/vm_provision"
 require_relative "theme-juice/tasks/wp_cli"
 require_relative "theme-juice/tasks/success"
 

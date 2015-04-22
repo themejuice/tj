@@ -24,7 +24,6 @@ module ThemeJuice
     #  get the job done and that's all that really matters
     #
     no_commands do
-
       alias_method :_run, :run
       alias_method :_create_file, :create_file
       alias_method :_append_to_file, :append_to_file
