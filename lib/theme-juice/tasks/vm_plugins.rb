@@ -18,8 +18,8 @@ module ThemeJuice
 
       def install_vagrant_plugin(plugin, version)
         @interact.log "Installing #{plugin}"
-        @util.run "vagrant plugin install #{plugin} --plugin-version #{version}", {
-          :verbose => @env.verbose, :pretend => @env.dryrun }
+        @util.run "vagrant plugin install #{plugin} --plugin-version #{version}",
+          :verbose => @env.verbose
       end
     end
   end

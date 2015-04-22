@@ -28,7 +28,7 @@ module ThemeJuice
 
       def create_synced_folder
         @interact.log "Creating synced folder"
-        @util.append_to_file custom_file, { :verbose => @env.verbose, :pretend => @env.dryrun } do
+        @util.append_to_file custom_file, :verbose => @env.verbose do
 %Q{# Begin '#{@project.name}'
 config.vm.synced_folder '#{@project.location}', '/srv/www/tj-#{@project.name}', mount_options: ['dmode=777','fmode=777']
 config.landrush.host '#{@project.url}', '#{@env.vm_ip}'
@@ -41,7 +41,7 @@ config.landrush.host '#{@project.url}', '#{@env.vm_ip}'
       def remove_synced_folder
         @interact.log "Removing synced folder"
         @util.gsub_file custom_file, /(#(#*)? Begin '#{@project.name}')(.*?)(#(#*)? End '#{@project.name}')\n+/m,
-          "", { :verbose => @env.verbose, :pretend => @env.dryrun }
+          "", :verbose => @env.verbose
       end
     end
   end

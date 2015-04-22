@@ -2,7 +2,7 @@
 
 module ThemeJuice
   module Tasks
-    class VMRestart < Task
+    class VMProvision < Task
 
       def initialize(opts = {})
         super

@@ -32,7 +32,7 @@ module ThemeJuice
 
       def create_custom_file
         @interact.log "Creating custom file"
-        @util.create_file custom_file, nil, { :verbose => @env.verbose, :pretend => @env.dryrun }
+        @util.create_file custom_file, nil, :verbose => @env.verbose
       end
 
       def database_is_setup?
@@ -41,7 +41,7 @@ module ThemeJuice
 
       def create_database
         @interact.log "Creating database"
-        @util.append_to_file custom_file, { :verbose => @env.verbose, :pretend => @env.dryrun } do
+        @util.append_to_file custom_file, :verbose => @env.verbose do
 %Q{# Begin '#{@project.name}'
 CREATE DATABASE IF NOT EXISTS `#{@project.db_name}`;
 GRANT ALL PRIVILEGES ON `#{@project.db_name}`.* TO '#{@project.db_user}'@'localhost' IDENTIFIED BY '#{@project.db_pass}';

@@ -28,7 +28,7 @@ module ThemeJuice
 
       def create_nginx_file
         @interact.log "Creating nginx file"
-        @util.create_file nginx_file, { :verbose => @env.verbose, :pretend => @env.dryrun } do
+        @util.create_file nginx_file, :verbose => @env.verbose do
 %Q{server \{
   listen 80;
   server_name .#{@project.url};
@@ -42,8 +42,7 @@ module ThemeJuice
 
       def remove_nginx_file
         @interact.log "Removing nginx file"
-        @util.remove_file nginx_file, { :verbose => @env.verbose,
-          :pretend => @env.dryrun }
+        @util.remove_file nginx_file, :verbose => @env.verbose
       end
     end
   end
