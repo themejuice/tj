@@ -6,21 +6,20 @@ module ThemeJuice
     def initialize(*)
       super
 
-      @version    = VERSION
-      @env        = Env
-      @interact   = Interact
-      @project    = Project
-      @util       = Util.new
-      @create     = Commands::Create
-      @delete     = nil # ::ThemeJuice::Command::Delete
-      @list       = nil # ::ThemeJuice::Command::List
-      @install    = nil # ::ThemeJuice::Command::Install
-      @subcommand = nil # ::ThemeJuice::Command::Subcommand
-      @deployer   = nil # ::ThemeJuice::Command::Deployer
-
+      @version           = VERSION
+      @env               = Env
+      @interact          = Interact
+      @project           = Project
+      @util              = Util.new
+      @create            = Commands::Create
+      @delete            = nil # ::ThemeJuice::Command::Delete
+      @list              = nil # ::ThemeJuice::Command::List
+      @install           = nil # ::ThemeJuice::Command::Install
+      @subcommand        = nil # ::ThemeJuice::Command::Subcommand
+      @deployer          = nil # ::ThemeJuice::Command::Deployer
       @env.vm_path       = options.fetch("vm_path", File.expand_path("~/vagrant"))
       @env.vm_ip         = options.fetch("vm_ip", "192.168.50.4")
-      @env.vm_prefix     = "tj"
+      @env.vm_prefix     = options.fetch("vm_prefix", "tj")
       @env.yolo          = options.fetch("yolo", false)
       @env.boring        = options.fetch("boring", false)
       @env.no_unicode    = @env.boring ? true : options.fetch("no_unicode", false)
@@ -44,6 +43,7 @@ module ThemeJuice
 
     class_option :vm_path,       :type => :string,  :default => nil, :desc => "Force path to VM"
     class_option :vm_ip,         :type => :string,  :default => nil, :desc => "Force IP address for VM"
+    class_option :vm_prefix,     :type => :string,  :default => nil, :desc => "Force directory prefix for project in VM"
     class_option :yolo,          :type => :boolean,                  :desc => "Say yes to anything and everything"
     class_option :boring,        :type => :boolean,                  :desc => "Disable all the coolness"
     class_option :no_unicode,    :type => :boolean,                  :desc => "Disable all unicode characters"
@@ -167,6 +167,13 @@ module ThemeJuice
     # @return {Void}
     #
     def update
+    end
+
+    desc "wp", "Manage WordPress installation"
+    #
+    # @return {Void}
+    #
+    def wp
     end
 
     desc "watch [COMMANDS]", "Watch and compile assets"

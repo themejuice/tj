@@ -14,6 +14,12 @@ module ThemeJuice
     attr_accessor :verbose
     attr_accessor :dryrun
 
+    def inspect
+      res = []
+      self.instance_variables.each { |k, _| res << "#{k[1..-1]}: #{instance_variable_get(k)}" }
+      res
+    end
+
     extend self
   end
 end

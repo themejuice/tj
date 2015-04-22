@@ -15,10 +15,23 @@ module ThemeJuice
       private
 
       def confirm
-        @interact.list "Your settings :", :yellow, @project.inspect
+        @interact.list "Your settings :", :yellow, settings
         unless @interact.agree? "Do these settings look correct?"
           @interact.error "Dang typos..."
         end
+      end
+
+      def settings
+        res = []
+
+        if @env.verbose
+          res << @env.inspect
+          res << @project.inspect
+        else
+          res << @project.inspect
+        end
+
+        res.flatten
       end
     end
   end
