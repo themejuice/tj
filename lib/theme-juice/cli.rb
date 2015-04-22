@@ -141,14 +141,14 @@ module ThemeJuice
     def package
     end
 
-    desc "module", "Manage project modules"
+    desc "module [COMMANDS]", "Manage project modules"
     #
     # @return {Void}
     #
     def module
     end
 
-    desc "skin", "Manage project skins"
+    desc "skin [COMMANDS]", "Manage project skins"
     #
     # @return {Void}
     #
@@ -169,7 +169,7 @@ module ThemeJuice
     def update
     end
 
-    desc "wp", "Manage WordPress installation"
+    desc "wp [COMMANDS]", "Manage WordPress installation"
     #
     # @return {Void}
     #
