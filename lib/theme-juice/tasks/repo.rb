@@ -38,7 +38,7 @@ module ThemeJuice
       end
 
       def remove_repo
-        if @interact.agree "Do you want to overwrite the current repo in '#{@project.location}'?"
+        if @interact.agree? "Do you want to overwrite the current repo in '#{@project.location}'?"
           @util.remove_dir git_dir, :verbose => @env.verbose
         else
           @interact.error "Run the command again without a repository, or remove the current repository"
