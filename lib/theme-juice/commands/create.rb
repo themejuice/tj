@@ -60,11 +60,11 @@ module ThemeJuice
 
       def valid_name?(name)
         if name.empty?
-          @interact.error "Project name '#{name}' is invalid or empty. Aborting mission."
+          @interact.error "Project name '#{name}' looks like it's empty. Aborting mission."
         end
 
         "#{name}".match /[^0-9A-Za-z.\-]/ do |char|
-          @interact.error "Project name contains an invalid character '#{char}'. This name is used for creating directories, so that's not gonna work. Aborting mission."
+          @interact.error "Project name contains an invalid character '#{char}'. This name is used internally for a ton of stuff, so that's not gonna work. Aborting mission."
         end
 
         true
