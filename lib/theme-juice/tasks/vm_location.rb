@@ -20,12 +20,14 @@ module ThemeJuice
 
       def create_path
         @interact.log "Creating project location in VM"
-        @util.empty_directory @project.vm_location, :verbose => @env.verbose
+        @util.empty_directory @project.vm_location, { :verbose => @env.verbose,
+          :pretend => @env.dryrun }
       end
 
       def remove_path
         @interact.log "Removing project location in VM"
-        @util.remove_dir @project.vm_location, :verbose => @env.verbose
+        @util.remove_dir @project.vm_location, { :verbose => @env.verbose,
+          :pretend => @env.dryrun }
       end
     end
   end

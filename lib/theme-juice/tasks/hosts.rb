@@ -28,12 +28,14 @@ module ThemeJuice
 
       def create_hosts_file
         @interact.log "Creating hosts file"
-        @util.create_file hosts_file, "#{@project.url}", :verbose => @env.verbose
+        @util.create_file hosts_file, "#{@project.url}", {
+          :verbose => @env.verbose, :pretend => @env.dryrun }
       end
 
       def remove_hosts_file
         @interact.log "Removing hosts file"
-        @util.remove_file hosts_file, :verbose => @env.verbose
+        @util.remove_file hosts_file, { :verbose => @env.verbose,
+          :pretend => @env.dryrun }
       end
     end
   end

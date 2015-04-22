@@ -20,7 +20,8 @@ module ThemeJuice
 
       def install_vvv
         @interact.log "Installing VVV"
-        @util.run "git clone --branch '1.2.0' https://github.com/Varying-Vagrant-Vagrants/VVV.git #{@env.vm_path}", :verbose => @env.verbose
+        @util.run "git clone --branch '1.2.0' https://github.com/Varying-Vagrant-Vagrants/VVV.git #{@env.vm_path}", {
+          :verbose => @env.verbose, :pretend => @env.dryrun }
       end
     end
   end

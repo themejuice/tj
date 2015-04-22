@@ -43,7 +43,8 @@ ssh:
 
       def remove_wp_cli_file
         @interact.log "Removing WP-CLI file"
-        @util.remove_file wp_cli_file, { :verbose => @env.verbose, :pretend => @env.dryrun }
+        @util.remove_file wp_cli_file, { :verbose => @env.verbose,
+          :pretend => @env.dryrun }
       end
     end
   end
