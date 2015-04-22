@@ -15,7 +15,7 @@ module ThemeJuice
 
     def run(command)
       @util.inside @project.location do
-        @util.run command, :verbose => @env.verbose
+        @util.run command, { :verbose => @env.verbose, :pretend => @env.dryrun }
       end
     end
 
