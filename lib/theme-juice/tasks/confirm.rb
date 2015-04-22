@@ -22,16 +22,11 @@ module ThemeJuice
       end
 
       def settings
-        res = []
-
         if @env.verbose
-          res << @env.inspect
-          res << @project.inspect
+          @env.inspect + @project.inspect
         else
-          res << @project.inspect
+          @project.inspect
         end
-
-        res.flatten
       end
     end
   end
