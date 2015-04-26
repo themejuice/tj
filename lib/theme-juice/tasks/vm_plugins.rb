@@ -16,10 +16,16 @@ module ThemeJuice
 
       private
 
+      def vagrant_plugin_is_installed?(plugin)
+        `vagrant plugin list`.include? plugin
+      end
+
       def install_vagrant_plugin(plugin, version)
-        @interact.log "Installing #{plugin}"
-        @util.run "vagrant plugin install #{plugin} --plugin-version #{version}",
-          :verbose => @env.verbose
+        unless vagrant_plugin_is_installed? plugin
+          @interact.log "Installing #{plugin}"
+          @util.run "vagrant plugin install #{plugin} --plugin-version #{version}",
+            :verbose => @env.verbose
+        end
       end
     end
   end
