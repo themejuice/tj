@@ -19,7 +19,7 @@ module ThemeJuice
       @deployer          = nil # ::ThemeJuice::Command::Deployer
       @env.vm_path       = options.fetch("vm_path", File.expand_path("~/vagrant"))
       @env.vm_ip         = options.fetch("vm_ip", "192.168.50.4")
-      @env.vm_prefix     = options.fetch("vm_prefix", "tj")
+      @env.vm_prefix     = options.fetch("vm_prefix", "tj-")
       @env.yolo          = options.fetch("yolo", false)
       @env.boring        = options.fetch("boring", false)
       @env.no_unicode    = @env.boring ? true : options.fetch("no_unicode", false)
