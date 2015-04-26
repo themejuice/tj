@@ -9,6 +9,7 @@ module ThemeJuice
     attr_accessor :no_unicode
     attr_accessor :no_colors
     attr_accessor :no_animations
+    attr_accessor :no_landrush
     attr_accessor :no_deployer
     attr_accessor :vm_prefix
     attr_accessor :verbose

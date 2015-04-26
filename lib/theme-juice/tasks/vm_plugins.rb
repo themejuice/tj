@@ -9,9 +9,9 @@ module ThemeJuice
       end
 
       def execute
-        install_vagrant_plugin "vagrant-hostsupdater", "0.0.11"
         install_vagrant_plugin "vagrant-triggers", "0.5.0"
-        install_vagrant_plugin "landrush", "0.18.0"
+        install_vagrant_plugin "vagrant-hostsupdater", "0.0.11"
+        install_vagrant_plugin "landrush", "0.18.0" unless @env.no_landrush
       end
 
       private

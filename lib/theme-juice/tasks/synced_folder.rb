@@ -23,24 +23,23 @@ module ThemeJuice
       end
 
       def synced_folder_is_setup?
-        File.readlines(custom_file).grep(/(#(#*)? Begin '#{@project.name}')/m).any?
+        File.readlines(custom_file).grep(/(#(#*)? Begin '#{@project.name}' SF)/m).any?
       end
 
       def create_synced_folder
-        @interact.log "Creating synced folder"
+        @interact.log "Creating synced folder entries"
         @util.append_to_file custom_file, :verbose => @env.verbose do
-%Q{# Begin '#{@project.name}'
+%Q{# Begin '#{@project.name}' SF
 config.vm.synced_folder '#{@project.location}', '/srv/www/tj-#{@project.name}', mount_options: ['dmode=777','fmode=777']
-config.landrush.host '#{@project.url}', '#{@env.vm_ip}'
-# End '#{@project.name}'
+# End '#{@project.name}' SF
 
 }
         end
       end
 
       def remove_synced_folder
-        @interact.log "Removing synced folder"
-        @util.gsub_file custom_file, /(#(#*)? Begin '#{@project.name}')(.*?)(#(#*)? End '#{@project.name}')\n+/m,
+        @interact.log "Removing synced folder entries"
+        @util.gsub_file custom_file, /(#(#*)? Begin '#{@project.name}' SF)(.*?)(#(#*)? End '#{@project.name}' SF)\n+/m,
           "", :verbose => @env.verbose
       end
     end

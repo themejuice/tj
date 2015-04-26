@@ -10,7 +10,7 @@ module ThemeJuice
       @project  = Project
 
       super
-      
+
       self.behavior = :pretend if @env.dryrun
     end
 
@@ -42,7 +42,7 @@ module ThemeJuice
       # def create_file(destination, *args, &block)
       #   if @env.dryrun
       #     data = block_given? ? block : args.shift
-      #     _run %Q{echo #{escape("#{destination}: (write)\n#{data.call}")}}, *args
+      #     _run %Q{echo #{escape("#{destination}: (write)\n#{data.call if data.respond_to?(:call)}")}}, *args
       #   else
       #     _create_file destination, *args, &block
       #   end
@@ -51,7 +51,7 @@ module ThemeJuice
       # def append_to_file(path, *args, &block)
       #   if @env.dryrun
       #     data = block_given? ? block : args.shift
-      #     _run %Q{echo #{escape("#{path}: (append)\n#{data.call}")}}, *args
+      #     _run %Q{echo #{escape("#{path}: (append)\n#{data.call if data.respond_to?(:call)}")}}, *args
       #   else
       #     _append_to_file path, *args, &block
       #   end

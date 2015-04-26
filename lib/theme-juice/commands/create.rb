@@ -31,12 +31,14 @@ module ThemeJuice
           tasks << Tasks::VM.new
           tasks << Tasks::VMPlugins.new
           tasks << Tasks::VMLocation.new
-          tasks << Tasks::Landrush.new
+          tasks << Tasks::VMCustomfile.new
           tasks << Tasks::Hosts.new
           tasks << Tasks::Database.new
           tasks << Tasks::Nginx.new
           tasks << Tasks::DotEnv.new
+          tasks << Tasks::Landrush.new
           tasks << Tasks::SyncedFolder.new
+          tasks << Tasks::DNS.new
           tasks << Tasks::WPCLI.new
           tasks << Tasks::Repo.new
           tasks << Tasks::Success.new
