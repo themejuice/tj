@@ -10,7 +10,7 @@ module ThemeJuice
 
       def execute
         unless @project.no_wp
-          create_dot_env_file unless dot_env_is_setup?
+          create_dot_env_file
         end
       end
 
@@ -29,8 +29,9 @@ module ThemeJuice
       end
 
       def create_dot_env_file
-        @interact.log "Creating .env file"
-        @util.create_file dot_env_file, :verbose => @env.verbose do
+        unless dot_env_is_setup?
+          @interact.log "Creating .env file"
+          @util.create_file dot_env_file, :verbose => @env.verbose do
 %Q{DB_NAME=#{@project.db_name}
 DB_USER=#{@project.db_user}
 DB_PASSWORD=#{@project.db_pass}
@@ -39,6 +40,7 @@ WP_HOME=http://#{@project.url}
 WP_SITEURL=http://#{@project.url}/wp
 
 }
+          end
         end
       end
 

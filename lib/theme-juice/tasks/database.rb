@@ -10,8 +10,8 @@ module ThemeJuice
 
       def execute
         if @project.db_host && @project.db_name && @project.db_user && @project.db_pass
-          create_custom_db_file unless custom_db_file_is_setup?
-          create_database       unless database_is_setup?
+          create_custom_db_file
+          create_database
         end
       end
 
@@ -31,8 +31,10 @@ module ThemeJuice
       end
 
       def create_custom_db_file
-        @interact.log "Creating custom database file"
-        @util.create_file custom_db_file, nil, :verbose => @env.verbose
+        unless custom_db_file_is_setup?
+          @interact.log "Creating custom database file"
+          @util.create_file custom_db_file, nil, :verbose => @env.verbose
+        end
       end
 
       def database_is_setup?
@@ -40,14 +42,16 @@ module ThemeJuice
       end
 
       def create_database
-        @interact.log "Creating database entries"
-        @util.append_to_file custom_db_file, :verbose => @env.verbose do
+        unless database_is_setup?
+          @interact.log "Creating database entries"
+          @util.append_to_file custom_db_file, :verbose => @env.verbose do
 %Q{# Begin '#{@project.name}' DB
 CREATE DATABASE IF NOT EXISTS `#{@project.db_name}`;
 GRANT ALL PRIVILEGES ON `#{@project.db_name}`.* TO '#{@project.db_user}'@'localhost' IDENTIFIED BY '#{@project.db_pass}';
 # End '#{@project.name}' DB
 
 }
+          end
         end
       end
 

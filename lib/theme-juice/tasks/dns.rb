@@ -9,7 +9,7 @@ module ThemeJuice
       end
 
       def execute
-        create_dns unless dns_is_setup?
+        create_dns
       end
 
       def unexecute
@@ -27,8 +27,9 @@ module ThemeJuice
       end
 
       def create_dns
-        @interact.log "Creating DNS entries"
-        @util.append_to_file custom_file, :verbose => @env.verbose do
+        unless dns_is_setup?
+          @interact.log "Creating DNS entries"
+          @util.append_to_file custom_file, :verbose => @env.verbose do
 %Q{# Begin '#{@project.name}' DNS
 if defined? VagrantPlugins::Landrush
   config.landrush.host '#{@project.url}', '#{@env.vm_ip}'
@@ -38,6 +39,7 @@ end
 # End '#{@project.name}' DNS
 
 }
+          end
         end
       end
 

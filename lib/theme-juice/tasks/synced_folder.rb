@@ -9,7 +9,7 @@ module ThemeJuice
       end
 
       def execute
-        create_synced_folder unless synced_folder_is_setup?
+        create_synced_folder
       end
 
       def unexecute
@@ -27,13 +27,15 @@ module ThemeJuice
       end
 
       def create_synced_folder
-        @interact.log "Creating synced folder entries"
-        @util.append_to_file custom_file, :verbose => @env.verbose do
+        unless synced_folder_is_setup?
+          @interact.log "Creating synced folder entries"
+          @util.append_to_file custom_file, :verbose => @env.verbose do
 %Q{# Begin '#{@project.name}' SF
 config.vm.synced_folder '#{@project.location}', '/srv/www/tj-#{@project.name}', mount_options: ['dmode=777','fmode=777']
 # End '#{@project.name}' SF
 
 }
+          end
         end
       end
 

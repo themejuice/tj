@@ -9,7 +9,7 @@ module ThemeJuice
       end
 
       def execute
-        create_custom_file unless custom_file_is_setup?
+        create_custom_file
       end
 
       def unexecute
@@ -27,8 +27,10 @@ module ThemeJuice
       end
 
       def create_custom_file
-        @interact.log "Creating customfile"
-        @util.create_file custom_file, nil, :verbose => @env.verbose
+        unless custom_file_is_setup?
+          @interact.log "Creating customfile"
+          @util.create_file custom_file, nil, :verbose => @env.verbose
+        end
       end
 
       def remove_custom_file

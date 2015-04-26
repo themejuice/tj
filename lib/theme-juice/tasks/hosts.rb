@@ -9,7 +9,7 @@ module ThemeJuice
       end
 
       def execute
-        create_hosts_file unless hosts_is_setup?
+        create_hosts_file
       end
 
       def unexecute
@@ -27,9 +27,11 @@ module ThemeJuice
       end
 
       def create_hosts_file
-        @interact.log "Creating hosts file"
-        @util.create_file hosts_file, "#{@project.url}",
-          :verbose => @env.verbose
+        unless hosts_is_setup?
+          @interact.log "Creating hosts file"
+          @util.create_file hosts_file, "#{@project.url}",
+            :verbose => @env.verbose
+        end
       end
 
       def remove_hosts_file

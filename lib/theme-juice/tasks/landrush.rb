@@ -9,7 +9,7 @@ module ThemeJuice
       end
 
       def execute
-        create_landrush unless landrush_is_setup?
+        create_landrush
       end
 
       def unexecute
@@ -27,14 +27,16 @@ module ThemeJuice
       end
 
       def create_landrush
-        @interact.log "Creating landrush entries"
-        @util.append_to_file custom_file, :verbose => @env.verbose do
+        unless landrush_is_setup?
+          @interact.log "Creating landrush entries"
+          @util.append_to_file custom_file, :verbose => @env.verbose do
 %Q{# Begin 'landrush'
 config.landrush.enabled = true
 config.landrush.tld = 'dev'
 # End 'landrush'
 
 }
+          end
         end
       end
 

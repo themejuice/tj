@@ -9,7 +9,7 @@ module ThemeJuice
       end
 
       def execute
-        create_wp_cli_file unless wp_cli_is_setup?
+        create_wp_cli_file
       end
 
       def unexecute
@@ -27,8 +27,9 @@ module ThemeJuice
       end
 
       def create_wp_cli_file
-        @interact.log "Creating WP-CLI file"
-        @util.create_file wp_cli_file, :verbose => @env.verbose do
+        unless wp_cli_is_setup?
+          @interact.log "Creating WP-CLI file"
+          @util.create_file wp_cli_file, :verbose => @env.verbose do
 %Q{require:
 \s\s- vendor/autoload.php
 ssh:
@@ -38,6 +39,7 @@ ssh:
 \s\s\s\scmd: cd #{@env.vm_path} && vagrant ssh-config > /tmp/vagrant_ssh_config && ssh -q %pseudotty% -F /tmp/vagrant_ssh_config default %cmd%
 
 }
+          end
         end
       end
 

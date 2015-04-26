@@ -9,7 +9,7 @@ module ThemeJuice
       end
 
       def execute
-        install_vvv unless vvv_is_installed?
+        install_vvv
       end
 
       private
@@ -19,9 +19,11 @@ module ThemeJuice
       end
 
       def install_vvv
-        @interact.log "Installing VVV"
-        @util.run "git clone --branch '1.2.0' https://github.com/Varying-Vagrant-Vagrants/VVV.git #{@env.vm_path}",
-          :verbose => @env.verbose
+        unless vvv_is_installed?
+          @interact.log "Installing VVV"
+          @util.run "git clone --branch '1.2.0' https://github.com/Varying-Vagrant-Vagrants/VVV.git #{@env.vm_path}",
+            :verbose => @env.verbose
+        end
       end
     end
   end
