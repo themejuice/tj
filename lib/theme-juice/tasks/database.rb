@@ -54,7 +54,7 @@ GRANT ALL PRIVILEGES ON `#{@project.db_name}`.* TO '#{@project.db_user}'@'localh
       def remove_database
         @interact.log "Removing database entries"
         @util.gsub_file custom_db_file, /(#(#*)? Begin '#{@project.name}' DB)(.*?)(#(#*)? End '#{@project.name}' DB)\n+/m,
-          "", { :verbose => @env.verbose, :pretend => @env.dryrun }
+          "", :verbose => @env.verbose
       end
 
       def drop_database
