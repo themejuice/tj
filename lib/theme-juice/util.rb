@@ -15,8 +15,8 @@ module ThemeJuice
     end
 
     #
-    # Adds a little extra functionality to some of Thor's default
-    #  actions (mostly to implement multi-command blocks)
+    # Monkey patch some of Thor's default actions to add a little
+    #  extra functionality
     #
     no_commands do
 
