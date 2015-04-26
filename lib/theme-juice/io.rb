@@ -203,7 +203,7 @@ module ThemeJuice
         "Later, homes",
         "May the force be with you",
         "Take a break, man...",
-        "It's not me, it's you"
+        "It's not me, it's you",
         "Go home, developer, you're drunk",
         "Okay, this is getting a little out of hand...",
         "I don't like it when you press my buttons",
