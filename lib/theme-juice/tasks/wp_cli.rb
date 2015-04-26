@@ -28,7 +28,7 @@ module ThemeJuice
 
       def create_wp_cli_file
         unless wp_cli_is_setup?
-          @interact.log "Creating WP-CLI file"
+          @io.log "Creating WP-CLI file"
           @util.create_file wp_cli_file, :verbose => @env.verbose do
 %Q{require:
 \s\s- vendor/autoload.php
@@ -44,7 +44,7 @@ ssh:
       end
 
       def remove_wp_cli_file
-        @interact.log "Removing WP-CLI file"
+        @io.log "Removing WP-CLI file"
         @util.remove_file wp_cli_file, :verbose => @env.verbose
       end
     end

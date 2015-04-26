@@ -8,7 +8,7 @@ module ThemeJuice
 
       @version           = VERSION
       @env               = Env
-      @interact          = Interact
+      @io                = IO
       @project           = Project
       @util              = Util.new
       @create            = Commands::Create
@@ -60,7 +60,7 @@ module ThemeJuice
     # @return {String}
     #
     def version
-      @interact.speak @version, :color => :green
+      @io.speak @version, :color => :green
     end
 
     desc "create", "Create new project"
@@ -79,7 +79,7 @@ module ThemeJuice
     # @return {Void}
     #
     def create
-      @interact.hello
+      @io.hello
       @create.new(options).execute
     end
 
@@ -97,7 +97,7 @@ module ThemeJuice
     # @return {Void}
     #
     def setup
-      @interact.hello
+      @io.hello
       @create.new(options.dup.merge(:bare => true)).execute
     end
 
@@ -223,9 +223,9 @@ module ThemeJuice
 
         case commands.length
         when 1
-          @interact.error "You did not specify any commands to execute on '#{opts[:stage]}'. Aborting mission."
+          @io.error "You did not specify any commands to execute on '#{opts[:stage]}'. Aborting mission."
         when 0
-          @interact.error "You did not specify a stage or any commands to execute. Aborting mission."
+          @io.error "You did not specify a stage or any commands to execute. Aborting mission."
         else
           @deployer.new(opts[:stage]).execute(opts[:commands])
         end

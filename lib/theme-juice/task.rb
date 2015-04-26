@@ -5,7 +5,7 @@ module ThemeJuice
 
     def initialize(opts = {})
       @env      = Env
-      @interact = Interact
+      @io       = IO
       @project  = Project
       @config   = Config
       @util     = Util.new
@@ -18,11 +18,11 @@ module ThemeJuice
     end
 
     def execute
-      @interact.error "Method 'execute' not implemented for #{self.class.name}"
+      @io.error "Method 'execute' not implemented for #{self.class.name}"
     end
 
     def unexecute
-      @interact.error "Method 'unexecute' not implemented for #{self.class.name}"
+      @io.error "Method 'unexecute' not implemented for #{self.class.name}"
     end
   end
 end

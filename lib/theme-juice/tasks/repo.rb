@@ -25,7 +25,7 @@ module ThemeJuice
       end
 
       def create_repo
-        @interact.log "Creating Git repository"
+        @io.log "Creating Git repository"
 
         remove_repo if repo_is_setup?
 
@@ -38,10 +38,10 @@ module ThemeJuice
       end
 
       def remove_repo
-        if @interact.agree? "Do you want to overwrite the current repo in '#{@project.location}'?"
+        if @io.agree? "Do you want to overwrite the current repo in '#{@project.location}'?"
           @util.remove_dir git_dir, :verbose => @env.verbose
         else
-          @interact.error "Run the command again without a repository, or remove the repository currently in '#{@project.location}'"
+          @io.error "Run the command again without a repository, or remove the repository currently in '#{@project.location}'"
         end
       end
     end

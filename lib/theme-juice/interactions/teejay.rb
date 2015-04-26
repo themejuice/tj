@@ -1,10 +1,10 @@
 # # encoding: UTF-8
 #
 # module ThemeJuice
-#   module Interactions::TeeJay
+#   module IOions::TeeJay
 #
 #     @env = ::ThemeJuice::Env
-#     @interact = ::ThemeJuice::Interact
+#     @io = ::ThemeJuice::IO
 #
 #     class << self
 #     end

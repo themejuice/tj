@@ -28,14 +28,14 @@ module ThemeJuice
 
       def create_hosts_file
         unless hosts_is_setup?
-          @interact.log "Creating hosts file"
+          @io.log "Creating hosts file"
           @util.create_file hosts_file, "#{@project.url}",
             :verbose => @env.verbose
         end
       end
 
       def remove_hosts_file
-        @interact.log "Removing hosts file"
+        @io.log "Removing hosts file"
         @util.remove_file hosts_file, :verbose => @env.verbose
       end
     end

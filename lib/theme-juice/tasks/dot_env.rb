@@ -30,7 +30,7 @@ module ThemeJuice
 
       def create_dot_env_file
         unless dot_env_is_setup?
-          @interact.log "Creating .env file"
+          @io.log "Creating .env file"
           @util.create_file dot_env_file, :verbose => @env.verbose do
 %Q{DB_NAME=#{@project.db_name}
 DB_USER=#{@project.db_user}
@@ -45,7 +45,7 @@ WP_SITEURL=http://#{@project.url}/wp
       end
 
       def remove_dot_env_file
-        @interact.log "Removing .env file"
+        @io.log "Removing .env file"
         @util.remove_file dot_env_file, :verbose => @env.verbose
       end
     end

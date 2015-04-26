@@ -1,7 +1,7 @@
 # encoding: UTF-8
 
 module ThemeJuice
-  module Interact
+  module IO
     include Thor::Shell
 
     # Unicode icons

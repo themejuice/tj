@@ -15,9 +15,9 @@ module ThemeJuice
       private
 
       def confirm
-        @interact.list "Your settings :", :yellow, settings
-        unless @interact.agree? "Do these settings look correct?"
-          @interact.error "Dang typos..."
+        @io.list "Your settings :", :yellow, settings
+        unless @io.agree? "Do these settings look correct?"
+          @io.error "Dang typos..."
         end
       end
 

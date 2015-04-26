@@ -16,9 +16,9 @@
 #       sites = get_sites
 #
 #       if sites.empty?
-#         @interact.log "Nothing to list."
+#         @io.log "Nothing to list."
 #       else
-#         @interact.list "Your sites :", :green, sites
+#         @io.list "Your sites :", :green, sites
 #       end
 #     end
 #

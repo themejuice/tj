@@ -28,7 +28,7 @@ module ThemeJuice
 
       def create_landrush
         unless landrush_is_setup?
-          @interact.log "Creating landrush entries"
+          @io.log "Creating landrush entries"
           @util.append_to_file custom_file, :verbose => @env.verbose do
 %Q{# Begin 'landrush'
 config.landrush.enabled = true
@@ -41,7 +41,7 @@ config.landrush.tld = 'dev'
       end
 
       def remove_landrush
-        @interact.log "Removing landrush entries"
+        @io.log "Removing landrush entries"
         @util.gsub_file custom_file, /(#(#*)? Begin 'landrush')(.*?)(#(#*)? End 'landrush')\n+/m,
           "", :verbose => @env.verbose
       end

@@ -3,7 +3,7 @@
 module ThemeJuice
   module Config
     @env      = Env
-    @interact = Interact
+    @io       = IO
     @project  = Project
     @util     = Util.new
 
@@ -21,7 +21,7 @@ module ThemeJuice
 
     def config
       YAML.load_file Dir["#{@project.location}/*"].select { |f| regex =~ File.basename(f) }.last ||
-        @interact.error("Config file not found in '#{@project.location}'")
+        @io.error("Config file not found in '#{@project.location}'")
     end
 
     def regex

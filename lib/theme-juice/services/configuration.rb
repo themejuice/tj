@@ -37,7 +37,7 @@
 #       if @config["commands"][subcommand]
 #         run ["#{@config["commands"][subcommand]} #{command}"], false
 #       else
-#         @interact.error "Unable to find '#{subcommand}' command in '#{@config_path}/tj.yml'. Aborting mission."
+#         @io.error "Unable to find '#{subcommand}' command in '#{@config_path}/tj.yml'. Aborting mission."
 #       end
 #     end
 #   end

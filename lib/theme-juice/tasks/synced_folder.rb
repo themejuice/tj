@@ -28,7 +28,7 @@ module ThemeJuice
 
       def create_synced_folder
         unless synced_folder_is_setup?
-          @interact.log "Creating synced folder entries"
+          @io.log "Creating synced folder entries"
           @util.append_to_file custom_file, :verbose => @env.verbose do
 %Q{# Begin '#{@project.name}' SF
 config.vm.synced_folder '#{@project.location}', '/srv/www/tj-#{@project.name}', mount_options: ['dmode=777','fmode=777']
@@ -40,7 +40,7 @@ config.vm.synced_folder '#{@project.location}', '/srv/www/tj-#{@project.name}', 
       end
 
       def remove_synced_folder
-        @interact.log "Removing synced folder entries"
+        @io.log "Removing synced folder entries"
         @util.gsub_file custom_file, /(#(#*)? Begin '#{@project.name}' SF)(.*?)(#(#*)? End '#{@project.name}' SF)\n+/m,
           "", :verbose => @env.verbose
       end

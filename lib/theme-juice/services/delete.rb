@@ -7,7 +7,7 @@
 #     # @param {Hash} opts
 #     #
 #     def initialize(opts)
-#       opts = ThemeJuice::Interactions::Delete.get_project_options(opts)
+#       opts = ThemeJuice::IOions::Delete.get_project_options(opts)
 #       super
 #     end
 #
@@ -17,24 +17,24 @@
 #     # @return {Void}
 #     #
 #     def delete
-#       @interact.speak "Are you sure you want to delete '#{@opts[:project_name]}'? (y/N)", {
+#       @io.speak "Are you sure you want to delete '#{@opts[:project_name]}'? (y/N)", {
 #         :color => [:white, :on_red],
 #         :icon  => :notice,
 #         :row   => true
 #       }
 #
-#       if @interact.agree? "", { :color => :red, :simple => true }
+#       if @io.agree? "", { :color => :red, :simple => true }
 #
 #         remove_dev_site      if dev_project_is_setup?
 #         remove_database      if database_is_setup?
 #         remove_synced_folder if synced_folder_is_setup?
 #
 #         if removal_was_successful?
-#           @interact.success "Project '#{@opts[:project_name]}' successfully removed!"
+#           @io.success "Project '#{@opts[:project_name]}' successfully removed!"
 #
 #           restart_vagrant if @opts[:restart]
 #         else
-#           @interact.error "Project '#{@opts[:project_name]}' could not be fully be removed."
+#           @io.error "Project '#{@opts[:project_name]}' could not be fully be removed."
 #         end
 #       end
 #     end
@@ -49,13 +49,13 @@
 #     def remove_dev_site
 #
 #       unless Dir.entries("#{@env.vm_path}").include? "www"
-#         @interact.error "Cannot load VVV path. Aborting mission before something bad happens."
+#         @io.error "Cannot load VVV path. Aborting mission before something bad happens."
 #       end
 #
 #       if run ["rm -rf #{@opts[:project_dev_location]}"]
-#         @interact.log "Development project removed"
+#         @io.log "Development project removed"
 #       else
-#         @interact.error "Project '#{@opts[:project_name]}' could not be removed. Make sure you have write capabilities to '#{@opts[:project_dev_location]}'."
+#         @io.error "Project '#{@opts[:project_name]}' could not be removed. Make sure you have write capabilities to '#{@opts[:project_dev_location]}'."
 #       end
 #     end
 #
@@ -66,7 +66,7 @@
 #     #
 #     def remove_database
 #       if remove_traces_from_file "#{@env.vm_path}/database/init-custom.sql"
-#         @interact.log "Database removed"
+#         @io.log "Database removed"
 #       end
 #     end
 #
@@ -77,7 +77,7 @@
 #     #
 #     def remove_synced_folder
 #       if remove_traces_from_file "#{@env.vm_path}/Vagrantfile"
-#         @interact.log "Synced folders removed"
+#         @io.log "Synced folders removed"
 #       end
 #     end
 #
@@ -100,7 +100,7 @@
 #         # Move temp file to actual file location
 #         FileUtils.mv output_file, File.expand_path(input_file)
 #       rescue LoadError => err
-#         @interact.error "There was an error!" do
+#         @io.error "There was an error!" do
 #           puts err
 #         end
 #       ensure

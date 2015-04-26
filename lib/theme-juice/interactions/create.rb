@@ -1,10 +1,10 @@
 # # encoding: UTF-8
 #
 # module ThemeJuice
-#   module Interactions::Create
+#   module IOions::Create
 #
 #     @env = ::ThemeJuice::Env
-#     @interact = ::ThemeJuice::Interact
+#     @io = ::ThemeJuice::IO
 #
 #     class << self
 #
@@ -35,7 +35,7 @@
 #         @opts[:project_db_pass]       ||= setup_project_db_pass
 #
 #         # Verify that all the options are correct
-#         @interact.list "Your settings :", :yellow, [
+#         @io.list "Your settings :", :yellow, [
 #           "Project name: #{@opts[:project_name]}",
 #           "Project location: #{@opts[:project_location]}",
 #           "Starter theme: #{@opts[:project_starter_theme]}",
@@ -48,8 +48,8 @@
 #           "Database password: #{@opts[:project_db_pass]}"
 #         ]
 #
-#         unless @interact.agree? "Do the options above look correct?"
-#           @interact.error "Dang typos... aborting mission."
+#         unless @io.agree? "Do the options above look correct?"
+#           @io.error "Dang typos... aborting mission."
 #         end
 #
 #         @opts
@@ -66,7 +66,7 @@
 #         if @env.yolo
 #           name = Faker::Internet.domain_word
 #         else
-#           name = @interact.prompt "What's the project name? (letters, numbers and dashes only)"
+#           name = @io.prompt "What's the project name? (letters, numbers and dashes only)"
 #         end
 #
 #         validate_project_name name
@@ -94,7 +94,7 @@
 #         if @opts[:use_defaults]
 #           location = File.expand_path(path)
 #         else
-#           location = File.expand_path(@interact.prompt "Where do you want to setup the project?", :default => path, :path => true)
+#           location = File.expand_path(@io.prompt "Where do you want to setup the project?", :default => path, :path => true)
 #         end
 #
 #         location
@@ -119,15 +119,15 @@
 #             return themes["theme-juice/theme-juice-starter"]
 #           end
 #
-#           choice = @interact.choose "Which starter theme would you like to use?", :blue, themes.keys
+#           choice = @io.choose "Which starter theme would you like to use?", :blue, themes.keys
 #
 #           case choice
 #           when "theme-juice/theme-juice-starter"
-#             @interact.success "Awesome choice!"
+#             @io.success "Awesome choice!"
 #           when "other"
-#             themes[choice] = @interact.prompt "What is the repository URL for the starter theme that you would like to clone?"
+#             themes[choice] = @io.prompt "What is the repository URL for the starter theme that you would like to clone?"
 #           when "none"
-#             @interact.notice "Next time you need to create a project without a starter theme, you can just run the 'setup' command instead."
+#             @io.notice "Next time you need to create a project without a starter theme, you can just run the 'setup' command instead."
 #             @opts[:project_bare] = true
 #           end
 #
@@ -155,7 +155,7 @@
 #         if @opts[:use_defaults]
 #           url = "#{@opts[:project_name]}.dev"
 #         else
-#           url = @interact.prompt "What do you want the development url to be? (this should end in '.dev')", :default => "#{@opts[:project_name]}.dev"
+#           url = @io.prompt "What do you want the development url to be? (this should end in '.dev')", :default => "#{@opts[:project_name]}.dev"
 #         end
 #
 #         validate_project_dev_url url
@@ -172,8 +172,8 @@
 #         if @opts[:use_defaults] || @opts[:skip_repo]
 #           repo = false
 #         else
-#           if @interact.agree? "Would you like to initialize a new Git repository?"
-#             repo = @interact.prompt "What is the repository's URL?", :indent => 2
+#           if @io.agree? "Would you like to initialize a new Git repository?"
+#             repo = @io.prompt "What is the repository's URL?", :indent => 2
 #           else
 #             repo = false
 #           end
@@ -191,7 +191,7 @@
 #         if @opts[:use_defaults] || @opts[:skip_db]
 #           db_host = "vvv"
 #         else
-#           db_host = @interact.prompt "Database host", :default => "vvv"
+#           db_host = @io.prompt "Database host", :default => "vvv"
 #         end
 #
 #         db_host
@@ -206,7 +206,7 @@
 #         if @opts[:use_defaults] || @opts[:skip_db]
 #           db_name = "#{@opts[:project_name_clean]}_db"
 #         else
-#           db_name = @interact.prompt "Database name", :default => "#{@opts[:project_name_clean]}_db"
+#           db_name = @io.prompt "Database name", :default => "#{@opts[:project_name_clean]}_db"
 #         end
 #
 #         db_name
@@ -221,7 +221,7 @@
 #         if @opts[:use_defaults] || @opts[:skip_db]
 #           db_user = "#{@opts[:project_name_clean]}_user"
 #         else
-#           db_user = @interact.prompt "Database username", :default => "#{@opts[:project_name_clean]}_user"
+#           db_user = @io.prompt "Database username", :default => "#{@opts[:project_name_clean]}_user"
 #         end
 #
 #         db_user
@@ -238,7 +238,7 @@
 #         if @opts[:use_defaults] || @opts[:skip_db]
 #           db_pass = pass
 #         else
-#           db_pass = @interact.prompt "Database password", :default => pass
+#           db_pass = @io.prompt "Database password", :default => pass
 #         end
 #
 #         db_pass
@@ -253,11 +253,11 @@
 #       #
 #       def validate_project_name(name)
 #         if name.empty?
-#           @interact.error "Project name '#{name}' is invalid or empty. Aborting mission."
+#           @io.error "Project name '#{name}' is invalid or empty. Aborting mission."
 #         end
 #
 #         "#{name}".match /[^0-9A-Za-z.\-]/ do |char|
-#           @interact.error "Project name contains an invalid character '#{char}'. This name is used for creating directories, so that's not gonna work. Aborting mission."
+#           @io.error "Project name contains an invalid character '#{char}'. This name is used for creating directories, so that's not gonna work. Aborting mission."
 #         end
 #       end
 #
@@ -270,7 +270,7 @@
 #       #
 #       def validate_project_dev_url(url)
 #         unless "#{url}".match /(.dev)$/
-#           @interact.error "Your development url '#{url}' doesn't end with '.dev'. This is used internally by Landrush, so that's not gonna work. Aborting mission."
+#           @io.error "Your development url '#{url}' doesn't end with '.dev'. This is used internally by Landrush, so that's not gonna work. Aborting mission."
 #         end
 #       end
 #     end

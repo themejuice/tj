@@ -6,7 +6,7 @@ module ThemeJuice
 
     def initialize(args = [], options = {}, config = {})
       @env      = Env
-      @interact = Interact
+      @io       = IO
       @project  = Project
 
       options.merge! :pretend => @env.dryrun

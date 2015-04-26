@@ -52,7 +52,7 @@ module ThemeJuice
         if @env.yolo
           name = Faker::Internet.domain_word
         else
-          name = @interact.prompt "What's the project name? (letters, numbers and dashes only)"
+          name = @io.prompt "What's the project name? (letters, numbers and dashes only)"
         end
 
         valid_name? name
@@ -62,11 +62,11 @@ module ThemeJuice
 
       def valid_name?(name)
         if name.empty?
-          @interact.error "Project name '#{name}' looks like it's empty. Aborting mission."
+          @io.error "Project name '#{name}' looks like it's empty. Aborting mission."
         end
 
         "#{name}".match /[^0-9A-Za-z.\-]/ do |char|
-          @interact.error "Project name contains an invalid character '#{char}'. This name is used internally for a ton of stuff, so that's not gonna work. Aborting mission."
+          @io.error "Project name contains an invalid character '#{char}'. This name is used internally for a ton of stuff, so that's not gonna work. Aborting mission."
         end
 
         true
@@ -82,7 +82,7 @@ module ThemeJuice
         if @project.use_defaults
           location = File.expand_path path
         else
-          location = File.expand_path @interact.prompt("Where do you want to setup the project?", :default => path, :path => true)
+          location = File.expand_path @io.prompt("Where do you want to setup the project?", :default => path, :path => true)
         end
 
         location
@@ -92,7 +92,7 @@ module ThemeJuice
         if @project.use_defaults
           url = "#{@project.name}.dev"
         else
-          url = @interact.prompt "What do you want the development url to be? (this should end in '.dev')", :default => "#{@project.name}.dev"
+          url = @io.prompt "What do you want the development url to be? (this should end in '.dev')", :default => "#{@project.name}.dev"
         end
 
         valid_url? url
@@ -102,7 +102,7 @@ module ThemeJuice
 
       def valid_url?(url)
         unless "#{url}".match /(.dev)$/
-          @interact.error "Your development url '#{url}' doesn't end with '.dev'. This is used internally by Landrush, so that's not gonna work. Aborting mission."
+          @io.error "Your development url '#{url}' doesn't end with '.dev'. This is used internally by Landrush, so that's not gonna work. Aborting mission."
         end
 
         true
@@ -121,15 +121,15 @@ module ThemeJuice
         if @project.use_defaults
           theme = themes["theme-juice/theme-juice-starter"]
         else
-          choice = @interact.choose "Which starter theme would you like to use?", :blue, themes.keys
+          choice = @io.choose "Which starter theme would you like to use?", :blue, themes.keys
 
           case choice
           when "theme-juice/theme-juice-starter"
-            @interact.success "Awesome choice!"
+            @io.success "Awesome choice!"
           when "other"
-            themes[choice] = @interact.prompt "What is the repository URL for the starter theme that you would like to clone?"
+            themes[choice] = @io.prompt "What is the repository URL for the starter theme that you would like to clone?"
           when "none"
-            @interact.notice "Next time you need to create a project without a starter theme, you can just run the 'setup' command instead."
+            @io.notice "Next time you need to create a project without a starter theme, you can just run the 'setup' command instead."
             @project.bare = true
           end
 
@@ -142,8 +142,8 @@ module ThemeJuice
       def repository
         return false if @project.skip_repo || @project.use_defaults
 
-        if @interact.agree? "Would you like to initialize a new Git repository?"
-          repo = @interact.prompt "What is the repository's remote URL?", :indent => 2
+        if @io.agree? "Would you like to initialize a new Git repository?"
+          repo = @io.prompt "What is the repository's remote URL?", :indent => 2
         else
           repo = false
         end
@@ -157,7 +157,7 @@ module ThemeJuice
         if @project.skip_db || @project.use_defaults
           db_host = "vvv"
         else
-          db_host = @interact.prompt "Database host", :default => "vvv"
+          db_host = @io.prompt "Database host", :default => "vvv"
         end
 
         db_host
@@ -169,7 +169,7 @@ module ThemeJuice
         if @project.skip_db || @project.use_defaults
           db_name = "#{clean_name}_db"
         else
-          db_name = @interact.prompt "Database name", :default => "#{clean_name}_db"
+          db_name = @io.prompt "Database name", :default => "#{clean_name}_db"
         end
 
         db_name
@@ -181,7 +181,7 @@ module ThemeJuice
         if @project.skip_db || @project.use_defaults
           db_user = "#{clean_name}_user"
         else
-          db_user = @interact.prompt "Database username", :default => "#{clean_name}_user"
+          db_user = @io.prompt "Database username", :default => "#{clean_name}_user"
         end
 
         db_user
@@ -195,7 +195,7 @@ module ThemeJuice
         if @project.skip_db || @project.use_defaults
           db_pass = pass
         else
-          db_pass = @interact.prompt "Database password", :default => pass
+          db_pass = @io.prompt "Database password", :default => pass
         end
 
         db_pass

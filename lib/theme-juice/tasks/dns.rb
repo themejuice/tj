@@ -28,7 +28,7 @@ module ThemeJuice
 
       def create_dns
         unless dns_is_setup?
-          @interact.log "Creating DNS entries"
+          @io.log "Creating DNS entries"
           @util.append_to_file custom_file, :verbose => @env.verbose do
 %Q{# Begin '#{@project.name}' DNS
 if defined? VagrantPlugins::Landrush
@@ -44,7 +44,7 @@ end
       end
 
       def remove_dns
-        @interact.log "Removing DNS entries"
+        @io.log "Removing DNS entries"
         @util.gsub_file custom_file, /(#(#*)? Begin '#{@project.name}' DNS)(.*?)(#(#*)? End '#{@project.name}' DNS)\n+/m,
           "", :verbose => @env.verbose
       end

@@ -14,7 +14,7 @@
 #     # @param {Hash} opts
 #     #
 #     def initialize(opts = {})
-#       opts = ::ThemeJuice::Interactions::Create.setup_project_options(opts)
+#       opts = ::ThemeJuice::IOions::Create.setup_project_options(opts)
 #       super
 #     end
 #
@@ -24,7 +24,7 @@
 #     # @return {Void}
 #     #
 #     def create
-#       @interact.notice "Running setup for '#{@opts[:project_name]}'"
+#       @io.notice "Running setup for '#{@opts[:project_name]}'"
 #
 #       setup_project_dir         unless project_dir_is_setup?
 #       setup_starter_theme       unless starter_theme_is_setup?
@@ -40,20 +40,20 @@
 #       setup_repo                if     using_repo?
 #
 #       if setup_was_successful?
-#         @interact.success "Setup complete!"
-#         @interact.speak "In order to finish creating your site, you need to provision Vagrant. Do it now? (y/N)", {
+#         @io.success "Setup complete!"
+#         @io.speak "In order to finish creating your site, you need to provision Vagrant. Do it now? (y/N)", {
 #           :color => [:black, :on_blue],
 #           :icon  => :restart,
 #           :row   => true
 #         }
 #
-#         if @interact.agree? "", { :simple => true }
+#         if @io.agree? "", { :simple => true }
 #
 #           if restart_vagrant
-#             @interact.success "Success!"
+#             @io.success "Success!"
 #
 #             # Output setup info
-#             @interact.list "Your settings :", :blue, [
+#             @io.list "Your settings :", :blue, [
 #               "Project name: #{@opts[:project_name]}",
 #               "Project location: #{@opts[:project_location]}",
 #               "Starter theme: #{@opts[:project_starter_theme]}",
@@ -66,14 +66,14 @@
 #               "Database password: #{@opts[:project_db_pass]}"
 #             ]
 #
-#             @interact.open_project @project.url
+#             @io.open_project @project.url
 #           end
 #         else
-#           @interact.notice "Remember, Vagrant needs to be provisioned before you can use your new site. Exiting..."
+#           @io.notice "Remember, Vagrant needs to be provisioned before you can use your new site. Exiting..."
 #           exit
 #         end
 #       else
-#         @interact.error "Setup failed. Running cleanup" do
+#         @io.error "Setup failed. Running cleanup" do
 #           ::ThemeJuice::Service::Delete.new({ :project_name => @opts[:project_name], :restart => false }).delete
 #         end
 #       end
@@ -87,7 +87,7 @@
 #     # @return {Void}
 #     #
 #     def setup_vvv
-#       @interact.log "Installing VVV"
+#       @io.log "Installing VVV"
 #
 #       run [
 #         "vagrant plugin install vagrant-hostsupdater --plugin-version 0.0.11",
@@ -104,7 +104,7 @@
 #     # @return {Void}
 #     #
 #     def setup_project_dir
-#       @interact.log "Creating project directory tree"
+#       @io.log "Creating project directory tree"
 #
 #       run ["mkdir -p #{@opts[:project_location]}"]
 #     end
@@ -118,7 +118,7 @@
 #     # @return {Void}
 #     #
 #     def setup_wildcard_subdomains
-#       @interact.log "Setting up wildcard subdomains"
+#       @io.log "Setting up wildcard subdomains"
 #
 #       File.open File.expand_path("#{@env.vm_path}/Customfile"), "a+" do |file|
 #         file.puts "# Enable wildcard subdomains"
@@ -134,7 +134,7 @@
 #     # @return {Void}
 #     #
 #     def setup_dev_site
-#       @interact.log "Setting up new project in VM"
+#       @io.log "Setting up new project in VM"
 #
 #       run [
 #         "cd #{@env.vm_path}/www",
@@ -148,12 +148,12 @@
 #     # @return {Void}
 #     #
 #     def setup_config
-#       @interact.log "Creating config"
+#       @io.log "Creating config"
 #
-#       watch   = @interact.prompt "Watch command to use",                               :indent => 2, :default => "bundle exec guard"
-#       server  = @interact.prompt "Deployment command to use",                          :indent => 2, :default => "bundle exec cap"
-#       vendor  = @interact.prompt "Vendor command to use",                              :indent => 2, :default => "composer"
-#       install = @interact.prompt "Commands to run on theme install (comma-delimited)", :indent => 2, :default => "composer install"
+#       watch   = @io.prompt "Watch command to use",                               :indent => 2, :default => "bundle exec guard"
+#       server  = @io.prompt "Deployment command to use",                          :indent => 2, :default => "bundle exec cap"
+#       vendor  = @io.prompt "Vendor command to use",                              :indent => 2, :default => "composer"
+#       install = @io.prompt "Commands to run on theme install (comma-delimited)", :indent => 2, :default => "composer install"
 #
 #       File.open "#{@config_path}/tj.yml", "w" do |file|
 #         file.puts "commands:"
@@ -167,7 +167,7 @@
 #       end
 #
 #       unless config_is_setup?
-#         @interact.error "Could not create 'tj.yml' file. Make sure you have write capabilities to '#{@opts[:project_location]}'."
+#         @io.error "Could not create 'tj.yml' file. Make sure you have write capabilities to '#{@opts[:project_location]}'."
 #       end
 #     end
 #
@@ -177,14 +177,14 @@
 #     # @return {Void}
 #     #
 #     def setup_hosts
-#       @interact.log "Setting up hosts"
+#       @io.log "Setting up hosts"
 #
 #       File.open "#{@opts[:project_location]}/vvv-hosts", "w" do |file|
 #         file.puts @opts[:project_dev_url]
 #       end
 #
 #       unless hosts_is_setup?
-#         @interact.error "Could not create 'vvv-hosts' file. Make sure you have write capabilities to '#{@opts[:project_location]}'."
+#         @io.error "Could not create 'vvv-hosts' file. Make sure you have write capabilities to '#{@opts[:project_location]}'."
 #       end
 #     end
 #
@@ -194,7 +194,7 @@
 #     # @return {Void}
 #     #
 #     def setup_database
-#       @interact.log "Setting up database"
+#       @io.log "Setting up database"
 #
 #       File.open File.expand_path("#{@env.vm_path}/database/init-custom.sql"), "a+" do |file|
 #         file.puts "# Begin '#{@opts[:project_name]}'"
@@ -205,7 +205,7 @@
 #       end
 #
 #       unless database_is_setup?
-#         @interact.error "Could not add database info for '#{@opts[:project_name]}' to 'init-custom.sql'. Make sure you have write capabilities to '#{@env.vm_path}'."
+#         @io.error "Could not add database info for '#{@opts[:project_name]}' to 'init-custom.sql'. Make sure you have write capabilities to '#{@env.vm_path}'."
 #       end
 #     end
 #
@@ -215,7 +215,7 @@
 #     # @return {Void}
 #     #
 #     def setup_nginx
-#       @interact.log "Setting up nginx"
+#       @io.log "Setting up nginx"
 #
 #       File.open "#{@opts[:project_location]}/vvv-nginx.conf", "w" do |file|
 #         file.puts "server {"
@@ -227,7 +227,7 @@
 #       end
 #
 #       unless nginx_is_setup?
-#         @interact.error "Could not create 'vvv-nginx.conf' file. Make sure you have write capabilities to '#{@opts[:project_location]}'."
+#         @io.error "Could not create 'vvv-nginx.conf' file. Make sure you have write capabilities to '#{@opts[:project_location]}'."
 #       end
 #     end
 #
@@ -237,7 +237,7 @@
 #     # @return {Void}
 #     #
 #     def setup_env
-#       @interact.log "Setting up environment"
+#       @io.log "Setting up environment"
 #
 #       File.open "#{@opts[:project_location]}/.env.development", "w" do |file|
 #         file.puts "DB_NAME=#{@opts[:project_db_name]}"
@@ -249,7 +249,7 @@
 #       end
 #
 #       unless env_is_setup?
-#         @interact.error "Could not create '.env.development' file. Make sure you have write capabilities to '#{@opts[:project_location]}'."
+#         @io.error "Could not create '.env.development' file. Make sure you have write capabilities to '#{@opts[:project_location]}'."
 #       end
 #     end
 #
@@ -260,7 +260,7 @@
 #     #
 #     def setup_starter_theme
 #       unless @opts[:project_bare]
-#         @interact.log "Setting up starter theme"
+#         @io.log "Setting up starter theme"
 #
 #         run [
 #           "cd #{@opts[:project_location]}",
@@ -270,7 +270,7 @@
 #         if starter_theme_is_setup?
 #           install_starter_theme_dependencies if config_is_setup?
 #         else
-#           @interact.error "Could not setup starter theme. Make sure you have write capabilities to '#{@opts[:project_location]}'."
+#           @io.error "Could not setup starter theme. Make sure you have write capabilities to '#{@opts[:project_location]}'."
 #         end
 #       end
 #     end
@@ -281,7 +281,7 @@
 #     # @return {Void}
 #     #
 #     def setup_synced_folder
-#       @interact.log "Syncing host theme with VM"
+#       @io.log "Syncing host theme with VM"
 #
 #       File.open File.expand_path("#{@env.vm_path}/Customfile"), "a+" do |file|
 #         file.puts "# Begin '#{@opts[:project_name]}'"
@@ -292,7 +292,7 @@
 #       end
 #
 #       unless synced_folder_is_setup?
-#         @interact.error "Could not sync folders for '#{@opts[:project_name]}' in 'Customfile'. Make sure you have write capabilities to '#{@env.vm_path}'."
+#         @io.error "Could not sync folders for '#{@opts[:project_name]}' in 'Customfile'. Make sure you have write capabilities to '#{@env.vm_path}'."
 #       end
 #     end
 #
@@ -302,7 +302,7 @@
 #     # @return {Void}
 #     #
 #     def setup_repo
-#       @interact.log "Setting up Git repository"
+#       @io.log "Setting up Git repository"
 #
 #       if repo_is_setup?
 #         run [
@@ -324,7 +324,7 @@
 #     # @return {Void}
 #     #
 #     def setup_wpcli
-#       @interact.log "Setting up WP-CLI"
+#       @io.log "Setting up WP-CLI"
 #
 #       File.open "#{@opts[:project_location]}/wp-cli.local.yml", "a+" do |file|
 #         file.puts "require:"
@@ -338,7 +338,7 @@
 #       end
 #
 #       unless wpcli_is_setup?
-#         @interact.error "Could not create 'wp-cli.local.yml' file. Make sure you have write capabilities to '#{@opts[:project_location]}'."
+#         @io.error "Could not create 'wp-cli.local.yml' file. Make sure you have write capabilities to '#{@opts[:project_location]}'."
 #       end
 #     end
 #
@@ -350,7 +350,7 @@
 #     def install_starter_theme_dependencies
 #       load_config
 #
-#       @interact.log "Installing theme dependencies"
+#       @io.log "Installing theme dependencies"
 #
 #       @config["commands"]["install"].each do |command|
 #         run ["cd #{@opts[:project_location]}", command], false

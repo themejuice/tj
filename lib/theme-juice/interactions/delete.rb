@@ -1,10 +1,10 @@
 # # encoding: UTF-8
 #
 # module ThemeJuice
-#   module Interactions::Delete
+#   module IOions::Delete
 #
 #     @env = ::ThemeJuice::Env
-#     @interact = ::ThemeJuice::Interact
+#     @io = ::ThemeJuice::IO
 #
 #     class << self
 #
@@ -32,7 +32,7 @@
 #       # @return {String}
 #       #
 #       def get_project_name
-#         name = @interact.choose "Which project would you like to delete?", :red, ::ThemeJuice::Service::List.new.get_sites
+#         name = @io.choose "Which project would you like to delete?", :red, ::ThemeJuice::Service::List.new.get_sites
 #       end
 #
 #       #

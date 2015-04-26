@@ -28,7 +28,7 @@ module ThemeJuice
 
       def create_nginx_file
         unless nginx_is_setup?
-          @interact.log "Creating nginx file"
+          @io.log "Creating nginx file"
           @util.create_file nginx_file, :verbose => @env.verbose do
 %Q{server \{
   listen 80;
@@ -43,7 +43,7 @@ module ThemeJuice
       end
 
       def remove_nginx_file
-        @interact.log "Removing nginx file"
+        @io.log "Removing nginx file"
         @util.remove_file nginx_file, :verbose => @env.verbose
       end
     end
