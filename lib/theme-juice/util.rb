@@ -21,6 +21,7 @@ module ThemeJuice
     no_commands do
 
       alias_method :_run, :run
+
       def run(command, config = {}, &block)
         if command.is_a? Array
           yield command if block_given?
