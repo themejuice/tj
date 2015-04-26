@@ -100,14 +100,14 @@ above, provided that you also meet all of these conditions:
     part thereof, to be licensed as a whole at no charge to all third
     parties under the terms of this License.
 
-    c) If the modified program normally reads commands IOively
+    c) If the modified program normally reads commands interactively
     when run, you must cause it, when started running for such
-    IOive use in the most ordinary way, to print or display an
+    interactive use in the most ordinary way, to print or display an
     announcement including an appropriate copyright notice and a
     notice that there is no warranty (or else, saying that you provide
     a warranty) and that users may redistribute the program under
     these conditions, and telling the user how to view a copy of this
-    License.  (Exception: if the Program itself is IOive but
+    License.  (Exception: if the Program itself is interactive but
     does not normally print such an announcement, your work based on
     the Program is not required to print an announcement.)
 
@@ -309,8 +309,8 @@ the "copyright" line and a pointer to where the full notice is found.
 
 Also add information on how to contact you by electronic and paper mail.
 
-If the program is IOive, make it output a short notice like this
-when it starts in an IOive mode:
+If the program is interactive, make it output a short notice like this
+when it starts in an interactive mode:
 
     Gnomovision version 69, Copyright (C) year name of author
     Gnomovision comes with ABSOLUTELY NO WARRANTY; for details type `show w'.
