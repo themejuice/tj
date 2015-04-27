@@ -31,12 +31,12 @@ module ThemeJuice
           @io.log "Creating WP-CLI file"
           @util.create_file wp_cli_file, :verbose => @env.verbose do
 %Q{require:
-\s\s- vendor/autoload.php
+  - vendor/autoload.php
 ssh:
-\s\svagrant:
-\s\s\s\surl: #{@project.url}
-\s\s\s\spath: #{@project.vm_location.sub @env.vm_path, "/srv"}
-\s\s\s\scmd: cd #{@env.vm_path} && vagrant ssh-config > /tmp/vagrant_ssh_config && ssh -q %pseudotty% -F /tmp/vagrant_ssh_config default %cmd%
+  vagrant:
+    url: #{@project.url}
+    path: #{@project.vm_location.sub @env.vm_path, "/srv"}
+    cmd: cd #{@env.vm_path} && vagrant ssh-config > /tmp/vagrant_ssh_config && ssh -q %pseudotty% -F /tmp/vagrant_ssh_config default %cmd%
 
 }
           end
