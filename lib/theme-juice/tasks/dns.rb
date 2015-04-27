@@ -13,6 +13,7 @@ module ThemeJuice
       end
 
       def unexecute
+        remove_dns_entries
         remove_dns
       end
 
@@ -40,6 +41,13 @@ end
 
 }
           end
+        end
+      end
+
+      def remove_dns_entries
+        unless @env.no_landrush
+          @util.run "vagrant landrush rm #{@project.url}",
+            :verbose => @env.verbose
         end
       end
 
