@@ -2,10 +2,7 @@
 
 require "thor"
 require "faker"
-require "fileutils"
-require "pathname"
-require "tempfile"
-require "shellwords"
+require "os"
 require "yaml"
 
 module ThemeJuice

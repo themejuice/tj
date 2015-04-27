@@ -234,7 +234,7 @@ module ThemeJuice
       }
 
       if agree? "", { :simple => true }
-        run ["open http://#{url}"]
+        OS.open_file_command "http://#{url}"
       end
     end
 
@@ -277,27 +277,34 @@ module ThemeJuice
         :icon  => :question
       }
 
-      print "\n" * list.size
+      if OS.windows?
+        ask header, {
+          :limited_to => list,
+          :color      => color
+        }
+      else
+        print "\n" * list.size
 
-      selected = 0
-      update_list_selection(list, color, selected)
+        selected = 0
+        update_list_selection(list, color, selected)
 
-      loop do
-        case key = read_key
-        when "up"
-          selected -= 1
-          selected = list.size - 1 if selected < 0
-          update_list_selection(list, color, selected)
-        when "down"
-          selected += 1
-          selected = 0 if selected > list.size - 1
-          update_list_selection(list, color, selected)
-        when "return", "linefeed", "space"
-          return list[selected]
-        when "esc", "ctrl+c"
-          goodbye(:newline => false)
-        # else
-        #   speak key.inspect, { :color => :yellow }
+        loop do
+          case key = read_key
+          when "up"
+            selected -= 1
+            selected = list.size - 1 if selected < 0
+            update_list_selection(list, color, selected)
+          when "down"
+            selected += 1
+            selected = 0 if selected > list.size - 1
+            update_list_selection(list, color, selected)
+          when "return", "linefeed", "space"
+            return list[selected]
+          when "esc", "ctrl+c"
+            goodbye(:newline => false)
+          # else
+          #   speak key.inspect, { :color => :yellow }
+          end
         end
       end
     end

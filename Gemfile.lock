@@ -1,0 +1,22 @@
+PATH
+  remote: .
+  specs:
+    theme-juice (0.7.0)
+      faker (~> 1.4)
+      os
+      thor (~> 0.19)
+
+GEM
+  remote: https://rubygems.org/
+  specs:
+    faker (1.4.3)
+      i18n (~> 0.5)
+    i18n (0.7.0)
+    os (0.9.6)
+    thor (0.19.1)
+
+PLATFORMS
+  x64-mingw32
+
+DEPENDENCIES
+  theme-juice!
