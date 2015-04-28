@@ -26,13 +26,15 @@ module ThemeJuice
 
       def unexecute
         remove_entry
-        drop_database if @project.drop_db
+        drop_database
       end
 
       private
 
       def drop_database
-        @io.log "Dropping database"
+        if @project.drop_db
+          @io.log "Dropping database"
+        end
       end
     end
   end
