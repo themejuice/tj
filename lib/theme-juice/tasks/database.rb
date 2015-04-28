@@ -7,9 +7,9 @@ module ThemeJuice
       def initialize(opts = {})
         super
 
-        @entry_file = "#{@env.vm_path}/database/init-custom.sql"
-        @entry_name = "database"
-        @entry_id   = "DB"
+        @file = "#{@env.vm_path}/database/init-custom.sql"
+        @name = "database"
+        @id   = "DB"
       end
 
       def execute

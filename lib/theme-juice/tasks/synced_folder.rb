@@ -7,9 +7,9 @@ module ThemeJuice
       def initialize(opts = {})
         super
 
-        @entry_file = "#{@env.vm_path}/Customfile"
-        @entry_name = "synced folder"
-        @entry_id   = "SF"
+        @file = "#{@env.vm_path}/Customfile"
+        @name = "synced folder"
+        @id   = "SF"
       end
 
       def execute

@@ -7,9 +7,9 @@ module ThemeJuice
       def initialize(opts = {})
         super
 
-        @entry_file = "#{@env.vm_path}/Customfile"
-        @entry_name = "DNS"
-        @entry_id   = "DNS"
+        @file = "#{@env.vm_path}/Customfile"
+        @name = "DNS"
+        @id   = "DNS"
       end
 
       def execute
