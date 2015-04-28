@@ -25,7 +25,7 @@ module ThemeJuice
         @project.vm_location  = vm_location
 
         runner do |tasks|
-          tasks << Tasks::Confirm.new
+          tasks << Tasks::CreateConfirm.new
           tasks << Tasks::Location.new
           tasks << Tasks::Theme.new
           tasks << Tasks::VM.new
@@ -41,7 +41,7 @@ module ThemeJuice
           tasks << Tasks::DNS.new
           tasks << Tasks::WPCLI.new
           tasks << Tasks::Repo.new
-          tasks << Tasks::Success.new
+          tasks << Tasks::CreateSuccess.new
           tasks << Tasks::VMProvision.new
         end
       end

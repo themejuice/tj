@@ -2,7 +2,7 @@
 
 module ThemeJuice
   module Tasks
-    class Success < Task
+    class CreateSuccess < Task
 
       def initialize(opts = {})
         super

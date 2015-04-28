@@ -2,7 +2,7 @@
 
 module ThemeJuice
   module Tasks
-    class Confirm < Task
+    class CreateConfirm < Task
 
       def initialize(opts = {})
         super

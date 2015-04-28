@@ -4,7 +4,6 @@ module ThemeJuice
   module IO
     include Thor::Shell
 
-    # Unicode icons
     ICONS = {
       :success             => "\u2713",
       :error               => "\u2191",
@@ -26,7 +25,6 @@ module ThemeJuice
       :fallback_unselected => "[ ]",
     }
 
-    # Escape sequences
     KEYS = {
       "\e[A" => "up",
       "\e[B" => "down",
@@ -40,30 +38,14 @@ module ThemeJuice
       " "    => "space",
     }
 
-    # Get the environment
+    @state = nil
     @env = Env
 
-    #
-    # Output formatted message
-    #
-    # @param {String} message
-    # @param {Hash}   opts
-    #
-    # @return {Void}
-    #
     def speak(message, opts = {})
       format_message message, opts
       output_message
     end
 
-    #
-    # Ask a question
-    #
-    # @param {String} question
-    # @param {Hash}   opts
-    #
-    # @return {Void}
-    #
     def prompt(question, *opts)
       format_message question, {
         :color => :blue,
@@ -77,7 +59,7 @@ module ThemeJuice
         # end
 
         if opt[:indent]
-          set(question) { |str| (" " * opt[:indent]) << str }
+          with(question) { |str| (" " * opt[:indent]) << str }
         end
 
         break
@@ -86,14 +68,6 @@ module ThemeJuice
       ask("#{question} :", *opts).gsub /\e\[\d+m/, ""
     end
 
-    #
-    # Ask a yes or no question
-    #
-    # @param {String} question
-    # @param {Hash}   opts
-    #
-    # @return {Bool}
-    #
     def agree?(question, opts = {})
       format_message question, {
         :color => opts.fetch("color", :blue),
@@ -107,13 +81,6 @@ module ThemeJuice
       end
     end
 
-    #
-    # Output log message
-    #
-    # @param {String} message
-    #
-    # @return {Void}
-    #
     def log(message)
       speak message, {
         :color => :yellow,
@@ -121,13 +88,6 @@ module ThemeJuice
       }
     end
 
-    #
-    # Output success message
-    #
-    # @param {String} message
-    #
-    # @return {Void}
-    #
     def success(message)
       speak message, {
         :color => [:black, :on_green, :bold],
@@ -136,13 +96,6 @@ module ThemeJuice
       }
     end
 
-    #
-    # Output notice message
-    #
-    # @param {String} message
-    #
-    # @return {Void}
-    #
     def notice(message)
       speak message, {
         :color => [:black, :on_yellow],
@@ -151,14 +104,6 @@ module ThemeJuice
       }
     end
 
-    #
-    # Output error message and exit. Allows a block to be passed
-    #  as well, which will be executed before exiting
-    #
-    # @param {String} message
-    #
-    # @return {Void}
-    #
     def error(message)
       speak message, {
         :color => [:white, :on_red],
@@ -171,13 +116,6 @@ module ThemeJuice
       exit 1
     end
 
-    #
-    # Output greeting
-    #
-    # @param {Hash} opts ({})
-    #
-    # @return {Void}
-    #
     def hello(opts = {})
       speak "Welcome to Theme Juice!", {
         :color => [:black, :on_green, :bold],
@@ -185,13 +123,6 @@ module ThemeJuice
       }.merge(opts)
     end
 
-    #
-    # Output goodbye and exit with interupt code
-    #
-    # @param {Hash} opts ({})
-    #
-    # @return {Void}
-    #
     def goodbye(opts = {})
 
       # Have some fun?
@@ -219,13 +150,6 @@ module ThemeJuice
       exit 130
     end
 
-    #
-    # Open project url in users default browser
-    #
-    # @param {String} url
-    #
-    # @return {Void}
-    #
     def open_project(url)
       speak "Do you want to open up your new project at 'http://#{url}' now? (y/N)", {
         :color => [:black, :on_blue],
@@ -238,15 +162,6 @@ module ThemeJuice
       end
     end
 
-    #
-    # Output a list of messages
-    #
-    # @param {String} header
-    # @param {Symbol} color
-    # @param {Array}  list
-    #
-    # @return {Void}
-    #
     def list(header, color, list)
       speak header, {
         :color => [:black, :"on_#{color}"],
@@ -262,34 +177,26 @@ module ThemeJuice
       end
     end
 
-    #
-    # Create a shell select menu
-    #
-    # @param {String} header
-    # @param {Symbol} color
-    # @param {Array}  list
-    #
-    # @return {String}
-    #
     def choose(header, color, list)
-      speak "#{header} (use arrow keys and press enter)", {
-        :color => :"#{color}",
-        :icon  => :question
-      }
-
       if OS.windows?
         ask header, {
           :limited_to => list,
           :color      => color
         }
       else
+        speak "#{header} (use arrow keys and press enter)", {
+          :color => :"#{color}",
+          :icon  => :question
+        }
+
         print "\n" * list.size
 
         selected = 0
         update_list_selection(list, color, selected)
 
         loop do
-          case key = read_key
+          key = read_key
+          case key
           when "up"
             selected -= 1
             selected = list.size - 1 if selected < 0
@@ -311,11 +218,6 @@ module ThemeJuice
 
     private
 
-    #
-    # Output list with updated selection
-    #
-    # @return {Void}
-    #
     def update_list_selection(list, color, selected = 0)
       print "\e[#{list.size}A"
 
@@ -330,15 +232,11 @@ module ThemeJuice
     end
 
     #
-    # Read input
-    #
     # @see http://www.alecjacobson.com/weblog/?p=75
     #
-    # @return {String}
-    #
     def read_key
-      save_state
-      raw_no_echo_mode
+      save_stty_state
+      raw_stty_mode
 
       key = STDIN.getc.chr
 
@@ -350,38 +248,21 @@ module ThemeJuice
 
       KEYS[key] || key
     ensure
-      restore_state
+      restore_stty_state
     end
 
-    #
-    # Get the current state of stty
-    #
-    def save_state
+    def save_stty_state
       @state = %x(stty -g)
     end
 
-    #
-    # Disable echoing and enable raw mode
-    #
-    def raw_no_echo_mode
+    def raw_stty_mode
       %x(stty raw -echo)
     end
 
-    #
-    # Restore state of stty
-    #
-    def restore_state
+    def restore_stty_state
       %x(stty #{@state})
     end
 
-    #
-    # Destructively format message
-    #
-    # @param {String} message
-    # @param {Hash}   opts
-    #
-    # @return {String}
-    #
     def format_message(message, opts = {})
       @message, @opts = message, opts
 
@@ -395,84 +276,42 @@ module ThemeJuice
       @message
     end
 
-    #
-    # Run destructive block against string
-    #
-    # @param {String} string
-    #
-    # @return {String}
-    #
-    def set(string)
+    def with(string)
       str = yield(string); string.clear; string << str
     end
 
-    #
-    # Force message to use icon (if environment allows)
-    #
-    # @return {String}
-    #
     def format_message_icon
       icon = @env.no_unicode ? "fallback_#{@opts[:icon]}" : "#{@opts[:icon]}"
 
       if @opts[:icon]
-        set(@message) { |msg| "#{ICONS[:"#{icon}"]}" << (@opts[:empty] ? nil : " #{msg}") }
+        with(@message) { |msg| "#{ICONS[:"#{icon}"]}" << (@opts[:empty] ? nil : " #{msg}") }
       else
-        set(@message) { |msg| "" << msg }
+        with(@message) { |msg| "" << msg }
       end
     end
 
-    #
-    # Force message on newline, unless already on newline
-    #
-    # @return {String}
-    #
     def format_message_newline
-      set(@message) { |msg| "\n" << msg } if @opts[:newline]
+      with(@message) { |msg| "\n" << msg } if @opts[:newline]
     end
 
-    #
-    # Force message to use colors (if environment allows)
-    #
-    # @return {String}
-    #
     def format_message_color
       unless @env.no_colors
-        set(@message) { |msg| set_color(msg, *@opts[:color]) } if @opts[:color]
+        with(@message) { |msg| set_color(msg, *@opts[:color]) } if @opts[:color]
       end
     end
 
-    #
-    # Force message to take up width of terminal window
-    #
-    # @return {String}
-    #
     def format_message_row
-      set(@message) { |msg| msg.ljust(terminal_width) } if @opts[:row]
+      with(@message) { |msg| msg.ljust(terminal_width) } if @opts[:row]
     end
 
-    #
-    # Force message width
-    #
-    # @return {String}
-    #
     def format_message_width
-      set(@message) { |msg| msg.ljust(@opts[:width]) } if @opts[:width]
+      with(@message) { |msg| msg.ljust(@opts[:width]) } if @opts[:width]
     end
 
-    #
-    # Force message indentation
-    #
-    # @return {String}
-    #
     def format_message_indent
-      set(@message) { |str| (" " * @opts[:indent]) << str } if @opts[:indent]
+      with(@message) { |str| (" " * @opts[:indent]) << str } if @opts[:indent]
     end
 
-      #
-      # Output message to terminal, unless quiet
-      #
-      # @return {String|Void}
-      #
     def output_message
       @opts[:quiet] ? @message : say(@message)
     end

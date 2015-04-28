@@ -2,47 +2,27 @@
 
 module ThemeJuice
   module Tasks
-    class SyncedFolder < Task
+    class SyncedFolder < Entry
 
       def initialize(opts = {})
         super
+
+        @entry_file = "#{@env.vm_path}/Customfile"
+        @entry_name = "synced folder"
+        @entry_id   = "SF"
       end
 
       def execute
-        create_synced_folder
-      end
-
-      def unexecute
-        remove_synced_folder
-      end
-
-      private
-
-      def custom_file
-        File.expand_path "#{@env.vm_path}/Customfile"
-      end
-
-      def synced_folder_is_setup?
-        File.readlines(custom_file).grep(/(#(#*)? Begin '#{@project.name}' SF)/m).any?
-      end
-
-      def create_synced_folder
-        unless synced_folder_is_setup?
-          @io.log "Creating synced folder entries"
-          @util.append_to_file custom_file, :verbose => @env.verbose do
-%Q{# Begin '#{@project.name}' SF
+        create_entry_file
+        create_entry do
+%Q{
 config.vm.synced_folder '#{@project.location}', '/srv/www/tj-#{@project.name}', mount_options: ['dmode=777','fmode=777']
-# End '#{@project.name}' SF
-
 }
-          end
         end
       end
 
-      def remove_synced_folder
-        @io.log "Removing synced folder entries"
-        @util.gsub_file custom_file, /(#(#*)? Begin '#{@project.name}' SF)(.*?)(#(#*)? End '#{@project.name}' SF)\n+/m,
-          "", :verbose => @env.verbose
+      def unexecute
+        remove_entry
       end
     end
   end

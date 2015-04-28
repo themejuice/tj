@@ -2,48 +2,30 @@
 
 module ThemeJuice
   module Tasks
-    class Landrush < Task
+    class Landrush < Entry
 
       def initialize(opts = {})
         super
+
+        @entry_file = "#{@env.vm_path}/Customfile"
+        @entry_name = "landrush"
+        @entry_id   = "LR"
       end
 
       def execute
-        create_landrush
-      end
-
-      def unexecute
-        remove_landrush
-      end
-
-      private
-
-      def custom_file
-        File.expand_path "#{@env.vm_path}/Customfile"
-      end
-
-      def landrush_is_setup?
-        File.readlines(custom_file).grep(/(#(#*)? Begin 'landrush')/m).any?
-      end
-
-      def create_landrush
-        unless landrush_is_setup?
-          @io.log "Creating landrush entries"
-          @util.append_to_file custom_file, :verbose => @env.verbose do
-%Q{# Begin 'landrush'
+        unless @env.no_landrush
+          create_entry_file
+          create_entry do
+%Q{
 config.landrush.enabled = true
 config.landrush.tld = 'dev'
-# End 'landrush'
-
 }
           end
         end
       end
 
-      def remove_landrush
-        @io.log "Removing landrush entries"
-        @util.gsub_file custom_file, /(#(#*)? Begin 'landrush')(.*?)(#(#*)? End 'landrush')\n+/m,
-          "", :verbose => @env.verbose
+      def unexecute
+        remove_entry
       end
     end
   end
