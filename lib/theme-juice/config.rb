@@ -7,8 +7,12 @@ module ThemeJuice
     @project  = Project
     @util     = Util.new
 
-    def install
-      config.fetch("commands", {}).fetch("install").each { |cmd| run "#{cmd}" }
+    def method_missing(method, *args, &block)
+      @project.location ||= Dir.pwd
+
+      config.fetch("commander", {})
+        .fetch(method.to_s) { @io.error("Command '#{method}' not found in config") }
+        .each { |cmd| run "#{cmd} #{args.join(" ") unless args.empty?}" }
     end
 
     private

@@ -9,6 +9,7 @@ module ThemeJuice
       @version           = VERSION
       @env               = Env
       @io                = IO
+      @config            = Config
       @project           = Project
       @util              = Util.new
       @create            = Commands::Create
@@ -126,7 +127,15 @@ module ThemeJuice
     # @return {Void}
     #
     def install
-      @install.new(options).execute
+      @config.installer
+    end
+
+    desc "sub", "Run installation for the starter theme"
+    #
+    # @return {Void}
+    #
+    def sub(*args)
+      @config.subcommander *args
     end
 
     desc "share", "Share project with Vagrant Share"
