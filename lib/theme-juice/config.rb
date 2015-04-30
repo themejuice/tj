@@ -10,7 +10,7 @@ module ThemeJuice
     def method_missing(method, *args, &block)
       @project.location ||= Dir.pwd
 
-      config.fetch("commander", {})
+      config.fetch("commands", {})
         .fetch(method.to_s) { @io.error("Command '#{method}' not found in config") }
         .each { |cmd| run "#{cmd} #{args.join(" ") unless args.empty?}" }
     end

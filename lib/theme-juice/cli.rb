@@ -127,15 +127,7 @@ module ThemeJuice
     # @return {Void}
     #
     def install
-      @config.installer
-    end
-
-    desc "sub", "Run installation for the starter theme"
-    #
-    # @return {Void}
-    #
-    def sub(*args)
-      @config.subcommander *args
+      @config.install
     end
 
     desc "share", "Share project with Vagrant Share"
