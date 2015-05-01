@@ -187,7 +187,7 @@ module ThemeJuice
     # @return {Void}
     #
     def dist(*commands)
-      @config.package *commands
+      @config.dist *commands
     end
 
     desc "wp [COMMANDS]", "Manage WordPress installation"
