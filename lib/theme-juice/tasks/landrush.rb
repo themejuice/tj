@@ -7,9 +7,12 @@ module ThemeJuice
       def initialize(opts = {})
         super
 
-        @file = "#{@env.vm_path}/Customfile"
-        @name = "landrush"
-        @id   = "LR"
+        @entry = {
+          :project => "landrush",
+          :file    => "#{@env.vm_path}/Customfile",
+          :name    => "landrush",
+          :id      => "LR"
+        }
       end
 
       def execute
