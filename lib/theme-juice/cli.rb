@@ -15,7 +15,7 @@ module ThemeJuice
       @list              = Tasks::List
       @create            = Commands::Create
       @delete            = Commands::Delete
-      @deployer          = Commands::Deployer
+      @deploy            = Commands::Deploy
       @env.vm_path       = options.fetch("vm_path", File.expand_path("~/vagrant"))
       @env.vm_ip         = options.fetch("vm_ip", "192.168.50.4")
       @env.vm_prefix     = options.fetch("vm_prefix", "tj-")
@@ -30,16 +30,16 @@ module ThemeJuice
       @env.dryrun        = options.fetch("dryrun", false)
     end
 
-    map %w[--version -v]                => :version
-    map %w[mk new add]                  => :create
-    map %w[up prep init]                => :setup
-    map %w[rm remove trash teardown]    => :delete
-    map %w[pack distrubute dist]        => :package
-    map %w[ls projects apps sites show] => :list
-    map %w[assets dev build make]       => :watch
-    map %w[dependencies deps]           => :vendor
-    map %w[deploy server remote]        => :deployer
-    map %w[vagrant vvv]                 => :vm
+    map %w[--version -v]             => :version
+    map %w[mk new add]               => :create
+    map %w[up build prep init make]  => :setup
+    map %w[rm remove trash teardown] => :delete
+    map %w[pack distrubute dist]     => :package
+    map %w[ls projects apps sites]   => :list
+    map %w[assets dev build]         => :watch
+    map %w[dependencies deps]        => :vendor
+    map %w[deployer server remote]   => :deploy
+    map %w[vagrant vvv]              => :vm
 
     class_option :vm_path,       :type => :string,  :default => nil, :desc => "Force path to VM"
     class_option :vm_ip,         :type => :string,  :default => nil, :desc => "Force IP address for VM"
@@ -205,14 +205,14 @@ module ThemeJuice
       @config.vendor
     end
 
-    desc "deployer [COMMANDS]", "Manage deployment and migration"
+    desc "deploy [COMMANDS]", "Manage deployment and migration"
     #
     # @param {*} commands
     #
     # @return {Void}
     #
-    def deployer(*commands)
-      @deployer.new(options).execute
+    def deploy(*commands)
+      @deploy.new(options).execute
     end
 
     desc "vm [COMMANDS]", "Manage development environment"

@@ -2,13 +2,16 @@
 
 module ThemeJuice
   module Commands
-    class Deployer < Command
+    class Deploy < Command
 
       def initialize(opts = {})
         super
 
         @project.vm_root     = vm_root
         @project.vm_location = vm_location
+
+        runner do |tasks|
+        end
       end
     end
   end
