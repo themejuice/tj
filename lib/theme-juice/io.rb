@@ -223,7 +223,7 @@ module ThemeJuice
 
       list.each_with_index do |item, i|
         icon = i == selected ? "selected" : "unselected"
-        speak "#{item} - #{i}, #{selected}", {
+        speak item, {
           :color  => :"#{color}",
           :icon   => :"#{icon}",
           :indent => 2

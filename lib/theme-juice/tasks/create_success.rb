@@ -9,9 +9,14 @@ module ThemeJuice
       end
 
       def execute
+        success
       end
 
       private
+
+      def success
+        @io.speak "Successfully created project '#{@project.name}'", :color => :red
+      end
     end
   end
 end

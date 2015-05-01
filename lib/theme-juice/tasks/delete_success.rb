@@ -9,9 +9,14 @@ module ThemeJuice
       end
 
       def unexecute
+        success
       end
 
       private
+
+      def success
+        @io.speak "Project '#{@project.name}' removed", :color => :red
+      end
     end
   end
 end

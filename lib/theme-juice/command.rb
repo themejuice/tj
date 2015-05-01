@@ -14,7 +14,7 @@ module ThemeJuice
     end
 
     def unexecute
-      @tasks.reverse.each { |task| task.unexecute }
+      @tasks.each { |task| task.unexecute }
     end
   end
 end
