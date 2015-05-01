@@ -16,8 +16,8 @@ module ThemeJuice
         if @project.db_host && @project.db_name && @project.db_user && @project.db_pass
           create_entry_file
           create_entry do
-%Q{# CREATE DATABASE IF NOT EXISTS `#{@project.db_name}`;
-# GRANT ALL PRIVILEGES ON `#{@project.db_name}`.* TO '#{@project.db_user}'@'localhost' IDENTIFIED BY '#{@project.db_pass}';}
+%Q{CREATE DATABASE IF NOT EXISTS `#{@project.db_name}`;
+GRANT ALL PRIVILEGES ON `#{@project.db_name}`.* TO '#{@project.db_user}'@'localhost' IDENTIFIED BY '#{@project.db_pass}';}
           end
         end
       end

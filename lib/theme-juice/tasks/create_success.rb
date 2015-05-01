@@ -7,7 +7,7 @@ module ThemeJuice
       def initialize(opts = {})
         super
 
-        @vm = Tasks::VMProvision.new(opts)
+        @vm   = Tasks::VMProvision.new(opts)
       end
 
       def execute
@@ -28,7 +28,6 @@ module ThemeJuice
       def success
         @io.speak "Successfully created project '#{@project.name}'", :color => :green
         @io.list "Your settings :", :yellow, settings
-        @io.open_project @project.url
       end
 
       def settings
