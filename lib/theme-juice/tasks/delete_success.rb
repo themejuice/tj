@@ -2,14 +2,16 @@
 
 module ThemeJuice
   module Tasks
-    class Install < Task
+    class DeleteSuccess < Task
 
       def initialize(opts = {})
         super
-
-        @project.vm_root     = vm_root
-        @project.vm_location = vm_location
       end
+
+      def unexecute
+      end
+
+      private
     end
   end
 end

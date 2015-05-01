@@ -12,12 +12,11 @@ module ThemeJuice
       @config            = Config
       @project           = Project
       @util              = Util.new
+      @list              = Tasks::List
       @create            = Commands::Create
       @delete            = Commands::Delete
       @deployer          = Commands::Deployer
       @subcommand        = Commands::Subcommand
-      @list              = Tasks::List
-      @install           = Tasks::Install
       @env.vm_path       = options.fetch("vm_path", File.expand_path("~/vagrant"))
       @env.vm_ip         = options.fetch("vm_ip", "192.168.50.4")
       @env.vm_prefix     = options.fetch("vm_prefix", "tj-")
@@ -112,7 +111,7 @@ module ThemeJuice
     # @return {Void}
     #
     def delete
-      @delete.new(options).execute
+      @delete.new(options).unexecute
     end
 
     desc "list", "List all projects"

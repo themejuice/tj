@@ -12,6 +12,9 @@ module ThemeJuice
         @project.vm_root     = vm_root
         @project.vm_location = vm_location
 
+        @project.inspect
+        @env.inspect
+
         runner do |tasks|
           tasks << Tasks::VMLocation.new
           tasks << Tasks::Database.new
@@ -38,7 +41,7 @@ module ThemeJuice
         url = @io.prompt "What is the project's development url?", :default => "#{@project.name}.dev"
 
         unless @list.urls.include? url
-          @io.error "Project url '#{url}' doesn't exist within DNS records"
+          @io.notice "Project url '#{url}' doesn't exist within DNS records. Skipping..."
         end
 
         url
