@@ -16,7 +16,6 @@ module ThemeJuice
       @create            = Commands::Create
       @delete            = Commands::Delete
       @deployer          = Commands::Deployer
-      @subcommand        = Commands::Subcommand
       @env.vm_path       = options.fetch("vm_path", File.expand_path("~/vagrant"))
       @env.vm_ip         = options.fetch("vm_ip", "192.168.50.4")
       @env.vm_prefix     = options.fetch("vm_prefix", "tj-")
@@ -135,6 +134,7 @@ module ThemeJuice
     # @return {Void}
     #
     def share
+      @io.error "Not implemented"
     end
 
     desc "package", "Package project for distribution"
@@ -142,6 +142,7 @@ module ThemeJuice
     # @return {Void}
     #
     def package
+      @io.error "Not implemented"
     end
 
     desc "module [COMMANDS]", "Manage project modules"
@@ -149,6 +150,7 @@ module ThemeJuice
     # @return {Void}
     #
     def module
+      @io.error "Not implemented"
     end
 
     desc "skin [COMMANDS]", "Manage project skins"
@@ -156,6 +158,7 @@ module ThemeJuice
     # @return {Void}
     #
     def skin
+      @io.error "Not implemented"
     end
 
     desc "test", "Manage and run project tests"
@@ -163,6 +166,7 @@ module ThemeJuice
     # @return {Void}
     #
     def test
+      @io.error "Not implemented"
     end
 
     desc "update", "Update tj and its dependencies"
@@ -170,6 +174,7 @@ module ThemeJuice
     # @return {Void}
     #
     def update
+      @io.error "Not implemented"
     end
 
     desc "wp [COMMANDS]", "Manage WordPress installation"
@@ -177,6 +182,7 @@ module ThemeJuice
     # @return {Void}
     #
     def wp
+      @io.error "Not implemented"
     end
 
     desc "watch [COMMANDS]", "Watch and compile assets"
@@ -186,12 +192,7 @@ module ThemeJuice
     # @return {Void}
     #
     def watch(*commands)
-      opts = {
-        :subcommand => "watch",
-        :commands   => commands.join(" ")
-      }
-
-      @subcommand.new(opts)
+      @config.watch
     end
 
     desc "vendor [COMMANDS]", "Manage vendor dependencies"
@@ -201,12 +202,7 @@ module ThemeJuice
     # @return {Void}
     #
     def vendor(*commands)
-      opts = {
-        :subcommand => "vendor",
-        :commands   => commands.join(" ")
-      }
-
-      @subcommand.new(opts)
+      @config.vendor
     end
 
     desc "deployer [COMMANDS]", "Manage deployment and migration"
@@ -216,28 +212,7 @@ module ThemeJuice
     # @return {Void}
     #
     def deployer(*commands)
-      if @deployer
-        opts = {
-          :stage    => commands[0],
-          :commands => commands[1..-1],
-        }
-
-        case commands.length
-        when 1
-          @io.error "You did not specify any commands to execute on '#{opts[:stage]}'. Aborting mission."
-        when 0
-          @io.error "You did not specify a stage or any commands to execute. Aborting mission."
-        else
-          @deployer.new(opts[:stage]).execute(opts[:commands])
-        end
-      else
-        opts = {
-          :subcommand => "server",
-          :commands   => commands.join(" ")
-        }
-
-        @subcommand.new(opts)
-      end
+      @deployer.new(options).execute
     end
 
     desc "vm [COMMANDS]", "Manage development environment"

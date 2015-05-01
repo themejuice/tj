@@ -43,6 +43,5 @@ require_relative "theme-juice/command"
 require_relative "theme-juice/commands/create"
 require_relative "theme-juice/commands/delete"
 require_relative "theme-juice/commands/deployer"
-require_relative "theme-juice/commands/subcommand"
 
 require_relative "theme-juice/cli"
