@@ -38,6 +38,8 @@ module ThemeJuice
     map %w[assets dev build]         => :watch
     map %w[dependencies deps]        => :vendor
     map %w[deployer server remote]   => :deploy
+    map %w[tests spec specs]         => :test
+    map %w[wordpress]                => :wp
     map %w[vagrant vvv]              => :vm
 
     class_option :vm_path,       :type => :string,  :default => nil, :desc => "Force path to VM"
@@ -159,27 +161,11 @@ module ThemeJuice
       @io.error "Not implemented"
     end
 
-    desc "test", "Manage and run project tests"
-    #
-    # @return {Void}
-    #
-    def test
-      @io.error "Not implemented"
-    end
-
     desc "update", "Update tj and its dependencies"
     #
     # @return {Void}
     #
     def update
-      @io.error "Not implemented"
-    end
-
-    desc "wp [COMMANDS]", "Manage WordPress installation"
-    #
-    # @return {Void}
-    #
-    def wp
       @io.error "Not implemented"
     end
 
@@ -201,6 +187,22 @@ module ThemeJuice
     #
     def vendor(*commands)
       @config.vendor
+    end
+
+    desc "wp [COMMANDS]", "Manage WordPress installation"
+    #
+    # @return {Void}
+    #
+    def wp
+      @config.wp
+    end
+
+    desc "test [COMMANDS]", "Manage and run project tests"
+    #
+    # @return {Void}
+    #
+    def test
+      @config.test
     end
 
     desc "deploy [COMMANDS]", "Manage deployment and migration"
