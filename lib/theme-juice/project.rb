@@ -6,6 +6,7 @@ module ThemeJuice
     attr_accessor :location
     attr_accessor :url
     attr_accessor :theme
+    attr_accessor :vm_root
     attr_accessor :vm_location
     attr_accessor :repository
     attr_accessor :db_host
@@ -18,6 +19,8 @@ module ThemeJuice
     attr_accessor :use_defaults
     attr_accessor :no_wp
     attr_accessor :no_db
+    attr_accessor :drop_db
+    attr_accessor :restart
 
     def inspect
       res = []

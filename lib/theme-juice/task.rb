@@ -4,13 +4,13 @@ module ThemeJuice
   class Task
 
     def initialize(opts = {})
-      @env      = Env
-      @io       = IO
-      @project  = Project
-      @config   = Config
-      @util     = Util.new
-      @opts     = opts.dup
-      @tasks    = []
+      @env     = Env
+      @io      = IO
+      @project = Project
+      @config  = Config
+      @util    = Util.new
+      @opts    = opts.dup
+      @tasks   = []
     end
 
     def runner
@@ -23,6 +23,16 @@ module ThemeJuice
 
     def unexecute
       @io.error "Method 'unexecute' not implemented for #{self.class.name}"
+    end
+
+    private
+
+    def vm_root
+      File.expand_path "#{@env.vm_path}/www"
+    end
+
+    def vm_location
+      File.expand_path "#{vm_root}/#{@env.vm_prefix}#{@project.name}"
     end
   end
 end

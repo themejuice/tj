@@ -13,11 +13,11 @@ module ThemeJuice
       @project           = Project
       @util              = Util.new
       @create            = Commands::Create
-      @delete            = nil # ::ThemeJuice::Command::Delete
-      @list              = nil # ::ThemeJuice::Command::List
-      @install           = nil # ::ThemeJuice::Command::Install
-      @subcommand        = nil # ::ThemeJuice::Command::Subcommand
-      @deployer          = nil # ::ThemeJuice::Command::Deployer
+      @delete            = Commands::Delete
+      @deployer          = Commands::Deployer
+      @subcommand        = Commands::Subcommand
+      @list              = Tasks::List
+      @install           = Tasks::Install
       @env.vm_path       = options.fetch("vm_path", File.expand_path("~/vagrant"))
       @env.vm_ip         = options.fetch("vm_ip", "192.168.50.4")
       @env.vm_prefix     = options.fetch("vm_prefix", "tj-")
@@ -103,14 +103,15 @@ module ThemeJuice
     end
 
     desc "delete [NAME]", "Delete project (does not delete local project)"
-    method_option :name,    :type => :string,  :aliases => "-n", :default => false, :desc => "Name of the development project"
-    method_option :restart, :type => :boolean,                                      :desc => "Restart development environment after deletion"
+    method_option :name,    :type => :string,  :aliases => "-n", :default => nil, :desc => "Name of the development project"
+    method_option :drop_db, :type => :boolean,                                    :desc => "Drop project's database"
+    method_option :restart, :type => :boolean,                                    :desc => "Restart development environment after deletion"
     #
     # @param {String} name (nil)
     #
     # @return {Void}
     #
-    def delete(name = nil)
+    def delete
       @delete.new(options).execute
     end
 
@@ -119,7 +120,7 @@ module ThemeJuice
     # @return {Void}
     #
     def list
-      @list.new(options).execute
+      @list.new(options).list :projects
     end
 
     desc "install", "Run installation for the starter theme"

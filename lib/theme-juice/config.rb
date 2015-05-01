@@ -2,10 +2,10 @@
 
 module ThemeJuice
   module Config
-    @env      = Env
-    @io       = IO
-    @project  = Project
-    @util     = Util.new
+    @env     = Env
+    @io      = IO
+    @project = Project
+    @util    = Util.new
 
     def method_missing(method, *args, &block)
       @project.location ||= Dir.pwd

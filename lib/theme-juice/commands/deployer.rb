@@ -1,15 +1,15 @@
-# # encoding: UTF-8
-#
-# module ThemeJuice
-#   class Command::Deployer < ::ThemeJuice::Command
-#
-#     #
-#     # @param {Hash} opts
-#     #
-#     # @return {Void}
-#     #
-#     def initialize(opts = {})
-#       super
-#     end
-#   end
-# end
+# encoding: UTF-8
+
+module ThemeJuice
+  module Commands
+    class Deployer < Command
+
+      def initialize(opts = {})
+        super
+
+        @project.vm_root      = vm_root
+        @project.vm_location  = vm_location
+      end
+    end
+  end
+end

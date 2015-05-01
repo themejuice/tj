@@ -5,6 +5,8 @@ module ThemeJuice
 
     def initialize(opts = {})
       super
+
+      @list = Tasks::List.new
     end
 
     def execute
@@ -13,12 +15,6 @@ module ThemeJuice
 
     def unexecute
       @tasks.reverse.each { |task| task.unexecute }
-    end
-
-    private
-
-    def vm_location
-      File.expand_path "#{@env.vm_path}/www/#{@env.vm_prefix}#{@project.name}"
     end
   end
 end
