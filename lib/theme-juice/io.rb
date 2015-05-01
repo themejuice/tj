@@ -132,6 +132,8 @@ module ThemeJuice
         "See ya later, alligator",
         "Peace...",
         "Later, homes",
+        "I'll be back",
+        "Victory is ours!",
         "May the force be with you",
         "Take a break, man...",
         "It's not me, it's you",
