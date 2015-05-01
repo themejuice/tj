@@ -27,7 +27,8 @@ module ThemeJuice
 
       def success
         @io.speak "Successfully created project '#{@project.name}'", :color => :green
-        @io.list "Your settings:", :yellow, settings
+        @io.list "Your settings :", :yellow, settings
+        @io.open_project @project.url
       end
 
       def settings

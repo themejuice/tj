@@ -17,7 +17,7 @@ module ThemeJuice
         if self.send(prop).empty?
           @io.log "Nothing to list"
         else
-          @io.list "Projects:", :green, self.send(prop)
+          @io.list "Projects :", :green, self.send(prop)
         end
       end
 
