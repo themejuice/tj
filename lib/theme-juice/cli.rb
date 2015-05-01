@@ -137,14 +137,6 @@ module ThemeJuice
       @io.error "Not implemented"
     end
 
-    desc "package", "Package project for distribution"
-    #
-    # @return {Void}
-    #
-    def package
-      @io.error "Not implemented"
-    end
-
     desc "module [COMMANDS]", "Manage project modules"
     #
     # @return {Void}
@@ -176,7 +168,7 @@ module ThemeJuice
     # @return {Void}
     #
     def watch(*commands)
-      @config.watch
+      @config.watch *commands
     end
 
     desc "vendor [COMMANDS]", "Manage vendor dependencies"
@@ -186,23 +178,39 @@ module ThemeJuice
     # @return {Void}
     #
     def vendor(*commands)
-      @config.vendor
+      @config.vendor *commands
     end
 
     desc "wp [COMMANDS]", "Manage WordPress installation"
     #
     # @return {Void}
     #
-    def wp
-      @config.wp
+    def wp(*commands)
+      @config.wp *commands
+    end
+
+    desc "backup [COMMANDS]", "Run backup command"
+    #
+    # @return {Void}
+    #
+    def backup(*commands)
+      @config.backup *commands
     end
 
     desc "test [COMMANDS]", "Manage and run project tests"
     #
     # @return {Void}
     #
-    def test
-      @config.test
+    def test(*commands)
+      @config.test *commands
+    end
+
+    desc "package [COMMANDS]", "Package project for distribution"
+    #
+    # @return {Void}
+    #
+    def package(*commands)
+      @config.package *commands
     end
 
     desc "deploy [COMMANDS]", "Manage deployment and migration"

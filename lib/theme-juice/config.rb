@@ -24,8 +24,14 @@ module ThemeJuice
     end
 
     def config
-      YAML.load_file Dir["#{@project.location}/*"].select { |f| regex =~ File.basename(f) }.last ||
-        @io.error("Config file not found in '#{@project.location}'")
+      begin
+        YAML.load_file Dir["#{@project.location}/*"].select { |f| regex =~ File.basename(f) }.last ||
+          @io.error("Config file not found in '#{@project.location}'")
+      rescue ::Psych::SyntaxError => err
+        @io.error "Config file is invalid" do
+          puts err
+        end
+      end
     end
 
     def regex
