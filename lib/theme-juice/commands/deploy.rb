@@ -11,6 +11,7 @@ module ThemeJuice
         @project.vm_location = vm_location
 
         runner do |tasks|
+          @io.error "Not implemented"
         end
       end
     end
