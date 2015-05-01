@@ -12,9 +12,6 @@ module ThemeJuice
         @project.vm_root     = vm_root
         @project.vm_location = vm_location
 
-        @project.inspect
-        @env.inspect
-
         runner do |tasks|
           tasks << Tasks::VMLocation.new
           tasks << Tasks::Database.new
