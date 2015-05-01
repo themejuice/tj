@@ -9,12 +9,17 @@ module ThemeJuice
       end
 
       def execute
-      end
-
-      def unexecute
+        restart
       end
 
       private
+
+      def restart
+        @io.log "Restarting VM"
+        @util.inside @env.vm_path do
+          @util.run "vagrant reload", :verbose => @env.verbose
+        end
+      end
     end
   end
 end

@@ -9,12 +9,17 @@ module ThemeJuice
       end
 
       def execute
-      end
-
-      def unexecute
+        provision
       end
 
       private
+
+      def provision
+        @io.log "Provisioning VM"
+        @util.inside @env.vm_path do
+          @util.run "vagrant provision", :verbose => @env.verbose
+        end
+      end
     end
   end
 end
