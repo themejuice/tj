@@ -33,13 +33,14 @@ module ThemeJuice
     map %w[mk new add]               => :create
     map %w[up build prep init make]  => :setup
     map %w[rm remove trash teardown] => :delete
-    map %w[pack distrubute dist]     => :package
     map %w[ls projects apps sites]   => :list
     map %w[assets dev build]         => :watch
     map %w[dependencies deps]        => :vendor
-    map %w[deployer server remote]   => :deploy
-    map %w[tests spec specs]         => :test
+    map %w[distrubute pack package]  => :dist
     map %w[wordpress]                => :wp
+    map %w[bk]                       => :backup
+    map %w[tests spec specs]         => :test
+    map %w[deployer server remote]   => :deploy
     map %w[vagrant vvv]              => :vm
 
     class_option :vm_path,       :type => :string,  :default => nil, :desc => "Force path to VM"
@@ -181,6 +182,14 @@ module ThemeJuice
       @config.vendor *commands
     end
 
+    desc "dist [COMMANDS]", "Package project for distribution"
+    #
+    # @return {Void}
+    #
+    def dist(*commands)
+      @config.package *commands
+    end
+
     desc "wp [COMMANDS]", "Manage WordPress installation"
     #
     # @return {Void}
@@ -203,14 +212,6 @@ module ThemeJuice
     #
     def test(*commands)
       @config.test *commands
-    end
-
-    desc "package [COMMANDS]", "Package project for distribution"
-    #
-    # @return {Void}
-    #
-    def package(*commands)
-      @config.package *commands
     end
 
     desc "deploy [COMMANDS]", "Manage deployment and migration"
