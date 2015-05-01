@@ -106,8 +106,6 @@ module ThemeJuice
     method_option :drop_db, :type => :boolean,                                    :desc => "Drop project's database"
     method_option :restart, :type => :boolean,                                    :desc => "Restart development environment after deletion"
     #
-    # @param {String} name (nil)
-    #
     # @return {Void}
     #
     def delete
@@ -214,19 +212,15 @@ module ThemeJuice
       @config.test *commands
     end
 
-    desc "deploy [COMMANDS]", "Manage deployment and migration"
-    #
-    # @param {*} commands
+    desc "deploy", "Manage deployment and migration"
     #
     # @return {Void}
     #
-    def deploy(*commands)
+    def deploy
       @deploy.new(options).execute
     end
 
     desc "vm [COMMANDS]", "Manage development environment"
-    #
-    # @param {*} commands
     #
     # @return {Void}
     #
