@@ -22,6 +22,7 @@ module ThemeJuice
         @project.db_name      = @opts.fetch("db_name") { db_name }
         @project.db_user      = @opts.fetch("db_user") { db_user }
         @project.db_pass      = @opts.fetch("db_pass") { db_pass }
+        @project.db_import    = @opts.fetch("db_import") { db_import }
         @project.vm_root      = vm_root
         @project.vm_location  = vm_location
 
@@ -43,6 +44,7 @@ module ThemeJuice
           tasks << Tasks::WPCLI.new
           tasks << Tasks::Repo.new
           tasks << Tasks::CreateSuccess.new
+          tasks << Tasks::ImportDatabase.new
         end
       end
 
@@ -199,6 +201,19 @@ module ThemeJuice
         end
 
         db_pass
+      end
+
+      def db_import
+        return false if @project.no_db || @project.no_wp
+
+        if @io.agree? "Would you like to import an existing database?"
+          db = @io.prompt "Where is the database file?", {
+            :indent => 2, :path => true }
+        else
+          db = false
+        end
+
+        db
       end
     end
   end

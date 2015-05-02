@@ -7,7 +7,7 @@ module ThemeJuice
       def initialize(opts = {})
         super
 
-        @vm   = Tasks::VMProvision.new(opts)
+        @vm = Tasks::VMProvision.new(opts)
       end
 
       def execute

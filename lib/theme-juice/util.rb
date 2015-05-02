@@ -31,6 +31,12 @@ module ThemeJuice
         end
       end
 
+      def run_vm(command, config = {}, &block)
+        inside @env.vm_path do
+          run %Q{vagrant ssh -c "cd #{@project.vm_location.sub(@env.vm_path, "/srv")} && #{command}"}, config
+        end
+      end
+
       private
 
       def run_multi_command(commands, config)

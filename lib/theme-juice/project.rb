@@ -13,6 +13,7 @@ module ThemeJuice
     attr_accessor :db_name
     attr_accessor :db_user
     attr_accessor :db_pass
+    attr_accessor :db_import
     attr_accessor :bare
     attr_accessor :skip_repo
     attr_accessor :skip_db
