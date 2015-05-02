@@ -21,7 +21,7 @@ module ThemeJuice
       def install_vvv
         unless vvv_is_installed?
           @io.log "Installing VVV"
-          @util.run "git clone --branch '1.2.0' https://github.com/Varying-Vagrant-Vagrants/VVV.git #{@env.vm_path}",
+          @util.run "git clone https://github.com/Varying-Vagrant-Vagrants/VVV.git #{@env.vm_path} --depth 1",
             :verbose => @env.verbose
         end
       end

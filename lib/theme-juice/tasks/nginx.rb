@@ -33,7 +33,7 @@ module ThemeJuice
 %Q{server \{
   listen 80;
   server_name .#{@project.url};
-  root {vm_path_to_folder};
+  root {vvv_path_to_folder};
   include /etc/nginx/nginx-wp-common.conf;
 \}
 

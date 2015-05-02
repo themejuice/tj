@@ -101,10 +101,11 @@ module ThemeJuice
       @create.new(options.dup.merge(:bare => true)).execute
     end
 
-    desc "delete [NAME]", "Delete project (does not delete local project)"
+    desc "delete", "Delete project (does not delete local project)"
     method_option :name,    :type => :string,  :aliases => "-n", :default => nil, :desc => "Name of the development project"
+    method_option :url,     :type => :string,  :aliases => "-u", :default => nil, :desc => "Development URL for the project"
     method_option :drop_db, :type => :boolean,                                    :desc => "Drop project's database"
-    method_option :restart, :type => :boolean,                                    :desc => "Restart development environment after deletion"
+    method_option :restart, :type => :boolean,                                    :desc => "Restart VM after deletion"
     #
     # @return {Void}
     #
@@ -120,36 +121,12 @@ module ThemeJuice
       @list.new(options).list :projects
     end
 
-    desc "install", "Run installation for the starter theme"
+    desc "install", "Run installation for project"
     #
     # @return {Void}
     #
     def install
       @config.install
-    end
-
-    desc "share", "Share project with Vagrant Share"
-    #
-    # @return {Void}
-    #
-    def share
-      @io.error "Not implemented"
-    end
-
-    desc "module [COMMANDS]", "Manage project modules"
-    #
-    # @return {Void}
-    #
-    def module
-      @io.error "Not implemented"
-    end
-
-    desc "skin [COMMANDS]", "Manage project skins"
-    #
-    # @return {Void}
-    #
-    def skin
-      @io.error "Not implemented"
     end
 
     desc "update", "Update tj and its dependencies"
@@ -162,8 +139,6 @@ module ThemeJuice
 
     desc "watch [COMMANDS]", "Watch and compile assets"
     #
-    # @param {*} commands
-    #
     # @return {Void}
     #
     def watch(*commands)
@@ -171,8 +146,6 @@ module ThemeJuice
     end
 
     desc "vendor [COMMANDS]", "Manage vendor dependencies"
-    #
-    # @param {*} commands
     #
     # @return {Void}
     #
@@ -196,7 +169,7 @@ module ThemeJuice
       @config.wp *commands
     end
 
-    desc "backup [COMMANDS]", "Run backup command"
+    desc "backup [COMMANDS]", "Backup project"
     #
     # @return {Void}
     #

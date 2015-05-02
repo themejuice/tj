@@ -14,10 +14,24 @@ module ThemeJuice
 
       private
 
+      def vm_is_up?
+        res = false
+
+        @util.inside @env.vm_path do
+          res = @util.run("vagrant status --machine-readable", {
+            :verbose => @env.verbose, :capture => true}).include? "running"
+        end
+
+        res
+      end
+
       def provision
         @io.log "Provisioning VM"
         @util.inside @env.vm_path do
-          @util.run "vagrant provision", :verbose => @env.verbose
+          @util.run [], :verbose => @env.verbose do |cmds|
+            cmds << "vagrant halt" if vm_is_up?
+            cmds << "vagrant up --provision"
+          end
         end
       end
     end

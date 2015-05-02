@@ -18,7 +18,7 @@ module ThemeJuice
       def execute
         create_entry_file
         create_entry do
-%Q{if defined? VagrantPlugins::Landrush
+%Q{if defined? Landrush
   config.landrush.host '#{@project.url}', '#{@env.vm_ip}'
 elsif defined? VagrantPlugins::HostsUpdater
   config.hostsupdater.aliases << '#{@project.url}'

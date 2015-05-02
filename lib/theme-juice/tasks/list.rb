@@ -35,12 +35,10 @@ module ThemeJuice
 
       def urls
         res = []
+        ls  = `vagrant landrush ls`
 
-        output = @util.run "vagrant landrush ls", { :verbose => @env.verbose,
-          :capture => true } unless @env.no_landrush
-
-        unless output.nil?
-          output.gsub(/\s+/m, " ").split(" ").each do |url|
+        unless ls.nil?
+          ls.gsub(/\s+/m, " ").split(" ").each do |url|
             res << url if /(\.dev)/ =~ url
           end
         end
