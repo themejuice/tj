@@ -36,7 +36,7 @@ module ThemeJuice
             yield command if block_given?
             run %Q[vagrant ssh -c "#{command.join("&&")}"], config
           else
-            run command, config
+            run %Q[vagrant ssh -c "#{command}"], config
           end
         end
       end
