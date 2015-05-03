@@ -11,6 +11,7 @@ module ThemeJuice
         @project.url         = @opts.fetch("url") { url }
         @project.vm_root     = vm_root
         @project.vm_location = vm_location
+        @project.vm_srv      = vm_srv
 
         runner do |tasks|
           tasks << Tasks::VMLocation.new
