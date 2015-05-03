@@ -19,33 +19,26 @@ module ThemeJuice
     #  extra functionality
     #
     no_commands do
-
       alias_method :_run, :run
 
       def run(command, config = {}, &block)
         if command.is_a? Array
           yield command if block_given?
-          run_multi_command command, config
+          _run command.join("&&"), config
         else
-          run_single_command command, config
+          _run command, config
         end
       end
 
-      def run_vm(command, config = {})
+      def run_inside_vm(command, config = {}, &block)
         inside @env.vm_path do
-          run %Q{vagrant ssh -c "cd #{@project.vm_srv} && #{command}"}, config
+          if command.is_a? Array
+            yield command if block_given?
+            run %Q[vagrant ssh -c "#{command.join("&&")}"], config
+          else
+            run command, config
+          end
         end
-      end
-
-      private
-
-      def run_multi_command(commands, config)
-        commands = commands.join "&&"
-        _run commands, config
-      end
-
-      def run_single_command(command, config)
-        _run command, config
       end
     end
   end
