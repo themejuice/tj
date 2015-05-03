@@ -8,6 +8,7 @@ module ThemeJuice
     attr_accessor :theme
     attr_accessor :vm_root
     attr_accessor :vm_location
+    attr_accessor :vm_srv_location
     attr_accessor :repository
     attr_accessor :db_host
     attr_accessor :db_name

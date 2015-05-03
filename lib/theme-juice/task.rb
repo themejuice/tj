@@ -32,7 +32,11 @@ module ThemeJuice
     end
 
     def vm_location
-      File.expand_path "#{vm_root}/#{@env.vm_prefix}#{@project.name}"
+      "#{vm_root}/#{@env.vm_prefix}#{@project.name}"
+    end
+
+    def vm_srv_location
+      "/srv/www/#{@env.vm_prefix}#{@project.name}"
     end
   end
 end

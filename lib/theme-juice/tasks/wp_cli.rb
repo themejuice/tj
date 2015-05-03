@@ -35,7 +35,7 @@ module ThemeJuice
 ssh:
   vagrant:
     url: #{@project.url}
-    path: #{@project.vm_location.sub(@env.vm_path, "/srv")}
+    path: #{@project.vm_srv_location}
     cmd: cd #{@env.vm_path} && vagrant ssh-config > /tmp/vagrant_ssh_config && ssh -q %pseudotty% -F /tmp/vagrant_ssh_config default %cmd%
 
 }
