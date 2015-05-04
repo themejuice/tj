@@ -9,11 +9,14 @@ module ThemeJuice
 
         @project.name        = @opts.fetch("name") { name }
         @project.url         = @opts.fetch("url") { url }
+        @project.db_drop     = @opts.fetch("db_drop", false)
+        @project.vm_restart  = @opts.fetch("vm_restart", false)
         @project.vm_root     = vm_root
         @project.vm_location = vm_location
         @project.vm_srv      = vm_srv
 
         runner do |tasks|
+          tasks << Tasks::DeleteConfirm.new
           tasks << Tasks::VMLocation.new
           tasks << Tasks::Database.new
           tasks << Tasks::SyncedFolder.new

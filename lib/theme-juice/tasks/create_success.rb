@@ -7,19 +7,19 @@ module ThemeJuice
       def initialize(opts = {})
         super
 
-        @vm = Tasks::VMProvision.new(opts)
+        @vm_provision = Tasks::VMProvision.new(opts)
       end
 
       def execute
-        provision
+        provision_vm
         success
       end
 
       private
 
-      def provision
+      def provision_vm
         if @io.agree? "In order to finish creating your project, you need to provision the VM. Do it now?"
-          @vm.execute
+          @vm_provision.execute
         else
           @io.notice "Remember, the VM needs to be provisioned before you can use your new site"
         end

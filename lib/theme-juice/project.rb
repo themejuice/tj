@@ -9,20 +9,20 @@ module ThemeJuice
     attr_accessor :vm_root
     attr_accessor :vm_location
     attr_accessor :vm_srv
+    attr_accessor :vm_restart
     attr_accessor :repository
     attr_accessor :db_host
     attr_accessor :db_name
     attr_accessor :db_user
     attr_accessor :db_pass
     attr_accessor :db_import
+    attr_accessor :db_drop
     attr_accessor :bare
     attr_accessor :skip_repo
     attr_accessor :skip_db
     attr_accessor :use_defaults
     attr_accessor :no_wp
     attr_accessor :no_db
-    attr_accessor :drop_db
-    attr_accessor :restart
 
     def inspect
       res = []

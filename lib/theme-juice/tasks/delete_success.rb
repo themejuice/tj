@@ -7,7 +7,7 @@ module ThemeJuice
       def initialize(opts = {})
         super
 
-        @vm = Tasks::VMRestart.new(opts)
+        @vm_restart = Tasks::VMRestart.new(opts)
       end
 
       def unexecute
@@ -18,8 +18,8 @@ module ThemeJuice
       private
 
       def restart
-        if @project.restart
-          @vm.execute
+        if @project.vm_restart
+          @vm_restart.execute
         end
       end
 

@@ -104,15 +104,23 @@ module ThemeJuice
     end
 
     desc "delete", "Delete project (does not delete local project)"
-    method_option :name,    :type => :string,  :aliases => "-n", :default => nil, :desc => "Name of the development project"
-    method_option :url,     :type => :string,  :aliases => "-u", :default => nil, :desc => "Development URL for the project"
-    method_option :drop_db, :type => :boolean,                                    :desc => "Drop project's database"
-    method_option :restart, :type => :boolean,                                    :desc => "Restart VM after deletion"
+    method_option :name,       :type => :string,  :aliases => "-n", :default => nil, :desc => "Name of the development project"
+    method_option :url,        :type => :string,  :aliases => "-u", :default => nil, :desc => "Development URL for the project"
+    method_option :db_drop,    :type => :boolean, :aliases => "--drop-db",           :desc => "Drop project's database"
+    method_option :vm_restart, :type => :boolean, :aliases => "--restart-vm",        :desc => "Restart VM after deletion"
     #
     # @return {Void}
     #
     def delete
       @delete.new(options).unexecute
+    end
+
+    desc "deploy", "Manage deployment and migration"
+    #
+    # @return {Void}
+    #
+    def deploy
+      @deploy.new(options).execute
     end
 
     desc "list", "List all projects"
@@ -185,14 +193,6 @@ module ThemeJuice
     #
     def test(*commands)
       @config.test *commands
-    end
-
-    desc "deploy", "Manage deployment and migration"
-    #
-    # @return {Void}
-    #
-    def deploy
-      @deploy.new(options).execute
     end
 
     desc "vm [COMMANDS]", "Manage development environment"

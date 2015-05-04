@@ -33,8 +33,16 @@ GRANT ALL PRIVILEGES ON `#{@project.db_name}`.* TO '#{@project.db_user}'@'localh
       private
 
       def drop_database
-        if @project.drop_db
-          @io.log "Dropping database"
+        if @project.db_drop
+
+          # Double check that the database should be dropped
+          if @io.agree? "Are you sure you want to drop the database for '#{@project.name}'?"
+            @io.log "Dropping database"
+            @util.run_inside_vm [], :verbose => @env.verbose do |cmds|
+              cmds << "cd #{@project.vm_srv}"
+              cmds << "wp db drop --yes"
+            end
+          end
         end
       end
     end
