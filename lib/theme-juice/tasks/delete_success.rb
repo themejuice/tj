@@ -24,7 +24,7 @@ module ThemeJuice
       end
 
       def success
-        @io.speak "Successfully removed project '#{@project.name}'", :color => :yellow
+        @io.success "Successfully removed project '#{@project.name}'"
       end
     end
   end
