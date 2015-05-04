@@ -17,8 +17,8 @@ module ThemeJuice
 
         runner do |tasks|
           tasks << Tasks::DeleteConfirm.new
-          tasks << Tasks::VMLocation.new
           tasks << Tasks::Database.new
+          tasks << Tasks::VMLocation.new
           tasks << Tasks::SyncedFolder.new
           tasks << Tasks::DNS.new
           tasks << Tasks::DeleteSuccess.new
