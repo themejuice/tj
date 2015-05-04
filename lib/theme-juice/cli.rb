@@ -31,7 +31,7 @@ module ThemeJuice
 
     map %w[--version -v]             => :version
     map %w[mk new add]               => :create
-    map %w[up build prep init make]  => :setup
+    map %w[up prep init make]        => :setup
     map %w[rm remove trash teardown] => :delete
     map %w[ls projects apps sites]   => :list
     map %w[assets dev build]         => :watch

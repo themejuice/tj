@@ -8,28 +8,26 @@ What is it? Theme Juice is a command line interface created to scaffold out a ne
 That`s it!
 
 ## Config
-Because everybody likes to use different tools, you can create a `tj.yml` file (with an optional preceding `.`) that will house all of your theme-specific commands. This allows you to use a streamlined set of commands that will act as aliases to your per-project configuration, as well as starter-theme specific information, such as deployment configuration, etc. For right now, we'll just stick to the `commands` section.
+Because everybody likes to use different tools, you can create a `Juicefile` or `tj.yaml` config (with an optional preceding `.`) that will house all of your theme-specific commands. This allows you to use a streamlined set of commands that will act as aliases to your per-project configuration, as well as starter-theme specific information, such as deployment configuration, etc. For right now, we'll just stick to the `commands` section.
 
 If you're into [Grunt](https://github.com/gruntjs/grunt), then use it. Prefer [Guard](https://github.com/guard/guard)? Go right ahead. This is obviously relative to the starter theme you use, since you can't exactly use Grunt with a starter theme that doesn't support it. Below is the config that comes baked into [our starter theme](https://github.com/ezekg/theme-juice-starter):
 
 ```yml
 commands:
-    watch: bundle exec guard
-    server: bundle exec cap
-    vendor: composer
-    install:
-        - composer install
+  install:
+    - composer install
+  watch:
+    - grunt
+  vendor:
+    - composer
+  wp:
+    - wp ssh --host=vagrant
+  backup:
+    - wp ssh --host=vagrant db export backup/$(date +'%Y-%m-%d-%H-%M-%S').sql
+  dist:
+    - tar -zcvf dist.tar.gz .
+
 ```
-
-_Note: If you use a starter theme that doesn't have a `tj.yml` file, you'll be prompted through a series of steps in order to create one._
-
-### Command options:
-| Option    | Usage                                                                         |
-|:--------- |:----------------------------------------------------------------------------- |
-| `watch`   | Command to be aliased when you run `tj watch` for bulding assets              |
-| `server`  | Command to be aliased when you run `tj server` for deployments                |
-| `vendor`  | Command to be aliased when you run `tj vendor` for dependencies               |
-| `install` | Each command is executed when you run `tj install` to prepare a starter theme |
 
 ## Usage
 
@@ -46,16 +44,26 @@ tj --version # Aliases: -v, version
 ```
 
 ### Global flags:
-| Flag                | Type   | Description                                |
-|:------------------- |:------ |:------------------------------------------ |
-| `[--no-unicode]`    | Bool   | Disable all unicode characters             |
-| `[--no-colors]`     | Bool   | Disable colored output                     |
-| `[--vvv-path=PATH]` | String | Force custom path to your VVV installation |
+| Flag                   | Type   | Description                                |
+|:---------------------- |:------ |:------------------------------------------ |
+| `[--vm_path=PATH]`     | String | Force path to VM                           |
+| `[--vm_ip=IP]`         | String | Force IP address for VM                    |
+| `[--vm_prefix=PREFIX]` | String | Force directory prefix for project in VM   |
+| `[--yolo]`             | Bool   | Say yes to anything and everything         |
+| `[--boring]`           | Bool   | Disable all the coolness                   |
+| `[--no_unicode]`       | Bool   | Disable all unicode characters             |
+| `[--no_colors]`        | Bool   | Disable all colored output                 |
+| `[--no_animations]`    | Bool   | Disable all animations                     |
+| `[--no_landrush]`      | Bool   | Disable landrush for DNS                   |
+| `[--verbose]`          | Bool   | Verbose output                             |
+| `[--dryrun]`           | Bool   | Disable running all commands               |
+
+_Use `ENV` variables to set global flags. For example, by running `export TJ_VM_PATH=~/vagrant-vvv`, the `ENV` variable will be used instead of the default `vm-path` from then on. You can remove global flags with `unset TJ_VM_PATH`_
 
 ### Creating a new development site:
-Use this to create a new development site. It will automagically set up your entire development environment, including a local development site at `http://<sites-dev-url>.dev` with WordPress installed and a fresh WP database. It will sync up your local site installation with the Vagrant VM. This task will also install and configure Vagrant/VVV into your `~/` directory if it has not already been installed. Site name is optional, as it will be asked for if not given.
+Use this to create a new development site. It will automagically set up your entire development environment, including a local development site at `http://<sites-dev-url>.dev` with WordPress installed and a fresh WP database. It will sync up your local site installation with the Vagrant VM. This task will also install and configure Vagrant/VVV into your `vm-path` directory if it has not already been installed. Site name is optional, as it will be asked for if not given.
 ```bash
-tj create [<SITE-NAME>] # Aliases: new, add, build, make
+tj create # Aliases: mk new add
 ```
 
 #### Option flags:
@@ -74,7 +82,7 @@ tj create [<SITE-NAME>] # Aliases: new, add, build, make
 ### Setting up an existing site:
 Use this to setup an existing local site installation within the development environment. You will go through the setup process to create the necessary files for the VM, including `vvv-hosts`, `vvv-nginx.conf`, and a fresh database (unless one already exists by the name chosen). Site name is optional, as it will be asked for if not given.
 ```bash
-tj setup [<SITE-NAME>] # Aliases: prep
+tj setup # Aliases: up prep init make
 ```
 
 #### Option flags:
@@ -91,7 +99,7 @@ tj setup [<SITE-NAME>] # Aliases: prep
 ### Deleting a site from the VM: _(Does not remove your local site)_
 Use this to remove a site from your development environment. This is only remove files that were generated by `tj`. including the database setup, development url, and shared directories. _It will not touch your local files._
 ```bash
-tj delete <SITE-NAME> # Aliases: rm, remove, trash, teardown
+tj delete # Aliases: rm remove trash teardown
 ```
 
 #### Option flags:
@@ -103,25 +111,25 @@ tj delete <SITE-NAME> # Aliases: rm, remove, trash, teardown
 ### Listing all `tj` sites in the VM:
 Use this to list all sites within your development environment that were generated by `tj`.
 ```bash
-tj list # Aliases: ls, sites, show
+tj list # Aliases: ls projects apps sites
 ```
 
 ### Watching and compiling assets:
 Use this to watch and compile assets with your preferred build tool, whether that be [Grunt](https://github.com/gruntjs/grunt), [Gulp](https://github.com/gulpjs/gulp), [Guard](https://github.com/guard/guard), or whatever. This is simply a wrapper for whatever command is in your `tj.yml` file.
 ```bash
-tj watch # Aliases: dev, assets
+tj watch # Aliases: assets dev build
 ```
 
 ### Managing development environment:
 Use this to easily manage your [Varying Vagrant Vagrants](https://github.com/Varying-Vagrant-Vagrants/VVV) development environment. This is simply a wrapper for Vagrant commands executed within your VVV path.
 ```bash
-tj vm # Aliases: vagrant, vvv
+tj vm # Aliases: vagrant vvv
 ```
 
 ### Managing vendor dependencies:
 Use this to easily manage your dependencies with [Composer](https://github.com/composer/composer), or whatever other command you set in your `tj.yml`. This is a wrapper for whatever command is in your config file.
 ```bash
-tj vendor # Aliases: deps, dependencies
+tj vendor # Aliases: dependencies deps
 ```
 
 ### Managing deployment and migration:
