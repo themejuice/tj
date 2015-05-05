@@ -75,7 +75,7 @@ tj create # Aliases: mk new add
 | `[-t, --theme=THEME]`               | String | Starter theme to install                         |
 | `[-u, --url=URL]`                   | String | Development URL for the project                  |
 | `[-r, --repository=REPO]`           | String | Initialize a new Git remote repository           |
-| `[-i, --import-db, --db-import=DB]` | String | Import an existing database                      |
+| `[-i, --import-db=DB]`              | String | Import an existing database                      |
 | `[--bare]`                          | Bool   | Create a project without a starter theme         |
 | `[--skip-repo]`                     | Bool   | Skip repository prompts and use default settings |
 | `[--skip-db]`                       | Bool   | Skip database prompts and use default settings   |
@@ -96,7 +96,7 @@ tj setup # Aliases: up prep init make
 | `[-l, --location=LOCATION]`         | String | Location of the local project                    |
 | `[-u, --url=URL]`                   | String | Development URL for the project                  |
 | `[-r, --repository=REPO]`           | String | Initialize a new Git remote repository           |
-| `[-i, --import-db, --db-import=DB]` | String | Import an existing database                      |
+| `[-i, --import-db=DB]`              | String | Import an existing database                      |
 | `[--skip-repo]`                     | Bool   | Skip repository prompts and use default settings |
 | `[--skip-db]`                       | Bool   | Skip database prompts and use default settings   |
 | `[--use-defaults]`                  | Bool   | Skip all prompts and use default settings        |
