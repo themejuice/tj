@@ -40,61 +40,67 @@ tj
 ### Print version:
 This command will print the current version of `tj`.
 ```bash
-tj --version # Aliases: -v, version
+tj --version # Aliases: -v version
 ```
 
 ### Global flags:
 | Flag                   | Type   | Description                                |
 |:---------------------- |:------ |:------------------------------------------ |
-| `[--vm_path=PATH]`     | String | Force path to VM                           |
-| `[--vm_ip=IP]`         | String | Force IP address for VM                    |
-| `[--vm_prefix=PREFIX]` | String | Force directory prefix for project in VM   |
+| `[--vm-path=PATH]`     | String | Force path to VM                           |
+| `[--vm-ip=IP]`         | String | Force IP address for VM                    |
+| `[--vm-prefix=PREFIX]` | String | Force directory prefix for project in VM   |
 | `[--yolo]`             | Bool   | Say yes to anything and everything         |
 | `[--boring]`           | Bool   | Disable all the coolness                   |
-| `[--no_unicode]`       | Bool   | Disable all unicode characters             |
-| `[--no_colors]`        | Bool   | Disable all colored output                 |
-| `[--no_animations]`    | Bool   | Disable all animations                     |
-| `[--no_landrush]`      | Bool   | Disable landrush for DNS                   |
+| `[--no-unicode]`       | Bool   | Disable all unicode characters             |
+| `[--no-colors]`        | Bool   | Disable all colored output                 |
+| `[--no-animations]`    | Bool   | Disable all animations                     |
+| `[--no-landrush]`      | Bool   | Disable landrush for DNS                   |
 | `[--verbose]`          | Bool   | Verbose output                             |
 | `[--dryrun]`           | Bool   | Disable running all commands               |
 
 _Use `ENV` variables to set global flags. For example, by running `export TJ_VM_PATH=~/vagrant-vvv`, the `ENV` variable will be used instead of the default `vm-path` from then on. You can remove global flags with `unset TJ_VM_PATH`_
 
 ### Creating a new development site:
-Use this to create a new development site. It will automagically set up your entire development environment, including a local development site at `http://<sites-dev-url>.dev` with WordPress installed and a fresh WP database. It will sync up your local site installation with the Vagrant VM. This task will also install and configure Vagrant/VVV into your `vm-path` directory if it has not already been installed. Site name is optional, as it will be asked for if not given.
+Use this to create a new development site. It will automagically set up your entire development environment, including a local development site at `http://<sites-dev-url>.dev` with WordPress installed and a fresh WP database. It will sync up your local site installation with the Vagrant VM. This task will also install and configure Vagrant/VVV into your `vm-path` directory if it has not already been installed.
 ```bash
 tj create # Aliases: mk new add
 ```
 
 #### Option flags:
-| Flag                        | Type   | Description                                      |
-|:--------------------------- |:------ |:------------------------------------------------ |
-| `-b, [--bare]`              | Bool   | Create a VVV site without a starter theme        |
-| `-n, [--name=NAME]`         | String | Name of the development site                     |
-| `-l, [--location=LOCATION]` | Path   | Location of the local site                       |
-| `-t, [--theme=THEME]`       | URL    | Starter theme to install                         |
-| `-u, [--url=URL]`           | URL    | Development URL of the site (must end in `.dev`) |
-| `-r, [--repository]`        | String | Initialize a new Git remote repository           |
-| `[--skip-repo]`             | Bool   | Skip repository prompts and set to `none`        |
-| `[--skip-db]`               | Bool   | Skip database prompts and use defaults           |
-| `[--use-defaults]`          | Bool   | Skip all prompts and use defaults                |
+| Flag                             | Type   | Description                                      |
+|:-------------------------------- |:------ |:------------------------------------------------ |
+| `[-n, --name]`                   | String | Name of the project                              |
+| `[-l, --location]`               | String | Location of the local project                    |
+| `[-t, --theme]`                  | String | Starter theme to install                         |
+| `[-u, --url]`                    | String | Development URL for the project                  |
+| `[-r, --repository]`             | String | Initialize a new Git remote repository           |
+| `[--import-db, --db_import, -i]` | String | Import an existing database                      |
+| `[--bare]`                       | Bool   | Create a project without a starter theme         |
+| `[--skip_repo]`                  | Bool   | Skip repository prompts and use default settings |
+| `[--skip_db]`                    | Bool   | Skip database prompts and use default settings   |
+| `[--use_defaults]`               | Bool   | Skip all prompts and use default settings        |
+| `[--no_wp]`                      | Bool   | New project is not a WordPress install           |
+| `[--no_db]`                      | Bool   | New project does not need a database             |
 
 ### Setting up an existing site:
-Use this to setup an existing local site installation within the development environment. You will go through the setup process to create the necessary files for the VM, including `vvv-hosts`, `vvv-nginx.conf`, and a fresh database (unless one already exists by the name chosen). Site name is optional, as it will be asked for if not given.
+Use this to setup an existing local site installation within the development environment. You will go through the setup process to create the necessary files for the VM, including `vvv-hosts`, `vvv-nginx.conf`, and a fresh database (unless one already exists by the name chosen).
 ```bash
 tj setup # Aliases: up prep init make
 ```
 
 #### Option flags:
-| Flag                        | Type   | Description                                      |
-|:--------------------------- |:------ |:------------------------------------------------ |
-| `-n, [--name=NAME]`         | String | Name of the development site                     |
-| `-l, [--location=LOCATION]` | Path   | Location of the local site                       |
-| `-u, [--url=URL]`           | URL    | Development URL of the site (must end in `.dev`) |
-| `-r, [--repository]`        | String | Initialize a new Git remote repository           |
-| `[--skip-repo]`             | Bool   | Skip repository prompts and set to `none`        |
-| `[--skip-db]`               | Bool   | Skip database prompts and use defaults           |
-| `[--use-defaults]`          | Bool   | Skip all prompts and use defaults                |
+| Flag                             | Type   | Description                                      |
+|:-------------------------------- |:------ |:------------------------------------------------ |
+| `[-n, --name]`                   | String | Name of the project                              |
+| `[-l, --location]`               | String | Location of the local project                    |
+| `[-u, --url]`                    | String | Development URL for the project                  |
+| `[-r, --repository]`             | String | Initialize a new Git remote repository           |
+| `[-i, --import-db, --db_import]` | String | Import an existing database                      |
+| `[--skip_repo]`                  | Bool   | Skip repository prompts and use default settings |
+| `[--skip_db]`                    | Bool   | Skip database prompts and use default settings   |
+| `[--use_defaults]`               | Bool   | Skip all prompts and use default settings        |
+| `[--no_wp]`                      | Bool   | New project is not a WordPress install           |
+| `[--no_db]`                      | Bool   | New project does not need a database             |
 
 ### Deleting a site from the VM: _(Does not remove your local site)_
 Use this to remove a site from your development environment. This is only remove files that were generated by `tj`. including the database setup, development url, and shared directories. _It will not touch your local files._
@@ -103,10 +109,18 @@ tj delete # Aliases: rm remove trash teardown
 ```
 
 #### Option flags:
-| Flag                    | Type   | Description                                      |
-|:----------------------- |:------ |:------------------------------------------------ |
-| `-n, [--name=NAME]`     | String | Name of the development site                     |
-| `[--restart]`           | Bool   | Restart development environment after deletion   |
+| Flag             | Type   | Description                     |
+|:---------------- |:------ |:------------------------------- |
+| `[-n, --name]`   | String | Name of the development project |
+| `[-u, --url]`    | String | Development URL for the project |
+| `[--db_drop]`    | Bool   | Drop project's database         |
+| `[--vm_restart]` | Bool   | Restart VM after deletion       |
+
+### Managing deployment and migration:
+Use this to easily manage your deployment and migration with [Capistrano](https://github.com/capistrano/capistrano) (or again, anything else set within your config). This is just a wrapper for your chosen command.
+```bash
+tj deploy # Aliases: deployer server remote
+```
 
 ### Listing all `tj` sites in the VM:
 Use this to list all sites within your development environment that were generated by `tj`.
@@ -115,13 +129,13 @@ tj list # Aliases: ls projects apps sites
 ```
 
 ### Watching and compiling assets:
-Use this to watch and compile assets with your preferred build tool, whether that be [Grunt](https://github.com/gruntjs/grunt), [Gulp](https://github.com/gulpjs/gulp), [Guard](https://github.com/guard/guard), or whatever. This is simply a wrapper for whatever command is in your `tj.yml` file.
+Use this to watch and compile assets with your preferred build tool, whether that be [Grunt](https://github.com/gruntjs/grunt), [Gulp](https://github.com/gulpjs/gulp), [Guard](https://github.com/guard/guard), or whatever. This is simply a wrapper for whatever command is in your config file.
 ```bash
 tj watch # Aliases: assets dev build
 ```
 
 ### Managing development environment:
-Use this to easily manage your [Varying Vagrant Vagrants](https://github.com/Varying-Vagrant-Vagrants/VVV) development environment. This is simply a wrapper for Vagrant commands executed within your VVV path.
+Use this to easily manage your [Varying Vagrant Vagrants](https://github.com/Varying-Vagrant-Vagrants/VVV) development environment. This is simply a wrapper for Vagrant commands executed within your VM path.
 ```bash
 tj vm # Aliases: vagrant vvv
 ```
@@ -132,19 +146,25 @@ Use this to easily manage your dependencies with [Composer](https://github.com/c
 tj vendor # Aliases: dependencies deps
 ```
 
-### Managing deployment and migration:
-Use this to easily manage your deployment and migration with [Capistrano](https://github.com/capistrano/capistrano) (or again, anything else set within your `tj.yml`). This is just a wrapper for your chosen command.
+### Executing WP-CLI locally inside your VM:
+You can run `wp` commands locally if you specified inside of your config. Upon setup, an `ssh` block for the VM is automatically added to the `wp-cli.local.yml` file with all of your development environment paths. This uses [wp-cli-ssh](https://github.com/xwp/wp-cli-ssh), so it needs to be a dependency in your `composer.json`.
 ```bash
-tj server # Aliases: deploy, remote
+tj wp # Aliases: wordpress
 ```
 
-### Executing WP-CLI locally inside your VM with `wp-cli-ssh`
-You can run `wp` commands locally if you specify a `--host`. Upon setup, an `ssh` block for the VM is automatically added to the `wp-cli.local.yml` file with all of your development environment paths.
+### Backing up your database:
 ```bash
-wp ssh --host=vagrant [<COMMANDS>]
+tj backup # Aliases: bk
+```
 
-# Create an alias
-alias wpv="wp ssh --host=vagrant"
+### Distributing a package of your project:
+```bash
+tj dist # Aliases: distrubute pack package
+```
+
+### Running your test suite:
+```bash
+tj test # Aliases: tests spec specs
 ```
 
 ## Contributing

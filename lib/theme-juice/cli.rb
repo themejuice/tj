@@ -100,7 +100,10 @@ module ThemeJuice
     #
     def setup
       @io.hello
-      @create.new(options.dup.merge(:bare => true)).execute
+      @create.new(options.dup.merge({
+        :theme => false,
+        :bare => true,
+      })).execute
     end
 
     desc "delete", "Delete project (does not delete local project)"
