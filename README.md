@@ -47,7 +47,7 @@ tj --version # Aliases: -v version
 ### Global flags:
 | Flag                   | Type   | Description                                |
 |:---------------------- |:------ |:------------------------------------------ |
-| `[--vm-path=PATH]`     | String | Force path to VM                           |
+| `[--vm-path=PATH]`     | Path   | Force path to VM                           |
 | `[--vm-ip=IP]`         | String | Force IP address for VM                    |
 | `[--vm-prefix=PREFIX]` | String | Force directory prefix for project in VM   |
 | `[--yolo]`             | Bool   | Say yes to anything and everything         |
@@ -71,11 +71,11 @@ tj create # Aliases: mk new add
 | Flag                                | Type   | Description                                      |
 |:----------------------------------- |:------ |:------------------------------------------------ |
 | `[-n, --name=NAME]`                 | String | Name of the project                              |
-| `[-l, --location=LOCATION]`         | String | Location of the local project                    |
-| `[-t, --theme=THEME]`               | String | Starter theme to install                         |
-| `[-u, --url=URL]`                   | String | Development URL for the project                  |
-| `[-r, --repository=REPO]`           | String | Initialize a new Git remote repository           |
-| `[-i, --import-db=DB]`              | String | Import an existing database                      |
+| `[-l, --location=LOCATION]`         | Path   | Location of the local project                    |
+| `[-t, --theme=THEME]`               | URL    | Starter theme to install                         |
+| `[-u, --url=URL]`                   | URL    | Development URL for the project                  |
+| `[-r, --repository=REPO]`           | URL    | Initialize a new Git remote repository           |
+| `[-i, --import-db=DB]`              | Path   | Import an existing database                      |
 | `[--bare]`                          | Bool   | Create a project without a starter theme         |
 | `[--skip-repo]`                     | Bool   | Skip repository prompts and use default settings |
 | `[--skip-db]`                       | Bool   | Skip database prompts and use default settings   |
@@ -93,10 +93,10 @@ tj setup # Aliases: up prep init make
 | Flag                                | Type   | Description                                      |
 |:----------------------------------- |:------ |:------------------------------------------------ |
 | `[-n, --name=NAME]`                 | String | Name of the project                              |
-| `[-l, --location=LOCATION]`         | String | Location of the local project                    |
-| `[-u, --url=URL]`                   | String | Development URL for the project                  |
-| `[-r, --repository=REPO]`           | String | Initialize a new Git remote repository           |
-| `[-i, --import-db=DB]`              | String | Import an existing database                      |
+| `[-l, --location=LOCATION]`         | Path   | Location of the local project                    |
+| `[-u, --url=URL]`                   | URL    | Development URL for the project                  |
+| `[-r, --repository=REPO]`           | URL    | Initialize a new Git remote repository           |
+| `[-i, --import-db=DB]`              | Path   | Import an existing database                      |
 | `[--skip-repo]`                     | Bool   | Skip repository prompts and use default settings |
 | `[--skip-db]`                       | Bool   | Skip database prompts and use default settings   |
 | `[--use-defaults]`                  | Bool   | Skip all prompts and use default settings        |
@@ -113,7 +113,7 @@ tj delete # Aliases: rm remove trash teardown
 | Flag                | Type   | Description                     |
 |:------------------- |:------ |:------------------------------- |
 | `[-n, --name=NAME]` | String | Name of the development project |
-| `[-u, --url=URL]`   | String | Development URL for the project |
+| `[-u, --url=URL]`   | URL    | Development URL for the project |
 | `[--db-drop]`       | Bool   | Drop project's database         |
 | `[--vm-restart]`    | Bool   | Restart VM after deletion       |
 
