@@ -1,5 +1,42 @@
 # encoding: UTF-8
 
+#
+# Monkey patch to not print out reverse bool options on --help
+#
+# @see https://github.com/erikhuda/thor/issues/417
+#
+class Thor
+  class Option < Argument
+    def usage(padding = 0)
+      sample = if banner && !banner.to_s.empty?
+        "#{switch_name}=#{banner}"
+      else
+        switch_name
+      end
+
+      sample = "[#{sample}]" unless required?
+
+      # if boolean?
+      #   sample << ", [#{dasherize("no-" + human_name)}]" unless name == "force" or name.start_with?("no-")
+      # end
+
+      if aliases.empty?
+        (" " * padding) << sample
+      else
+        "#{aliases.join(', ')}, #{sample}"
+      end
+    end
+
+    VALID_TYPES.each do |type|
+      class_eval <<-RUBY, __FILE__, __LINE__ + 1
+        def #{type}?
+          self.type == #{type.inspect}
+        end
+      RUBY
+    end
+  end
+end
+
 module ThemeJuice
   class CLI < Thor
 
@@ -30,8 +67,8 @@ module ThemeJuice
     end
 
     map %w[--version -v]             => :version
-    map %w[mk new add]               => :create
-    map %w[up prep init make]        => :setup
+    map %w[mk make new add]          => :create
+    map %w[up prep init]             => :setup
     map %w[rm remove trash teardown] => :delete
     map %w[ls projects apps sites]   => :list
     map %w[assets dev build]         => :watch
@@ -69,7 +106,7 @@ module ThemeJuice
     method_option :theme,        :type => :string,  :aliases => "-t", :default => nil, :desc => "Starter theme to install"
     method_option :url,          :type => :string,  :aliases => "-u", :default => nil, :desc => "Development URL for the project"
     method_option :repository,   :type => :string,  :aliases => "-r",                  :desc => "Initialize a new Git remote repository"
-    method_option :db_import,    :type => :string,  :aliases => %w[--import-db -i],    :desc => "Import an existing database"
+    method_option :db_import,    :type => :string,  :aliases => %w[-i --import-db],    :desc => "Import an existing database"
     method_option :bare,         :type => :boolean,                                    :desc => "Create a project without a starter theme"
     method_option :skip_repo,    :type => :boolean,                                    :desc => "Skip repository prompts and use default settings"
     method_option :skip_db,      :type => :boolean,                                    :desc => "Skip database prompts and use default settings"

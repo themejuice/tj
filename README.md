@@ -76,7 +76,7 @@ _Use `ENV` variables to set global flags. For example, by running `export TJ_VM_
 ### Creating a new development site:
 Use this to create a new project. It will automagically set up your VM, including a local development site at `http://<url>.dev` with WordPress installed and a fresh WP database. It will sync up your local site installation with the Vagrant VM, so you can organize your projects however you want. This task will also install VVV into your `vm-path` directory if it has not already been installed.
 ```bash
-tj create # Aliases: mk new add
+tj create # Aliases: mk make new add
 ```
 
 #### Option flags:
@@ -98,7 +98,7 @@ tj create # Aliases: mk new add
 ### Setting up an existing site:
 Use this to setup an existing local site installation within the development environment. You will go through the setup process to create the necessary files for the VM, including `vvv-hosts`, `vvv-nginx.conf`, and a fresh database (unless one already exists by the name chosen). This is essentially an alias for `create`, but with a few options being skipped.
 ```bash
-tj setup # Aliases: up prep init make
+tj setup # Aliases: up prep init
 ```
 
 #### Option flags:
