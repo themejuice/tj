@@ -1,16 +1,16 @@
 # Theme Juice [![Gem Version](http://img.shields.io/gem/v/theme-juice.svg)](https://rubygems.org/gems/theme-juice)
-What is it? Theme Juice is a command line interface created to scaffold out a new WordPress development environment (using [VVV](https://github.com/Varying-Vagrant-Vagrants/VVV)) and countless development sites. Everybody loves one command setups, and `tj` can even do one command deployments too.
+What is it? Theme Juice is a command line tool that allows you to scaffold out a new WordPress development environment (using [VVV](https://github.com/Varying-Vagrant-Vagrants/VVV) as the VM) and countless development projects. Everybody loves one command setups, and `tj` will eventually even do one command deployments too.
 
 ## Installation
 * First, install [Vagrant](https://www.vagrantup.com/) and [VirtualBox](https://www.virtualbox.org/) for local development.
-* Then, install [Composer](https://getcomposer.org/) and [WP-CLI](http://wp-cli.org/) (make sure they're executable).
+* Then, install [Composer](https://getcomposer.org/) and [WP-CLI](http://wp-cli.org/), and make sure they're executable.
 * Finally, install with: `gem install theme-juice`
 That`s it!
 
 ## Config
 Because everybody likes to use different tools, you can create a `Juicefile` or `tj.yaml` config (with an optional preceding `.`) that will house all of your theme-specific commands. This allows you to use a streamlined set of commands that will act as aliases to your per-project configuration, as well as starter-theme specific information, such as deployment configuration, etc. For right now, we'll just stick to the `commands` section.
 
-If you're into [Grunt](https://github.com/gruntjs/grunt), then use it. Prefer [Guard](https://github.com/guard/guard)? Go right ahead. This is obviously relative to the starter theme you use, since you can't exactly use Grunt with a starter theme that doesn't support it. Below is the config that comes baked into [our starter theme](https://github.com/ezekg/theme-juice-starter):
+If you're into [Grunt](https://github.com/gruntjs/grunt), then use it. Prefer [Guard](https://github.com/guard/guard)? Go right ahead. This is obviously relative to the starter theme you use, since you can't exactly use Grunt with a project that doesn't support it. Below is the config that comes baked into [our starter theme](https://github.com/ezekg/theme-juice-starter):
 
 ```yml
 commands:
@@ -26,8 +26,9 @@ commands:
     - wp ssh --host=vagrant db export backup/$(date +'%Y-%m-%d-%H-%M-%S').sql
   dist:
     - tar -zcvf dist.tar.gz .
-
 ```
+
+Each command is run within a single execution, with all arguments passed to each command; i.e. `cmd1 [<ARGS>] && cmd2 [<ARGS>] && ...`. So, you should be careful with how this is used. Don't do something like including `sudo rm -rf` in a command, and then passing `/` as an argument. Keep it simple.
 
 ## Usage
 
@@ -61,7 +62,7 @@ tj --version # Aliases: -v version
 _Use `ENV` variables to set global flags. For example, by running `export TJ_VM_PATH=~/vagrant-vvv`, the `ENV` variable will be used instead of the default `vm-path` from then on. You can remove global flags with `unset TJ_VM_PATH`_
 
 ### Creating a new development site:
-Use this to create a new development site. It will automagically set up your entire development environment, including a local development site at `http://<sites-dev-url>.dev` with WordPress installed and a fresh WP database. It will sync up your local site installation with the Vagrant VM. This task will also install and configure Vagrant/VVV into your `vm-path` directory if it has not already been installed.
+Use this to create a new project. It will automagically set up your VM, including a local development site at `http://<url>.dev` with WordPress installed and a fresh WP database. It will sync up your local site installation with the Vagrant VM, so you can organize your projects however you want. This task will also install VVV into your `vm-path` directory if it has not already been installed.
 ```bash
 tj create # Aliases: mk new add
 ```
@@ -83,7 +84,7 @@ tj create # Aliases: mk new add
 | `[--no_db]`                      | Bool   | New project does not need a database             |
 
 ### Setting up an existing site:
-Use this to setup an existing local site installation within the development environment. You will go through the setup process to create the necessary files for the VM, including `vvv-hosts`, `vvv-nginx.conf`, and a fresh database (unless one already exists by the name chosen).
+Use this to setup an existing local site installation within the development environment. You will go through the setup process to create the necessary files for the VM, including `vvv-hosts`, `vvv-nginx.conf`, and a fresh database (unless one already exists by the name chosen). This is essentially an alias for `create`, but with a few options being skipped.
 ```bash
 tj setup # Aliases: up prep init make
 ```
@@ -103,7 +104,7 @@ tj setup # Aliases: up prep init make
 | `[--no_db]`                      | Bool   | New project does not need a database             |
 
 ### Deleting a site from the VM: _(Does not remove your local site)_
-Use this to remove a site from your development environment. This is only remove files that were generated by `tj`. including the database setup, development url, and shared directories. _It will not touch your local files._
+Use this to remove a site from your development environment. This will only remove files that were generated by `tj`. including the database setup, development url, and shared directories. _It will not touch your local folders that were synced to the VM._
 ```bash
 tj delete # Aliases: rm remove trash teardown
 ```
@@ -116,16 +117,22 @@ tj delete # Aliases: rm remove trash teardown
 | `[--db_drop]`    | Bool   | Drop project's database         |
 | `[--vm_restart]` | Bool   | Restart VM after deletion       |
 
-### Managing deployment and migration:
-Use this to easily manage your deployment and migration with [Capistrano](https://github.com/capistrano/capistrano) (or again, anything else set within your config). This is just a wrapper for your chosen command.
+### Managing deployment and migration (coming soon):
+Use this to easily manage your deployment and migration with [Capistrano](https://github.com/capistrano/capistrano) or whatever command is in your config. This is just a wrapper for your chosen command.
 ```bash
 tj deploy # Aliases: deployer server remote
 ```
 
-### Listing all `tj` sites in the VM:
-Use this to list all sites within your development environment that were generated by `tj`.
+### Listing all `tj` projects in the VM:
+Use this to list all projects within your VM that were generated by `tj`.
 ```bash
 tj list # Aliases: ls projects apps sites
+```
+
+### Managing development environment:
+Use this to easily manage your [Varying Vagrant Vagrants](https://github.com/Varying-Vagrant-Vagrants/VVV) VM. This is a wrapper for Vagrant commands executed within your VM path.
+```bash
+tj vm # Aliases: vagrant vvv
 ```
 
 ### Watching and compiling assets:
@@ -134,35 +141,33 @@ Use this to watch and compile assets with your preferred build tool, whether tha
 tj watch # Aliases: assets dev build
 ```
 
-### Managing development environment:
-Use this to easily manage your [Varying Vagrant Vagrants](https://github.com/Varying-Vagrant-Vagrants/VVV) development environment. This is simply a wrapper for Vagrant commands executed within your VM path.
-```bash
-tj vm # Aliases: vagrant vvv
-```
-
 ### Managing vendor dependencies:
-Use this to easily manage your dependencies with [Composer](https://github.com/composer/composer), or whatever other command you set in your `tj.yml`. This is a wrapper for whatever command is in your config file.
+Use this to easily manage your dependencies with [Composer](https://github.com/composer/composer), or whatever command you set within your config.
 ```bash
 tj vendor # Aliases: dependencies deps
 ```
 
 ### Executing WP-CLI locally inside your VM:
-You can run `wp` commands locally if you specified inside of your config. Upon setup, an `ssh` block for the VM is automatically added to the `wp-cli.local.yml` file with all of your development environment paths. This uses [wp-cli-ssh](https://github.com/xwp/wp-cli-ssh), so it needs to be a dependency in your `composer.json`.
+Upon setup, an `ssh` block for the VM is automatically added to the `wp-cli.local.yml` file with all of your VM paths. In our starter theme, we use [wp-cli-ssh](https://github.com/xwp/wp-cli-ssh) to run `wp` commands locally.
+In order to do the same, it needs to be a dependency in your `composer.json`.
 ```bash
 tj wp # Aliases: wordpress
 ```
 
 ### Backing up your database:
+Uses `backup` command within your config.
 ```bash
 tj backup # Aliases: bk
 ```
 
 ### Distributing a package of your project:
+Uses `dist` command within your config.
 ```bash
 tj dist # Aliases: distrubute pack package
 ```
 
 ### Running your test suite:
+Uses `dist` command within your config.
 ```bash
 tj test # Aliases: tests spec specs
 ```
