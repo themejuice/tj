@@ -35,7 +35,7 @@ module ThemeJuice
     end
 
     def regex
-      %r{^((\.)?(tj.y(a)?ml)|((J|j)uicefile))}
+      %r{^((\.)?(tj.y(a)?ml)|((J|j)uicefile(.y(a)?ml)?))}
     end
 
     extend self

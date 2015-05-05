@@ -3,8 +3,8 @@
 *.gem
 tj.*
 .tj.*
-Juicefile
-juicefile
+Juicefile*
+juicefile*
 vvv-hosts
 vvv-nginx.conf
 .env.*
