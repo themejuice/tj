@@ -1,5 +1,5 @@
 # Theme Juice [![Gem Version](http://img.shields.io/gem/v/theme-juice.svg)](https://rubygems.org/gems/theme-juice)
-What is it? Theme Juice is a command line tool that allows you to scaffold out a new WordPress development environment (using [VVV](https://github.com/Varying-Vagrant-Vagrants/VVV) as the VM) and countless development projects. Everybody loves one command setups, and `tj` will eventually even do one command deployments too.
+What is it? Theme Juice is a WordPress development command line utility that allows you to scaffold out entire Vagrant development environments in seconds (using [VVV](https://github.com/Varying-Vagrant-Vagrants/VVV) as the VM), manage dependencies and build tools, and even handle deployments.
 
 ## Installation
 * First, install [Vagrant](https://www.vagrantup.com/) and [VirtualBox](https://www.virtualbox.org/) for local development.
