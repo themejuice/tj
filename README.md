@@ -68,20 +68,20 @@ tj create # Aliases: mk new add
 ```
 
 #### Option flags:
-| Flag                             | Type   | Description                                      |
-|:-------------------------------- |:------ |:------------------------------------------------ |
-| `[-n, --name]`                   | String | Name of the project                              |
-| `[-l, --location]`               | String | Location of the local project                    |
-| `[-t, --theme]`                  | String | Starter theme to install                         |
-| `[-u, --url]`                    | String | Development URL for the project                  |
-| `[-r, --repository]`             | String | Initialize a new Git remote repository           |
-| `[--import-db, --db-import, -i]` | String | Import an existing database                      |
-| `[--bare]`                       | Bool   | Create a project without a starter theme         |
-| `[--skip-repo]`                  | Bool   | Skip repository prompts and use default settings |
-| `[--skip-db]`                    | Bool   | Skip database prompts and use default settings   |
-| `[--use-defaults]`               | Bool   | Skip all prompts and use default settings        |
-| `[--no-wp]`                      | Bool   | New project is not a WordPress install           |
-| `[--no-db]`                      | Bool   | New project does not need a database             |
+| Flag                                | Type   | Description                                      |
+|:----------------------------------- |:------ |:------------------------------------------------ |
+| `[-n, --name=NAME]`                 | String | Name of the project                              |
+| `[-l, --location=LOCATION]`         | String | Location of the local project                    |
+| `[-t, --theme=THEME]`               | String | Starter theme to install                         |
+| `[-u, --url=URL]`                   | String | Development URL for the project                  |
+| `[-r, --repository=REPO]`           | String | Initialize a new Git remote repository           |
+| `[-i, --import-db, --db-import=DB]` | String | Import an existing database                      |
+| `[--bare]`                          | Bool   | Create a project without a starter theme         |
+| `[--skip-repo]`                     | Bool   | Skip repository prompts and use default settings |
+| `[--skip-db]`                       | Bool   | Skip database prompts and use default settings   |
+| `[--use-defaults]`                  | Bool   | Skip all prompts and use default settings        |
+| `[--no-wp]`                         | Bool   | New project is not a WordPress install           |
+| `[--no-db]`                         | Bool   | New project does not need a database             |
 
 ### Setting up an existing site:
 Use this to setup an existing local site installation within the development environment. You will go through the setup process to create the necessary files for the VM, including `vvv-hosts`, `vvv-nginx.conf`, and a fresh database (unless one already exists by the name chosen). This is essentially an alias for `create`, but with a few options being skipped.
@@ -90,18 +90,18 @@ tj setup # Aliases: up prep init make
 ```
 
 #### Option flags:
-| Flag                             | Type   | Description                                      |
-|:-------------------------------- |:------ |:------------------------------------------------ |
-| `[-n, --name]`                   | String | Name of the project                              |
-| `[-l, --location]`               | String | Location of the local project                    |
-| `[-u, --url]`                    | String | Development URL for the project                  |
-| `[-r, --repository]`             | String | Initialize a new Git remote repository           |
-| `[-i, --import-db, --db-import]` | String | Import an existing database                      |
-| `[--skip-repo]`                  | Bool   | Skip repository prompts and use default settings |
-| `[--skip-db]`                    | Bool   | Skip database prompts and use default settings   |
-| `[--use-defaults]`               | Bool   | Skip all prompts and use default settings        |
-| `[--no-wp]`                      | Bool   | New project is not a WordPress install           |
-| `[--no-db]`                      | Bool   | New project does not need a database             |
+| Flag                                | Type   | Description                                      |
+|:----------------------------------- |:------ |:------------------------------------------------ |
+| `[-n, --name=NAME]`                 | String | Name of the project                              |
+| `[-l, --location=LOCATION]`         | String | Location of the local project                    |
+| `[-u, --url=URL]`                   | String | Development URL for the project                  |
+| `[-r, --repository=REPO]`           | String | Initialize a new Git remote repository           |
+| `[-i, --import-db, --db-import=DB]` | String | Import an existing database                      |
+| `[--skip-repo]`                     | Bool   | Skip repository prompts and use default settings |
+| `[--skip-db]`                       | Bool   | Skip database prompts and use default settings   |
+| `[--use-defaults]`                  | Bool   | Skip all prompts and use default settings        |
+| `[--no-wp]`                         | Bool   | New project is not a WordPress install           |
+| `[--no-db]`                         | Bool   | New project does not need a database             |
 
 ### Deleting a site from the VM: _(Does not remove your local site)_
 Use this to remove a site from your development environment. This will only remove files that were generated by `tj`. including the database setup, development url, and shared directories. _It will not touch your local folders that were synced to the VM._
@@ -110,12 +110,12 @@ tj delete # Aliases: rm remove trash teardown
 ```
 
 #### Option flags:
-| Flag             | Type   | Description                     |
-|:---------------- |:------ |:------------------------------- |
-| `[-n, --name]`   | String | Name of the development project |
-| `[-u, --url]`    | String | Development URL for the project |
-| `[--db-drop]`    | Bool   | Drop project's database         |
-| `[--vm-restart]` | Bool   | Restart VM after deletion       |
+| Flag                | Type   | Description                     |
+|:------------------- |:------ |:------------------------------- |
+| `[-n, --name=NAME]` | String | Name of the development project |
+| `[-u, --url=URL]`   | String | Development URL for the project |
+| `[--db-drop]`       | Bool   | Drop project's database         |
+| `[--vm-restart]`    | Bool   | Restart VM after deletion       |
 
 ### Managing deployment and migration (coming soon):
 Use this to easily manage your deployment and migration with [Capistrano](https://github.com/capistrano/capistrano) or whatever command is in your config. This is just a wrapper for your chosen command.
