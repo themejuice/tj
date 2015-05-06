@@ -8,7 +8,7 @@ What is it? Theme Juice is a WordPress development command line utility that all
 That`s it!
 
 ## Windows users
-Since Windows doesn't support UTF-8 characters inside of the terminal, and is picky about colors, you'll have to run `tj` with a couple flags. What has worked for me on my Windows machine at home is to run all commands through [git-scm](http://git-scm.com/downloads) with the `--boring --no-landrush` flags. This disables all unicode characters and colors from being output, and disables [Landrush](https://github.com/phinze/landrush) which isn't supported fully on Windows.  To set these globally via the `ENV`, run:
+Since Windows doesn't support UTF-8 characters inside of the terminal, and is picky about colors, you'll have to run `tj` with a couple flags. What has worked for me on my Windows machine at home is to run all commands through [git-scm](http://git-scm.com/downloads) with the `--boring --no-landrush` flags. This disables all unicode characters and colors from being output, and disables [Landrush](https://github.com/phinze/landrush) which isn't supported fully on Windows. To set these globally via the `ENV`, run:
 
 ```bash
 export TJ_BORING=true
