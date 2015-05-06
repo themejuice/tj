@@ -161,7 +161,7 @@ Use this to easily manage your dependencies with [Composer](https://github.com/c
 tj vendor # Aliases: dependencies deps
 ```
 
-### Executing WP-CLI locally inside your VM:
+### Locally executing WP-CLI inside your VM:
 Upon setup, an `ssh` block for the VM is automatically added to the `wp-cli.local.yml` file with all of your VM paths. In our starter theme, we use [wp-cli-ssh](https://github.com/xwp/wp-cli-ssh) to run `wp` commands locally.
 In order to do the same, it needs to be a dependency in your `composer.json`.
 ```bash
