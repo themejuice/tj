@@ -144,7 +144,7 @@ module ThemeJuice
     end
 
     desc "delete", "Delete project (does not delete local project)"
-    method_option :name,       :type => :string,  :aliases => "-n", :default => nil, :desc => "Name of the development project"
+    method_option :name,       :type => :string,  :aliases => "-n", :default => nil, :desc => "Name of the project"
     method_option :url,        :type => :string,  :aliases => "-u", :default => nil, :desc => "Development URL for the project"
     method_option :db_drop,    :type => :boolean, :aliases => "--drop-db",           :desc => "Drop project's database"
     method_option :vm_restart, :type => :boolean, :aliases => "--restart-vm",        :desc => "Restart VM after deletion"

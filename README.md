@@ -126,7 +126,7 @@ tj delete # Aliases: rm remove trash teardown
 #### Option flags:
 | Flag                | Type   | Description                     |
 |:------------------- |:------ |:------------------------------- |
-| `[-n, --name=NAME]` | String | Name of the development project |
+| `[-n, --name=NAME]` | String | Name of the project             |
 | `[-u, --url=URL]`   | URL    | Development URL for the project |
 | `[--db-drop]`       | Bool   | Drop project's database         |
 | `[--vm-restart]`    | Bool   | Restart VM after deletion       |
