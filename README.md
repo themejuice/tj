@@ -149,6 +149,12 @@ Use this to easily manage your [Varying Vagrant Vagrants](https://github.com/Var
 tj vm # Aliases: vagrant vvv
 ```
 
+### Theme installation:
+Uses `install` command within your config.
+```bash
+tj install
+```
+
 ### Watching and compiling assets:
 Use this to watch and compile assets with your preferred build tool, whether that be [Grunt](https://github.com/gruntjs/grunt), [Gulp](https://github.com/gulpjs/gulp), [Guard](https://github.com/guard/guard), or whatever. This is simply a wrapper for whatever command is in your config file.
 ```bash
