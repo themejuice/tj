@@ -181,7 +181,7 @@ tj dist # Aliases: distrubute pack package
 ```
 
 ### Running your test suite:
-Uses `dist` command within your config.
+Uses `test` command within your config.
 ```bash
 tj test # Aliases: tests spec specs
 ```
