@@ -171,20 +171,20 @@ module ThemeJuice
       @list.new(options).list :projects
     end
 
-    desc "install", "Run installation for project"
-    #
-    # @return {Void}
-    #
-    def install
-      @config.install
-    end
-
     desc "update", "Update tj and its dependencies"
     #
     # @return {Void}
     #
-    def update
+    def update(*commands)
       @io.error "Not implemented"
+    end
+
+    desc "install", "Run installation for project"
+    #
+    # @return {Void}
+    #
+    def install(*commands)
+      @config.install commands
     end
 
     desc "watch [COMMANDS]", "Watch and compile assets"
@@ -192,7 +192,7 @@ module ThemeJuice
     # @return {Void}
     #
     def watch(*commands)
-      @config.watch *commands
+      @config.watch commands
     end
 
     desc "vendor [COMMANDS]", "Manage vendor dependencies"
@@ -200,7 +200,7 @@ module ThemeJuice
     # @return {Void}
     #
     def vendor(*commands)
-      @config.vendor *commands
+      @config.vendor commands
     end
 
     desc "dist [COMMANDS]", "Package project for distribution"
@@ -208,7 +208,7 @@ module ThemeJuice
     # @return {Void}
     #
     def dist(*commands)
-      @config.dist *commands
+      @config.dist commands
     end
 
     desc "wp [COMMANDS]", "Manage WordPress installation"
@@ -216,7 +216,7 @@ module ThemeJuice
     # @return {Void}
     #
     def wp(*commands)
-      @config.wp *commands
+      @config.wp commands
     end
 
     desc "backup [COMMANDS]", "Backup project"
@@ -224,7 +224,7 @@ module ThemeJuice
     # @return {Void}
     #
     def backup(*commands)
-      @config.backup *commands
+      @config.backup commands
     end
 
     desc "test [COMMANDS]", "Manage and run project tests"
@@ -232,7 +232,7 @@ module ThemeJuice
     # @return {Void}
     #
     def test(*commands)
-      @config.test *commands
+      @config.test commands
     end
 
     desc "vm [COMMANDS]", "Manage development environment"

@@ -10,9 +10,11 @@ module ThemeJuice
     def method_missing(method, *args, &block)
       @project.location ||= Dir.pwd
 
+      puts method, *args
+
       config.fetch("commands", {})
         .fetch(method.to_s) { @io.error("Command '#{method}' not found in config") }
-        .each { |cmd| run "#{cmd} #{args.join(" ") unless args.empty?}" }
+        .each { |cmd| run format_command(cmd, *args) }
     end
 
     private
@@ -21,6 +23,19 @@ module ThemeJuice
       @util.inside @project.location do
         @util.run command, :verbose => @env.verbose
       end
+    end
+
+    def format_command(cmd, args)
+
+      if %r{(%args%)|(%arguments%)} =~ cmd
+        cmd.gsub! %r{(%args%)|(%arguments%)}, args.join(" ")
+      else
+        args.to_enum.with_index(1).each do |arg, i|
+          cmd.gsub! %r{(%arg#{i}%)|(%argument#{i}%)}, arg
+        end
+      end
+
+      cmd
     end
 
     def config
@@ -35,7 +50,7 @@ module ThemeJuice
     end
 
     def regex
-      %r{^(((\.)?(tj)|((J|j)uicefile))(.y(a)?ml)?)}
+      %r{^(((\.)?(tj)|((J|j)uicefile))(.y(a)?ml)?$)}
     end
 
     extend self
