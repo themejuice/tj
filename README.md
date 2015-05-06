@@ -40,7 +40,9 @@ commands:
     - tar -zcvf dist.tar.gz .
 ```
 
-Each list of commands is run within a single execution, with all `%args%`/`%argN%` being replaced by the passed command; i.e. `cmd1 %args% && cmd2 %arg1% %arg2% %arg3% && ...`. You can specify an unlimited number of commands with an unlimited number of arguments; however, should be careful with how this is used. Don't do something like including `sudo rm -rf %arg1%` in a command, and then passing `/` as an argument. Keep it simple. These are meant to make your life easier by managing build tools, not to do fancy scripting.
+Each list of commands is run within a single execution, with all `%args%`/`%argN%` being replaced by the passed command; i.e. `cmd1 %args% && cmd2 %arg1% %arg2% %arg3% && echo "%arg4%"`.
+
+You can specify an unlimited number of commands with an unlimited number of arguments; however, should be careful with how this is used. Don't do something like including `sudo rm -rf %arg1%` in a command, and then passing `/` as an argument. Keep it simple. These are meant to make your life easier by managing build tools, not to do fancy scripting.
 
 ## Usage
 
