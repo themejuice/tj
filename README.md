@@ -29,18 +29,18 @@ commands:
   install:
     - composer install
   watch:
-    - grunt
+    - grunt %args%
   vendor:
-    - composer
+    - composer %args%
   wp:
-    - wp ssh --host=vagrant
+    - wp ssh --host=vagrant %args%
   backup:
     - wp ssh --host=vagrant db export backup/$(date +'%Y-%m-%d-%H-%M-%S').sql
   dist:
     - tar -zcvf dist.tar.gz .
 ```
 
-Each command is run within a single execution, with all arguments passed to each command; i.e. `cmd1 [<ARGS>] && cmd2 [<ARGS>] && ...`. So, you should be careful with how this is used. Don't do something like including `sudo rm -rf` in a command, and then passing `/` as an argument. Keep it simple.
+Each list of commands is run within a single execution, with all `%args%`/`%argN%` being replaced by the passed command; i.e. `cmd1 %args% && cmd2 %arg1% %arg2% %arg3% && ...`. You can specify an unlimited number of commands with an unlimited number of arguments; however, should be careful with how this is used. Don't do something like including `sudo rm -rf %arg1%` in a command, and then passing `/` as an argument. Keep it simple. These are meant to make your life easier by managing build tools, not to do fancy scripting.
 
 ## Usage
 
