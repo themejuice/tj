@@ -23,7 +23,8 @@ module ThemeJuice
       end
     end
 
-    def format_command(cmd, args)
+    def format_command(cmd, args = [])
+      return cmd if args.empty?
 
       if %r{(%args%)|(%arguments%)} =~ cmd
         cmd.gsub! %r{(%args%)|(%arguments%)}, args.join(" ")
