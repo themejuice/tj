@@ -24,13 +24,12 @@ module ThemeJuice
     end
 
     def format_command(cmd, args = [])
-      return cmd if args.empty?
 
-      if %r{(%args%)|(%arguments%)} =~ cmd
-        cmd.gsub! %r{(%args%)|(%arguments%)}, args.join(" ")
+      if multi_arg_regex =~ cmd
+        cmd.gsub! multi_arg_regex, args.join(" ")
       else
         args.to_enum.with_index(1).each do |arg, i|
-          cmd.gsub! %r{(%arg#{i}%)|(%argument#{i}%)}, arg
+          cmd.gsub! single_arg_regex, arg
         end
       end
 
@@ -39,7 +38,7 @@ module ThemeJuice
 
     def config
       begin
-        YAML.load_file Dir["#{@project.location}/*"].select { |f| regex =~ File.basename(f) }.last ||
+        YAML.load_file Dir["#{@project.location}/*"].select { |f| config_regex =~ File.basename(f) }.last ||
           @io.error("Config file not found in '#{@project.location}'")
       rescue ::Psych::SyntaxError => err
         @io.error "Config file is invalid" do
@@ -48,8 +47,16 @@ module ThemeJuice
       end
     end
 
-    def regex
+    def config_regex
       %r{^(((\.)?(tj)|((J|j)uicefile))(.y(a)?ml)?$)}
+    end
+
+    def multi_arg_regex
+      %r{(%args%)|(%arguments%)}
+    end
+
+    def single_arg_regex
+      %r{(%arg#{i}%)|(%argument#{i}%)}
     end
 
     extend self
