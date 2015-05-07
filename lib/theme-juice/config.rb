@@ -10,9 +10,15 @@ module ThemeJuice
     def method_missing(method, *args, &block)
       @project.location ||= Dir.pwd
 
-      config.fetch("commands", {})
-        .fetch(method.to_s) { @io.error("Command '#{method}' not found in config") }
-        .each { |cmd| run format_command(cmd, *args) }
+      begin
+        config.fetch("commands", {})
+          .fetch("#{method}") { @io.error("Command '#{method}' not found in config") }
+          .each { |cmd| run format_command(cmd, *args) }
+      rescue ::NoMethodError => err
+        @io.error "Config file is invalid" do
+          puts err
+        end
+      end
     end
 
     private
@@ -29,7 +35,7 @@ module ThemeJuice
         cmd.gsub! multi_arg_regex, args.join(" ")
       else
         args.to_enum.with_index(1).each do |arg, i|
-          cmd.gsub! single_arg_regex, arg
+          cmd.gsub! single_arg_regex(i), arg
         end
       end
 
@@ -55,7 +61,7 @@ module ThemeJuice
       %r{(%args%)|(%arguments%)}
     end
 
-    def single_arg_regex
+    def single_arg_regex(i)
       %r{(%arg#{i}%)|(%argument#{i}%)}
     end
 
