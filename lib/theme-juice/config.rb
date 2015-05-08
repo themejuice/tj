@@ -30,7 +30,6 @@ module ThemeJuice
     end
 
     def format_command(cmd, args = [])
-
       if multi_arg_regex =~ cmd
         cmd.gsub! multi_arg_regex, args.join(" ")
       else
@@ -38,7 +37,6 @@ module ThemeJuice
           cmd.gsub! single_arg_regex(i), arg
         end
       end
-
       cmd
     end
 
@@ -47,7 +45,7 @@ module ThemeJuice
         YAML.load_file Dir["#{@project.location}/*"].select { |f| config_regex =~ File.basename(f) }.last ||
           @io.error("Config file not found in '#{@project.location}'")
       rescue ::Psych::SyntaxError => err
-        @io.error "Config file is invalid" do
+        @io.error "Config file contains invalid YAML" do
           puts err
         end
       end
