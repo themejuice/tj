@@ -180,51 +180,52 @@ module ThemeJuice
     end
 
     def choose(header, color, list)
-      if OS.windows?
-        ask header, {
-          :limited_to => list,
-          :color      => color
-        }
-      else
-        speak "#{header} (use arrow keys and press enter)", {
-          :color => :"#{color}",
-          :icon  => :question
-        }
+      @selected = 0
 
-        print "\n" * list.size
+      speak "#{header} (#{choose_instructions})", {
+        :color => :"#{color}",
+        :icon  => :question
+      }
 
-        selected = 0
-        update_list_selection(list, color, selected)
+      update_selection list, color
 
-        loop do
-          key = read_key
-          case key
-          when "up"
-            selected -= 1
-            selected = list.size - 1 if selected < 0
-            update_list_selection(list, color, selected)
-          when "down"
-            selected += 1
-            selected = 0 if selected > list.size - 1
-            update_list_selection(list, color, selected)
-          when "return", "linefeed", "space"
-            return list[selected]
-          when "esc", "ctrl+c"
-            goodbye(:newline => false)
-          # else
-          #   speak key.inspect, { :color => :yellow }
-          end
+      list.each { puts }
+      loop do
+        key = read_key
+        case key
+        when "up", "w"
+          update_selection list, color, -1
+        when "down", "s"
+          update_selection list, color, 1
+        when "return", "linefeed", "space"
+          return list[@selected]
+        when "esc", "ctrl+c"
+          goodbye :newline => false
+        else
+          speak key.inspect, { :color => :yellow }
         end
       end
     end
 
     private
 
-    def update_list_selection(list, color, selected = 0)
-      print "\e[#{list.size}A"
+    def choose_instructions
+      if OS.windows?
+        "use WASD keys and press space"
+      else
+        "use arrow keys and press enter"
+      end
+    end
+
+    def update_selection(list, color, diff = 0)
+      list.each { print "\e[1A" }
+
+      @selected += diff
+      @selected = 0 if @selected > list.size - 1
+      @selected = list.size - 1 if @selected < 0
 
       list.each_with_index do |item, i|
-        icon = i == selected ? "selected" : "unselected"
+        icon = i == @selected ? "selected" : "unselected"
         speak "#{item}", {
           :color  => :"#{color}",
           :icon   => :"#{icon}",
@@ -233,36 +234,21 @@ module ThemeJuice
       end
     end
 
-    #
-    # @see http://www.alecjacobson.com/weblog/?p=75
-    #
     def read_key
-      save_stty_state
-      raw_stty_mode
+      STDIN.noecho do
+        STDIN.raw!
 
-      key = STDIN.getc.chr
+        key = STDIN.getc.chr
 
-      if key == "\e"
-        thread = Thread.new { key += STDIN.getc.chr + STDIN.getc.chr }
-        thread.join(0.001)
-        thread.kill
+        if key == "\e"
+          key << STDIN.getc.chr rescue nil
+          key << STDIN.getc.chr rescue nil
+        end
+
+        STDIN.cooked!
+
+        KEYS[key] || key
       end
-
-      KEYS[key] || key
-    ensure
-      restore_stty_state
-    end
-
-    def save_stty_state
-      @state = %x(stty -g)
-    end
-
-    def raw_stty_mode
-      %x(stty raw -echo)
-    end
-
-    def restore_stty_state
-      %x(stty #{@state})
     end
 
     def format_message(message, opts = {})
