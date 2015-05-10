@@ -124,8 +124,6 @@ module ThemeJuice
     end
 
     def goodbye(opts = {})
-
-      # Have some fun?
       goodbyes = [
         "Bye, bye, bye",
         "Adios, muchachos",
@@ -150,18 +148,6 @@ module ThemeJuice
       }.merge(opts)
 
       exit 130
-    end
-
-    def open_project(url)
-      speak "Do you want to open up your new project at 'http://#{url}' now? (y/N)", {
-        :color => [:black, :on_blue],
-        :icon  => :restart,
-        :row   => true
-      }
-
-      if agree? "", { :simple => true }
-        OS.open_file_command "http://#{url}"
-      end
     end
 
     def list(header, color, list)
