@@ -273,7 +273,9 @@ module ThemeJuice
     end
 
     def format_message_row
-      with(@message) { |msg| msg.ljust(terminal_width) } if @opts[:row]
+      unless OS.windows?
+        with(@message) { |msg| msg.ljust(terminal_width) } if @opts[:row]
+      end
     end
 
     def format_message_width
