@@ -38,8 +38,8 @@ module ThemeJuice
       " "    => "space",
     }
 
-    @state = nil
     @env = Env
+    @sel = 0
 
     def speak(message, opts = {})
       format_message message, opts
@@ -180,16 +180,14 @@ module ThemeJuice
     end
 
     def choose(header, color, list)
-      @selected = 0
-
       speak "#{header} (#{choose_instructions})", {
         :color => :"#{color}",
         :icon  => :question
       }
 
+      list.each { puts }
       update_selection list, color
 
-      list.each { puts }
       loop do
         key = read_key
         case key
@@ -198,7 +196,7 @@ module ThemeJuice
         when "down", "s"
           update_selection list, color, 1
         when "return", "linefeed", "space"
-          return list[@selected]
+          return list[@sel]
         when "esc", "ctrl+c"
           goodbye :newline => false
         else
@@ -220,12 +218,12 @@ module ThemeJuice
     def update_selection(list, color, diff = 0)
       list.each { print "\e[1A" }
 
-      @selected += diff
-      @selected = 0 if @selected > list.size - 1
-      @selected = list.size - 1 if @selected < 0
+      @sel += diff
+      @sel = 0 if @sel > list.size - 1
+      @sel = list.size - 1 if @sel < 0
 
       list.each_with_index do |item, i|
-        icon = i == @selected ? "selected" : "unselected"
+        icon = i == @sel ? "selected" : "unselected"
         speak "#{item}", {
           :color  => :"#{color}",
           :icon   => :"#{icon}",
