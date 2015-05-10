@@ -2,6 +2,7 @@
 
 module ThemeJuice
   class Task
+    attr_reader :tasks
 
     def initialize(opts = {})
       @env     = Env

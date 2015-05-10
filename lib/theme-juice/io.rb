@@ -112,7 +112,7 @@ module ThemeJuice
       }
 
       yield if block_given?
-
+      
       exit 1
     end
 
