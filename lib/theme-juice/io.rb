@@ -28,8 +28,8 @@ module ThemeJuice
     KEYS = {
       "\e[A" => "up",
       "\e[B" => "down",
-      "\e[C" => "right",
-      "\e[D" => "left",
+      "w"    => "w",
+      "s"    => "s",
       "\003" => "ctrl+c",
       "\004" => "ctrl+d",
       "\e"   => "escape",
@@ -185,8 +185,8 @@ module ThemeJuice
           return list[@sel]
         when "esc", "ctrl+c"
           goodbye :newline => false
-        else
-          speak key.inspect, { :color => :yellow }
+        # else
+        #   speak key.inspect, { :color => :yellow }
         end
       end
     end
