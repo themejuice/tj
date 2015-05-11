@@ -112,7 +112,7 @@ module ThemeJuice
       }
 
       yield if block_given?
-      
+
       exit 1
     end
 
@@ -219,17 +219,17 @@ module ThemeJuice
     end
 
     def read_key
-      STDIN.noecho do
-        STDIN.raw!
+      $stdin.noecho do |io|
+        io.raw!
 
-        key = STDIN.getc.chr
+        key = io.getc.chr
 
         if key == "\e"
-          key << STDIN.getc.chr rescue nil
-          key << STDIN.getc.chr rescue nil
+          key << io.getc.chr rescue nil
+          key << io.getc.chr rescue nil
         end
 
-        STDIN.cooked!
+        io.cooked!
 
         KEYS[key] || key
       end

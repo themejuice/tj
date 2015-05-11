@@ -1,27 +1,30 @@
+require_relative "helpers/spec_helper"
 require_relative "../lib/theme-juice"
 
 describe ThemeJuice::IO do
 
-  before do
-    @io = ThemeJuice::IO
-    ThemeJuice::Env.boring = true
+  def io
+    ThemeJuice::IO
   end
 
   describe "#speak" do
-    it "should output to STDOUT" do
-      expect($stdout).to receive(:print).with("Stuff n' thangs\n")
-      @io.speak("Stuff n' thangs")
+    it "should output to $stdout" do
+      output = capture(:stdout) { io.speak "According to my calculations..." }
+      expect(output).to match(/According to my calculations.../)
     end
   end
 
   describe "#prompt" do
-    it "should output to STDOUT" do
-      expect($stdout).to receive(:print).with("What shall thy name be?\n")
-      @io.speak "What shall thy name be?"
+    it "should output to $stdout and receive input from $stdin" do
+      expect(stdout).to receive(:print).with("What shal thy name be?\n")
+      expect(stdin).to receive(:readline).with(" : ", {}).and_return("Augustine")
+      expect(io.prompt("What is thy name?")).to eq("Augustine")
     end
-    it "should receive input from STDIN" do
-      expect($stdin).to receive(:gets).with("Augustine")
-      @io.speak "What shall thy name be?"
+  end
+
+  describe "#agree?" do
+    it "should prompt to $stdout and receive input from $stdin" do
+      
     end
   end
 end

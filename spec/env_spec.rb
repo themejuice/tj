@@ -20,7 +20,7 @@ describe ThemeJuice::Env do
 
   describe "#inspect" do
     it "should return an array of all instance variables" do
-      expect(@env.inspect).to be_a Array
+      expect(@env.inspect).to be_a(Array)
     end
   end
 end

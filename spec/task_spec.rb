@@ -12,7 +12,7 @@ describe ThemeJuice::Task do
     end
     it "should add task to tasks array" do
       @task.runner { |tasks| tasks << "a task" }
-      expect(@task.tasks).to eq ["a task"]
+      expect(@task.tasks).to eq(["a task"])
     end
   end
 
