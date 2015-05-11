@@ -47,4 +47,18 @@ describe ThemeJuice::IO do
       expect { @io.error "Oh noes!" }.to raise_error SystemExit
     end
   end
+
+  describe "#choose" do
+    it "should output to $stdout and take input from $stdin" do
+      expect(stdout).to receive(:print).at_least(:once)
+
+      expect(stdin).to receive(:noecho).with(no_args)
+        .once.and_return "down",
+          "down",
+          "down",
+          "return"
+
+      expect(@io.choose("list", :blue, ["one", "two", "three"])).to eq "three"
+    end
+  end
 end
