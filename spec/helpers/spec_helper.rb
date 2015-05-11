@@ -1,7 +1,10 @@
+require_relative "../../lib/theme-juice"
+
 $0 = "tj"
 ARGV.clear
 
 RSpec.configure do |config|
+  
   def capture(stream)
     begin
       stream = stream.to_s

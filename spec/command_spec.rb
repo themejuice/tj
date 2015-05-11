@@ -1,5 +1,3 @@
-require_relative "../lib/theme-juice"
-
 describe ThemeJuice::Command do
 
   before do
@@ -8,25 +6,23 @@ describe ThemeJuice::Command do
 
   describe "#execute" do
     it "should execute each command in tasks array" do
-      task = double("task")
-      allow(task).to receive(:execute)
+      task = double "task", :execute => nil
 
       @command.runner { |tasks| tasks << task }
       @command.execute
 
-      expect(task).to have_received(:execute)
+      expect(task).to have_received :execute
     end
   end
 
   describe "#unexecute" do
     it "should unexecute each command in tasks array" do
-      task = double("task")
-      allow(task).to receive(:unexecute)
+      task = double "task", :unexecute => nil
 
       @command.runner { |tasks| tasks << task }
       @command.unexecute
 
-      expect(task).to have_received(:unexecute)
+      expect(task).to have_received :unexecute
     end
   end
 end

@@ -1,5 +1,3 @@
-require_relative "../lib/theme-juice"
-
 describe ThemeJuice::Project do
 
   before do
@@ -30,7 +28,7 @@ describe ThemeJuice::Project do
 
   describe "#inspect" do
     it "should return an array of all instance variables" do
-      expect(@project.inspect).to be_a(Array)
+      expect(@project.inspect).to be_a Array
     end
   end
 end
