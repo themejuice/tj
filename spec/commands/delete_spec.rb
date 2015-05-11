@@ -31,7 +31,7 @@ describe ThemeJuice::Commands::Delete do
     it "should not raise error for invalid project url" do
       expect_any_instance_of(ThemeJuice::Tasks::List)
         .to receive(:projects).once.and_return ["project"]
-      expect_any_instance_of(ThemeJuice::Taskxs::List)
+      expect_any_instance_of(ThemeJuice::Tasks::List)
         .to receive(:urls).once.and_return ["project.dev"]
 
       expect(thor_stdin).to receive(:readline).with(any_args)
