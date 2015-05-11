@@ -25,13 +25,13 @@ describe ThemeJuice::Commands::Delete do
       expect(thor_stdin).to receive(:readline).with(any_args)
         .once.and_return "invalid-project"
 
-      expect { @delete.new }.to raise_error SystemExit
+      expect { capture(:stdout) { @delete.new } }.to raise_error SystemExit
     end
 
     it "should not raise error for invalid project url" do
       expect_any_instance_of(ThemeJuice::Tasks::List)
         .to receive(:projects).once.and_return ["project"]
-      expect_any_instance_of(ThemeJuice::Tasks::List)
+      expect_any_instance_of(ThemeJuice::Taskxs::List)
         .to receive(:urls).once.and_return ["project.dev"]
 
       expect(thor_stdin).to receive(:readline).with(any_args)

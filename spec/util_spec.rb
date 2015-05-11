@@ -1,5 +1,11 @@
 describe ThemeJuice::Util do
 
+  before do
+    allow(ThemeJuice::Env).to receive(:vm_path).and_return Dir.pwd
+    allow(ThemeJuice::Env).to receive(:verbose).and_return false
+    allow(ThemeJuice::Env).to receive(:dryrun).and_return true
+  end
+
   before :each do
     @util = ThemeJuice::Util.new
   end
@@ -7,6 +13,7 @@ describe ThemeJuice::Util do
   describe "#run" do
 
     it "should yield when given a block" do
+      expect(stdout).to receive(:print).once
       expect { |b| @util.run([], &b) }.to yield_control
     end
 
@@ -30,12 +37,9 @@ describe ThemeJuice::Util do
 
   describe "#run_inside_vm" do
 
-    before :each do
-      allow(ThemeJuice::Env).to receive(:vm_path).and_return Dir.pwd
-    end
-
-    it "should run multiple commands inside the vm" do
+    it "should run a single command inside the vm" do
       output = capture(:stdout) { @util.run_inside_vm "a command" }
+
       expect(output).to be_a String
       expect(output).to match /vagrant ssh/
     end
