@@ -1,6 +1,6 @@
 describe ThemeJuice::Command do
 
-  before do
+  before :each do
     @command = ThemeJuice::Command.new
   end
 

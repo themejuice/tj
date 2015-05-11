@@ -1,11 +1,11 @@
 describe ThemeJuice::Task do
 
-  before do
+  before :each do
     @task = ThemeJuice::Task.new
   end
 
   describe "#runner" do
-    
+
     it "yields to tasks array" do
       expect { |b| @task.runner(&b) }.to yield_control
     end
