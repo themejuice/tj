@@ -19,11 +19,11 @@ module ThemeJuice
     end
 
     def execute
-      @io.error "Method 'execute' not implemented for #{self.class.name}"
+      @io.error "Method 'execute' not implemented for #{self.class.name}", NotImplementedError
     end
 
     def unexecute
-      @io.error "Method 'unexecute' not implemented for #{self.class.name}"
+      @io.error "Method 'unexecute' not implemented for #{self.class.name}", NotImplementedError
     end
 
     private

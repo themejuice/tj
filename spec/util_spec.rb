@@ -31,7 +31,7 @@ describe ThemeJuice::Util do
   describe "#run_inside_vm" do
 
     before :each do
-      allow(ThemeJuice::Env).to receive(:vm_path).and_return(Dir.pwd)
+      allow(ThemeJuice::Env).to receive(:vm_path).and_return Dir.pwd
     end
 
     it "should run multiple commands inside the vm" do

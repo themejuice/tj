@@ -104,7 +104,7 @@ module ThemeJuice
       }
     end
 
-    def error(message)
+    def error(message, code = SystemExit)
       speak message, {
         :color => [:white, :on_red],
         :icon  => :error,
@@ -113,7 +113,7 @@ module ThemeJuice
 
       yield if block_given?
 
-      exit 1
+      raise code
     end
 
     def hello(opts = {})
@@ -147,7 +147,7 @@ module ThemeJuice
         :newline => true
       }.merge(opts)
 
-      exit 130
+      raise Interrupt
     end
 
     def list(header, color, list)

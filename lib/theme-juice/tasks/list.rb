@@ -12,7 +12,7 @@ module ThemeJuice
       end
 
       def list(prop)
-        @io.error "Cannot list '#{prop}'" unless self.respond_to? prop
+        @io.error "Cannot list '#{prop}'", NotImplementedError unless self.respond_to? prop
 
         if self.send(prop).empty?
           @io.log "Nothing to list"

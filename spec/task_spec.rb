@@ -17,16 +17,16 @@ describe ThemeJuice::Task do
   end
 
   describe "#execute" do
-    it "should raise system exit error" do
+    it "should raise not implemented error" do
       expect(stdout).to receive(:print).with kind_of String
-      expect { @task.execute }.to raise_error SystemExit
+      expect { @task.execute }.to raise_error NotImplementedError
     end
   end
 
   describe "#unexecute" do
-    it "should raise system exit error" do
+    it "should raise not implemented error" do
       expect(stdout).to receive(:print).with kind_of String
-      expect { @task.unexecute }.to raise_error SystemExit
+      expect { @task.unexecute }.to raise_error NotImplementedError
     end
   end
 end

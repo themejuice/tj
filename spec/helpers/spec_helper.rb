@@ -22,6 +22,10 @@ RSpec.configure do |config|
   end
 
   def stdin
+    $stdin
+  end
+
+  def thor_stdin
     Thor::LineEditor
   end
 end

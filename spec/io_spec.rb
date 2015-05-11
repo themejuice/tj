@@ -13,30 +13,30 @@ describe ThemeJuice::IO do
 
   describe "#prompt" do
     it "should output to $stdout and receive input from $stdin" do
-      expect(stdin).to receive(:readline).with(kind_of(String),
-        {}).and_return("Augustine")
+      expect(thor_stdin).to receive(:readline).with(kind_of(String),
+        kind_of(Hash)).and_return("Augustine")
       expect(@io.prompt("What is thy name?")).to eq "Augustine"
     end
   end
 
   describe "#agree?" do
     it "should prompt to $stdout and receive input from $stdin" do
-      expect(stdin).to receive(:readline).with(kind_of(String),
-        :add_to_history => false).and_return("Y")
-      expect(@io.agree?("Are you sure?")).to eq true
+      expect(thor_stdin).to receive(:readline).with(kind_of(String),
+        kind_of(Hash)).and_return("Y")
+      expect(@io.agree?("So, is that a yes?")).to eq true
     end
   end
 
   describe "#success" do
     it "should output to $stdout" do
-      output = capture(:stdout) { @io.success "Success" }
+      output = capture(:stdout) { @io.success "Victory is ours!" }
       expect(output).to be_a String
     end
   end
 
   describe "#notice" do
     it "should output to $stdout" do
-      output = capture(:stdout) { @io.notice "Notice" }
+      output = capture(:stdout) { @io.notice "Tonight, we dine in hell!" }
       expect(output).to be_a String
     end
   end
@@ -44,7 +44,7 @@ describe ThemeJuice::IO do
   describe "#error" do
     it "should output to $stdout" do
       expect(stdout).to receive(:print).with kind_of String
-      expect { @io.error "Error" }.to raise_error SystemExit
+      expect { @io.error "Oh noes!" }.to raise_error SystemExit
     end
   end
 end
