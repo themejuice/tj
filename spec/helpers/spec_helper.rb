@@ -4,7 +4,7 @@ $0 = "tj"
 ARGV.clear
 
 RSpec.configure do |config|
-  
+
   def capture(stream)
     begin
       stream = stream.to_s
@@ -14,7 +14,6 @@ RSpec.configure do |config|
     ensure
       eval "$#{stream} = #{stream.upcase}"
     end
-
     result
   end
 
