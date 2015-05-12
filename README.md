@@ -45,7 +45,7 @@ Each list of commands is run within a single execution, with all `%args%`/`%argN
 # Will contain all arguments stitched together by a space
 cmd1 %args%
 # Will contain each argument mapped to its respective index
-cmd2 %arg1% %arg2% %arg3%
+cmd2 '%arg1% %arg2% %arg3%'
 # Will only map argument 4, while ignoring 1-3
 cmd3 "%arg4%"
 ```

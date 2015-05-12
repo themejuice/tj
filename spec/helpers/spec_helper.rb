@@ -1,3 +1,5 @@
+require "fakefs/spec_helpers"
+
 require_relative "../../lib/theme-juice"
 
 $0 = "tj"
