@@ -4,6 +4,12 @@ module ThemeJuice
   module Commands
     class Create < Command
 
+      THEMES = {
+        "theme-juice/theme-juice-starter" => "https://github.com/ezekg/theme-juice-starter.git",
+        "other"                           => nil,
+        "none"                            => false
+      }
+
       def initialize(opts = {})
         super
 
@@ -114,28 +120,22 @@ module ThemeJuice
       def theme
         return false if @project.bare
 
-        themes = {
-          "theme-juice/theme-juice-starter" => "https://github.com/ezekg/theme-juice-starter.git",
-          "other"                           => nil,
-          "none"                            => false
-        }
-
         if @project.use_defaults
-          theme = themes["theme-juice/theme-juice-starter"]
+          theme = THEMES["theme-juice/theme-juice-starter"]
         else
-          choice = @io.choose "Which starter theme would you like to use?", :blue, themes.keys
+          choice = @io.choose "Which starter theme would you like to use?", :blue, THEMES.keys
 
           case choice
           when "theme-juice/theme-juice-starter"
             @io.success "Awesome choice!"
           when "other"
-            themes[choice] = @io.prompt "What is the repository URL for the starter theme that you would like to clone?"
+            THEMES[choice] = @io.prompt "What is the repository URL for the starter theme that you would like to clone?"
           when "none"
             @io.notice "Next time you need to create a project without a starter theme, you can just run the 'setup' command instead."
             @project.bare = true
           end
 
-          theme = themes[choice]
+          theme = THEMES[choice]
         end
 
         theme
