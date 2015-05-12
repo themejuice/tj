@@ -50,7 +50,7 @@ commands:
 
       it "should handle running multiple commands" do
         allow(stdout).to receive(:print)
-        expect { @config.vendor ["1", "2", "3", "4"] }.to output(/1:1 2:2 (.*) \n 3:3 4:4/).to_stdout
+        expect { @config.vendor ["1", "2", "3", "4"] }.to output(/(1:1 2:2)(.*)?(3:3 4:4)/m).to_stdout
       end
     end
   end
