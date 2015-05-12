@@ -147,7 +147,7 @@ module ThemeJuice
         :newline => true
       }.merge(opts)
 
-      raise Interrupt
+      exit 1
     end
 
     def list(header, color, list)
