@@ -37,6 +37,21 @@ commands:
         allow(stdout).to receive(:print)
         expect { @config.watch }.to raise_error SyntaxError
       end
+
+      it "should map all args to single command" do
+        allow(stdout).to receive(:print)
+        expect { @config.install ["1", "2", "3", "4"] }.to output(/1 2 3 4/).to_stdout
+      end
+
+      it "should map each arg to specific command" do
+        allow(stdout).to receive(:print)
+        expect { @config.dist ["1", "2", "3", "4"] }.to output(/1:1 2:2 3:3 4:4/).to_stdout
+      end
+
+      it "should handle running multiple commands" do
+        allow(stdout).to receive(:print)
+        expect { @config.vendor ["1", "2", "3", "4"] }.to output(/1:1 2:2 (.*) \n 3:3 4:4/).to_stdout
+      end
     end
   end
 end
