@@ -1,7 +1,5 @@
 language: ruby
 script: bundle exec rspec
-cache: bundler
-sudo: false
 rvm:
   - 1.9.3
   - 2.1.0
@@ -10,3 +8,9 @@ rvm:
   - 2.1.3
   - 2.1.5
   - 2.2.0
+  - jruby-18mode
+  - jruby-19mode
+  - rbx-2
+  - ruby-head
+  - jruby-head
+  - ree

@@ -7,8 +7,6 @@ describe ThemeJuice::Tasks::CreateConfirm do
   describe "#execute" do
 
     it "should confirm project settings when 'Y' is passed" do
-      allow(stdout).to receive(:print)
-
       expect(thor_stdin).to receive(:readline).with(kind_of(String),
         kind_of(Hash)).once.and_return "Y"
 
