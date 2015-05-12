@@ -114,11 +114,10 @@ module ThemeJuice
       def theme
         return false if @project.bare
 
-        theme = nil
         themes = {
           "theme-juice/theme-juice-starter" => "https://github.com/ezekg/theme-juice-starter.git",
           "other"                           => nil,
-          "none"                            => nil
+          "none"                            => false
         }
 
         if @project.use_defaults
