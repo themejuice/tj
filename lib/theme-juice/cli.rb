@@ -90,7 +90,7 @@ module ThemeJuice
     class_option :no_animations, :type => :boolean,                  :desc => "Disable all animations"
     class_option :no_landrush,   :type => :boolean,                  :desc => "Disable landrush for DNS"
     class_option :verbose,       :type => :boolean,                  :desc => "Verbose output"
-    class_option :dryrun,        :type => :boolean,                  :desc => "Disable running all commands"
+    class_option :dryrun,        :type => :boolean,                  :desc => "Disable executing any commands"
 
     desc "--version, -v", "Print current version"
     #

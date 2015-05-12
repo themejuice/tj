@@ -10,16 +10,14 @@ That`s it!
 ## Windows users
 Since Windows doesn't support UTF-8 characters inside of the terminal, and is picky about colors, you'll have to run `tj` with a couple flags. What has worked for me on my Windows machine at home is to run all commands through [git-scm](http://git-scm.com/downloads) with the `--boring --no-landrush` flags.
 
-This disables all unicode characters and colors from being output, and disables [Landrush](https://github.com/phinze/landrush), which isn't supported fully on Windows. To set these globally via the `ENV`, run:
+This disables all unicode characters and colors from being output, and disables [Landrush](https://github.com/phinze/landrush), which isn't fully supported on Windows. To set these globally via the `ENV`, run:
 
 ```bash
 export TJ_BORING=true
 export TJ_NO_LANDRUSH=true
 ```
 
-In addition to that, `tj` uses the [OS gem](https://github.com/rdp/os) to sniff out your OS and adjusts a few things accordingly. Windows users won't see any fancy select menus or anything like that to avoid crashing (since Windows doesn't support `stty`, which is what is used).
-
-_I don't regularly develop on Windows, so if you encounter any bugs, please let me know through a **well-documented** issue and I'll try my best to get it resolved._
+In addition to that, `tj` uses the [OS gem](https://github.com/rdp/os) to sniff out your OS and adjusts a few things accordingly to make sure things don't break. _I don't regularly develop on Windows, so if you encounter any bugs, please let me know through a **well-documented** issue and I'll try my best to get it resolved._
 
 ## Config
 Because everybody likes to use different tools, you can create a `Juicefile` or `tj.yaml` config (with an optional preceding `.`) that will house all of your theme-specific commands. This allows you to use a streamlined set of commands that will act as aliases to your per-project configuration, as well as starter-theme specific information, such as deployment configuration, etc. For right now, we'll just stick to the `commands` section.
@@ -42,7 +40,15 @@ commands:
     - tar -zcvf dist.tar.gz .
 ```
 
-Each list of commands is run within a single execution, with all `%args%`/`%argN%` being replaced by the passed command; i.e. `cmd1 %args%; cmd2 %arg1% %arg2% %arg3%; cmd3 "%arg4%"`.
+Each list of commands is run within a single execution, with all `%args%`/`%argN%` being replaced by the passed command; i.e.:
+```bash
+# Will contain all arguments stitched together by a space
+cmd1 %args%
+# Will contain each argument mapped to its respective index
+cmd2 %arg1% %arg2% %arg3%
+# Will only map argument 4, while ignoring 1-3
+cmd3 "%arg4%"
+```
 
 You can specify an unlimited number of commands with an unlimited number of arguments; however, should be careful with how this is used. Don't do something like including `sudo rm -rf %arg1%` in a command, and then passing `/` as an argument. Keep it simple. These are meant to make your life easier by managing build tools, not to do fancy scripting.
 
@@ -73,7 +79,7 @@ tj --version # Aliases: -v version
 | `[--no-animations]`    | Bool   | Disable all animations                     |
 | `[--no-landrush]`      | Bool   | Disable landrush for DNS                   |
 | `[--verbose]`          | Bool   | Verbose output                             |
-| `[--dryrun]`           | Bool   | Disable running all commands               |
+| `[--dryrun]`           | Bool   | Disable executing any commands             |
 
 _Use `ENV` variables to set global flags. For example, by running `export TJ_VM_PATH=~/vagrant-vvv`, the `ENV` variable will be used instead of the default `vm-path` from then on. You can remove global flags with `unset TJ_VM_PATH`_
 
