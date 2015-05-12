@@ -12,7 +12,7 @@ module ThemeJuice
 
       begin
         config.fetch("commands", {})
-          .fetch("#{method}") { @io.error("Command '#{method}' not found in config") }
+          .fetch("#{method}") { @io.error "Command '#{method}' not found in config", NotImplementedError }
           .each { |cmd| run format_command(cmd, *args) }
       rescue ::NoMethodError => err
         @io.error "Config file is invalid", SyntaxError do
