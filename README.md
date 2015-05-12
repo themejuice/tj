@@ -40,7 +40,7 @@ commands:
     - tar -zcvf dist.tar.gz .
 ```
 
-Each list of commands is run within a single execution, with all `%args%`/`%argN%` being replaced by the passed command; i.e.:
+Each list of commands is run within a single execution, with all `%args%`/`%argN%` being replaced by the passed command. Here's a few example scenarios:
 ```bash
 # Will contain all arguments stitched together by a space
 cmd1 %args%
