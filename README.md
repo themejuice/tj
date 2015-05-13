@@ -1,4 +1,11 @@
-# Theme Juice [![Gem Version](http://img.shields.io/gem/v/theme-juice.svg)](https://rubygems.org/gems/theme-juice)
+[![Gem Version](http://img.shields.io/gem/v/theme-juice.svg)](https://rubygems.org/gems/theme-juice)
+[![Travis](https://img.shields.io/travis/ezekg/theme-juice-cli.svg?style=flat-square)]()
+[![Code Climate](https://img.shields.io/codeclimate/github/ezekg/theme-juice-cli.svg?style=flat-square)]()
+[![Code Climate](https://img.shields.io/codeclimate/coverage/github/ezekg/theme-juice-cli.svg?style=flat-square)]()
+[![WordPress](https://img.shields.io/wordpress/v/akismet.svg?style=flat-square)]()
+[![GitHub license](https://img.shields.io/github/license/ezekg/theme-juice-cli.svg?style=flat-square)](https://github.com/ezekg/theme-juice-cli/blob/master/LICENSE)
+
+# Theme Juice
 What is it? Theme Juice is a WordPress development command line utility that allows you to scaffold out entire Vagrant development environments in seconds (using [VVV](https://github.com/Varying-Vagrant-Vagrants/VVV) as the VM), manage dependencies and build tools, and even handle deployments.
 
 ## Installation
