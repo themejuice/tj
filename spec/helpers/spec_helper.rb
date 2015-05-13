@@ -6,6 +6,7 @@ $0 = "tj"
 ARGV.clear
 
 RSpec.configure do |config|
+  config.include FakeFS::SpecHelpers, :fakefs => true
 
   def capture(stream)
     begin

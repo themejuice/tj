@@ -6,21 +6,22 @@ describe ThemeJuice::Config do
       .once.and_return YAML.load %Q{
 commands:
   install:
-    - echo "%args%"
-  watch: echo "%arguments%"
+    - "%args%"
+  watch: "%arguments%"
   vendor:
-    - echo "1:%arg1% 2:%arg2%"
-    - echo "3:%arg3% 4:%arg4%"
+    - "1:%arg1% 2:%arg2%"
+    - "3:%arg3% 4:%arg4%"
   wp:
-    - echo "1:%argument1% 2:%argument2%"
+    - "1:%argument1% 2:%argument2%"
   backup:
-    - echo "1:%argument1% 4:%argument4%"
+    - "1:%argument1% 4:%argument4%"
   dist:
-    - echo "1:%argument1% 2:%argument2% 3:%argument3% 4:%argument4%"
+    - "1:%argument1% 2:%argument2% 3:%argument3% 4:%argument4%"
 }
   end
 
   describe "#method_missing" do
+
     context "when receiving an unknown message" do
 
       it "should not raise error if message exists in config" do
@@ -29,14 +30,19 @@ commands:
       end
 
       it "should raise error if message does not exist in config" do
-        allow(stdout).to receive(:print)
-        expect { @config.invalid }.to raise_error NotImplementedError
+        capture(:stdout) do
+          expect { @config.invalid }.to raise_error NotImplementedError
+        end
       end
 
       it "should raise error if config is invalid" do
-        allow(stdout).to receive(:print)
-        expect { @config.watch }.to raise_error SyntaxError
+        capture(:stdout) do
+          expect { @config.watch }.to raise_error SyntaxError
+        end
       end
+    end
+
+    context "when receiving a message that exists in config" do
 
       it "should map all args to single command" do
         allow(stdout).to receive(:print)

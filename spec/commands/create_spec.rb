@@ -4,7 +4,7 @@ describe ThemeJuice::Commands::Create do
     @create = ThemeJuice::Commands::Create
   end
 
-  describe "#new" do
+  describe "#execute" do
     it "should successfully go through create steps" do
       expect(stdout).to receive(:print).at_least(10).times
 

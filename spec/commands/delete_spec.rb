@@ -4,7 +4,7 @@ describe ThemeJuice::Commands::Delete do
     @delete = ThemeJuice::Commands::Delete
   end
 
-  describe "#new" do
+  describe "#unexecute" do
     it "should successfully go through delete steps" do
       expect_any_instance_of(ThemeJuice::Tasks::List)
         .to receive(:projects).once.and_return ["project"]

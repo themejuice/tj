@@ -5,14 +5,14 @@ describe ThemeJuice::IO do
   end
 
   describe "#speak" do
-    it "should output to $stdout" do
+    it "should output a message to $stdout" do
       output = capture(:stdout) { @io.speak "According to my calculations..." }
       expect(output).to be_a String
     end
   end
 
   describe "#prompt" do
-    it "should output to $stdout and receive input from $stdin" do
+    it "should prompt to $stdout and receive input from $stdin" do
       expect(thor_stdin).to receive(:readline).with(kind_of(String),
         kind_of(Hash)).and_return("Augustine")
       expect(@io.prompt("What is thy name?")).to eq "Augustine"
@@ -20,7 +20,7 @@ describe ThemeJuice::IO do
   end
 
   describe "#agree?" do
-    it "should prompt to $stdout and receive input from $stdin" do
+    it "should prompt to $stdout and receive Y/n from $stdin" do
       expect(thor_stdin).to receive(:readline).with(kind_of(String),
         kind_of(Hash)).and_return("Y")
       expect(@io.agree?("So, is that a yes?")).to eq true
@@ -28,28 +28,28 @@ describe ThemeJuice::IO do
   end
 
   describe "#success" do
-    it "should output to $stdout" do
+    it "should output a success message to $stdout" do
       output = capture(:stdout) { @io.success "Victory is ours!" }
       expect(output).to be_a String
     end
   end
 
   describe "#notice" do
-    it "should output to $stdout" do
+    it "should output a notice to $stdout" do
       output = capture(:stdout) { @io.notice "Tonight, we dine in hell!" }
       expect(output).to be_a String
     end
   end
 
   describe "#error" do
-    it "should output to $stdout" do
+    it "should output an error message to $stdout" do
       expect(stdout).to receive(:print).with kind_of String
       expect { @io.error "Oh noes!" }.to raise_error SystemExit
     end
   end
 
   describe "#choose" do
-    it "should output to $stdout and take input from $stdin" do
+    it "should allow using arrow keys to choose item in list" do
       expect(stdin).to receive(:noecho).with(no_args)
         .once.and_return "down",
           "down",
