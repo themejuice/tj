@@ -2,7 +2,6 @@
 [![Travis](https://img.shields.io/travis/ezekg/theme-juice-cli.svg?style=flat-square)]()
 [![Code Climate](https://img.shields.io/codeclimate/github/ezekg/theme-juice-cli.svg?style=flat-square)]()
 [![Code Climate](https://img.shields.io/codeclimate/coverage/github/ezekg/theme-juice-cli.svg?style=flat-square)]()
-[![WordPress](https://img.shields.io/wordpress/v/akismet.svg?style=flat-square)]()
 [![GitHub license](https://img.shields.io/github/license/ezekg/theme-juice-cli.svg?style=flat-square)](https://github.com/ezekg/theme-juice-cli/blob/master/LICENSE)
 
 # Theme Juice
