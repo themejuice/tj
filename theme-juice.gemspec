@@ -20,7 +20,5 @@ Gem::Specification.new do |gem|
   gem.require_paths  = ["lib"]
 
   gem.required_ruby_version = ">= 1.9.3"
-  gem.add_dependency "thor",  "~> 0.19"
-  gem.add_dependency "faker", "~> 1.4"
-  gem.add_dependency "os",    "~> 0.9"
+  gem.add_development_dependency "bundler", "~> 1.0"
 end

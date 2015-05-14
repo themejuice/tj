@@ -2,9 +2,6 @@ PATH
   remote: .
   specs:
     theme-juice (0.7.9)
-      faker (~> 1.4)
-      os (~> 0.9)
-      thor (~> 0.19)
 
 GEM
   remote: https://rubygems.org/
@@ -35,6 +32,10 @@ PLATFORMS
   x64-mingw32
 
 DEPENDENCIES
-  fakefs
-  rspec
+  bundler (~> 1.0)
+  fakefs (~> 0.6)
+  faker (~> 1.4)
+  os (~> 0.9)
+  rspec (~> 3.2)
   theme-juice!
+  thor (~> 0.19)
