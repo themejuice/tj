@@ -1,6 +1,8 @@
 # encoding: UTF-8
 
-require_relative "lib/theme-juice"
+lib = File.expand_path("../lib/", __FILE__)
+$LOAD_PATH.unshift lib unless $LOAD_PATH.include?(lib)
+require "theme-juice/version"
 
 Gem::Specification.new do |gem|
   gem.name           = "theme-juice"
