@@ -24,3 +24,6 @@ matrix:
     - rvm: rbx-2
     - rvm: ruby-head
 sudo: false
+addons:
+  code_climate:
+    repo_token: 680b66f888cd758963624e2a4fb1dcb8749cb9e9ae6149a5345fde3eedf1505e
