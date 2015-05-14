@@ -1,4 +1,4 @@
-describe ThemeJuice::Tasks::Database, :fakefs => true do
+describe ThemeJuice::Tasks::Database do
 
   before do
     @env = ThemeJuice::Env

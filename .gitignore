@@ -1,6 +1,7 @@
 .yardoc
 .DS_Store
 *.gem
+*.lock
 tj.*
 .tj.*
 Juicefile*
