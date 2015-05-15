@@ -207,8 +207,8 @@ Uses `test` command within your config.
 tj test # Aliases: tests spec specs
 ```
 
-## Can I add my theme, _____?
-Yes! Just update the `THEMES` constant inside [commands/create.rb](https://github.com/ezekg/theme-juice-cli/blob/master/lib/theme-juice/commands/create.rb#L7-L11) and make a pull request. I'll verify that it includes a `Juicefile`, and that the everything looks solid. Until then (or if your theme is private), just run `tj new --theme https://your.repo/link/goes.here`.
+## Can I add my starter theme, ________?
+Yes! Just update the `THEMES` constant inside [commands/create.rb](https://github.com/ezekg/theme-juice-cli/blob/master/lib/theme-juice/commands/create.rb#L7-L11) and make a pull request. I'll verify that it includes a `Juicefile`, and that everything looks solid. Until then (or if your theme is private), just run `tj new --theme https://your.repo/link/goes.here` to clone your theme.
 
 ## Contributing
 1. First, create a _well documented_ [issue](https://github.com/ezekg/theme-juice-cli/issues) for your proposed feature/bug fix.
