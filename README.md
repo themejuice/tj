@@ -207,9 +207,11 @@ Uses `test` command within your config.
 tj test # Aliases: tests spec specs
 ```
 
-## Contributing
+## Can I add my theme, _____?
+Yes! Just update the `THEMES` constant inside [commands/create.rb](https://github.com/ezekg/theme-juice-cli/blob/master/lib/theme-juice/commands/create.rb#L7-L11) and make a pull request. I'll verify that it includes a `Juicefile`, and that the everything looks solid. Until then (or if your theme is private), just run `tj new --theme https://your.repo/link/goes.here`.
 
-1. First, create an [issue](https://github.com/ezekg/theme-juice-cli/issues) for your proposed feature. If it's a bug fix, go right to step 2.
+## Contributing
+1. First, create a _well documented_ [issue](https://github.com/ezekg/theme-juice-cli/issues) for your proposed feature/bug fix.
 1. [Fork the repository](https://github.com/ezekg/theme-juice-cli/fork).
 1. Create a new feature branch. (`git checkout -b my-new-feature`)
 1. Commit your changes. (`git commit -am 'add some feature'`)
