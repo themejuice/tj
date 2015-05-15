@@ -18,7 +18,7 @@ end
 
 desc "Install gem"
 task :install do
-  sh "sudo gem install pkg/theme-juice-#{ThemeJuice::VERSION}.gem"
+  sh "gem install pkg/theme-juice-#{ThemeJuice::VERSION}.gem"
 end
 
 desc "Release gem"

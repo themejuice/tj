@@ -1,6 +1,9 @@
 #!/usr/bin/env ruby
 # encoding: UTF-8
 
+lib = File.expand_path "../lib/", __FILE__
+$:.unshift lib unless $:.include? lib
+
 require "theme-juice"
 
 Signal.trap "INT" do
