@@ -2,6 +2,8 @@
 
 module ThemeJuice
   module Env
+    include Helpers
+
     attr_accessor :vm_path
     attr_accessor :vm_ip
     attr_accessor :vm_prefix
@@ -13,12 +15,6 @@ module ThemeJuice
     attr_accessor :yolo
     attr_accessor :verbose
     attr_accessor :dryrun
-
-    def inspect
-      res = []
-      self.instance_variables.each { |k, _| res << "#{k[1..-1]}: #{instance_variable_get(k)}" }
-      res.sort
-    end
 
     extend self
   end

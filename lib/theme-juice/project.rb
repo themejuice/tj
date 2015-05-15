@@ -2,6 +2,8 @@
 
 module ThemeJuice
   module Project
+    include Helpers
+
     attr_accessor :name
     attr_accessor :location
     attr_accessor :url
@@ -23,12 +25,6 @@ module ThemeJuice
     attr_accessor :use_defaults
     attr_accessor :no_wp
     attr_accessor :no_db
-
-    def inspect
-      res = []
-      self.instance_variables.each { |k, _| res << "#{k[1..-1]}: #{instance_variable_get(k)}" }
-      res.sort
-    end
 
     extend self
   end
