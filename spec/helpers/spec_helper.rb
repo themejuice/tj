@@ -1,7 +1,7 @@
 require "codeclimate-test-reporter"
 CodeClimate::TestReporter.start
 
-lib = File.expand_path "../lib/", __FILE__
+lib = File.expand_path "../../lib/", __FILE__
 $:.unshift lib unless $:.include? lib
 
 require "fakefs/spec_helpers"
