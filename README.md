@@ -41,6 +41,7 @@ commands:
   wp:
     - wp ssh --host=vagrant %args%
   backup:
+    - mkdir -p backup
     - wp ssh --host=vagrant db export backup/$(date +'%Y-%m-%d-%H-%M-%S').sql
   dist:
     - tar -zcvf dist.tar.gz .
