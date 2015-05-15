@@ -154,54 +154,25 @@ module ThemeJuice
         repo
       end
 
-      def db_host
-        return false if @project.no_db || @project.no_wp
+      %w[host name user pass].each do |task|
+        define_method "db_#{task}" do
+          return false if @project.no_db || @project.no_wp
 
-        if @project.skip_db || @project.use_defaults
-          db_host = "vvv"
-        else
-          db_host = @io.prompt "Database host", :default => "vvv"
+          case task
+          when "host" then default = "vvv"
+          when "name" then default = "#{clean_name}_db"
+          when "user" then default = "#{clean_name}_user"
+          when "pass" then default = Faker::Internet.password(24)
+          end
+
+          if @project.skip_db || @project.use_defaults
+            res = default
+          else
+            res = @io.prompt "Database #{task}", :default => default
+          end
+
+          res
         end
-
-        db_host
-      end
-
-      def db_name
-        return false if @project.no_db || @project.no_wp
-
-        if @project.skip_db || @project.use_defaults
-          db_name = "#{clean_name}_db"
-        else
-          db_name = @io.prompt "Database name", :default => "#{clean_name}_db"
-        end
-
-        db_name
-      end
-
-      def db_user
-        return false if @project.no_db || @project.no_wp
-
-        if @project.skip_db || @project.use_defaults
-          db_user = "#{clean_name}_user"
-        else
-          db_user = @io.prompt "Database username", :default => "#{clean_name}_user"
-        end
-
-        db_user
-      end
-
-      def db_pass
-        return false if @project.no_db || @project.no_wp
-
-        pass = Faker::Internet.password 24
-
-        if @project.skip_db || @project.use_defaults
-          db_pass = pass
-        else
-          db_pass = @io.prompt "Database password", :default => pass
-        end
-
-        db_pass
       end
 
       def db_import
