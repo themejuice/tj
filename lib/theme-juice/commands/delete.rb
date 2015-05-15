@@ -21,6 +21,7 @@ module ThemeJuice
           tasks << Tasks::VMLocation.new
           tasks << Tasks::SyncedFolder.new
           tasks << Tasks::DNS.new
+          tasks << Tasks::VMRestart.new
           tasks << Tasks::DeleteSuccess.new
         end
       end

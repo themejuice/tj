@@ -12,6 +12,12 @@ module ThemeJuice
         restart
       end
 
+      def unexecute
+        if @project.vm_restart
+          restart
+        end
+      end
+
       private
 
       def restart
