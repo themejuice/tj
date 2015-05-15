@@ -1,12 +1,7 @@
 #!/usr/bin/env ruby
 # encoding: UTF-8
 
-begin
-  require_relative "../lib/theme-juice"
-rescue LoadError => err
-  warn err
-  exit 1
-end
+require "theme-juice"
 
 Signal.trap "INT" do
   ThemeJuice::IO.goodbye
