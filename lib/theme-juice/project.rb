@@ -2,7 +2,7 @@
 
 module ThemeJuice
   module Project
-    include Helpers
+    include SingletonHelper
 
     attr_accessor :name
     attr_accessor :location

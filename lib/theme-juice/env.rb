@@ -2,7 +2,7 @@
 
 module ThemeJuice
   module Env
-    include Helpers
+    include SingletonHelper
 
     attr_accessor :vm_path
     attr_accessor :vm_ip

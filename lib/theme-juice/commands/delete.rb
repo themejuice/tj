@@ -7,13 +7,7 @@ module ThemeJuice
       def initialize(opts = {})
         super
 
-        @project.name        = @opts.fetch("name") { name }
-        @project.url         = @opts.fetch("url") { url }
-        @project.db_drop     = @opts.fetch("db_drop", false)
-        @project.vm_restart  = @opts.fetch("vm_restart", false)
-        @project.vm_root     = vm_root
-        @project.vm_location = vm_location
-        @project.vm_srv      = vm_srv
+        init_project
 
         runner do |tasks|
           tasks << Tasks::DeleteConfirm.new
@@ -27,6 +21,16 @@ module ThemeJuice
       end
 
       private
+
+      def init_project
+        @project.name        = @opts.fetch("name") { name }
+        @project.url         = @opts.fetch("url") { url }
+        @project.db_drop     = @opts.fetch("db_drop", false)
+        @project.vm_restart  = @opts.fetch("vm_restart", false)
+        @project.vm_root     = vm_root
+        @project.vm_location = vm_location
+        @project.vm_srv      = vm_srv
+      end
 
       def name
         name = @io.prompt "What's the project name?"

@@ -9,7 +9,8 @@ module ThemeJuice
 end
 
 require "theme-juice/version"
-require "theme-juice/helpers"
+require "theme-juice/patches/option"
+require "theme-juice/helpers/singleton_helper"
 require "theme-juice/env"
 require "theme-juice/project"
 require "theme-juice/util"

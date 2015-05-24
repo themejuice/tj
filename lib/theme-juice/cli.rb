@@ -1,42 +1,5 @@
 # encoding: UTF-8
 
-#
-# Monkey patch to not print out reverse bool options on --help
-#
-# @see https://github.com/erikhuda/thor/issues/417
-#
-class Thor
-  class Option < Argument
-    def usage(padding = 0)
-      sample = if banner && !banner.to_s.empty?
-        "#{switch_name}=#{banner}"
-      else
-        switch_name
-      end
-
-      sample = "[#{sample}]" unless required?
-
-      # if boolean?
-      #   sample << ", [#{dasherize("no-" + human_name)}]" unless name == "force" or name.start_with?("no-")
-      # end
-
-      if aliases.empty?
-        (" " * padding) << sample
-      else
-        "#{aliases.join(', ')}, #{sample}"
-      end
-    end
-
-    VALID_TYPES.each do |type|
-      class_eval <<-RUBY, __FILE__, __LINE__ + 1
-        def #{type}?
-          self.type == #{type.inspect}
-        end
-      RUBY
-    end
-  end
-end
-
 module ThemeJuice
   class CLI < Thor
 
@@ -53,17 +16,24 @@ module ThemeJuice
       @create            = Commands::Create
       @delete            = Commands::Delete
       @deploy            = Commands::Deploy
-      @env.vm_path       = options.fetch "vm_path",       ENV.fetch("TJ_VM_PATH", File.expand_path("~/vagrant"))
-      @env.vm_ip         = options.fetch "vm_ip",         ENV.fetch("TJ_VM_IP", "192.168.50.4")
-      @env.vm_prefix     = options.fetch "vm_prefix",     ENV.fetch("TJ_VM_PREFIX", "tj-")
-      @env.yolo          = options.fetch "yolo",          ENV.fetch("TJ_YOLO", false)
-      @env.boring        = options.fetch "boring",        ENV.fetch("TJ_BORING", false)
-      @env.no_unicode    = options.fetch "no_unicode",    ENV.fetch("TJ_NO_UNICODE", @env.boring)
-      @env.no_colors     = options.fetch "no_colors",     ENV.fetch("TJ_NO_COLORS", @env.boring)
-      @env.no_animations = options.fetch "no_animations", ENV.fetch("TJ_NO_ANIMATIONS", @env.boring)
-      @env.no_landrush   = options.fetch "no_landrush",   ENV.fetch("TJ_NO_LANDRUSH", false)
-      @env.verbose       = options.fetch "verbose",       ENV.fetch("TJ_VERBOSE", false)
-      @env.dryrun        = options.fetch "dryrun",        ENV.fetch("TJ_DRYRUN", false)
+
+      init_env
+    end
+    
+    no_commands do
+      def init_env
+        @env.vm_path       = options.fetch "vm_path",       ENV.fetch("TJ_VM_PATH", File.expand_path("~/vagrant"))
+        @env.vm_ip         = options.fetch "vm_ip",         ENV.fetch("TJ_VM_IP", "192.168.50.4")
+        @env.vm_prefix     = options.fetch "vm_prefix",     ENV.fetch("TJ_VM_PREFIX", "tj-")
+        @env.yolo          = options.fetch "yolo",          ENV.fetch("TJ_YOLO", false)
+        @env.boring        = options.fetch "boring",        ENV.fetch("TJ_BORING", false)
+        @env.no_unicode    = options.fetch "no_unicode",    ENV.fetch("TJ_NO_UNICODE", @env.boring)
+        @env.no_colors     = options.fetch "no_colors",     ENV.fetch("TJ_NO_COLORS", @env.boring)
+        @env.no_animations = options.fetch "no_animations", ENV.fetch("TJ_NO_ANIMATIONS", @env.boring)
+        @env.no_landrush   = options.fetch "no_landrush",   ENV.fetch("TJ_NO_LANDRUSH", false)
+        @env.verbose       = options.fetch "verbose",       ENV.fetch("TJ_VERBOSE", false)
+        @env.dryrun        = options.fetch "dryrun",        ENV.fetch("TJ_DRYRUN", false)
+      end
     end
 
     map %w[--version -v]             => :version
@@ -71,7 +41,8 @@ module ThemeJuice
     map %w[up prep init]             => :setup
     map %w[rm remove trash teardown] => :delete
     map %w[ls projects apps sites]   => :list
-    map %w[assets dev build]         => :watch
+    map %w[build]                    => :install
+    map %w[assets dev]               => :watch
     map %w[dependencies deps]        => :vendor
     map %w[distrubute pack package]  => :dist
     map %w[wordpress]                => :wp

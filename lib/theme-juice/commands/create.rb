@@ -13,25 +13,7 @@ module ThemeJuice
       def initialize(opts = {})
         super
 
-        @project.use_defaults = @opts.fetch("use_defaults", false)
-        @project.bare         = @opts.fetch("bare", false)
-        @project.skip_repo    = @opts.fetch("skip_repo", false)
-        @project.skip_db      = @opts.fetch("skip_db", false)
-        @project.no_wp        = @opts.fetch("no_wp", false)
-        @project.no_db        = @opts.fetch("no_db", false)
-        @project.name         = @opts.fetch("name") { name }
-        @project.location     = @opts.fetch("location") { location }
-        @project.url          = @opts.fetch("url") { url }
-        @project.theme        = @opts.fetch("theme") { theme }
-        @project.repository   = @opts.fetch("repository") { repository }
-        @project.db_host      = @opts.fetch("db_host") { db_host }
-        @project.db_name      = @opts.fetch("db_name") { db_name }
-        @project.db_user      = @opts.fetch("db_user") { db_user }
-        @project.db_pass      = @opts.fetch("db_pass") { db_pass }
-        @project.db_import    = @opts.fetch("db_import") { db_import }
-        @project.vm_root      = vm_root
-        @project.vm_location  = vm_location
-        @project.vm_srv       = vm_srv
+        init_project
 
         runner do |tasks|
           tasks << Tasks::CreateConfirm.new
@@ -57,6 +39,28 @@ module ThemeJuice
       end
 
       private
+
+      def init_project
+        @project.use_defaults = @opts.fetch("use_defaults", false)
+        @project.bare         = @opts.fetch("bare", false)
+        @project.skip_repo    = @opts.fetch("skip_repo", false)
+        @project.skip_db      = @opts.fetch("skip_db", false)
+        @project.no_wp        = @opts.fetch("no_wp", false)
+        @project.no_db        = @opts.fetch("no_db", false)
+        @project.name         = @opts.fetch("name") { name }
+        @project.location     = @opts.fetch("location") { location }
+        @project.url          = @opts.fetch("url") { url }
+        @project.theme        = @opts.fetch("theme") { theme }
+        @project.repository   = @opts.fetch("repository") { repository }
+        @project.db_host      = @opts.fetch("db_host") { db_host }
+        @project.db_name      = @opts.fetch("db_name") { db_name }
+        @project.db_user      = @opts.fetch("db_user") { db_user }
+        @project.db_pass      = @opts.fetch("db_pass") { db_pass }
+        @project.db_import    = @opts.fetch("db_import") { db_import }
+        @project.vm_root      = vm_root
+        @project.vm_location  = vm_location
+        @project.vm_srv       = vm_srv
+      end
 
       def name
         if @env.yolo
