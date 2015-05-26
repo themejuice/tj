@@ -168,13 +168,13 @@ tj vm # Aliases: vagrant vvv
 ### Running installation for project:
 Uses `install` command within your config.
 ```bash
-tj install
+tj install # Aliases: build
 ```
 
 ### Watching and compiling assets:
 Use this to watch and compile assets with your preferred build tool, whether that be [Grunt](https://github.com/gruntjs/grunt), [Gulp](https://github.com/gulpjs/gulp), [Guard](https://github.com/guard/guard), or whatever. This is simply a wrapper for whatever command is in your config file.
 ```bash
-tj watch # Aliases: assets dev build
+tj watch # Aliases: assets dev
 ```
 
 ### Managing vendor dependencies:
