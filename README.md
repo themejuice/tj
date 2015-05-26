@@ -33,6 +33,7 @@ Fast forward to now, and `tj` has become a staple for our WordPress development.
   * [NPM](https://www.npmjs.com/) ([Here's a good guide on properly installing NPM to not need `sudo`](http://www.johnpapa.net/how-to-use-npm-global-without-sudo-on-osx/))
   * [Grunt-CLI](http://gruntjs.com/)
   * [Gulp-CLI](http://gulpjs.com/)
+  * [Bower](http://bower.io/)
   * [WP-CLI](http://wp-cli.org/)
   * Make sure they're executable without `sudo`
 * Finally, install with: `gem install theme-juice`
