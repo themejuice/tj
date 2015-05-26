@@ -5,9 +5,9 @@ module ThemeJuice
     class Create < Command
 
       THEMES = {
-        "theme-juice/theme-juice-starter" => "https://github.com/ezekg/theme-juice-starter.git",
-        "other"                           => nil,
-        "none"                            => false
+        "theme-juice/trellis" => "https://github.com/ezekg/theme-juice-starter.git",
+        "other"               => nil,
+        "none"                => false
       }
 
       def initialize(opts = {})

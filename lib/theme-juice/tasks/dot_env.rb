@@ -36,6 +36,8 @@ module ThemeJuice
 DB_USER=#{@project.db_user}
 DB_PASSWORD=#{@project.db_pass}
 DB_HOST=#{@project.db_host}
+WP_ENV=development
+WP_DEBUG=true
 WP_HOME=http://#{@project.url}
 WP_SITEURL=http://#{@project.url}/wp
 
