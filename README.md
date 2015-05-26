@@ -9,9 +9,9 @@ What is it? Theme Juice is a WordPress development command line utility that all
 
 ## Installation
 * First, install [Vagrant](https://www.vagrantup.com/) and [VirtualBox](https://www.virtualbox.org/) for local development.
-* Then, install [Composer](https://getcomposer.org/), [NPM](https://www.npmjs.com/), [Grunt-CLI](http://gruntjs.com/getting-started) and [WP-CLI](http://wp-cli.org/), and make sure they're executable without `sudo`. [Here's a good guide on properly installing NPM.](http://www.johnpapa.net/how-to-use-npm-global-without-sudo-on-osx/)
+* Then, install [Composer](https://getcomposer.org/), [NPM](https://www.npmjs.com/), [Grunt-CLI](http://gruntjs.com/getting-started) and [WP-CLI](http://wp-cli.org/), and make sure they're executable without `sudo` (most starter themes will use these build tools). [Here's a good guide on properly installing NPM to not need `sudo`.](http://www.johnpapa.net/how-to-use-npm-global-without-sudo-on-osx/)
 * Finally, install with: `gem install theme-juice`
-That`s it!
+* That's it!
 
 ## Windows users
 Since Windows doesn't support UTF-8 characters inside of the terminal, and is picky about colors, you'll have to run `tj` with a couple flags. What has worked for me on my Windows machine at home is to run all commands through [git-scm](http://git-scm.com/downloads) with the `--boring --no-landrush` flags.
