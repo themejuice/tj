@@ -19,7 +19,7 @@ module ThemeJuice
 
       init_env
     end
-    
+
     no_commands do
       def init_env
         @env.vm_path       = options.fetch "vm_path",       ENV.fetch("TJ_VM_PATH", File.expand_path("~/vagrant"))
@@ -97,7 +97,7 @@ module ThemeJuice
     method_option :location,     :type => :string,  :aliases => "-l", :default => nil, :desc => "Location of the local project"
     method_option :url,          :type => :string,  :aliases => "-u", :default => nil, :desc => "Development URL for the project"
     method_option :repository,   :type => :string,  :aliases => "-r",                  :desc => "Initialize a new Git remote repository"
-    method_option :import_db,    :type => :string,  :aliases => "-i",                  :desc => "Import an existing database"
+    method_option :db_import,    :type => :string,  :aliases => %w[-i --import-db],    :desc => "Import an existing database"
     method_option :skip_repo,    :type => :boolean,                                    :desc => "Skip repository prompts and use default settings"
     method_option :skip_db,      :type => :boolean,                                    :desc => "Skip database prompts and use default settings"
     method_option :use_defaults, :type => :boolean,                                    :desc => "Skip all prompts and use default settings"

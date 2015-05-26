@@ -162,12 +162,12 @@ module ThemeJuice
         define_method "db_#{task}" do
           return false if @project.no_db || @project.no_wp
 
-          case task
-          when "host" then default = "vvv"
-          when "name" then default = "#{clean_name}_db"
-          when "user" then default = "#{clean_name}_user"
-          when "pass" then default = Faker::Internet.password(24)
-          end
+          default = case task
+                    when "host" then "vvv"
+                    when "name" then "#{clean_name}_db"
+                    when "user" then "#{clean_name}_user"
+                    when "pass" then Faker::Internet.password(24)
+                    end
 
           if @project.skip_db || @project.use_defaults
             res = default
