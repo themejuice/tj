@@ -9,7 +9,7 @@ What is it? Theme Juice is a WordPress development command line utility that all
 
 ## Installation
 * First, install [Vagrant](https://www.vagrantup.com/) and [VirtualBox](https://www.virtualbox.org/) for local development.
-* Then, install [Composer](https://getcomposer.org/) and [WP-CLI](http://wp-cli.org/), and make sure they're executable.
+* Then, install [Composer](https://getcomposer.org/), [NPM](https://www.npmjs.com/) and [WP-CLI](http://wp-cli.org/), and make sure they're executable without `sudo`.
 * Finally, install with: `gem install theme-juice`
 That`s it!
 
