@@ -21,7 +21,7 @@ module ThemeJuice
       private
 
       def dot_env_file
-        "#{@project.location}/.env.development"
+        "#{@project.location}/.env"
       end
 
       def dot_env_is_setup?

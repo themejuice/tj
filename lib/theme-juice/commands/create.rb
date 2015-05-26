@@ -6,6 +6,7 @@ module ThemeJuice
 
       THEMES = {
         "theme-juice/trellis" => "https://github.com/ezekg/theme-juice-starter.git",
+        "roots/bedrock"       => "https://github.com/roots/bedrock.git",
         "other"               => nil,
         "none"                => false
       }

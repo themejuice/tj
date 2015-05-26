@@ -34,6 +34,7 @@ If you're into [Grunt](https://github.com/gruntjs/grunt), then use it. Prefer [G
 commands:
   install:
     - composer install
+    - grunt build
   watch:
     - grunt %args%
   vendor:

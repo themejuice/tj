@@ -14,10 +14,12 @@ module ThemeJuice
         config.fetch("commands", {})
           .fetch("#{method}") { @io.error "Command '#{method}' not found in config", NotImplementedError }
           .each { |cmd| run format_command(cmd, *args) }
-      rescue ::NoMethodError => err
-        @io.error "Config file is invalid", SyntaxError do
-          puts err
-        end
+      # rescue ::NoMethodError => err
+      #   @io.error "Config file is invalid or missing", SyntaxError do
+      #     puts err
+      #   end
+      rescue
+        @io.notice "Skipping..."
       end
     end
 
@@ -43,11 +45,13 @@ module ThemeJuice
     def config
       begin
         YAML.load_file Dir["#{@project.location}/*"].select { |f| config_regex =~ File.basename(f) }.last ||
-          @io.error("Config file not found in '#{@project.location}'")
+          @io.error("Config file not found in '#{@project.location}'", LoadError)
       rescue ::Psych::SyntaxError => err
         @io.error "Config file contains invalid YAML", SyntaxError do
           puts err
         end
+      rescue LoadError
+        nil
       end
     end
 
