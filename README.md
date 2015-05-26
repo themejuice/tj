@@ -16,7 +16,7 @@ This project sprung out of an annoyance for the current workflow associated with
 * It seems as though every few months a new build tool comes out, so you end up with projects created within the range of just a year or 2 having _completely_ different build tools. Does this project use Grunt? Guard? Oh, I see, it's using Gulp! No thanks.
 * Dependency management for WordPress is terrible.
 * A decent Git workflow for WordPress is even more terrible. Bloated repositories, out of date plugins, out of date core. It's a nightmare.
-* Given all of that, projects are hard to maintain. It's hard to onboard new team members. It just sucks.
+* Given all of that, projects are hard to maintain, especially across multiple environments. It's hard to onboard new team members. It just sucks.
 
 In order to remedy most of those, I created a little Rake script that automated things like scaffolding out a new development site and also aliasing a few of the build tools that I used. A couple months later, I extracted that out to a little gem so that it didn't have to sit inside of a `Rakefile` (mainly because it utilized the oh-so-efficient copy-and-paste update method).
 
