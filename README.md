@@ -5,7 +5,26 @@
 [![Code Climate](https://img.shields.io/codeclimate/coverage/github/ezekg/theme-juice-cli.svg?style=flat-square)]()
 [![GitHub license](https://img.shields.io/github/license/ezekg/theme-juice-cli.svg?style=flat-square)](https://github.com/ezekg/theme-juice-cli/blob/master/LICENSE)
 
-What is it? Theme Juice is a WordPress development command line utility that allows you to scaffold out entire Vagrant development environments in seconds (using [VVV](https://github.com/Varying-Vagrant-Vagrants/VVV) as the VM), manage dependencies and build tools, and even handle deployments.
+## What is it?
+Theme Juice is a WordPress development command line utility that allows you to scaffold out entire Vagrant development environments in seconds (using [VVV](https://github.com/Varying-Vagrant-Vagrants/VVV) as the VM), manage dependencies and build tools, and even handle deployments.
+
+### But Why?
+This project sprung out of an annoyance for the current workflow associated with WordPress and development in general. Things like:
+* Local development. It's insanely hard (and intimidating!) for non-ops/CS engineers.
+* WAMP/LAMP sucks.
+* The local env setup process is monotonous. It's the same thing _over and over again_, aside from a couple variables here and there.
+* It seems as though every few months a new build tool comes out, so you end up with projects created within the range of just a year or 2 having _completely_ different build tools. Does this project use Grunt? Guard? Oh, I see, it's using Gulp! No thanks.
+* It's hard to maintain. It's hard to onboard new team members. It just sucks.
+
+In order to remedy most of those, I created a little Rake script that automated things like scaffolding out a new development site and also aliasing a few of the build tools that I used. A couple months later, I extracted that out to a little gem so that it didn't have to sit inside of a `Rakefile` (mainly because it utilized the oh-so-efficient copy-and-paste update method).
+
+After using it for a few more months, I realized how much it had changed my workflow. I was spending less time fighting the tools I wanted to use, and more time on projects doing what I love (coding!). The project really started to grow from there.
+
+Another month or so down the line, I wanted to move `tj` out of alpha and really give it the attention and structure it deserved. So I spent a few more months doing a complete rewrite, learning a ton along the way. I bought a few books like [Design Patterns in Ruby](http://designpatternsinruby.com/) and gradually built up my Ruby skills.
+
+One thing I really wanted to focus on was _convention over configuration_, because most people don't care about the details; they just want a local development site _that just works_. Fast forward to now, and `tj` has become a staple for WordPress development. It really has changed the way we do things.
+
+Enjoy.
 
 ## Installation
 * First, install [Vagrant](https://www.vagrantup.com/) and [VirtualBox](https://www.virtualbox.org/) for local development.
