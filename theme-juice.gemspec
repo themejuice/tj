@@ -14,7 +14,7 @@ Gem::Specification.new do |gem|
   gem.summary        = %q{Theme Juice - WordPress development made easy}
   gem.homepage       = "https://themejuice.it"
 
-  gem.licenses       = "GNU"
+  gem.licenses       = "MIT"
 
   gem.files          = Dir.glob("lib/**/*.*")
   gem.files         += ["README.md"]
