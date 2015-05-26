@@ -20,9 +20,9 @@ This project sprung out of an annoyance for the current workflow associated with
 
 In order to remedy most of those, I created a little Rake script that automated things like scaffolding out a new development site and also aliasing a few of the build tools that I used. A couple months later, I extracted that out to a little gem so that it didn't have to sit inside of a `Rakefile` (mainly because it utilized the oh-so-efficient copy-and-paste update method).
 
-After using it for a few more months, I realized how much it had changed my workflow. I was spending less time fighting the tools I wanted to use, and more time on projects doing what I love (coding!). The project really started to grow from there.
+After using it for a few more months, adding features here and there, I realized how much it had changed my workflow. I was spending less time fighting the tools I wanted to use, and more time on our projects doing what I love (coding!). It sped up our workflow and made coding more enjoyable. The project really started to evolve into a true command line utility from there.
 
-Another month or so down the line, I wanted to move `tj` out of alpha and really give it the attention and structure it deserved. So I spent a few more months doing a complete rewrite, learning a ton along the way. I bought a few books like [Design Patterns in Ruby](http://designpatternsinruby.com/) and gradually built up my Ruby skills. One thing I really wanted to focus on was _convention over configuration_, because most people don't care about the details; they just want a local development site _that just works_.
+Another month or so down the line, I wanted to move `tj` out of alpha and really give it the attention and structure it deserved. So I spent a few more months doing a complete rewrite, learning a ton along the way. I bought a few books like [Design Patterns in Ruby](http://designpatternsinruby.com/) and gradually built up my Ruby skills. One thing I really wanted to focus on was _convention over configuration_, because most people don't care about the details; they want a local development site _that just works_.
 
 Fast forward to now, and `tj` has become a staple for WordPress development. It really has changed the way we do things. Enjoy.
 
