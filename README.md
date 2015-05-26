@@ -24,7 +24,7 @@ After using it for a few more months, adding features here and there, I realized
 
 Another month or so down the line, I wanted to move `tj` out of alpha and really give it the attention and structure it deserved. So I spent a few more months doing a complete rewrite, learning a ton along the way. I bought a few books like [Design Patterns in Ruby](http://designpatternsinruby.com/) and gradually built up my Ruby skills. One thing I really wanted to focus on was _convention over configuration_, because most people don't care about the details; they want a local development site _that just works_.
 
-Fast forward to now, and `tj` has become a staple for WordPress development. It really has changed the way we do things. Enjoy.
+Fast forward to now, and `tj` has become a staple for our WordPress development. It really has changed the way we do things. Enjoy.
 
 ## Installation
 * First, install [Vagrant](https://www.vagrantup.com/) and [VirtualBox](https://www.virtualbox.org/) for local development.
