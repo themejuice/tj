@@ -34,7 +34,9 @@ In addition to that, `tj` uses the [OS gem](https://github.com/rdp/os) to sniff 
 ## Config
 Because everybody likes to use different tools, you can create a `Juicefile` or `tj.yaml` config (with an optional preceding `.`) that will house all of your theme-specific commands. This allows you to use a streamlined set of commands that will act as aliases to your per-project configuration, as well as starter-theme specific information, such as deployment configuration, etc. For right now, we'll just stick to the `commands` section.
 
-If you're into [Grunt](https://github.com/gruntjs/grunt), then use it. Prefer [Gulp](https://github.com/gulpjs/gulp)? What about [Guard](https://github.com/guard/guard)? Go right ahead. It's compeletely up to you and your team. This is obviously relative to the starter theme you use, since you can't exactly use Grunt with a project that doesn't support it. Below is the config that comes baked into [our starter theme](https://github.com/ezekg/theme-juice-starter):
+If you're into [Grunt](https://github.com/gruntjs/grunt), then use it. Prefer [Gulp](https://github.com/gulpjs/gulp)? What about [Guard](https://github.com/guard/guard)? Go right ahead. It's compeletely up to you and your team. This is obviously relative to the starter theme you use, since you can't exactly use Grunt with a project that doesn't support it.
+
+Below is the config that comes baked into [our starter theme](https://github.com/ezekg/theme-juice-starter):
 
 ```yml
 commands:
