@@ -132,7 +132,7 @@ module ThemeJuice
           choice = @io.choose "Which starter theme would you like to use?", :blue, THEMES.keys
 
           case choice
-          when "theme-juice/theme-juice-starter"
+          when "theme-juice/trellis"
             @io.success "Awesome choice!"
           when "other"
             THEMES[choice] = @io.prompt "What is the repository URL for the starter theme that you would like to clone?"
