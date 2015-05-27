@@ -22,11 +22,12 @@ describe ThemeJuice::Commands::Create do
 
       # Rest of the prompts
       expect(thor_stdin).to receive(:readline).with(kind_of(String),
-        kind_of(Hash)).exactly(6).times.and_return "n",
+        kind_of(Hash)).exactly(7).times.and_return "n",
           "db_host",
           "db_name",
           "db_user",
           "db_pass",
+          "n",
           "n"
 
       expect(@create.new).to be

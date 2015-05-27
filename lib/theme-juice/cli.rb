@@ -36,20 +36,20 @@ module ThemeJuice
       end
     end
 
-    map %w[--version -v]             => :version
-    map %w[mk make new add]          => :create
-    map %w[up prep init]             => :setup
-    map %w[rm remove trash teardown] => :delete
-    map %w[ls projects apps sites]   => :list
-    map %w[build]                    => :install
-    map %w[assets dev]               => :watch
-    map %w[dependencies deps]        => :vendor
-    map %w[distrubute pack package]  => :dist
-    map %w[wordpress]                => :wp
-    map %w[bk]                       => :backup
-    map %w[tests spec specs]         => :test
-    map %w[deployer server remote]   => :deploy
-    map %w[vagrant vvv]              => :vm
+    map %w[--version -v]           => :version
+    map %w[mk new]                 => :create
+    map %w[up init]                => :setup
+    map %w[rm remove trash]        => :delete
+    map %w[ls projects apps sites] => :list
+    map %w[build]                  => :install
+    map %w[dev]                    => :watch
+    map %w[deps]                   => :vendor
+    map %w[zip package pkg]        => :dist
+    map %w[wordpress]              => :wp
+    map %w[bk]                     => :backup
+    map %w[tests spec specs]       => :test
+    map %w[server remote]          => :deploy
+    map %w[vagrant vvv]            => :vm
 
     class_option :vm_path,       :type => :string,  :default => nil, :desc => "Force path to VM"
     class_option :vm_ip,         :type => :string,  :default => nil, :desc => "Force IP address for VM"

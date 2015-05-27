@@ -37,7 +37,7 @@ commands:
 
       it "should raise error if config is invalid" do
         capture(:stdout) do
-          expect { @config.watch }.to raise_error SyntaxError
+          expect { @config.watch }.to output.to_stdout
         end
       end
     end
