@@ -35,7 +35,7 @@ commands:
         end
       end
 
-      it "should raise error if config is invalid" do
+      it "should output to stdout if config is invalid" do
         capture(:stdout) do
           expect { @config.watch }.to output.to_stdout
         end
