@@ -35,9 +35,15 @@ commands:
         end
       end
 
-      it "should output to stdout if config is invalid" do
+      it "should output notice to $stdout if config is invalid" do
         capture(:stdout) do
           expect { @config.watch }.to output.to_stdout
+        end
+      end
+
+      it "should not raise error if config is invalid" do
+        capture(:stdout) do
+          expect { @config.watch }.not_to raise_error
         end
       end
     end
