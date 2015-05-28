@@ -5,7 +5,7 @@
 [![Code Climate](https://img.shields.io/codeclimate/coverage/github/ezekg/theme-juice-cli.svg?style=flat-square)]()
 [![GitHub license](https://img.shields.io/github/license/ezekg/theme-juice-cli.svg?style=flat-square)](https://github.com/ezekg/theme-juice-cli/blob/master/LICENSE)
 
-_This project is currently under active development and will not be completely 'stable' per-say until we hit `1.0`. Everything here is subject to change without notice, but with that said, we will of course semantically version all of our releases. Feel free to contribute to the development with new features or bug fixes._
+_This project is currently under active development and will not be completely 'stable' per-say until we hit `1.0`. Everything here is subject to change without notice, but with that said, we will of course semantically version all of our releases. Feel free to contribute to the development with new features or bug fixes. [View our contributing guidelines](#contributing)_
 
 ## What is it?
 Theme Juice is a WordPress development command line utility that allows you to scaffold out entire Vagrant development environments in seconds (using [VVV](https://github.com/Varying-Vagrant-Vagrants/VVV) as the VM), manage dependencies and build tools, and even handle deployments.
