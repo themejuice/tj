@@ -94,6 +94,17 @@ You can specify an unlimited number of commands with an unlimited number of argu
 
 ## Usage
 
+Use the `man` page to print command usage:
+
+```
+tj
+tj -h
+tj help
+tj --help
+```
+
+See [themejuice.it](http://themejuice.it) for the full documentation.
+
 ### List available commands:
 List all commands for `tj`.
 ```bash

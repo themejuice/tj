@@ -52,16 +52,16 @@ module ThemeJuice
     map %w[vagrant vvv]            => :vm
 
     class_option :vm_path,       :type => :string,  :default => nil,         :desc => "Force path to VM"
-    class_option :vm_ip,         :type => :string,  :default => nil,         :desc => "Force IP address for VM"
+    class_option :vm_ip,         :type => :string,  :default => nil,         :desc => "Force IP address of VM"
     class_option :vm_prefix,     :type => :string,  :default => nil,         :desc => "Force directory prefix for project in VM"
-    class_option :yolo,          :type => :boolean,                          :desc => "Say yes to anything and everything"
-    class_option :boring,        :type => :boolean,                          :desc => "Disable all the coolness"
-    class_option :no_unicode,    :type => :boolean,                          :desc => "Disable all unicode characters"
-    class_option :no_colors,     :type => :boolean,                          :desc => "Disable all colored output"
-    class_option :no_animations, :type => :boolean,                          :desc => "Disable all animations"
+    class_option :yolo,          :type => :boolean,                          :desc => "Say yes to anything and everything (try it)"
+    class_option :boring,        :type => :boolean,                          :desc => "Prints all output without anything fancy"
+    class_option :no_unicode,    :type => :boolean,                          :desc => "Prints all output without unicode characters"
+    class_option :no_colors,     :type => :boolean,                          :desc => "Prints all output without color"
+    class_option :no_animations, :type => :boolean,                          :desc => "Prints all output without animations (coming soon)"
     class_option :no_landrush,   :type => :boolean,                          :desc => "Disable landrush for DNS"
-    class_option :verbose,       :type => :boolean,                          :desc => "Enable verbose output"
-    class_option :dryrun,        :type => :boolean, :aliases => "--dry-run", :desc => "Disable executing any commands"
+    class_option :verbose,       :type => :boolean,                          :desc => "Prints out additional logging information"
+    class_option :dryrun,        :type => :boolean, :aliases => "--dry-run", :desc => "Run a command without actually executing anything"
 
     desc "--help, -h", "Get help"
     def help
