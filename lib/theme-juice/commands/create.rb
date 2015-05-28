@@ -6,8 +6,8 @@ module ThemeJuice
 
       THEMES = {
         "theme-juice/trellis" => "https://github.com/ezekg/theme-juice-starter.git",
-        "roots/bedrock"       => "https://github.com/roots/bedrock.git",
-        "other"               => nil,
+        "wordpress/wordpress" => "https://github.com/WordPress/WordPress.git",
+        "other (specify)"     => nil,
         "none"                => false
       }
 
@@ -42,12 +42,12 @@ module ThemeJuice
       private
 
       def init_project
-        @project.use_defaults = @opts.fetch("use_defaults", false)
-        @project.bare         = @opts.fetch("bare", false)
-        @project.skip_repo    = @opts.fetch("skip_repo", false)
-        @project.skip_db      = @opts.fetch("skip_db", false)
-        @project.no_wp        = @opts.fetch("no_wp", false)
-        @project.no_db        = @opts.fetch("no_db", false)
+        @project.use_defaults = @opts.fetch("use_defaults") { false }
+        @project.bare         = @opts.fetch("bare") { false }
+        @project.skip_repo    = @opts.fetch("skip_repo") { false }
+        @project.skip_db      = @opts.fetch("skip_db") { false }
+        @project.no_wp        = @opts.fetch("no_wp") { false }
+        @project.no_db        = @opts.fetch("no_db") { false }
         @project.name         = @opts.fetch("name") { name }
         @project.location     = @opts.fetch("location") { location }
         @project.url          = @opts.fetch("url") { url }
@@ -58,9 +58,6 @@ module ThemeJuice
         @project.db_user      = @opts.fetch("db_user") { db_user }
         @project.db_pass      = @opts.fetch("db_pass") { db_pass }
         @project.db_import    = @opts.fetch("db_import") { db_import }
-        @project.vm_root      = vm_root
-        @project.vm_location  = vm_location
-        @project.vm_srv       = vm_srv
       end
 
       def name
@@ -95,7 +92,7 @@ module ThemeJuice
         path = "#{Dir.pwd}/"
 
         if @project.use_defaults
-          location = File.expand_path path
+          location = File.expand_path path + @project.name
         else
           location = File.expand_path @io.prompt("Where do you want to setup the project?", :default => path, :path => true)
         end
@@ -127,16 +124,18 @@ module ThemeJuice
         return false if @project.bare
 
         if @project.use_defaults
-          theme = THEMES["theme-juice/theme-juice-starter"]
+          theme = THEMES["theme-juice/trellis"]
         else
           choice = @io.choose "Which starter theme would you like to use?", :blue, THEMES.keys
 
           case choice
-          when "theme-juice/trellis"
+          when /(theme-juice)/
             @io.success "Awesome choice!"
-          when "other"
+          when /(wordpress)/
+            @io.notice "This is a stock WordPress install, so things such as the '.env' file will not be set up. You'll need to input your database information manually after the setup."
+          when /(other)/
             THEMES[choice] = @io.prompt "What is the repository URL for the starter theme that you would like to clone?"
-          when "none"
+          when /(none)/
             @io.notice "Next time you need to create a project without a starter theme, you can just run the 'setup' command instead."
             @project.bare = true
           end

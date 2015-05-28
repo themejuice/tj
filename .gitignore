@@ -12,7 +12,6 @@
 _yardoc/
 coverage/
 doc/
-lib/bundler/man/
 pkg
 pkg/*
 rdoc

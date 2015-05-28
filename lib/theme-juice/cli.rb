@@ -6,33 +6,33 @@ module ThemeJuice
     def initialize(*)
       super
 
-      @version           = VERSION
-      @env               = Env
-      @io                = IO
-      @config            = Config
-      @project           = Project
-      @util              = Util.new
-      @list              = Tasks::List
-      @create            = Commands::Create
-      @delete            = Commands::Delete
-      @deploy            = Commands::Deploy
+      @version = VERSION
+      @env     = Env
+      @io      = IO
+      @config  = Config
+      @project = Project
+      @util    = Util.new
+      @list    = Tasks::List
+      @create  = Commands::Create
+      @delete  = Commands::Delete
+      @deploy  = Commands::Deploy
 
       init_env
     end
 
     no_commands do
       def init_env
-        @env.vm_path       = options.fetch "vm_path",       ENV.fetch("TJ_VM_PATH", File.expand_path("~/vagrant"))
-        @env.vm_ip         = options.fetch "vm_ip",         ENV.fetch("TJ_VM_IP", "192.168.50.4")
-        @env.vm_prefix     = options.fetch "vm_prefix",     ENV.fetch("TJ_VM_PREFIX", "tj-")
-        @env.yolo          = options.fetch "yolo",          ENV.fetch("TJ_YOLO", false)
-        @env.boring        = options.fetch "boring",        ENV.fetch("TJ_BORING", false)
-        @env.no_unicode    = options.fetch "no_unicode",    ENV.fetch("TJ_NO_UNICODE", @env.boring)
-        @env.no_colors     = options.fetch "no_colors",     ENV.fetch("TJ_NO_COLORS", @env.boring)
-        @env.no_animations = options.fetch "no_animations", ENV.fetch("TJ_NO_ANIMATIONS", @env.boring)
-        @env.no_landrush   = options.fetch "no_landrush",   ENV.fetch("TJ_NO_LANDRUSH", false)
-        @env.verbose       = options.fetch "verbose",       ENV.fetch("TJ_VERBOSE", false)
-        @env.dryrun        = options.fetch "dryrun",        ENV.fetch("TJ_DRYRUN", false)
+        @env.vm_path       = options[:vm_path]
+        @env.vm_ip         = options[:vm_ip]
+        @env.vm_prefix     = options[:vm_prefix]
+        @env.yolo          = options[:yolo]
+        @env.boring        = options[:boring]
+        @env.no_unicode    = options[:no_unicode]
+        @env.no_colors     = options[:no_colors]
+        @env.no_animations = options[:no_animations]
+        @env.no_landrush   = options[:no_landrush]
+        @env.verbose       = options[:verbose]
+        @env.dryrun        = options[:dryrun]
       end
     end
 
@@ -51,17 +51,17 @@ module ThemeJuice
     map %w[server remote]          => :deploy
     map %w[vagrant vvv]            => :vm
 
-    class_option :vm_path,       :type => :string,  :default => nil, :desc => "Force path to VM"
-    class_option :vm_ip,         :type => :string,  :default => nil, :desc => "Force IP address for VM"
-    class_option :vm_prefix,     :type => :string,  :default => nil, :desc => "Force directory prefix for project in VM"
-    class_option :yolo,          :type => :boolean,                  :desc => "Say yes to anything and everything"
-    class_option :boring,        :type => :boolean,                  :desc => "Disable all the coolness"
-    class_option :no_unicode,    :type => :boolean,                  :desc => "Disable all unicode characters"
-    class_option :no_colors,     :type => :boolean,                  :desc => "Disable all colored output"
-    class_option :no_animations, :type => :boolean,                  :desc => "Disable all animations"
-    class_option :no_landrush,   :type => :boolean,                  :desc => "Disable landrush for DNS"
-    class_option :verbose,       :type => :boolean,                  :desc => "Verbose output"
-    class_option :dryrun,        :type => :boolean,                  :desc => "Disable executing any commands"
+    class_option :vm_path,       :type => :string,  :default => nil,         :desc => "Force path to VM"
+    class_option :vm_ip,         :type => :string,  :default => nil,         :desc => "Force IP address for VM"
+    class_option :vm_prefix,     :type => :string,  :default => nil,         :desc => "Force directory prefix for project in VM"
+    class_option :yolo,          :type => :boolean,                          :desc => "Say yes to anything and everything"
+    class_option :boring,        :type => :boolean,                          :desc => "Disable all the coolness"
+    class_option :no_unicode,    :type => :boolean,                          :desc => "Disable all unicode characters"
+    class_option :no_colors,     :type => :boolean,                          :desc => "Disable all colored output"
+    class_option :no_animations, :type => :boolean,                          :desc => "Disable all animations"
+    class_option :no_landrush,   :type => :boolean,                          :desc => "Disable landrush for DNS"
+    class_option :verbose,       :type => :boolean,                          :desc => "Enable verbose output"
+    class_option :dryrun,        :type => :boolean, :aliases => "--dry-run", :desc => "Disable executing any commands"
 
     desc "--version, -v", "Print current version"
     #

@@ -32,4 +32,5 @@ Gem::Specification.new do |gem|
   gem.add_development_dependency "rake",    "~> 10.4"
   gem.add_development_dependency "rspec",   "~> 3.2"
   gem.add_development_dependency "fakefs",  "~> 0.6"
+  gem.add_development_dependency "ronn",    "~> 0.7"
 end

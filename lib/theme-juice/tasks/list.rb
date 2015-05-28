@@ -6,9 +6,6 @@ module ThemeJuice
 
       def initialize(opts = {})
         super
-
-        @project.vm_root     = vm_root
-        @project.vm_location = vm_location
       end
 
       def list(prop)

@@ -27,17 +27,5 @@ module ThemeJuice
     end
 
     private
-
-    def vm_root
-      File.expand_path "#{@env.vm_path}/www"
-    end
-
-    def vm_location
-      "#{vm_root}/#{@env.vm_prefix}#{@project.name}"
-    end
-
-    def vm_srv
-      "/srv/www/#{@env.vm_prefix}#{@project.name}"
-    end
   end
 end

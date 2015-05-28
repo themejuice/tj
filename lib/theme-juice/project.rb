@@ -26,6 +26,18 @@ module ThemeJuice
     attr_accessor :no_wp
     attr_accessor :no_db
 
+    def vm_root
+      @vm_root ||= File.expand_path("#{Env.vm_path}/www")
+    end
+
+    def vm_location
+      @vm_location ||= "#{vm_root}/#{Env.vm_prefix}#{name}"
+    end
+
+    def vm_srv
+      @vm_srv ||= "/srv/www/#{Env.vm_prefix}#{name}"
+    end
+
     extend self
   end
 end
