@@ -63,10 +63,21 @@ module ThemeJuice
     class_option :verbose,       :type => :boolean,                          :desc => "Enable verbose output"
     class_option :dryrun,        :type => :boolean, :aliases => "--dry-run", :desc => "Disable executing any commands"
 
+    desc "--help, -h", "Get help"
+    def help
+      root = File.expand_path("../man", __FILE__)
+      begin
+        if OS.windows?
+          puts File.read"#{root}/tj.txt"
+        else
+          @util.run "man #{root}/tj", :verbose => @env.verbose
+        end
+      rescue
+        super
+      end
+    end
+
     desc "--version, -v", "Print current version"
-    #
-    # @return {String}
-    #
     def version
       @io.speak @version, :color => :green
     end
@@ -84,9 +95,6 @@ module ThemeJuice
     method_option :use_defaults, :type => :boolean,                                    :desc => "Skip all prompts and use default settings"
     method_option :no_wp,        :type => :boolean,                                    :desc => "New project is not a WordPress install"
     method_option :no_db,        :type => :boolean,                                    :desc => "New project does not need a database"
-    #
-    # @return {Void}
-    #
     def create
       @io.hello
       @create.new(options).execute
@@ -103,9 +111,6 @@ module ThemeJuice
     method_option :use_defaults, :type => :boolean,                                    :desc => "Skip all prompts and use default settings"
     method_option :no_wp,        :type => :boolean,                                    :desc => "New project is not a WordPress install"
     method_option :no_db,        :type => :boolean,                                    :desc => "New project does not need a database"
-    #
-    # @return {Void}
-    #
     def setup
       @io.hello
       @create.new(options.dup.merge({
@@ -119,97 +124,61 @@ module ThemeJuice
     method_option :url,        :type => :string,  :aliases => "-u", :default => nil, :desc => "Development URL for the project"
     method_option :db_drop,    :type => :boolean, :aliases => "--drop-db",           :desc => "Drop project's database"
     method_option :vm_restart, :type => :boolean, :aliases => "--restart-vm",        :desc => "Restart VM after deletion"
-    #
-    # @return {Void}
-    #
     def delete
       @delete.new(options).unexecute
     end
 
     desc "deploy", "Manage deployment and migration"
-    #
-    # @return {Void}
-    #
     def deploy
       @deploy.new(options).execute
     end
 
     desc "list", "List all projects"
-    #
-    # @return {Void}
-    #
     def list
       @list.new(options).list :projects
     end
 
     desc "update", "Update tj and its dependencies"
-    #
-    # @return {Void}
-    #
     def update(*commands)
       @io.error "Not implemented"
     end
 
     desc "install", "Run installation for project"
-    #
-    # @return {Void}
-    #
     def install(*commands)
       @config.install commands
     end
 
     desc "watch [COMMANDS]", "Watch and compile assets"
-    #
-    # @return {Void}
-    #
     def watch(*commands)
       @config.watch commands
     end
 
     desc "vendor [COMMANDS]", "Manage vendor dependencies"
-    #
-    # @return {Void}
-    #
     def vendor(*commands)
       @config.vendor commands
     end
 
     desc "dist [COMMANDS]", "Package project for distribution"
-    #
-    # @return {Void}
-    #
     def dist(*commands)
       @config.dist commands
     end
 
     desc "wp [COMMANDS]", "Manage WordPress installation"
-    #
-    # @return {Void}
-    #
     def wp(*commands)
       @config.wp commands
     end
 
     desc "backup [COMMANDS]", "Backup project"
-    #
-    # @return {Void}
-    #
     def backup(*commands)
       @config.backup commands
     end
 
     desc "test [COMMANDS]", "Manage and run project tests"
-    #
-    # @return {Void}
-    #
     def test(*commands)
       @config.test commands
     end
 
     desc "vm [COMMANDS]", "Manage development environment"
-    #
-    # @return {Void}
-    #
     def vm(*commands)
       @util.inside @env.vm_path do
         @util.run "vagrant #{commands.join(" ")}", :verbose => @env.verbose

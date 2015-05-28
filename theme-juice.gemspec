@@ -16,9 +16,10 @@ Gem::Specification.new do |gem|
 
   gem.licenses       = "MIT"
 
-  gem.files          = Dir.glob("lib/**/*.*")
+  gem.files          = Dir.glob "lib/**/*.*"
+  gem.files         += Dir.glob "lib/theme-juice/man/**/*"
   gem.files         += ["README.md"]
-  gem.test_files     = gem.files.grep(%r{^(test|spec|features)/})
+  gem.test_files     = gem.files.grep %r{^(test|spec|features)/}
   gem.executables    = ["tj"]
   gem.require_paths  = ["lib"]
 

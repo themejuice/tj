@@ -1,4 +1,3 @@
-!.gitignore
 *.gem
 *.rbc
 *.lock
@@ -29,3 +28,5 @@ wp-cli.*
 .env.*
 vvv-hosts
 vvv-nginx.conf
+!.gitignore
+!*.ronn
