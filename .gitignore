@@ -12,6 +12,7 @@
 _yardoc/
 coverage/
 doc/
+lib/theme-juice/man/
 pkg
 pkg/*
 rdoc
