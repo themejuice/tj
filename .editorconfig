@@ -14,13 +14,7 @@ insert_final_newline = true
 trim_trailing_whitespace = true
 
 #
-# Man page files
-#
-[*.{ronn,txt}]
-trim_trailing_whitespace = false
-
-#
 # Markdown
 #
-[*.{md,markdown}]
+[*.{md,markdown,ronn}]
 trim_trailing_whitespace = false

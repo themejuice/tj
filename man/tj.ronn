@@ -1,5 +1,5 @@
 tj(1) -- WordPress development made easy
-=======================================
+========================================
 
 ## SYNOPSIS
 
@@ -27,25 +27,25 @@ manage dependencies and build tools, and even handle deployments.
   Say yes to anything and everything
 
 * `--boring`:
-  Prints all output without anything fancy
+  Prints all output without any fancy formatting
 
 * `--no-unicode`:
   Prints all output without unicode characters
 
-* `--no-colors`:
+* `--no-colors`, `--no-color`:
   Prints all output without color
 
 * `--no-animations`:
   Prints all output without animations (coming soon)
 
 * `--no-landrush`:
-  Disable landrush for DNS
+  Disable the `landrush` gem for managing DNS
 
 * `--verbose`:
   Prints out additional logging information
 
 * `--dryrun`, `--dry-run`:
-  Run a command without actually executing anything
+  Run a command without actually doing anything
 
 ## COMMANDS
 
