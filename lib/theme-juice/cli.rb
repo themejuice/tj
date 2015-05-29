@@ -63,17 +63,19 @@ module ThemeJuice
     class_option :verbose,       :type => :boolean,                          :desc => "Prints out additional logging information"
     class_option :dryrun,        :type => :boolean, :aliases => "--dry-run", :desc => "Run a command without actually executing anything"
 
-    desc "--help, -h", "Get help"
-    def help
-      root = File.expand_path("../man", __FILE__)
-      begin
+    desc "--help, -h", "View man page"
+    def help(command = nil)
+      root = File.expand_path "../man", __FILE__
+      command = ["tj", command].compact.join("-")
+
+      if File.exist? "#{root}/#{command}"
         if OS.windows?
-          puts File.read"#{root}/tj.txt"
+          puts File.read "#{root}/#{command}.txt"
         else
-          @util.run "man #{root}/tj", :verbose => @env.verbose
+          @util.run "man #{root}/#{command}", :verbose => @env.verbose
         end
-      rescue
-        super
+      else
+        @io.speak "Command #{command} does not exist. No man page available.", :color => :red
       end
     end
 
