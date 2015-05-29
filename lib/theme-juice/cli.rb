@@ -67,16 +67,16 @@ module ThemeJuice
     desc "--help, -h", "View man page"
     def help(command = nil)
       root = File.expand_path "../man", __FILE__
-      command = ["tj", command].compact.join("-")
+      man = ["tj", command].compact.join("-")
 
-      if File.exist? "#{root}/#{command}"
+      if File.exist? "#{root}/#{man}"
         if OS.windows?
-          @io.speak File.read "#{root}/#{command}.txt", :color => :white
+          @io.speak File.read "#{root}/#{man}.txt", :color => :white
         else
-          @util.run "man #{root}/#{command}", :verbose => @env.verbose
+          @util.run "man #{root}/#{man}", :verbose => @env.verbose
         end
       else
-        @io.speak "No man page available for #{command}", :color => :red
+        @io.speak "No man page available for '#{command}'", :color => :red
       end
     end
 

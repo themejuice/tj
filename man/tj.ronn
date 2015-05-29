@@ -3,73 +3,56 @@ tj(1) -- WordPress development made easy
 
 ## SYNOPSIS
 
-`tj` [COMMAND] <FLAGS>
+`tj` [COMMAND] <FLAG=ARG> <FLAG>
 
 ## DESCRIPTION
 
-Theme Juice (`tj`) is a WordPress development command line utility that allows
-you to scaffold out entire Vagrant development environments in seconds
-(using [VVV](https://github.com/Varying-Vagrant-Vagrants/VVV) as the VM),
-manage dependencies and build tools, and even handle deployments.
+**Theme Juice** is a WordPress development command line utility that allows  
+you to scaffold out entire Vagrant development environments in seconds  
+(using [VVV](https://github.com/Varying-Vagrant-Vagrants/VVV) as the VM),  
+manage dependencies and build tools, and even handle deployments.  
 
 ## GLOBAL OPTIONS
 
-* `--vm-path`:
+* `--vm-path`:  
   Force path to VM
 
-* `--vm-ip`:
+* `--vm-ip`:  
   Force IP address of VM
 
-* `--vm-prefix`:
+* `--vm-prefix`:  
   Force directory prefix for project in VM
 
-* `--yolo`:
+* `--yolo`:  
   Say yes to anything and everything
 
-* `--boring`:
+* `--boring`:  
   Prints all output without any fancy formatting
 
-* `--no-unicode`:
+* `--no-unicode`:  
   Prints all output without unicode characters
 
-* `--no-colors`, `--no-color`:
+* `--no-colors`, `--no-color`:  
   Prints all output without color
 
-* `--no-animations`:
+* `--no-animations`:  
   Prints all output without animations (coming soon)
 
-* `--no-landrush`:
+* `--no-landrush`:  
   Disable the `landrush` gem for managing DNS
 
-* `--verbose`:
+* `--verbose`:  
   Prints out additional logging information
 
-* `--dryrun`, `--dry-run`:
+* `--dryrun`, `--dry-run`:  
   Run a command without actually doing anything
 
 ## COMMANDS
 
-* `version`, `--version`, `-v`:
-  Print the current version
+Run `tj help [COMMAND]` to view individual command's man page (if available).
 
-* `create`, `new`, `mk`:
-  Create a new project
+  * `version`, `--version`, `-v`:  
+    Print the current version
 
-  `tj create` [--binstubs[=DIRECTORY]]
-              [--clean]
-              [--full-index]
-              [--gemfile=GEMFILE]
-              [--jobs=NUMBER]
-              [--local]
-              [--deployment]
-              [--no-cache]
-              [--no-prune]
-              [--path PATH]
-              [--system]
-              [--quiet]
-              [--retry=NUMBER]
-              [--shebang]
-              [--standalone[=GROUP[ GROUP...]]]
-              [--trust-policy=POLICY]
-              [--without=GROUP[ GROUP...]]
-              [--with=GROUP[ GROUP...]]
+  * `create`, `new`, `mk`:  
+    Create a new project
