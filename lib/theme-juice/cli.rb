@@ -36,6 +36,7 @@ module ThemeJuice
       end
     end
 
+    map %w[man, doc, docs]         => :help
     map %w[--version -v]           => :version
     map %w[mk new]                 => :create
     map %w[up init]                => :setup
@@ -75,7 +76,7 @@ module ThemeJuice
           @util.run "man #{root}/#{command}", :verbose => @env.verbose
         end
       else
-        @io.speak "Command #{command} does not exist. No man page available.", :color => :red
+        @io.speak "No man page available for #{command}", :color => :red
       end
     end
 
