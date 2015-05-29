@@ -1,0 +1,54 @@
+tj-create(1) -- Create a new project
+====================================
+
+## SYNOPSIS  
+
+`tj create` [--flag=<arg>] [--flag]  
+
+## DESCRIPTION  
+
+Use this to create a new project. It will automagically set up your VM,  
+including a local development site at `http://<url>.dev` with WordPress  
+installed and a fresh WP database. It will sync up your local site  
+installation with the Vagrant VM, so that you can organize your projects  
+however you want. This task will also install VVV into your <vm-path>  
+directory if it has not already been installed.  
+
+## GLOBAL OPTIONS  
+
+* `-n`, `--name`=<name>:  
+  Name of the project  
+  
+* `-l`, `--location`=<path>:  
+  Location of the local project  
+  
+* `-t`, `--theme`=<theme>:  
+  Starter theme to install  
+  
+* `-u`, `--url`=<url>:  
+  Development URL for the project  
+  
+* `-r`, `--repository`=<url>:  
+  Initialize a new Git remote repository  
+  
+* `-i`, `--import-db`=<path>:  
+  Import an existing database  
+  
+* `--bare`:  
+  Create a project without a starter theme  
+  
+* `--skip-repo`:  
+  Skip repository prompts and use default settings  
+  
+* `--skip-db`:  
+  Skip database prompts and use default settings   
+  
+* `--use-defaults`:  
+  Skip all prompts and use default settings  
+  
+* `--no-wp`:  
+  New project is not a WordPress install  
+  
+* `--no-db`:  
+  New project does not need a database  
+  

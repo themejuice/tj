@@ -1,58 +1,97 @@
 tj(1) -- WordPress development made easy
 ========================================
 
-## SYNOPSIS
+## SYNOPSIS  
 
-`tj` [COMMAND] <FLAG=ARG> <FLAG>
+`tj` [<command>] [--flag=<arg>] [--flag]  
 
-## DESCRIPTION
+## DESCRIPTION  
 
 **Theme Juice** is a WordPress development command line utility that allows  
 you to scaffold out entire Vagrant development environments in seconds  
 (using [VVV](https://github.com/Varying-Vagrant-Vagrants/VVV) as the VM),  
 manage dependencies and build tools, and even handle deployments.  
 
-## GLOBAL OPTIONS
+## GLOBAL OPTIONS  
 
-* `--vm-path`:  
-  Force path to VM
+* `--vm-path`=<path>:  
+  Force path to VM  
 
-* `--vm-ip`:  
-  Force IP address of VM
+* `--vm-ip`=<ip>:  
+  Force IP address of VM  
 
-* `--vm-prefix`:  
-  Force directory prefix for project in VM
+* `--vm-prefix`=<prefix>:  
+  Force directory prefix for project in VM  
 
 * `--yolo`:  
-  Say yes to anything and everything
+  Say yes to anything and everything  
 
 * `--boring`:  
-  Prints all output without any fancy formatting
+  Prints all output without any fancy formatting  
 
 * `--no-unicode`:  
-  Prints all output without unicode characters
+  Prints all output without unicode characters  
 
 * `--no-colors`, `--no-color`:  
-  Prints all output without color
+  Prints all output without color  
 
 * `--no-animations`:  
-  Prints all output without animations (coming soon)
+  Prints all output without animations (coming soon)  
 
 * `--no-landrush`:  
-  Disable the `landrush` gem for managing DNS
+  Disable the `landrush` gem for managing DNS  
 
 * `--verbose`:  
-  Prints out additional logging information
+  Prints out additional logging information  
 
 * `--dryrun`, `--dry-run`:  
-  Run a command without actually doing anything
+  Run a command without actually doing anything  
 
-## COMMANDS
+## PRIMARY COMMANDS  
 
-Run `tj help [COMMAND]` to view individual command's man page (if available).
+Run `tj help` [<command>] to view an individual command's man page.  
 
   * `version`, `--version`, `-v`:  
     Print the current version
 
   * `create`, `new`, `mk`:  
     Create a new project
+  
+  * `setup`, `up`, `init`:  
+    Setup an existing project
+  
+  * `delete`, `rm`, `remove`, `trash`:  
+    Delete a project
+  
+  * `list`, `ls`, `projects`, `apps`, `sites`:  
+    List all projects
+    
+## CONFIG COMMANDS
+
+These run the corresponding command from your project's config file. They  
+accept any number of commands, since the behavior and handling of input    
+is defined within the config file itself.  
+    
+  * `install`, `build`=[<command>[,<command>]...]:  
+    Run installation for project
+
+  * `watch`, `dev`=[<command>[,<command>]...]:  
+    Manage development build tools
+
+  * `vendor`, `deps`=[<command>[,<command>]...]:  
+    Manage PHP vendor dependencies
+
+  * `dist`, `pkg`, `package`, `zip`=[<command>[,<command>]...]:  
+    Package project for distribution
+
+  * `wp`, `wordpress`=[<command>[,<command>]...]:  
+    Manage WordPress installation
+
+  * `backup`, `bk`=[<command>[,<command>]...]:  
+    Backup project
+
+  * `test`, `tests`, `spec`, `specs`=[<command>[,<command>]...]:  
+    Manage project tests
+
+  * `vm`, `vagrant`, `vvv`=[<command>[,<command>]...]:  
+    Manage development environment

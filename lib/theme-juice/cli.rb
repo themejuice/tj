@@ -151,7 +151,7 @@ module ThemeJuice
       @config.install commands
     end
 
-    desc "watch [COMMANDS]", "Watch and compile assets"
+    desc "watch [COMMANDS]", "Manage development build tools"
     def watch(*commands)
       @config.watch commands
     end
