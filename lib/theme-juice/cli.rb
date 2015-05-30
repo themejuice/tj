@@ -99,8 +99,8 @@ module ThemeJuice
     method_option :skip_repo,    :type => :boolean,                                    :desc => "Skip repository prompts and use default settings"
     method_option :skip_db,      :type => :boolean,                                    :desc => "Skip database prompts and use default settings"
     method_option :use_defaults, :type => :boolean,                                    :desc => "Skip all prompts and use default settings"
-    method_option :no_wp,        :type => :boolean,                                    :desc => "New project is not a WordPress install"
-    method_option :no_db,        :type => :boolean,                                    :desc => "New project does not need a database"
+    method_option :no_wp,        :type => :boolean,                                    :desc => "Project is not a WordPress install"
+    method_option :no_db,        :type => :boolean,                                    :desc => "Project does not need a database"
     def create
       @io.hello
       @create.new(options).execute
@@ -115,8 +115,8 @@ module ThemeJuice
     method_option :skip_repo,    :type => :boolean,                                    :desc => "Skip repository prompts and use default settings"
     method_option :skip_db,      :type => :boolean,                                    :desc => "Skip database prompts and use default settings"
     method_option :use_defaults, :type => :boolean,                                    :desc => "Skip all prompts and use default settings"
-    method_option :no_wp,        :type => :boolean,                                    :desc => "New project is not a WordPress install"
-    method_option :no_db,        :type => :boolean,                                    :desc => "New project does not need a database"
+    method_option :no_wp,        :type => :boolean,                                    :desc => "Project is not a WordPress install"
+    method_option :no_db,        :type => :boolean,                                    :desc => "Project does not need a database"
     def setup
       @io.hello
       @create.new(options.dup.merge({
