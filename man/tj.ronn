@@ -51,9 +51,6 @@ tj(1) -- WordPress development made easy
 
 Run `tj help` [<command>] to view an individual command's man page.  
 
-  * `version`, `--version`, `-v`:  
-    Print the current version
-
   * `create`, `new`, `mk`:  
     Create a new project
   
@@ -62,11 +59,14 @@ Run `tj help` [<command>] to view an individual command's man page.
   
   * `delete`, `rm`, `remove`, `trash`:  
     Delete a project
-  
-  * `list`, `ls`, `projects`, `apps`, `sites`:  
-    List all projects
     
 ## SECONDARY COMMANDS
+
+  * `version`, `--version`, `-v`:  
+    Print the current version
+
+  * `list`, `ls`, `projects`, `apps`, `sites`:  
+    List all projects
 
   * `vm`, `vagrant`, `vvv`=[<command>[,<command>]...]:  
     Manage development environment. Commands are proxied to your Vagrant installation so that they can be run from any directory.
