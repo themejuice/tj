@@ -3,7 +3,8 @@ describe ThemeJuice::Env do
   before do
     @env = ThemeJuice::Env
   end
-
+  
+  it { is_expected.to respond_to :vm_box }
   it { is_expected.to respond_to :vm_path }
   it { is_expected.to respond_to :vm_ip }
   it { is_expected.to respond_to :vm_prefix }
