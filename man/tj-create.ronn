@@ -16,13 +16,13 @@ location within the VM.
 
 ## GLOBAL OPTIONS
 
-  * `-n`, `--name`=<name>:  
+  * `-n`, `--name`=<string>:  
     Name of the project  
 
   * `-l`, `--location`=<path>:  
     Location of the local project  
 
-  * `-t`, `--theme`=<theme>:  
+  * `-t`, `--theme`=<repository>:  
     Starter theme to install  
 
   * `-u`, `--url`=<url>:  

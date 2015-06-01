@@ -15,15 +15,15 @@ manage dependencies and build tools, and even handle deployments.
 ## GLOBAL OPTIONS  
 
   * `--vm-box`=<repository>:  
-    Force Vagrant box for VM  
+    Force Vagrant box to use for VM  
 
   * `--vm-path`=<path>:  
     Force path to VM  
 
   * `--vm-ip`=<ip>:  
-    Force IP address of VM  
+    Force IP address of VM    
 
-  * `--vm-prefix`=<prefix>:  
+  * `--vm-prefix`=<string>:  
     Force directory prefix for project in VM  
 
   * `--yolo`:  

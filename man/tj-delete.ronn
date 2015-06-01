@@ -15,7 +15,7 @@ It will not touch your local folders that were synced to the VM.
 
 ## GLOBAL OPTIONS
 
-  * `-n`, `--name`=<name>:  
+  * `-n`, `--name`=<string>:  
     Name of the project  
     
   * `-u`, `--url`=<url>:  
