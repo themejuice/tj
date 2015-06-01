@@ -150,7 +150,7 @@ module ThemeJuice
         return false if @project.skip_repo || @project.use_defaults
 
         if @io.agree? "Would you like to initialize a new Git repository?"
-          repo = @io.prompt "What is the repository's remote URL?", :indent => 2
+          repo = @io.prompt "What is the repository URL?", :indent => 2
         else
           repo = false
         end

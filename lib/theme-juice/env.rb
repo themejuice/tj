@@ -3,7 +3,8 @@
 module ThemeJuice
   module Env
     include SingletonHelper
-
+    
+    attr_accessor :vm_box
     attr_accessor :vm_path
     attr_accessor :vm_ip
     attr_accessor :vm_prefix
@@ -15,6 +16,10 @@ module ThemeJuice
     attr_accessor :no_landrush
     attr_accessor :verbose
     attr_accessor :dryrun
+    
+    def vm_box=(val)
+      @vm_box = val ||= ENV.fetch("TJ_VM_BOX") { "https://github.com/Varying-Vagrant-Vagrants/VVV.git" }
+    end
 
     def vm_path=(val)
       @vm_path = val ||= ENV.fetch("TJ_VM_PATH") { File.expand_path("~/vagrant") }

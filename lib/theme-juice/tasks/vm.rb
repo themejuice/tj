@@ -9,19 +9,19 @@ module ThemeJuice
       end
 
       def execute
-        install_vvv
+        install_box
       end
 
       private
 
-      def vvv_is_installed?
+      def box_is_installed?
         File.exist? @env.vm_path
       end
 
-      def install_vvv
-        unless vvv_is_installed?
-          @io.log "Installing VVV"
-          @util.run "git clone https://github.com/Varying-Vagrant-Vagrants/VVV.git #{@env.vm_path} --depth 1",
+      def install_box
+        unless box_is_installed?
+          @io.log "Installing Vagrant box"
+          @util.run "git clone #{@env.vm_box} #{@env.vm_path} --depth 1",
             :verbose => @env.verbose
         end
       end

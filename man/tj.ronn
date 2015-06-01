@@ -14,38 +14,41 @@ manage dependencies and build tools, and even handle deployments.
 
 ## GLOBAL OPTIONS  
 
-* `--vm-path`=<path>:  
-  Force path to VM  
+  * `--vm-box`=<repository>:  
+    Force Vagrant box for VM  
 
-* `--vm-ip`=<ip>:  
-  Force IP address of VM  
+  * `--vm-path`=<path>:  
+    Force path to VM  
 
-* `--vm-prefix`=<prefix>:  
-  Force directory prefix for project in VM  
+  * `--vm-ip`=<ip>:  
+    Force IP address of VM  
 
-* `--yolo`:  
-  Say yes to anything and everything  
+  * `--vm-prefix`=<prefix>:  
+    Force directory prefix for project in VM  
 
-* `--boring`:  
-  Prints all output without any fancy formatting  
+  * `--yolo`:  
+    Say yes to anything and everything  
 
-* `--no-unicode`:  
-  Prints all output without unicode characters  
+  * `--boring`:  
+    Prints all output without any fancy formatting  
 
-* `--no-colors`, `--no-color`:  
-  Prints all output without color  
+  * `--no-unicode`:  
+    Prints all output without unicode characters  
 
-* `--no-animations`:  
-  Prints all output without animations (coming soon)  
+  * `--no-colors`, `--no-color`:  
+    Prints all output without color  
 
-* `--no-landrush`:  
-  Disable the `landrush` gem for managing DNS  
+  * `--no-animations`:  
+    Prints all output without animations (coming soon)  
 
-* `--verbose`:  
-  Prints out additional logging information  
+  * `--no-landrush`:  
+    Disable the `landrush` gem for managing DNS  
 
-* `--dryrun`, `--dry-run`:  
-  Run a command without actually doing anything  
+  * `--verbose`:  
+    Prints out additional logging information  
+
+  * `--dryrun`, `--dry-run`:  
+    Run a command without actually doing anything  
 
 ## PRIMARY COMMANDS  
 
@@ -76,7 +79,7 @@ is defined within the config file itself.
     Run installation for project
 
   * `watch`, `dev`=[<command>[,<command>]...]:  
-    Manage development build tools
+    Manage and run development build tools
 
   * `vendor`, `deps`=[<command>[,<command>]...]:  
     Manage PHP vendor dependencies
@@ -91,7 +94,7 @@ is defined within the config file itself.
     Backup project
 
   * `test`, `tests`, `spec`, `specs`=[<command>[,<command>]...]:  
-    Manage project tests
+    Manage and run project tests
 
   * `vm`, `vagrant`, `vvv`=[<command>[,<command>]...]:  
     Manage development environment

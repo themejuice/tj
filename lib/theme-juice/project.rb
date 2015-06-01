@@ -23,6 +23,7 @@ module ThemeJuice
     attr_accessor :skip_repo
     attr_accessor :skip_db
     attr_accessor :use_defaults
+    attr_accessor :no_theme
     attr_accessor :no_wp
     attr_accessor :no_db
 
