@@ -22,6 +22,7 @@ module ThemeJuice
 
     no_commands do
       def init_env
+        @env.vm_box        = options[:vm_box]
         @env.vm_path       = options[:vm_path]
         @env.vm_ip         = options[:vm_ip]
         @env.vm_prefix     = options[:vm_prefix]
