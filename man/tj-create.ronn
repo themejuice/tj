@@ -7,12 +7,7 @@ tj-create(1) -- Create a new project
 
 ## DESCRIPTION
 
-Creates a new project. It will lead the user through a series of prompts to  
-set up required project information, such as name, location, theme, database  
-info, etc. Using the specified information, it will run the installation   
-process and set up a local development environment, if it hasn't already   
-been set up. It will sync your local project location with the project   
-location within the VM.
+Creates a new project. It will lead the user through a series of prompts to set up required project information, such as name, location, theme, database info, etc. Using the specified information, it will run the installation process and set up a local development environment, if it hasn't already been set up. It will sync your local project location with the project location within the VM.
 
 ## GLOBAL OPTIONS
 

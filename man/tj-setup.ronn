@@ -7,9 +7,7 @@ tj-setup(1) -- Setup an existing project
 
 ## DESCRIPTION
 
-Sets up an existing local project within the development environment. You  
-will go through a series of prompts to create the necessary files. This  
-command is essentially an alias for `tj create --bare`.
+Sets up an existing local project within the development environment. You will go through a series of prompts to create the necessary files. This command is essentially an alias for `tj create --bare`.
 
 ## GLOBAL OPTIONS
 
