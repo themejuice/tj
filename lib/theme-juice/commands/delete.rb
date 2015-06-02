@@ -26,10 +26,10 @@ module ThemeJuice
       private
 
       def init_project
-        @project.name        = @opts.fetch("name")       { name }
-        @project.url         = @opts.fetch("url")        { url }
-        @project.db_drop     = @opts.fetch("db_drop")    { false }
-        @project.vm_restart  = @opts.fetch("vm_restart") { false }
+        @project.name       = @opts.fetch("name")       { name }
+        @project.url        = @opts.fetch("url")        { url }
+        @project.db_drop    = @opts.fetch("db_drop")    { false }
+        @project.vm_restart = @opts.fetch("vm_restart") { false }
       end
 
       def name
