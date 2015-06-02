@@ -16,9 +16,10 @@ module ThemeJuice
     attr_accessor :no_landrush
     attr_accessor :verbose
     attr_accessor :dryrun
+    attr_accessor :nginx
     
     def vm_box=(val)
-      @vm_box = val ||= ENV.fetch("TJ_VM_BOX") { "https://github.com/Varying-Vagrant-Vagrants/VVV.git" }
+      @vm_box = val ||= ENV.fetch("TJ_VM_BOX") { "https://github.com/ericmann/vvv-apache.git" }
     end
 
     def vm_path=(val)
@@ -63,6 +64,10 @@ module ThemeJuice
 
     def dryrun=(val)
       @dryrun = val ||= ENV.fetch("TJ_DRYRUN") { false }
+    end
+    
+    def nginx=(val)
+      @nginx = val ||= ENV.fetch("TJ_NGINX") { false }
     end
 
     extend self

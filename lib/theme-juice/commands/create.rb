@@ -26,7 +26,11 @@ module ThemeJuice
           tasks << Tasks::VMCustomfile.new
           tasks << Tasks::Hosts.new
           tasks << Tasks::Database.new
-          tasks << Tasks::Nginx.new
+          if @env.nginx
+            tasks << Tasks::Nginx.new
+          else
+            tasks << Tasks::Apache.new
+          end
           tasks << Tasks::DotEnv.new
           tasks << Tasks::Landrush.new
           tasks << Tasks::SyncedFolder.new

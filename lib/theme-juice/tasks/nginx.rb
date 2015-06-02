@@ -28,7 +28,7 @@ module ThemeJuice
 
       def create_nginx_file
         unless nginx_is_setup?
-          @io.log "Creating nginx file"
+          @io.log "Creating nginx conf file"
           @util.create_file nginx_file, :verbose => @env.verbose do
 %Q{server \{
   listen 80;

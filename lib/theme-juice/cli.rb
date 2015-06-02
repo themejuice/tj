@@ -34,6 +34,7 @@ module ThemeJuice
         @env.no_landrush   = options[:no_landrush]
         @env.verbose       = options[:verbose]
         @env.dryrun        = options[:dryrun]
+        @env.nginx         = options[:nginx]
       end
     end
 
@@ -65,6 +66,7 @@ module ThemeJuice
     class_option :no_landrush,   :type => :boolean,                           :desc => "Disable landrush for DNS"
     class_option :verbose,       :type => :boolean,                           :desc => "Prints out additional logging information"
     class_option :dryrun,        :type => :boolean, :aliases => "--dry-run",  :desc => "Run a command without actually executing anything"
+    class_option :nginx,         :type => :boolean,                           :desc => "Create nginx-specific .conf files instead of apache"
 
     desc "--help, -h", "View man page"
     def help(command = nil)
