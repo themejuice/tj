@@ -5,18 +5,18 @@ describe ThemeJuice::Tasks::Database do
     @project = ThemeJuice::Project
 
     allow(@env).to receive(:vm_path).and_return File.expand_path("~/vagrant")
-    allow(@project).to receive(:name).and_return "project"
-    allow(@project).to receive(:db_host).and_return "project_db_host"
-    allow(@project).to receive(:db_name).and_return "project_db_name"
-    allow(@project).to receive(:db_user).and_return "project_db_user"
-    allow(@project).to receive(:db_pass).and_return "project_db_pass"
+    allow(@project).to receive(:name).and_return "test_db"
+    allow(@project).to receive(:db_host).and_return "test_db_host"
+    allow(@project).to receive(:db_name).and_return "test_db_name"
+    allow(@project).to receive(:db_user).and_return "test_db_user"
+    allow(@project).to receive(:db_pass).and_return "test_db_pass"
     
-    FakeFS::FileSystem.clone "#{@env.vm_path}/database"
+    FakeFS::FileSystem.clone "#{@env.vm_path}/database/init-custom.sql"
   end
 
   before :each do
-    @task     = ThemeJuice::Tasks::Database.new
-    @sql_file = "#{@env.vm_path}/database/init-custom.sql"
+    @task = ThemeJuice::Tasks::Database.new
+    @file = "#{@env.vm_path}/database/init-custom.sql"
   end
 
   describe "#execute" do
@@ -24,13 +24,9 @@ describe ThemeJuice::Tasks::Database do
     it "should append project info to custom database file" do
       output = capture(:stdout) { @task.execute }
       
-      expect(File.binread(@sql_file)).to match /project_db_name/
-      expect(File.binread(@sql_file)).to match /project_db_user/
-      expect(File.binread(@sql_file)).to match /project_db_pass/
-    end
-    
-    it "should expect custom database file to exist" do
-      expect(@task.send(:entry_file_is_setup?)).to be true
+      expect(File.binread(@file)).to match /test_db_name/
+      expect(File.binread(@file)).to match /test_db_user/
+      expect(File.binread(@file)).to match /test_db_pass/
     end
   end
 
@@ -39,9 +35,9 @@ describe ThemeJuice::Tasks::Database do
     it "should gsub project info from custom database file" do
       output = capture(:stdout) { @task.unexecute }
       
-      expect(File.binread(@sql_file)).not_to match /project_db_name/
-      expect(File.binread(@sql_file)).not_to match /project_db_user/
-      expect(File.binread(@sql_file)).not_to match /project_db_pass/
+      expect(File.binread(@file)).not_to match /test_db_name/
+      expect(File.binread(@file)).not_to match /test_db_user/
+      expect(File.binread(@file)).not_to match /test_db_pass/
       
       expect(output).to match /gsub/
     end
