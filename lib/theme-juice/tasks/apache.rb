@@ -31,7 +31,7 @@ module ThemeJuice
           @io.log "Creating apache conf file"
           @util.create_file apache_file, :verbose => @env.verbose do
 %Q{<VirtualHost *:80>
-  DocumentRoot #{@project.vm_location}
+  DocumentRoot #{@project.vm_srv}
   ServerName #{@project.url}
   ServerAlias *.#{@project.url}
 </VirtualHost>
