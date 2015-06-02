@@ -42,7 +42,7 @@ module ThemeJuice
       end
 
       def remove_apache_file
-        @io.log "Removing apache file"
+        @io.log "Removing apache conf file"
         @util.remove_file apache_file, :verbose => @env.verbose
       end
     end

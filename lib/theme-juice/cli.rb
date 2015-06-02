@@ -54,19 +54,19 @@ module ThemeJuice
     map %w[server remote]          => :deploy
     map %w[vagrant vvv]            => :vm
     
-    class_option :vm_box,        :type => :string,  :default => nil,          :desc => "Force Vagrant box for VM"
-    class_option :vm_path,       :type => :string,  :default => nil,          :desc => "Force path to VM"
-    class_option :vm_ip,         :type => :string,  :default => nil,          :desc => "Force IP address of VM"
-    class_option :vm_prefix,     :type => :string,  :default => nil,          :desc => "Force directory prefix for project in VM"
-    class_option :yolo,          :type => :boolean,                           :desc => "Say yes to anything and everything (try it)"
-    class_option :boring,        :type => :boolean,                           :desc => "Prints all output without anything fancy"
-    class_option :no_unicode,    :type => :boolean,                           :desc => "Prints all output without unicode characters"
-    class_option :no_colors,     :type => :boolean, :aliases => "--no-color", :desc => "Prints all output without color"
-    class_option :no_animations, :type => :boolean,                           :desc => "Prints all output without animations (coming soon)"
-    class_option :no_landrush,   :type => :boolean,                           :desc => "Disable landrush for DNS"
-    class_option :verbose,       :type => :boolean,                           :desc => "Prints out additional logging information"
-    class_option :dryrun,        :type => :boolean, :aliases => "--dry-run",  :desc => "Run a command without actually executing anything"
-    class_option :nginx,         :type => :boolean,                           :desc => "Create nginx-specific .conf files instead of apache"
+    class_option :vm_box,        :type => :string,  :default => nil,           :desc => "Force Vagrant box for VM"
+    class_option :vm_path,       :type => :string,  :default => nil,           :desc => "Force path to VM"
+    class_option :vm_ip,         :type => :string,  :default => nil,           :desc => "Force IP address of VM"
+    class_option :vm_prefix,     :type => :string,  :default => nil,           :desc => "Force directory prefix for project in VM"
+    class_option :yolo,          :type => :boolean,                            :desc => "Say yes to anything and everything (try it)"
+    class_option :boring,        :type => :boolean,                            :desc => "Prints all output without anything fancy"
+    class_option :no_unicode,    :type => :boolean,                            :desc => "Prints all output without unicode characters"
+    class_option :no_colors,     :type => :boolean, :aliases => "--no-color",  :desc => "Prints all output without color"
+    class_option :no_animations, :type => :boolean,                            :desc => "Prints all output without animations (coming soon)"
+    class_option :no_landrush,   :type => :boolean,                            :desc => "Disable landrush for DNS"
+    class_option :verbose,       :type => :boolean,                            :desc => "Prints out additional logging information"
+    class_option :dryrun,        :type => :boolean, :aliases => "--dry-run",   :desc => "Run a command without actually executing anything"
+    class_option :nginx,         :type => :boolean, :aliases => "--no-apache", :desc => "Create conf files for nginx instead of apache"
 
     desc "--help, -h", "View man page"
     def help(command = nil)

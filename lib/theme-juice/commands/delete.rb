@@ -12,6 +12,9 @@ module ThemeJuice
         runner do |tasks|
           tasks << Tasks::DeleteConfirm.new
           tasks << Tasks::Database.new
+          unless @env.nginx
+            tasks << Tasks::Apache.new
+          end
           tasks << Tasks::VMLocation.new
           tasks << Tasks::SyncedFolder.new
           tasks << Tasks::DNS.new

@@ -43,7 +43,7 @@ module ThemeJuice
       end
 
       def remove_nginx_file
-        @io.log "Removing nginx file"
+        @io.log "Removing nginx conf file"
         @util.remove_file nginx_file, :verbose => @env.verbose
       end
     end
