@@ -7,12 +7,12 @@ tj(1) -- WordPress development made easy
 
 ## DESCRIPTION  
 
-**Theme Juice** is a WordPress development command line utility that allows you to scaffold out entire Vagrant development environments in seconds (using an Apache fork of [VVV](https://github.com/Varying-Vagrant-Vagrants/VVV) called [VVV-Apache](https://github.com/ericmann/vvv-apache.git) as the VM). It also allows you to manage dependencies and build tools the right way, and even handle deployments.  
+**Theme Juice** is a WordPress development command line utility that allows you to scaffold out entire Vagrant development environments in seconds (using an Apache fork of [VVV](https://github.com/Varying-Vagrant-Vagrants/VVV) called [VVV-Apache](https://github.com/ericmann/vvv-apache.git) as the VM). It can also help you manage dependencies and build tools, and even handle deployments.  
 
 ## GLOBAL OPTIONS  
 
   * `--vm-box`=<repository>:  
-    Force Vagrant box to use for VM  
+    Force Vagrant box for use as VM  
 
   * `--vm-path`=<path>:  
     Force path to VM  
@@ -46,6 +46,9 @@ tj(1) -- WordPress development made easy
 
   * `--dryrun`, `--dry-run`:  
     Run a command without actually doing anything  
+  
+  * `--nginx`, `--no-apache`:  
+    Create conf files for nginx instead of apache  
 
 ## PRIMARY COMMANDS  
 
@@ -73,25 +76,42 @@ Run `tj help` [<command>] to view an individual command's man page.
     
 ## CONFIG COMMANDS
 
-These run the corresponding command from your project's config file. They accept any number of commands, since the behavior and handling of input is defined within the config file itself.  
+These run the corresponding command from your project's config file. They accept any number of arguments, since the behavior and handling of input is defined within the config file itself.  
     
-  * `install`, `build`=[<command>[,<command>]...]:  
+  * `install`, `build`=[<arg>[,<arg>]...]:  
     Run installation for project
 
-  * `watch`, `dev`=[<command>[,<command>]...]:  
+  * `watch`, `dev`=[<arg>[,<arg>]...]:  
     Manage and run development build tools
 
-  * `vendor`, `deps`=[<command>[,<command>]...]:  
+  * `vendor`, `deps`=[<arg>[,<arg>]...]:  
     Manage PHP vendor dependencies
 
-  * `dist`, `pkg`, `package`, `zip`=[<command>[,<command>]...]:  
+  * `dist`, `pkg`, `package`, `zip`=[<arg>[,<arg>]...]:  
     Package project for distribution
 
-  * `wp`, `wordpress`=[<command>[,<command>]...]:  
+  * `wp`, `wordpress`=[<arg>[,<arg>]...]:  
     Manage WordPress installation
 
-  * `backup`, `bk`=[<command>[,<command>]...]:  
+  * `backup`, `bk`=[<arg>[,<arg>]...]:  
     Backup project
 
-  * `test`, `tests`, `spec`, `specs`=[<command>[,<command>]...]:  
+  * `test`, `tests`, `spec`, `specs`=[<arg>[,<arg>]...]:  
     Manage and run project tests
+    
+## ENVIRONMENT
+  All of the global options have a corresponding ENV variable that can be set to permanently use the specified value each time `tj` is run. This is useful if you're using an alternate Vagrant box, or if you need to disable certain features due to limited support i.e. Windows.
+  
+  * `TJ_VM_BOX`=<repository>:
+  * `TJ_PATH`=<path>:
+  * `TJ_IP`=<ip>:
+  * `TJ_PREFIX`=<string>:
+  * `TJ_YOLO`=<bool>:
+  * `TJ_BORING`=<bool>:
+  * `TJ_NO_UNICODE`=<bool>:
+  * `TJ_NO_COLORS`=<bool>:
+  * `TJ_NO_ANIMATIONS`=<bool>:
+  * `TJ_NO_LANDRUSH`=<bool>:
+  * `TJ_VERBOSE`=<bool>:
+  * `TJ_DRYRUN`=<bool>:
+  * `TJ_NGINX`=<bool>:

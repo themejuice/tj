@@ -1,4 +1,4 @@
-# Theme Juice
+# Theme Juice CLI
 [![Gem Version](http://img.shields.io/gem/v/theme-juice.svg)](https://rubygems.org/gems/theme-juice)
 [![Travis](https://img.shields.io/travis/ezekg/theme-juice-cli.svg?style=flat-square)]()
 [![Code Climate](https://img.shields.io/codeclimate/github/ezekg/theme-juice-cli.svg?style=flat-square)]()
