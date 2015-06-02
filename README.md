@@ -22,6 +22,8 @@ Want to use `tj` with Nginx and the [original VVV](https://github.com/Varying-Va
 tj new --vm-box https://github.com/Varying-Vagrant-Vagrants/VVV --nginx
 ```
 
+To use these permanently, set the appropriate `ENV` variables through your `.bashrc` or similar, i.e. `export TJ_VM_BOX=https://github.com/Varying-Vagrant-Vagrants/VVV` and `export TJ_NGINX=true`.
+
 ## Windows users
 Since Windows doesn't support UTF-8 characters inside of the terminal, and is picky about colors, you'll have to run `tj` with a couple flags. What has worked for me on my Windows machine at home is to run all commands through [git-scm](http://git-scm.com/downloads) with the `--boring --no-landrush` flags.
 
