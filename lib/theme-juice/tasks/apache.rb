@@ -19,7 +19,7 @@ module ThemeJuice
       private
 
       def apache_file
-        "#{@env.vm_path}/config/apache-config/#{@project.name}.conf"
+        "#{@env.vm_path}/config/apache-config/sites/#{@project.name}.conf"
       end
 
       def apache_is_setup?
