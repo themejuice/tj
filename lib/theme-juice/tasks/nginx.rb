@@ -19,7 +19,7 @@ module ThemeJuice
       private
 
       def nginx_file
-        "#{@project.location}/vvv-nginx.conf"
+        "#{@env.vm_path}/config/nginx-config/sites/#{@project.name}.conf"
       end
 
       def nginx_is_setup?
@@ -30,14 +30,15 @@ module ThemeJuice
         unless nginx_is_setup?
           @io.log "Creating nginx conf file"
           @util.create_file nginx_file, :verbose => @env.verbose do
-%Q{server \{
-  listen 80;
-  server_name .#{@project.url};
-  root {vvv_path_to_folder};
-  include /etc/nginx/nginx-wp-common.conf;
-\}
-
+%Q(server {
+  listen       80;
+  listen       443 ssl;
+  server_name  .#{@project.url};
+  root         #{@project.vm_srv};
+  include      /etc/nginx/nginx-wp-common.conf;
 }
+
+)
           end
         end
       end

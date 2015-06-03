@@ -41,8 +41,11 @@ describe ThemeJuice::Tasks::DotEnv do
   end
 
   describe "#unexecute" do
-    it "should remove the .env file" do
-      output = capture(:stdout) { @task.unexecute }
+    it "should remove a created .env file" do
+      output = capture(:stdout) do
+        @task.execute
+        @task.unexecute
+      end
       
       expect(File.exist?(@file)).to be false
       

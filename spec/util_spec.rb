@@ -1,9 +1,11 @@
 describe ThemeJuice::Util do
 
   before do
-    allow(ThemeJuice::Env).to receive(:vm_path).and_return Dir.pwd
-    allow(ThemeJuice::Env).to receive(:verbose).and_return false
-    allow(ThemeJuice::Env).to receive(:dryrun).and_return true
+    @env = ThemeJuice::Env
+    
+    allow(@env).to receive(:vm_path).and_return Dir.pwd
+    allow(@env).to receive(:verbose).and_return false
+    allow(@env).to receive(:dryrun).and_return true
   end
 
   before :each do

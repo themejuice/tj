@@ -102,16 +102,42 @@ These run the corresponding command from your project's config file. They accept
 ## ENVIRONMENT
   All of the global options have a corresponding ENV variable that can be set to permanently use the specified value each time `tj` is run. This is useful if you're using an alternate Vagrant box, or if you need to disable certain features due to limited support i.e. Windows.
   
-  * `TJ_VM_BOX`=<repository>:
-  * `TJ_PATH`=<path>:
-  * `TJ_IP`=<ip>:
-  * `TJ_PREFIX`=<string>:
-  * `TJ_YOLO`=<bool>:
-  * `TJ_BORING`=<bool>:
-  * `TJ_NO_UNICODE`=<bool>:
-  * `TJ_NO_COLORS`=<bool>:
-  * `TJ_NO_ANIMATIONS`=<bool>:
-  * `TJ_NO_LANDRUSH`=<bool>:
-  * `TJ_VERBOSE`=<bool>:
-  * `TJ_DRYRUN`=<bool>:
-  * `TJ_NGINX`=<bool>:
+  * `TJ_VM_BOX`=<repository>:  
+    Force Vagrant box for use as VM  
+    
+  * `TJ_PATH`=<path>:  
+    Force path to VM  
+    
+  * `TJ_IP`=<ip>:  
+    Force IP address of VM    
+    
+  * `TJ_PREFIX`=<string>:  
+    Force directory prefix for project in VM  
+    
+  * `TJ_YOLO`=<bool>:  
+    Say yes to anything and everything  
+    
+  * `TJ_BORING`=<bool>:  
+    Prints all output without any fancy formatting  
+    
+  * `TJ_NO_UNICODE`=<bool>:  
+    Prints all output without unicode characters  
+    
+  * `TJ_NO_COLORS`=<bool>:  
+    Prints all output without color  
+    
+  * `TJ_NO_ANIMATIONS`=<bool>:  
+    Prints all output without animations (coming soon)  
+    
+  * `TJ_NO_LANDRUSH`=<bool>:  
+    Disable the `landrush` gem for managing DNS  
+    
+  * `TJ_VERBOSE`=<bool>:  
+    Prints out additional logging information  
+    
+  * `TJ_DRYRUN`=<bool>:  
+    Run a command without actually doing anything  
+    
+  * `TJ_NGINX`=<bool>:  
+    Create conf files for nginx instead of apache  
+    

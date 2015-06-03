@@ -20,11 +20,10 @@ module ThemeJuice
           tasks << Tasks::CreateConfirm.new
           tasks << Tasks::Location.new
           tasks << Tasks::Theme.new
-          tasks << Tasks::VM.new
+          tasks << Tasks::VMBox.new
           tasks << Tasks::VMPlugins.new
           tasks << Tasks::VMLocation.new
           tasks << Tasks::VMCustomfile.new
-          tasks << Tasks::Hosts.new
           tasks << Tasks::Database.new
           if @env.nginx
             tasks << Tasks::Nginx.new

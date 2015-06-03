@@ -2,7 +2,7 @@
 
 module ThemeJuice
   module Tasks
-    class VM < Task
+    class VMBox < Task
 
       def initialize(opts = {})
         super
