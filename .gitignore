@@ -5,16 +5,15 @@
 .config
 .directory
 .rvmrc
-.yardoc
 .DS_Store
 .rbx
 _yardoc/
+.yardoc/
 coverage/
 doc/
 lib/theme-juice/man/
 pkg
 pkg/*
-rdoc
 spec/reports/
 spec/sandbox/
 test/tmp/
