@@ -27,7 +27,7 @@ To use these permanently, set the appropriate `ENV` variables through your `.bas
 ## Windows users
 Since Windows doesn't support UTF-8 characters inside of the terminal, and is picky about colors, you'll have to run `tj` with a couple flags. What has worked for me on my Windows machine at home is to run all commands through [git-scm](http://git-scm.com/downloads) with the `--boring --no-landrush` flags.
 
-This disables all unicode characters and colors from being output, and disables [Landrush](https://github.com/phinze/landrush), which isn't fully supported on Windows. To set these globally via the `ENV`, run:
+This disables all unicode characters and colors from being output, and disables [Landrush](https://github.com/phinze/landrush), which isn't fully supported on Windows. To set these globally via the `ENV`, set these environment variables or run these commands in your terminal:
 
 ```bash
 export TJ_BORING=true
@@ -73,17 +73,14 @@ cmd2 '%arg1% %arg2% %arg3%'
 cmd3 "%arg4%"
 ```
 
-You can specify an unlimited number of commands with an unlimited number of arguments; however, should be careful with how this is used. Don't do something like including `sudo rm -rf %arg1%` in a command, and then passing `/` as an argument. Keep it simple. These are meant to make your life easier by managing build tools, not to do fancy scripting.
+You can specify an unlimited number of commands with an unlimited number of arguments; however, you should be careful with how this is used. Don't do something such as including `sudo rm -rf %arg1%` in a command, and then passing `/` as an argument. Keep it simple. These are meant to make your life easier by simplifying common build tools, not to do fancy scripting.
 
 ## Usage
 
 Use the `man` page to print command usage:
 
 ```
-tj
-tj -h
 tj help
-tj --help
 ```
 
 See [themejuice.it](http://themejuice.it) for the full documentation.
