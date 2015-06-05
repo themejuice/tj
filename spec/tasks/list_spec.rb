@@ -3,6 +3,10 @@ describe ThemeJuice::Tasks::List do
   before do
     @env = ThemeJuice::Env
     @project = ThemeJuice::Project
+    
+    allow(@env).to receive(:vm_path).and_return File.expand_path("~/vagrant-test")
+    
+    FileUtils.mkdir_p "#{@env.vm_path}"
   end
 
   before :each do

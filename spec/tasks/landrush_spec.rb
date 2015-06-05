@@ -3,11 +3,12 @@ describe ThemeJuice::Tasks::Landrush do
   before do
     @env = ThemeJuice::Env
     
-    allow(@env).to receive(:vm_path).and_return File.expand_path("~/vagrant")
+    allow(@env).to receive(:vm_path).and_return File.expand_path("~/vagrant-test")
     allow(@env).to receive(:verbose).and_return true
     allow(@env).to receive(:no_landrush).and_return false
     
-    FakeFS::FileSystem.clone "#{@env.vm_path}/Customfile"
+    FileUtils.mkdir_p "#{@env.vm_path}"
+    FileUtils.touch "#{@env.vm_path}/Customfile"
   end
 
   before :each do

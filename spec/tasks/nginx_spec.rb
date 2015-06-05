@@ -4,13 +4,13 @@ describe ThemeJuice::Tasks::Nginx do
     @env = ThemeJuice::Env
     @project = ThemeJuice::Project
 
-    allow(@env).to receive(:vm_path).and_return File.expand_path("~/vagrant")
+    allow(@env).to receive(:vm_path).and_return File.expand_path("~/vagrant-test")
     allow(@env).to receive(:verbose).and_return true
-    allow(@project).to receive(:name).and_return "test_nginx"
-    allow(@project).to receive(:url).and_return "test.dev"
+    allow(@project).to receive(:name).and_return "nginx-test"
+    allow(@project).to receive(:url).and_return "nginx-test.dev"
     allow(@project).to receive(:vm_srv).and_return "/srv/www/nginx-test/"
     
-    FakeFS::FileSystem.clone "#{@env.vm_path}/config/nginx-config/sites/#{@project.name}.conf"
+    FileUtils.mkdir_p "#{@env.vm_path}/config/nginx-config/sites"
   end
 
   before :each do
@@ -24,7 +24,7 @@ describe ThemeJuice::Tasks::Nginx do
       output = capture(:stdout) { @task.execute }
       
       expect(File.binread(@file)).to match /\/srv\/www\/nginx-test\//
-      expect(File.binread(@file)).to match /test.dev/
+      expect(File.binread(@file)).to match /nginx\-test\.dev/
       
       expect(output).to match /create/
     end

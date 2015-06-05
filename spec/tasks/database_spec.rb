@@ -4,14 +4,15 @@ describe ThemeJuice::Tasks::Database do
     @env = ThemeJuice::Env
     @project = ThemeJuice::Project
 
-    allow(@env).to receive(:vm_path).and_return File.expand_path("~/vagrant")
+    allow(@env).to receive(:vm_path).and_return File.expand_path("~/vagrant-test")
     allow(@project).to receive(:name).and_return "test_db"
     allow(@project).to receive(:db_host).and_return "test_db_host"
     allow(@project).to receive(:db_name).and_return "test_db_name"
     allow(@project).to receive(:db_user).and_return "test_db_user"
     allow(@project).to receive(:db_pass).and_return "test_db_pass"
     
-    FakeFS::FileSystem.clone "#{@env.vm_path}/database/init-custom.sql"
+    FileUtils.mkdir_p "#{@env.vm_path}/database"
+    FileUtils.touch "#{@env.vm_path}/database/init-custom.sql"
   end
 
   before :each do
