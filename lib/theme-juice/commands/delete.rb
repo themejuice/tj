@@ -35,7 +35,7 @@ module ThemeJuice
       end
 
       def name
-        name = @io.prompt "What's the project name?"
+        name = @io.ask "What's the project name?"
 
         unless @list.projects.include? name
           @io.error "Project '#{name}' doesn't exist"
@@ -45,7 +45,7 @@ module ThemeJuice
       end
 
       def url
-        url = @io.prompt "What is the project's development url?", :default => "#{@project.name}.dev"
+        url = @io.ask "What is the project's development url?", :default => "#{@project.name}.dev"
 
         unless @list.urls.include? url
           @io.notice "Project url '#{url}' doesn't exist within DNS records. Skipping..."

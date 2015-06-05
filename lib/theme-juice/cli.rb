@@ -75,12 +75,12 @@ module ThemeJuice
       begin
         if File.exist? "#{root}/#{man}"
           if OS.windows?
-            @io.speak File.read "#{root}/#{man}.txt", :color => :white
+            @io.say File.read "#{root}/#{man}.txt", :color => :white
           else
             @util.run "man #{root}/#{man}", :verbose => @env.verbose
           end
         else
-          @io.speak "No man page available for '#{command}'", :color => :red
+          @io.say "No man page available for '#{command}'", :color => :red
         end
       rescue
         super
@@ -89,7 +89,7 @@ module ThemeJuice
 
     desc "--version, -v", "Print current version"
     def version
-      @io.speak @version, :color => :green
+      @io.say @version, :color => :green
     end
 
     desc "create", "Create new project"

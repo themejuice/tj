@@ -67,7 +67,7 @@ module ThemeJuice
         if @env.yolo
           name = Faker::Internet.domain_word
         else
-          name = @io.prompt "What's the project name? (letters, numbers and dashes only)"
+          name = @io.ask "What's the project name? (letters, numbers and dashes only)"
         end
 
         valid_name? name
@@ -97,7 +97,7 @@ module ThemeJuice
         if @project.use_defaults
           location = File.expand_path path + @project.name
         else
-          location = File.expand_path @io.prompt("Where do you want to setup the project?", :default => path, :path => true)
+          location = File.expand_path @io.ask("Where do you want to setup the project?", :default => path, :path => true)
         end
 
         location
@@ -107,7 +107,7 @@ module ThemeJuice
         if @project.use_defaults
           url = "#{@project.name}.dev"
         else
-          url = @io.prompt "What do you want the development url to be? (this should end in '.dev')", :default => "#{@project.name}.dev"
+          url = @io.ask "What do you want the development url to be? (this should end in '.dev')", :default => "#{@project.name}.dev"
         end
 
         valid_url? url
@@ -133,14 +133,16 @@ module ThemeJuice
 
           case choice
           when /(theme-juice)/
-            @io.success "Awesome choice!"
+            @io.say "Awesome choice!", :color => :green, :icon => :success
           when /(wordpress)/
-            @io.notice "This is a stock WordPress install, so things such as the '.env' file will not be set up. You'll need to input your database information manually after the setup."
+            @io.say "This is a stock WordPress install, so things such as the '.env' file will not be set up. You'll need to input your database information manually after the setup.", {
+              :color => :yellow, :icon => :notice }
           when /(other)/
-            THEMES[choice] = @io.prompt "What is the repository URL for the starter theme that you would like to clone?"
+            THEMES[choice] = @io.ask "What is the repository URL for the starter theme that you would like to clone?"
           when /(none)/
-            @io.notice "Next time you need to create a project without a starter theme, you can just run the 'setup' command instead."
             @project.bare = true
+            @io.say "Next time you need to create a project without a starter theme, you can just run the 'setup' command instead.", {
+              :color => :yellow, :icon => :notice }
           end
 
           theme = THEMES[choice]
@@ -153,7 +155,7 @@ module ThemeJuice
         return false if @project.skip_repo || @project.use_defaults
 
         if @io.agree? "Would you like to initialize a new Git repository?"
-          repo = @io.prompt "What is the repository URL?", :indent => 2
+          repo = @io.ask "What is the repository URL?", :indent => 2
         else
           repo = false
         end
@@ -175,7 +177,7 @@ module ThemeJuice
           if @project.skip_db || @project.use_defaults
             res = default
           else
-            res = @io.prompt "Database #{task}", :default => default
+            res = @io.ask "Database #{task}", :default => default
           end
 
           res
@@ -186,7 +188,7 @@ module ThemeJuice
         return false if @project.no_db || @project.no_wp || @project.use_defaults
 
         if @io.agree? "Would you like to import an existing database?"
-          db = @io.prompt "Where is the database file?", {
+          db = @io.ask "Where is the database file?", {
             :indent => 2, :path => true }
         else
           db = false

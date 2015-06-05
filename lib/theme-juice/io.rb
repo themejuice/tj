@@ -3,6 +3,9 @@
 module ThemeJuice
   module IO
     include Thor::Shell
+    
+    alias_method :_say, :say
+    alias_method :_ask, :ask
 
     ICONS = {
       :success             => "✓", # "\u2713",
@@ -41,55 +44,44 @@ module ThemeJuice
     @env = Env
     @sel = 0
 
-    def speak(message, opts = {})
-      format_message message, opts
-      output_message
+    def say(message, opts = {})
+      output_message format_message(message, opts), opts
     end
 
-    def prompt(question, *opts)
-      format_message question, {
-        :color => :blue,
-        :icon  => :question
+    def ask(question, *opts)
+      indentation = if opts[0].respond_to? :fetch
+                      opts[0].fetch :indent, 0
+                    else
+                      0
+                    end
+      
+      q = format_message question, {
+        :color  => :blue,
+        :icon   => :question,
+        :indent => indentation
       }
 
-      opts.each do |opt|
-
-        # if opt[:default]
-        #   opt[:default] = set_color(opt[:default], :black, :bold) unless @env.no_colors
-        # end
-
-        if opt[:indent]
-          with(question) { |str| (" " * opt[:indent]) << str }
-        end
-
-        break
-      end
-
-      ask("#{question} :", *opts).gsub /\e\[\d+m/, ""
+      _ask("#{q} :", *opts).gsub /\e\[\d+m/, ""
     end
 
     def agree?(question, opts = {})
-      format_message question, {
+      q = format_message question, {
         :color => opts.fetch("color", :blue),
         :icon  => :question
       }
 
-      if opts[:simple]
-        yes? " :", opts.fetch("color", {})
-      else
-        yes? "#{question} (y/N) :"
-      end
+      yes? "#{q} (y/N) :"
     end
 
     def log(message)
-      speak message, {
+      say message, {
         :color => :yellow,
         :icon  => :log
       }
     end
 
     def success(message)
-      speak message, {
+      say message, {
         :color => [:black, :on_green, :bold],
         :icon  => :success,
         :row   => true
@@ -97,7 +89,7 @@ module ThemeJuice
     end
 
     def notice(message)
-      speak message, {
+      say message, {
         :color => [:black, :on_yellow],
         :icon  => :notice,
         :row   => true
@@ -105,7 +97,7 @@ module ThemeJuice
     end
 
     def error(message, code = SystemExit)
-      speak message, {
+      say message, {
         :color => [:white, :on_red],
         :icon  => :error,
         :row   => true
@@ -117,7 +109,7 @@ module ThemeJuice
     end
 
     def hello(opts = {})
-      speak "Welcome to Theme Juice!", {
+      say "Welcome to Theme Juice!", {
         :color => [:black, :on_green, :bold],
         :row   => true
       }.merge(opts)
@@ -141,8 +133,8 @@ module ThemeJuice
         "Ouch!",
         ":(",
       ]
-
-      speak goodbyes.sample, {
+      
+      say goodbyes.sample, {
         :color   => :yellow,
         :newline => true
       }.merge(opts)
@@ -151,14 +143,14 @@ module ThemeJuice
     end
 
     def list(header, color, list)
-      speak header, {
+      say header, {
         :color => [:black, :"on_#{color}"],
         :icon  => :notice,
         :row   => true
       }
 
       list.each do |item|
-        speak item, {
+        say item, {
           :color => :"#{color}",
           :icon  => :general
         }
@@ -166,7 +158,7 @@ module ThemeJuice
     end
 
     def choose(header, color, list)
-      speak "#{header} (#{choose_instructions})", {
+      say "#{header} (#{choose_instructions})", {
         :color => :"#{color}",
         :icon  => :question
       }
@@ -186,7 +178,7 @@ module ThemeJuice
         when "esc", "ctrl+c"
           goodbye :newline => false
         # else
-        #   speak key.inspect, { :color => :yellow }
+        #   say key.inspect, { :color => :yellow }
         end
       end
     end
@@ -210,7 +202,7 @@ module ThemeJuice
 
       list.each_with_index do |item, i|
         icon = i == @sel ? "selected" : "unselected"
-        speak "#{item}", {
+        say "#{item}", {
           :color  => :"#{color}",
           :icon   => :"#{icon}",
           :indent => 2
@@ -236,58 +228,62 @@ module ThemeJuice
     end
 
     def format_message(message, opts = {})
-      @message, @opts = message, opts
-
-      format_message_icon
-      format_message_newline
-      format_message_row
-      format_message_width
-      format_message_color
-      format_message_indent
-
-      @message
+      
+      %W[icon newline row width color indent].each do |style|
+        message = self.send("format_message_#{style}", message, opts)
+      end
+      
+      message
     end
 
-    def with(string)
-      str = yield(string); string.clear; string << str
+    def format_message_icon(message, opts)
+      return message if opts[:icon].nil?
+
+      icon = if @env.no_unicode
+               "fallback_#{opts[:icon]}"
+             else
+               "#{opts[:icon]}"
+             end
+             
+      "#{ICONS[:"#{icon}"]} " << message
     end
 
-    def format_message_icon
-      icon = @env.no_unicode ? "fallback_#{@opts[:icon]}" : "#{@opts[:icon]}"
+    def format_message_newline(message, opts)
+      return message if opts[:newline].nil?
+      
+      "\n" << message
+    end
 
-      if @opts[:icon]
-        with(@message) { |msg| "#{ICONS[:"#{icon}"]}" << (@opts[:empty] ? nil : " #{msg}") }
+    def format_message_color(message, opts)
+      return message if @env.no_colors || opts[:color].nil?
+      
+      set_color(message, *opts[:color])
+    end
+
+    def format_message_row(message, opts)
+      return message if OS.windows? || opts[:row].nil?
+      
+      message.ljust terminal_width
+    end
+
+    def format_message_width(message, opts)
+      return message if opts[:width].nil?
+      
+      message.ljust opts[:width]
+    end
+
+    def format_message_indent(message, opts)
+      return message if opts[:indent].nil?
+      
+      (" " * opts[:indent]) << message
+    end
+
+    def output_message(message, opts)
+      if opts[:quiet]
+        message
       else
-        with(@message) { |msg| "" << msg }
+        _say message
       end
-    end
-
-    def format_message_newline
-      with(@message) { |msg| "\n" << msg } if @opts[:newline]
-    end
-
-    def format_message_color
-      unless @env.no_colors
-        with(@message) { |msg| set_color(msg, *@opts[:color]) } if @opts[:color]
-      end
-    end
-
-    def format_message_row
-      unless OS.windows?
-        with(@message) { |msg| msg.ljust(terminal_width) } if @opts[:row]
-      end
-    end
-
-    def format_message_width
-      with(@message) { |msg| msg.ljust(@opts[:width]) } if @opts[:width]
-    end
-
-    def format_message_indent
-      with(@message) { |str| (" " * @opts[:indent]) << str } if @opts[:indent]
-    end
-
-    def output_message
-      @opts[:quiet] ? @message : say(@message)
     end
 
     extend self

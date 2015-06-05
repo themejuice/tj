@@ -4,9 +4,9 @@ describe ThemeJuice::IO do
     @io = ThemeJuice::IO
   end
 
-  describe "#speak" do
+  describe "#say" do
     it "should output a message to $stdout" do
-      output = capture(:stdout) { @io.speak "According to my calculations..." }
+      output = capture(:stdout) { @io.say "According to my calculations..." }
       expect(output).to be_a String
     end
   end
@@ -15,7 +15,7 @@ describe ThemeJuice::IO do
     it "should prompt to $stdout and receive input from $stdin" do
       expect(thor_stdin).to receive(:readline).with(kind_of(String),
         kind_of(Hash)).and_return("Augustine")
-      expect(@io.prompt("What is thy name?")).to eq "Augustine"
+      expect(@io.ask("What is thy name?")).to eq "Augustine"
     end
   end
 
