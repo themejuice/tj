@@ -5,6 +5,8 @@ describe ThemeJuice::Tasks::List do
     @project = ThemeJuice::Project
     
     allow(@env).to receive(:vm_path).and_return File.expand_path("~/vagrant-test")
+    allow(@project).to receive(:vm_root).and_return "#{@env.vm_path}/www"
+    allow(@project).to receive(:vm_prefix).and_return "prefix-"
     
     FileUtils.mkdir_p "#{@env.vm_path}"
   end
@@ -19,9 +21,9 @@ describe ThemeJuice::Tasks::List do
       expect { @task.list :projects }.to output.to_stdout
     end
     
-    it "should raise error if prop does not exist" do
-      expect { @task.list :urls }.to output.to_stdout
-    end
+    # it "should print all project urls to $stdout" do
+    #   expect { @task.list :urls }.to output.to_stdout
+    # end
     
     it "should raise error if prop does not exist" do
       expect(stdout).to receive :print
@@ -35,9 +37,9 @@ describe ThemeJuice::Tasks::List do
     end
   end
 
-  describe "#urls" do
-    it "should return an array of domain names" do
-      expect(@task.urls).to be_a Array
-    end
-  end
+  # describe "#urls" do
+  #   it "should return an array of domain names" do
+  #     expect(@task.urls).to be_a Array
+  #   end
+  # end
 end
