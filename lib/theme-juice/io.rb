@@ -8,15 +8,15 @@ module ThemeJuice
     alias_method :_ask, :ask
 
     ICONS = {
-      :success             => "✓", # "\u2713",
-      :error               => "↑", # "\u2191",
-      :notice              => "→", # "\u2192",
-      :question            => "•", # "\u2022",
-      :general             => "›", # "\u203A",
-      :log                 => "…", # "\u2026",
-      :restart             => "↪", # "\u21AA",
-      :selected            => "•", # "\u2022",
-      :unselected          => "○", # "\u25CB",
+      :success             => "✓",
+      :error               => "↑",
+      :notice              => "→",
+      :question            => "•",
+      :general             => "›",
+      :log                 => "…",
+      :restart             => "↪",
+      :selected            => "•",
+      :unselected          => "○",
       :fallback_success    => "+",
       :fallback_error      => "!",
       :fallback_notice     => "!",
@@ -41,8 +41,9 @@ module ThemeJuice
       " "    => "space",
     }
 
-    @env = Env
-    @sel = 0
+    @env     = Env
+    @project = Project
+    @sel     = 0
 
     def say(message, opts = {})
       output_message format_message(message, opts), opts
@@ -165,7 +166,7 @@ module ThemeJuice
 
       list.each { puts }
       update_selection list, color
-
+      
       loop do
         key = read_key
         case key
@@ -184,7 +185,8 @@ module ThemeJuice
     end
 
     private
-
+    
+    # @todo Windows has issues registering the arrow and enter keys
     def choose_instructions
       if OS.windows?
         "use WASD keys and press space"
@@ -229,14 +231,14 @@ module ThemeJuice
 
     def format_message(message, opts = {})
       
-      %W[icon newline row width color indent].each do |style|
-        message = self.send("format_message_#{style}", message, opts)
+      %W[icon newline row width color indent].each do |f|
+        message = self.send("format_#{f}", message, opts)
       end
       
       message
     end
 
-    def format_message_icon(message, opts)
+    def format_icon(message, opts)
       return message if opts[:icon].nil?
 
       icon = if @env.no_unicode
@@ -248,31 +250,31 @@ module ThemeJuice
       "#{ICONS[:"#{icon}"]} " << message
     end
 
-    def format_message_newline(message, opts)
+    def format_newline(message, opts)
       return message if opts[:newline].nil?
       
       "\n" << message
     end
 
-    def format_message_color(message, opts)
+    def format_color(message, opts)
       return message if @env.no_colors || opts[:color].nil?
       
       set_color(message, *opts[:color])
     end
 
-    def format_message_row(message, opts)
+    def format_row(message, opts)
       return message if OS.windows? || opts[:row].nil?
       
       message.ljust terminal_width
     end
 
-    def format_message_width(message, opts)
+    def format_width(message, opts)
       return message if opts[:width].nil?
       
       message.ljust opts[:width]
     end
 
-    def format_message_indent(message, opts)
+    def format_indent(message, opts)
       return message if opts[:indent].nil?
       
       (" " * opts[:indent]) << message

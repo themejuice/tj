@@ -9,13 +9,22 @@ module ThemeJuice
       end
 
       def execute
+        is_user_a_smarty_pants?
         confirm
       end
 
       private
+      
+      def is_user_a_smarty_pants?
+        if @env.yolo && @project.use_defaults
+          @io.say "Well, don't you just have everything figured out?", {
+            :color => :blue, :icon => :general }
+        end
+      end
 
       def confirm
         @io.list "Your settings :", :yellow, settings
+        
         unless @io.agree? "Do these settings look correct?"
           @io.error "Dang typos..."
         end

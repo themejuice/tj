@@ -19,7 +19,6 @@ describe ThemeJuice::Tasks::Nginx do
   end
 
   describe "#execute" do
-    
     it "should create nginx conf file with project info" do
       output = capture(:stdout) { @task.execute }
       

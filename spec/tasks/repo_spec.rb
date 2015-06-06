@@ -8,7 +8,7 @@ describe ThemeJuice::Tasks::Repo do
     allow(@env).to receive(:verbose).and_return true
     allow(@env).to receive(:dryrun).and_return true
     allow(@project).to receive(:location).and_return "#{@env.vm_path}"
-    allow(@project).to receive(:repository).and_return "https://github.com/some/unknown/repo.git"
+    allow(@project).to receive(:repository).and_return "git@github.com:some/unknown/repo.git"
     
     FileUtils.mkdir_p "#{@env.vm_path}/.git"
   end

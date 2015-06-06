@@ -5,7 +5,7 @@ describe ThemeJuice::Tasks::Database do
     @project = ThemeJuice::Project
 
     allow(@env).to receive(:vm_path).and_return File.expand_path("~/vagrant-test")
-    allow(@project).to receive(:name).and_return "test_db"
+    allow(@project).to receive(:name).and_return "database-test"
     allow(@project).to receive(:db_host).and_return "test_db_host"
     allow(@project).to receive(:db_name).and_return "test_db_name"
     allow(@project).to receive(:db_user).and_return "test_db_user"
@@ -21,7 +21,6 @@ describe ThemeJuice::Tasks::Database do
   end
 
   describe "#execute" do
-    
     it "should append project info to custom database file" do
       output = capture(:stdout) { @task.execute }
       

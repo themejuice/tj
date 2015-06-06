@@ -17,12 +17,11 @@ describe ThemeJuice::Tasks::Landrush do
   end
 
   describe "#execute" do
-    
     it "should append dns info to customfile" do
       output = capture(:stdout) { @task.execute }
       
-      expect(File.binread(@file)).to match /config.landrush.enabled = true/
-      expect(File.binread(@file)).to match /config.landrush.tld = 'dev'/
+      expect(File.binread(@file)).to match /config\.landrush\.enabled = true/
+      expect(File.binread(@file)).to match /config\.landrush\.tld = 'dev'/
     end
   end
 
@@ -30,8 +29,8 @@ describe ThemeJuice::Tasks::Landrush do
     it "should gsub dns info from customfile" do
       output = capture(:stdout) { @task.unexecute }
       
-      expect(File.binread(@file)).not_to match /config.landrush.enabled = true/
-      expect(File.binread(@file)).not_to match /config.landrush.tld = 'dev'/
+      expect(File.binread(@file)).not_to match /config\.landrush\.enabled = true/
+      expect(File.binread(@file)).not_to match /config\.landrush\.tld = 'dev'/
       
       expect(output).to match /gsub/
     end

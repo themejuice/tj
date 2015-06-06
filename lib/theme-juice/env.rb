@@ -19,7 +19,7 @@ module ThemeJuice
     attr_accessor :nginx
     
     def vm_box=(val)
-      @vm_box = val ||= ENV.fetch("TJ_VM_BOX") { "https://github.com/ericmann/vvv-apache.git" }
+      @vm_box = val ||= ENV.fetch("TJ_VM_BOX") { "git@github.com:ericmann/vvv-apache.git" }
     end
 
     def vm_path=(val)

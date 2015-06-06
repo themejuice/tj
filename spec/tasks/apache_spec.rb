@@ -19,7 +19,6 @@ describe ThemeJuice::Tasks::Apache do
   end
 
   describe "#execute" do
-    
     it "should create apache conf file with project info" do
       output = capture(:stdout) { @task.execute }
       

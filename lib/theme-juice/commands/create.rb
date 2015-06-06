@@ -5,8 +5,8 @@ module ThemeJuice
     class Create < Command
 
       THEMES = {
-        "theme-juice/trellis" => "https://github.com/ezekg/theme-juice-starter.git",
-        "wordpress/wordpress" => "https://github.com/WordPress/WordPress.git",
+        "theme-juice/trellis" => "git@github.com:ezekg/theme-juice-starter.git",
+        "wordpress/wordpress" => "git@github.com:WordPress/WordPress.git",
         "other (specify)"     => nil,
         "none"                => false
       }

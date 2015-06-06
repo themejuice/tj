@@ -8,8 +8,8 @@ describe ThemeJuice::Tasks::DNS do
     allow(@env).to receive(:vm_ip).and_return "1.1.1.1"
     allow(@env).to receive(:no_landrush).and_return false
     allow(@env).to receive(:verbose).and_return true
-    allow(@project).to receive(:name).and_return "test_dns"
-    allow(@project).to receive(:url).and_return "test.dev"
+    allow(@project).to receive(:name).and_return "dns-test"
+    allow(@project).to receive(:url).and_return "dns-test.dev"
     
     FileUtils.mkdir_p "#{@env.vm_path}"
     FileUtils.touch "#{@env.vm_path}/Customfile"
@@ -21,13 +21,12 @@ describe ThemeJuice::Tasks::DNS do
   end
 
   describe "#execute" do
-    
     it "should append dns info to customfile" do
       output = capture(:stdout) { @task.execute }
       
-      expect(File.binread(@file)).to match /# Begin 'test_dns'/
-      expect(File.binread(@file)).to match /test.dev/
-      expect(File.binread(@file)).to match /1.1.1.1/
+      expect(File.binread(@file)).to match /# Begin 'dns-test'/
+      expect(File.binread(@file)).to match /dns-test\.dev/
+      expect(File.binread(@file)).to match /1\.1\.1\.1/
       
       expect(output).to match /append/
     end
@@ -37,9 +36,9 @@ describe ThemeJuice::Tasks::DNS do
     it "should gsub dns info from customfile" do
       output = capture(:stdout) { @task.unexecute }
       
-      expect(File.binread(@file)).not_to match /# Begin 'test_dns'/
-      expect(File.binread(@file)).not_to match /test.dev/
-      expect(File.binread(@file)).not_to match /1.1.1.1/
+      expect(File.binread(@file)).not_to match /# Begin 'dns-test'/
+      expect(File.binread(@file)).not_to match /dns-test\.dev/
+      expect(File.binread(@file)).not_to match /1\.1\.1\.1/
       
       expect(output).to match /gsub/
     end
