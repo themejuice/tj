@@ -38,7 +38,7 @@ module ThemeJuice
       end
     end
 
-    map %w[man, doc, docs]         => :help
+    map %w[man doc docs]           => :help
     map %w[--version -v]           => :version
     map %w[mk new]                 => :create
     map %w[up init]                => :setup
@@ -53,7 +53,7 @@ module ThemeJuice
     map %w[tests spec specs]       => :test
     map %w[server remote]          => :deploy
     map %w[vagrant vvv]            => :vm
-    
+
     class_option :vm_box,        :type => :string,  :default => nil,           :desc => "Force Vagrant box for use as VM"
     class_option :vm_path,       :type => :string,  :default => nil,           :desc => "Force path to VM"
     class_option :vm_ip,         :type => :string,  :default => nil,           :desc => "Force IP address of VM"
