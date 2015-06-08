@@ -7,6 +7,7 @@ describe ThemeJuice::Tasks::Theme do
     
     allow(@env).to receive(:vm_path).and_return File.expand_path("~/vagrant-test")
     allow(@env).to receive(:verbose).and_return true
+    allow(@env).to receive(:dryrun).and_return true
     allow(@project).to receive(:name).and_return "synced-folder-test"
     allow(@project).to receive(:location).and_return Dir.pwd
     allow(@project).to receive(:theme).and_return "git@github.com:some/unknown/repo.git"
@@ -14,8 +15,8 @@ describe ThemeJuice::Tasks::Theme do
       .at_least(:once).and_return YAML.load %Q{
 commands:
   install:
-    - echo "Installing theme..."
-    - echo "Done!"
+    - "Installing theme..."
+    - "Done!"
 }
     
     FileUtils.mkdir_p "#{@env.vm_path}"

@@ -5,6 +5,7 @@ describe ThemeJuice::Tasks::Database do
     @project = ThemeJuice::Project
 
     allow(@env).to receive(:vm_path).and_return File.expand_path("~/vagrant-test")
+    allow(@env).to receive(:verbose).and_return true
     allow(@project).to receive(:name).and_return "database-test"
     allow(@project).to receive(:db_host).and_return "test_db_host"
     allow(@project).to receive(:db_name).and_return "test_db_name"
@@ -44,7 +45,8 @@ describe ThemeJuice::Tasks::Database do
 
     context "when Project#db_drop is set to true" do
 
-      before :each do
+      before do
+        allow(@env).to receive(:dryrun).and_return true
         allow(@project).to receive(:db_drop).and_return true
       end
 

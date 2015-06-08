@@ -6,6 +6,7 @@ describe ThemeJuice::Tasks::VMBox do
     allow(@env).to receive(:vm_path).and_return File.expand_path("~/vagrant-test")
     allow(@env).to receive(:vm_box).and_return "git@github.com:some/vagrant/box.git"
     allow(@env).to receive(:verbose).and_return true
+    allow(@env).to receive(:dryrun).and_return true
   end
 
   before :each do

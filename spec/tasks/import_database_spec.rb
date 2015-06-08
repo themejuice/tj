@@ -6,6 +6,7 @@ describe ThemeJuice::Tasks::ImportDatabase do
     
     allow(@env).to receive(:vm_path).and_return Dir.pwd
     allow(@env).to receive(:verbose).and_return true
+    allow(@env).to receive(:dryrun).and_return true
     allow(@project).to receive(:vm_srv).and_return Dir.pwd
     allow(@project).to receive(:db_import).and_return "test.sql"
   end
