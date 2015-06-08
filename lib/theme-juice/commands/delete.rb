@@ -45,6 +45,8 @@ module ThemeJuice
       end
 
       def url
+        return "#{@project.name}.dev" if @env.no_landrush
+        
         url = @io.ask "What is the project's development url?", :default => "#{@project.name}.dev"
 
         unless @list.urls.include? url
