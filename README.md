@@ -10,13 +10,20 @@ _This project is currently under active development and will not be completely '
 ## What is it?
 **Theme Juice** is a WordPress development command line utility that allows you to scaffold out entire Vagrant development environments in seconds (using an Apache fork of [VVV](https://github.com/Varying-Vagrant-Vagrants/VVV) called [VVV-Apache](https://github.com/ericmann/vvv-apache.git) as the VM). It also helps you manage dependencies and build tools, and can even handle your deployments.
 
-## How do I install it?
+### How do I install it?
 * First, install [Vagrant](https://www.vagrantup.com/) and [VirtualBox](https://www.virtualbox.org/) for local development.
 * Then install with: `gem install theme-juice`
 * That's it!
 
+### Okay, how do I use `tj`?
+Just ask `tj` for help, and you'll get a nice man-page full of information about how to take advantage of all of the available commands.
+
+```
+tj help
+```
+
 ### Can I use the original VVV instead of VVV-Apache?
-So, you want to use `tj` with Nginx and the [original VVV](https://github.com/Varying-Vagrant-Vagrants/VVV)? It's as simple as running `tj` with a few flags:
+Definitely. If you want to use `tj` with Nginx and the [original VVV](https://github.com/Varying-Vagrant-Vagrants/VVV)? It's as simple as running `tj` with a few flags:
 
 ```bash
 tj new --vm-box git@github.com:Varying-Vagrant-Vagrants/VVV.git --nginx
@@ -24,8 +31,8 @@ tj new --vm-box git@github.com:Varying-Vagrant-Vagrants/VVV.git --nginx
 
 To use these permanently, set the appropriate `ENV` variables through your `.bashrc` or similar, i.e. `export TJ_VM_BOX=git@github.com:Varying-Vagrant-Vagrants/VVV.git` and `export TJ_NGINX=true`.
 
-### Can I use any Vagrant box for the VM?
-Yes and no; in order for `tj` to properly create a project, the Vagrant box needs to follow the same directory structure as VVV. Here is the required structure that `tj` needs in order to be able to create new projects:
+### So, does that mean I use any Vagrant box for the VM?
+Yes and no; in order for `tj` to properly create a project, the Vagrant box needs to follow the same directory structure as VVV, and include a `Customfile`. Here is the required structure that `tj` needs in order to be able to create new projects:
 
 ```
 ├── config/
@@ -66,7 +73,7 @@ export TJ_NO_LANDRUSH=true
 In addition to that, `tj` uses the [OS gem](https://github.com/rdp/os) to sniff out your OS and adjusts a few things accordingly to make sure things don't break. _I don't regularly develop on Windows, so if you encounter any bugs, please let me know through a **well-documented** issue and I'll try my best to get it resolved._
 
 ### What is a `Juicefile`?
-Well, because everybody likes to use different tools, you can create a `Juicefile` or `tj.yaml` config file (with an optional preceding `.`) that will house all of your theme-specific commands. Each command essentially acts as a common-alias for each project's build system, allowing you freedom to update tools without having to juggle a million different commands (thus having to remember which project uses which).
+Well, because everybody likes to use different tools, you can create a `Juicefile` or `tj.yaml` config file (with an optional preceding `.`) that will house all of your theme-specific commands. Each command essentially acts as a common-alias for each project's build system, allowing you the freedom to update tools without having to juggle a million different commands (and thus having to remember which project uses which command).
 
 So what does this mean? Basically, if you're into [Grunt](https://github.com/gruntjs/grunt), then use it. Prefer [Gulp](https://github.com/gulpjs/gulp)? What about [Guard](https://github.com/guard/guard)? It's completely up to you and your team. This is obviously relative to the starter theme you use, since you can't exactly use Grunt with a project that doesn't support it.
 
@@ -102,16 +109,7 @@ cmd2 '%arg1% %arg2% %arg3%'
 cmd3 "%arg4%"
 ```
 
-You can specify an unlimited number of commands with an unlimited number of arguments; however, you should be careful with how this is used. Don't go including `sudo rm -rf %arg1%` in a command, while passing `/` as an argument. Keep it simple. These are meant to make your life easier by simplifying common build tools, not to do fancy scripting.
-
-### Okay, how do I use `tj`?
-Just ask `tj` for help, and you'll get a nice man-page full of information about taking advantage of all of the available commands.
-
-```
-tj help
-```
-
-See [themejuice.it](http://themejuice.it) for the full documentation.
+You can specify an unlimited number of commands with an unlimited number of arguments; however, you should be careful with how this is used. Don't go including `sudo rm -rf %arg1%` in a command, while passing `/` as an argument. Keep it simple. These are meant to make your life easier by helping you manage build tools, not to do fancy scripting.
 
 ### So, `tj` handles deployments, huh?
 Eventually, yes. It's not currently production-ready, but as soon as it is, we'll have detailed instruction on how to configure and deploy applications using `tj`.
