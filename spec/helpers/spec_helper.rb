@@ -28,6 +28,10 @@ RSpec.configure do |config|
   def stdout
     $stdout
   end
+  
+  def stderr
+    $stderr
+  end
 
   def stdin
     $stdin

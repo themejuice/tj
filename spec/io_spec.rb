@@ -14,7 +14,7 @@ describe ThemeJuice::IO do
   describe "#prompt" do
     it "should prompt to $stdout and receive input from $stdin" do
       expect(thor_stdin).to receive(:readline).with(kind_of(String),
-        kind_of(Hash)).and_return("Augustine")
+        kind_of(Hash)).and_return "Augustine"
       expect(@io.ask("What is thy name?")).to eq "Augustine"
     end
   end
@@ -22,7 +22,7 @@ describe ThemeJuice::IO do
   describe "#agree?" do
     it "should prompt to $stdout and receive Y/n from $stdin" do
       expect(thor_stdin).to receive(:readline).with(kind_of(String),
-        kind_of(Hash)).and_return("Y")
+        kind_of(Hash)).and_return "Y"
       expect(@io.agree?("So, is that a yes?")).to eq true
     end
   end
