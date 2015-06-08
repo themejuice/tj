@@ -10,7 +10,7 @@ Gem::Specification.new do |gem|
   gem.version        = ::ThemeJuice::VERSION
   gem.authors        = ["Ezekiel Gabrielse"]
   gem.email          = ["ezekg@yahoo.com"]
-  gem.description    = %q{Theme Juice is a WordPress development command line utility that allows you to scaffold out entire Vagrant development environments in seconds (using an Apache fork of VVV called VVV-Apache as the VM). It can also help you manage dependencies and build tools, and even handle deployments.}
+  gem.description    = %q{Theme Juice is a WordPress development command line utility that allows you to scaffold out entire Vagrant development environments in seconds (using an Apache fork of VVV called VVV-Apache as the VM). It also helps you manage dependencies and build tools, and can even handle your deployments.}
   gem.summary        = %q{Theme Juice - WordPress development made easy}
   gem.homepage       = "https://themejuice.it"
 
@@ -25,9 +25,10 @@ Gem::Specification.new do |gem|
 
   gem.required_ruby_version = ">= 1.9.3"
 
-  gem.add_runtime_dependency "thor",  "~> 0.19"
-  gem.add_runtime_dependency "faker", "~> 1.4"
-  gem.add_runtime_dependency "os",    "~> 0.9"
+  gem.add_runtime_dependency "thor",       "~> 0.19"
+  gem.add_runtime_dependency "faker",      "~> 1.4"
+  gem.add_runtime_dependency "os",         "~> 0.9"
+  gem.add_runtime_dependency "capistrano", "~> 3.3"
 
   gem.add_development_dependency "bundler", "~> 1.0"
   gem.add_development_dependency "rake",    "~> 10.4"

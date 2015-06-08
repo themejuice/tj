@@ -8,15 +8,15 @@
 _This project is currently under active development and will not be completely 'stable' per-say until we hit `1.0`. Everything here is subject to change without notice. (We will of course semantically version all of our releases, with the minor version being incremented with new features.) Feel free to contribute to the development with new features, ideas or bug fixes. [View our contributing guidelines](#contributing)_
 
 ## What is it?
-**Theme Juice** is a WordPress development command line utility that allows you to scaffold out entire Vagrant development environments in seconds (using an Apache fork of [VVV](https://github.com/Varying-Vagrant-Vagrants/VVV) called [VVV-Apache](https://github.com/ericmann/vvv-apache.git) as the VM). It can also help you manage dependencies and build tools, and even handle deployments.
+**Theme Juice** is a WordPress development command line utility that allows you to scaffold out entire Vagrant development environments in seconds (using an Apache fork of [VVV](https://github.com/Varying-Vagrant-Vagrants/VVV) called [VVV-Apache](https://github.com/ericmann/vvv-apache.git) as the VM). It also helps you manage dependencies and build tools, and can even handle your deployments.
 
-## Installation
+## How do I install it?
 * First, install [Vagrant](https://www.vagrantup.com/) and [VirtualBox](https://www.virtualbox.org/) for local development.
 * Then install with: `gem install theme-juice`
 * That's it!
 
-## Nginx users
-Want to use `tj` with Nginx and the [original VVV](https://github.com/Varying-Vagrant-Vagrants/VVV)? It's as simple as running `tj` with a few flags:
+### Can I use the original VVV instead of VVV-Apache?
+So, you want to use `tj` with Nginx and the [original VVV](https://github.com/Varying-Vagrant-Vagrants/VVV)? It's as simple as running `tj` with a few flags:
 
 ```bash
 tj new --vm-box git@github.com:Varying-Vagrant-Vagrants/VVV.git --nginx
@@ -24,10 +24,39 @@ tj new --vm-box git@github.com:Varying-Vagrant-Vagrants/VVV.git --nginx
 
 To use these permanently, set the appropriate `ENV` variables through your `.bashrc` or similar, i.e. `export TJ_VM_BOX=git@github.com:Varying-Vagrant-Vagrants/VVV.git` and `export TJ_NGINX=true`.
 
-## Windows users
-Since Windows doesn't support UTF-8 characters inside of the terminal, and is picky about colors, you'll have to run `tj` with a couple flags. What has worked for me on my Windows machine at home is to run all commands through [git-scm](http://git-scm.com/downloads) with the `--boring --no-landrush` flags.
+### Can I use any Vagrant box for the VM?
+Yes and no; in order for `tj` to properly create a project, the Vagrant box needs to follow the same directory structure as VVV. Here is the required structure that `tj` needs in order to be able to create new projects:
 
-This disables all unicode characters and colors from being output, and disables [Landrush](https://github.com/phinze/landrush), which isn't fully supported on Windows. To set these globally via the `ENV`, set these environment variables or run these commands in your terminal:
+```
+├── config/
+|  |
+|  ├── {apache,nginx}-config/
+|  |  |
+|  |  ├── site-1.conf
+|  |  ├── site-2.conf
+|  |  ..
+|  ..
+├── www/
+|  |
+|  ├── site-1/
+|  |  |
+|  |  ├── index.php
+|  |  ..
+|  ├── site-2/
+|  |  |
+|  |  ├── index.php
+|  |  ..
+|  ..
+├── Customfile
+...
+```
+
+What is a `Customfile`? [It's a file that contains custom rules to add into the main `Vagrantfile`, without actually having to modify it](https://github.com/Varying-Vagrant-Vagrants/VVV/blob/develop/Vagrantfile#L208-L218). This allows us to easily modify the Vagrant box without causing merge conflicts if you were to update the VM source via `git pull`.
+
+### Is Windows supported?
+Yes! But, since Windows doesn't support UTF-8 characters inside of the terminal, and is picky about ASCII colors, you'll probably have to run `tj` with a couple flags. What has worked for me on one of my Windows machines is to run all commands through [git-scm](http://git-scm.com/downloads) with the `--boring --no-landrush` flags.
+
+This will disable all unicode characters and colors from being output, and disables [Landrush](https://github.com/phinze/landrush), which isn't fully supported on Windows. To set these globally via the `ENV`, set these environment variables or run these commands in your terminal:
 
 ```bash
 export TJ_BORING=true
@@ -36,10 +65,10 @@ export TJ_NO_LANDRUSH=true
 
 In addition to that, `tj` uses the [OS gem](https://github.com/rdp/os) to sniff out your OS and adjusts a few things accordingly to make sure things don't break. _I don't regularly develop on Windows, so if you encounter any bugs, please let me know through a **well-documented** issue and I'll try my best to get it resolved._
 
-## Config
-Because everybody likes to use different tools, you can create a `Juicefile` or `tj.yaml` config (with an optional preceding `.`) that will house all of your theme-specific commands. This allows you to use a streamlined set of commands that will act as aliases to your per-project configuration, as well as starter-theme specific information, such as deployment configuration, etc. For right now, we'll just stick to the `commands` section.
+### What is a `Juicefile`?
+Well, because everybody likes to use different tools, you can create a `Juicefile` or `tj.yaml` config file (with an optional preceding `.`) that will house all of your theme-specific commands. Each command essentially acts as a common-alias for each project's build system, allowing you freedom to update tools without having to juggle a million different commands (thus having to remember which project uses which).
 
-If you're into [Grunt](https://github.com/gruntjs/grunt), then use it. Prefer [Gulp](https://github.com/gulpjs/gulp)? What about [Guard](https://github.com/guard/guard)? Go right ahead. It's compeletely up to you and your team. This is obviously relative to the starter theme you use, since you can't exactly use Grunt with a project that doesn't support it.
+So what does this mean? Basically, if you're into [Grunt](https://github.com/gruntjs/grunt), then use it. Prefer [Gulp](https://github.com/gulpjs/gulp)? What about [Guard](https://github.com/guard/guard)? It's completely up to you and your team. This is obviously relative to the starter theme you use, since you can't exactly use Grunt with a project that doesn't support it.
 
 Below is the config that comes baked into [our starter theme](https://github.com/ezekg/theme-juice-starter):
 
@@ -75,9 +104,8 @@ cmd3 "%arg4%"
 
 You can specify an unlimited number of commands with an unlimited number of arguments; however, you should be careful with how this is used. Don't go including `sudo rm -rf %arg1%` in a command, while passing `/` as an argument. Keep it simple. These are meant to make your life easier by simplifying common build tools, not to do fancy scripting.
 
-## Usage
-
-Use the `man` page to print command usage:
+### Okay, how do I use `tj`?
+Just ask `tj` for help, and you'll get a nice man-page full of information about taking advantage of all of the available commands.
 
 ```
 tj help
@@ -85,7 +113,10 @@ tj help
 
 See [themejuice.it](http://themejuice.it) for the full documentation.
 
-## Can I add my starter theme, ________?
+### So, `tj` handles deployments, huh?
+Eventually, yes. It's not currently production-ready, but as soon as it is, we'll have detailed instruction on how to configure and deploy applications using `tj`.
+
+### Can I add my starter theme, ________?
 Yes! Just update the `THEMES` constant inside [commands/create.rb](https://github.com/ezekg/theme-juice-cli/blob/master/lib/theme-juice/commands/create.rb#L7-L11) and make a pull request. I'll verify that the theme includes a `Juicefile` (not required, but preferred to automate build steps), and that everything looks solid. Until then (or if your theme is private), just run `tj create --theme https://your.repo/link/goes.here` to clone your theme.
 
 ## Contributing
