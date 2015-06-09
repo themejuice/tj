@@ -131,6 +131,8 @@ across multiple projects that utilize different tools.
       Package project for distribution
     * `backup`:
       Backup project
+    * `test`:
+      Manage and run project tests
 
   * `deployment`:
     Coming soon
