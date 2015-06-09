@@ -110,17 +110,17 @@ input is defined within the config file itself
 ## CONFIG FILE
 
 A YAML configuration file (`Juicefile`) can be used to store commonly-used
-build scripts. Each command essentially acts as a alias for each project's
-build system, allowing a streamlined set of commands to be used across multiple
-projects with differing build systems.
+build scripts. Each command block sequence can be mapped to an individual
+project's build system, allowing a streamlined set of commands to be used
+across multiple projects that utilize different build systems.
 
   * `/^(((\.)?(tj)|((J|j)uicefile))(.y(a)?ml)?$)/`:
-    Configuration filename regex matcher
+    Configuration filename regex
 
   * `commands`:
     Collection of various command block sequences
     * `install`:
-      Theme installation
+      Run theme installation
     * `watch`:
       Manage development build tools
     * `vendor`:

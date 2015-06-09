@@ -150,7 +150,7 @@ module ThemeJuice
       @io.error "Not implemented"
     end
 
-    desc "install", "Run installation for project"
+    desc "install", "Run theme installation"
     def install(*commands)
       @config.install commands
     end
