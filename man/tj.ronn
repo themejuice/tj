@@ -1,144 +1,182 @@
 tj(1) -- WordPress development made easy
 ========================================
 
-## SYNOPSIS  
+## SYNOPSIS
 
-`tj` [<command>] [--flag=<arg>] [--flag]  
+`tj` [<command>] [--flag=<arg>] [--flag]
 
-## DESCRIPTION  
+## DESCRIPTION
 
-**Theme Juice** is a WordPress development command line utility that allows you to scaffold out entire Vagrant development environments in seconds (using an Apache fork of [VVV](https://github.com/Varying-Vagrant-Vagrants/VVV) called [VVV-Apache](https://github.com/ericmann/vvv-apache.git) as the VM). It also helps you manage dependencies and build tools, and can even handle your deployments.
+**Theme Juice** is a WordPress development command line utility that allows
+you to scaffold out entire Vagrant development environments in seconds (using
+an Apache fork of [VVV](https://github.com/Varying-Vagrant-Vagrants/VVV)
+called [VVV-Apache](https://github.com/ericmann/vvv-apache.git) as the
+VM). It also helps you manage dependencies and build tools, and
+can even handle your deployments.
 
-## GLOBAL OPTIONS  
+## GLOBAL OPTIONS
 
-  * `--vm-box`=<repository>:  
-    Force Vagrant box for use as VM  
+  * `--vm-box`=<repository>:
+    Force Vagrant box for use as VM
 
-  * `--vm-path`=<path>:  
-    Force path to VM  
+  * `--vm-path`=<path>:
+    Force path to VM
 
-  * `--vm-ip`=<ip>:  
-    Force IP address of VM    
+  * `--vm-ip`=<ip>:
+    Force IP address of VM
 
-  * `--vm-prefix`=<string>:  
-    Force directory prefix for project in VM  
+  * `--vm-prefix`=<string>:
+    Force directory prefix for project in VM
 
-  * `--yolo`:  
-    Say yes to anything and everything  
+  * `--yolo`:
+    Say yes to anything and everything
 
-  * `--boring`:  
-    Prints all output without any fancy formatting  
+  * `--boring`:
+    Prints all output without any fancy formatting
 
-  * `--no-unicode`:  
-    Prints all output without unicode characters  
+  * `--no-unicode`:
+    Prints all output without unicode characters
 
-  * `--no-colors`, `--no-color`:  
-    Prints all output without color  
+  * `--no-colors`, `--no-color`:
+    Prints all output without color
 
-  * `--no-animations`:  
-    Prints all output without animations (coming soon)  
+  * `--no-animations`:
+    Prints all output without animations (coming soon)
 
-  * `--no-landrush`:  
-    Disable the `landrush` gem for managing DNS  
+  * `--no-landrush`:
+    Disable the `landrush` gem for managing DNS
 
-  * `--verbose`:  
-    Prints out additional logging information  
+  * `--verbose`:
+    Prints out additional logging information
 
-  * `--dryrun`, `--dry-run`:  
-    Run a command without actually doing anything  
-  
-  * `--nginx`, `--no-apache`:  
-    Create conf files for nginx instead of apache  
+  * `--dryrun`, `--dry-run`:
+    Run a command without actually doing anything
 
-## PRIMARY COMMANDS  
+  * `--nginx`, `--no-apache`:
+    Create conf files for nginx instead of apache
 
-Run `tj help` [<command>] to view an individual command's man page.  
+## PRIMARY COMMANDS
 
-  * `create`, `new`, `mk`:  
+Run `tj help` [<command>] to view an individual command's man page.
+
+  * `create`, `new`, `mk`:
     Create a new project
-  
-  * `setup`, `up`, `init`:  
+
+  * `setup`, `up`, `init`:
     Setup an existing project
-  
-  * `delete`, `rm`, `remove`, `trash`:  
+
+  * `delete`, `rm`, `remove`, `trash`:
     Delete a project
-    
+
 ## SECONDARY COMMANDS
 
-  * `version`, `--version`, `-v`:  
+  * `version`, `--version`, `-v`:
     Print the current version
 
-  * `list`, `ls`, `projects`, `apps`, `sites`:  
+  * `list`, `ls`, `projects`, `apps`, `sites`:
     List all projects
 
-  * `vm`, `vagrant`, `vvv`=[<command>[,<command>]...]:  
-    Manage development environment. Commands are proxied to your Vagrant installation so that they can be run from any directory.
-    
+  * `vm`, `vagrant`, `vvv`=[<command>[,<command>]...]:
+    Manage development environment via `vagrant`. Commands are proxied to
+    your Vagrant installation so that they can be run from any directory.
+
 ## CONFIG COMMANDS
 
-These run the corresponding command from your project's config file. They accept any number of arguments, since the behavior and handling of input is defined within the config file itself.  
-    
-  * `install`, `build`=[<arg>[,<arg>]...]:  
+These run the corresponding command from your project's config file. They
+accept any number of arguments, since the behavior and handling of
+input is defined within the config file itself
+
+  * `install`, `build`=[<arg>[,<arg>]...]:
     Run installation for project
 
-  * `watch`, `dev`=[<arg>[,<arg>]...]:  
+  * `watch`, `dev`=[<arg>[,<arg>]...]:
     Manage and run development build tools
 
-  * `vendor`, `deps`=[<arg>[,<arg>]...]:  
+  * `vendor`, `deps`=[<arg>[,<arg>]...]:
     Manage PHP vendor dependencies
 
-  * `dist`, `pkg`, `package`, `zip`=[<arg>[,<arg>]...]:  
+  * `dist`, `pkg`, `package`, `zip`=[<arg>[,<arg>]...]:
     Package project for distribution
 
-  * `wp`, `wordpress`=[<arg>[,<arg>]...]:  
+  * `wp`, `wordpress`=[<arg>[,<arg>]...]:
     Manage WordPress installation
 
-  * `backup`, `bk`=[<arg>[,<arg>]...]:  
+  * `backup`, `bk`=[<arg>[,<arg>]...]:
     Backup project
 
-  * `test`, `tests`, `spec`, `specs`=[<arg>[,<arg>]...]:  
+  * `test`, `tests`, `spec`, `specs`=[<arg>[,<arg>]...]:
     Manage and run project tests
-    
+
+## CONFIG FILE
+
+A YAML configuration file (`Juicefile`) can be used to store commonly-used
+build scripts. Each command essentially acts as a alias for each project's
+build system, allowing a streamlined set of commands to be used across multiple
+projects with differing build systems.
+
+  * `/^(((\.)?(tj)|((J|j)uicefile))(.y(a)?ml)?$)/`:
+    Configuration filename regex matcher
+
+  * `commands`:
+    Collection of various command block sequences
+    * `install`:
+      Theme installation
+    * `watch`:
+      Manage development build tools
+    * `vendor`:
+      Manage vendor dependencies
+    * `wp`:
+      Manage WordPress installation
+    * `dist`:
+      Package project for distribution
+    * `backup`:
+      Backup project
+
+  * `deployment`:
+    Coming soon
+
 ## ENVIRONMENT
 
-All of the global options have a corresponding ENV variable that can be set to permanently use the specified value each time `tj` is run. This is useful if you're using an alternate Vagrant box, or if you need to disable certain features due to limited support e.g. on Windows.
-  
-  * `TJ_VM_BOX`=<repository>:  
-    Force Vagrant box for use as VM  
-    
-  * `TJ_PATH`=<path>:  
-    Force path to VM  
-    
-  * `TJ_IP`=<ip>:  
-    Force IP address of VM    
-    
-  * `TJ_PREFIX`=<string>:  
-    Force directory prefix for project in VM  
-    
-  * `TJ_YOLO`=<bool>:  
-    Say yes to anything and everything  
-    
-  * `TJ_BORING`=<bool>:  
-    Prints all output without any fancy formatting  
-    
-  * `TJ_NO_UNICODE`=<bool>:  
-    Prints all output without unicode characters  
-    
-  * `TJ_NO_COLORS`=<bool>:  
-    Prints all output without color  
-    
-  * `TJ_NO_ANIMATIONS`=<bool>:  
-    Prints all output without animations (coming soon)  
-    
-  * `TJ_NO_LANDRUSH`=<bool>:  
-    Disable the `landrush` gem for managing DNS  
-    
-  * `TJ_VERBOSE`=<bool>:  
-    Prints out additional logging information  
-    
-  * `TJ_DRYRUN`=<bool>:  
-    Run a command without actually doing anything  
-    
-  * `TJ_NGINX`=<bool>:  
-    Create conf files for nginx instead of apache  
-    
+All of the global options have a corresponding `ENV` variable that can be set
+to permanently use the specified value each time `tj` is run. This is useful
+if you're using an alternate Vagrant box, or if you need to disable certain
+features due to limited support e.g. on Windows.
+
+  * `TJ_VM_BOX`=<repository>:
+    Force Vagrant box for use as VM
+
+  * `TJ_PATH`=<path>:
+    Force path to VM
+
+  * `TJ_IP`=<ip>:
+    Force IP address of VM
+
+  * `TJ_PREFIX`=<string>:
+    Force directory prefix for project in VM
+
+  * `TJ_YOLO`=<bool>:
+    Say yes to anything and everything
+
+  * `TJ_BORING`=<bool>:
+    Prints all output without any fancy formatting
+
+  * `TJ_NO_UNICODE`=<bool>:
+    Prints all output without unicode characters
+
+  * `TJ_NO_COLORS`=<bool>:
+    Prints all output without color
+
+  * `TJ_NO_ANIMATIONS`=<bool>:
+    Prints all output without animations (coming soon)
+
+  * `TJ_NO_LANDRUSH`=<bool>:
+    Disable the `landrush` gem for managing DNS
+
+  * `TJ_VERBOSE`=<bool>:
+    Prints out additional logging information
+
+  * `TJ_DRYRUN`=<bool>:
+    Run a command without actually doing anything
+
+  * `TJ_NGINX`=<bool>:
+    Create conf files for nginx instead of apache
