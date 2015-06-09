@@ -8,24 +8,27 @@ begin
   require "ronn"
 
   ENV["RONN_MANUAL"] = "Theme Juice Manual"
-  ENV["RONN_LAYOUT"] = "man/templates/layout.html"
-  ENV["RONN_STYLE"]  = "./man/templates"
+  ENV["RONN_LAYOUT"] = "pages/templates/layout.html"
+  ENV["RONN_STYLE"]  = "./pages/templates"
 
   desc "Build the manual"
   namespace :man do
 
     directory "lib/theme-juice/man"
+    directory "pages/build"
+    
     sources = Dir["man/*.ronn"].map{ |f| File.basename(f, ".ronn") }
     sources.map do |basename|
       ronn = "man/#{basename}.ronn"
       roff = "lib/theme-juice/man/#{basename}"
+      page = "pages/build/#{basename.gsub("tj-", "")}.html"
 
       file roff => ["lib/theme-juice/man", ronn] do
         sh "#{Gem.ruby} -S ronn --roff --pipe #{ronn} > #{roff}"
       end
 
-      file roff => ["pages", ronn] do
-        sh "#{Gem.ruby} -S ronn -w5 --style toc,style --pipe #{ronn} > #{roff.gsub("tj-", "")}.html"
+      file roff => ["pages/build", ronn] do
+        sh "#{Gem.ruby} -S ronn -w5 --style toc,main --pipe #{ronn} > #{page}"
       end
 
       file "#{roff}.txt" => roff do
@@ -37,6 +40,7 @@ begin
 
     task :clean do
       rm_rf "lib/theme-juice/man"
+      rm_rf "pages/build"
     end
 
     task :pages do

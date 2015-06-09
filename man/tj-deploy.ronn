@@ -1,0 +1,10 @@
+tj-deploy(1) -- Manage deployment and migration
+===============================================
+
+## SYNOPSIS
+
+`tj deploy` [--flag=<arg>] [--flag]
+
+## DESCRIPTION
+
+Coming soon
