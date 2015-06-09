@@ -148,7 +148,6 @@ When naming your configuration file, use the recommended `Juicefile`, or
 `.tj.yaml` naming convention. The raw filename regex matcher is below.
 
   * `/^(((\.)?(tj)|((J|j)uicefile))(.y(a)?ml)?$)/`:
-    Configuration filename regex
 
 ## ENVIRONMENT
 
