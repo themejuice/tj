@@ -15,28 +15,26 @@
 -->
 <body id='manpage'>
   <div class='mp' id='man'>
-    
-  <h1 class='test'>TEST</h1>
 
-  <div class='man-navigation' style='display:none'>
-    {{#section_heads}}
-    <a href="#{{id}}">{{text}}</a>
-    {{/section_heads}}
-  </div>
+    <div class='man-navigation' style='display:none'>
+      {{#section_heads}}
+      <a href="#{{id}}">{{text}}</a>
+      {{/section_heads}}
+    </div>
 
-  <ol class='man-decor man-head man head'>
-    <li class='tl'>{{ page_name }}</li>
-    <li class='tc'>{{ manual }}</li>
-    <li class='tr'>{{ page_name }}</li>
-  </ol>
+    <ol class='man-decor man-head man head'>
+      <li class='tl'>{{ page_name }}</li>
+      <li class='tc'>{{ manual }}</li>
+      <li class='tr'>{{ page_name }}</li>
+    </ol>
 
-  {{{ html }}}
+    {{{ html }}}
 
-  <ol class='man-decor man-foot man foot'>
-    <li class='tl'>{{ organization }}</li>
-    <li class='tc'>{{ date }}</li>
-    <li class='tr'>{{ page_name }}</li>
-  </ol>
+    <ol class='man-decor man-foot man foot'>
+      <li class='tl'>{{ organization }}</li>
+      <li class='tc'>{{ date }}</li>
+      <li class='tr'>{{ page_name }}</li>
+    </ol>
 
   </div>
 </body>
