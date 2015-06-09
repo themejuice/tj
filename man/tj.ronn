@@ -112,7 +112,7 @@ input is defined within the config file itself
 A YAML configuration file (`Juicefile`) can be used to store commonly-used
 build scripts. Each command block sequence can be mapped to an individual
 project's build system, allowing a streamlined set of commands to be used
-across multiple projects that utilize different build systems.
+across multiple projects that utilize different tools.
 
   * `/^(((\.)?(tj)|((J|j)uicefile))(.y(a)?ml)?$)/`:
     Configuration filename regex

@@ -7,42 +7,47 @@ tj-create(1) -- Create a new project
 
 ## DESCRIPTION
 
-Creates a new project. It will lead the user through a series of prompts to set up required project information, such as name, location, theme, database info, etc. Using the specified information, it will run the installation process and set up a local development environment, if it hasn't already been set up. It will sync your local project location with the project location within the VM.
+Creates a new project. It will lead the user through a series of prompts to
+set up required project information, such as name, location, theme, database
+info, etc. Using the specified information, it will run the installation
+process and set up a local development environment, if it hasn't already
+been set up. It will sync your local project location with the project
+location within the VM.
 
 ## GLOBAL OPTIONS
 
-  * `-n`, `--name`=<string>:  
-    Name of the project  
+  * `-n`, `--name`=<string>:
+    Name of the project
 
-  * `-l`, `--location`=<path>:  
-    Location of the local project  
+  * `-l`, `--location`=<path>:
+    Location of the local project
 
-  * `-t`, `--theme`=<repository>:  
-    Starter theme to install  
+  * `-t`, `--theme`=<repository>:
+    Starter theme to install
 
-  * `-u`, `--url`=<url>:  
-    Development URL for the project  
+  * `-u`, `--url`=<url>:
+    Development URL for the project
 
-  * `-r`, `--repository`=<repository>:  
-    Initialize a new Git remote repository  
+  * `-r`, `--repository`=<repository>:
+    Initialize a new Git remote repository
 
-  * `-i`, `--import-db`=<path>:  
-    Import an existing database  
+  * `-i`, `--import-db`=<path>:
+    Import an existing database
 
-  * `--bare`, `--no-theme`:  
-    Create a project without a starter theme  
+  * `--bare`, `--no-theme`:
+    Create a project without a starter theme
 
-  * `--skip-repo`:  
-    Skip repository prompts and use default settings  
+  * `--skip-repo`:
+    Skip repository prompts and use default settings
 
-  * `--skip-db`:  
-    Skip database prompts and use default settings  
+  * `--skip-db`:
+    Skip database prompts and use default settings
 
-  * `--use-defaults`:  
-    Skip all prompts and use default settings  
+  * `--use-defaults`:
+    Skip all prompts and use default settings
 
-  * `--no-wp`:  
-    Project is not a WordPress install  
+  * `--no-wp`:
+    Project is not a WordPress install
 
-  * `--no-db`:  
-    Project does not need a database  
+  * `--no-db`:
+    Project does not need a database

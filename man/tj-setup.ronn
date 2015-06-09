@@ -7,36 +7,38 @@ tj-setup(1) -- Setup an existing project
 
 ## DESCRIPTION
 
-Sets up an existing local project within the development environment. You will go through a series of prompts to create the necessary files. This command is essentially an alias for `tj create --bare`.
+Sets up an existing local project within the development environment. You will
+go through a series of prompts to create the necessary files. This command is
+essentially an alias for `tj create --bare`.
 
 ## GLOBAL OPTIONS
 
-  * `-n`, `--name`=<name>:  
-    Name of the project  
+  * `-n`, `--name`=<name>:
+    Name of the project
 
-  * `-l`, `--location`=<path>:  
-    Location of the local project  
+  * `-l`, `--location`=<path>:
+    Location of the local project
 
-  * `-u`, `--url`=<url>:  
-    Development URL for the project  
+  * `-u`, `--url`=<url>:
+    Development URL for the project
 
-  * `-r`, `--repository`=<repository>:  
-    Initialize a new Git remote repository  
+  * `-r`, `--repository`=<repository>:
+    Initialize a new Git remote repository
 
-  * `-i`, `--import-db`=<path>:  
-    Import an existing database  
+  * `-i`, `--import-db`=<path>:
+    Import an existing database
 
-  * `--skip-repo`:  
-    Skip repository prompts and use default settings  
+  * `--skip-repo`:
+    Skip repository prompts and use default settings
 
-  * `--skip-db`:  
-    Skip database prompts and use default settings  
+  * `--skip-db`:
+    Skip database prompts and use default settings
 
-  * `--use-defaults`:  
-    Skip all prompts and use default settings  
+  * `--use-defaults`:
+    Skip all prompts and use default settings
 
-  * `--no-wp`:  
-    Project is not a WordPress install  
+  * `--no-wp`:
+    Project is not a WordPress install
 
-  * `--no-db`:  
-    Project does not need a database  
+  * `--no-db`:
+    Project does not need a database
