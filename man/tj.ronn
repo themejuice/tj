@@ -112,13 +112,11 @@ input is defined within the config file itself
 A YAML configuration file (`Juicefile`) can be used to store commonly-used
 build scripts. Each command block sequence can be mapped to an individual
 project's build system, allowing a streamlined set of commands to be used
-across multiple projects that utilize different tools.
-
-  * `/^(((\.)?(tj)|((J|j)uicefile))(.y(a)?ml)?$)/`:
-    Configuration filename regex
+across multiple projects that utilize different tools
 
   * `commands`:
     Collection of various command block sequences
+
     * `install`:
       Run theme installation
     * `watch`:
@@ -136,6 +134,21 @@ across multiple projects that utilize different tools.
 
   * `deployment`:
     Coming soon
+
+Placeholder arguments can be used within any command block sequence to
+allow splat or indexed arguments to be passed to the corresponding
+command when executed.
+
+  * `%args%`, `%arguments%`:
+    Splat argument placeholder e.g. `cmd %args%`
+  * `%argN%`, `%argumentN%`:
+    Where `n` is the argument index e.g. `cmd %arg1% | cmd %arg2%`
+
+When naming your configuration file, use the recommended `Juicefile`, or
+`.tj.yaml` naming convention. The raw filename regex matcher is below.
+
+  * `/^(((\.)?(tj)|((J|j)uicefile))(.y(a)?ml)?$)/`:
+    Configuration filename regex
 
 ## ENVIRONMENT
 
