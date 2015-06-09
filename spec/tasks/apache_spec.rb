@@ -23,7 +23,7 @@ describe ThemeJuice::Tasks::Apache do
       output = capture(:stdout) { @task.execute }
       
       expect(File.binread(@file)).to match /\/srv\/www\/apache-test\//
-      expect(File.binread(@file)).to match /apache\-test\.dev/
+      expect(File.binread(@file)).to match /apache-test\.dev/
       
       expect(output).to match /create/
     end

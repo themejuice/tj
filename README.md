@@ -112,7 +112,7 @@ cmd3 "%arg4%"
 You can specify an unlimited number of commands with an unlimited number of arguments; however, you should be careful with how this is used. Don't go including `sudo rm -rf %arg1%` in a command, while passing `/` as an argument. Keep it simple. These are meant to make your life easier by helping you manage build tools, not to do fancy scripting.
 
 ### So, `tj` handles deployments, huh?
-Eventually, yes. It's not currently production-ready, but as soon as it is, we'll have detailed instruction on how to configure and deploy applications using `tj`.
+Eventually, yes. It's not currently production-ready, but as soon as it is, we'll have detailed instructions on how to configure and deploy applications using `tj`.
 
 ### Help! It won't let me `git clone` anything!
 You most likely don't have [SSH-keys for GitHub set up correctly (if even at all)](https://help.github.com/articles/error-permission-denied-publickey/). Either set that up, or manually run `tj` with the appropriate flags corresponding to the problem-repository, swapping out `git@github.com:` for `https://github.com/`:

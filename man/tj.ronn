@@ -100,7 +100,8 @@ These run the corresponding command from your project's config file. They accept
     Manage and run project tests
     
 ## ENVIRONMENT
-  All of the global options have a corresponding ENV variable that can be set to permanently use the specified value each time `tj` is run. This is useful if you're using an alternate Vagrant box, or if you need to disable certain features due to limited support i.e. Windows.
+
+All of the global options have a corresponding ENV variable that can be set to permanently use the specified value each time `tj` is run. This is useful if you're using an alternate Vagrant box, or if you need to disable certain features due to limited support e.g. on Windows.
   
   * `TJ_VM_BOX`=<repository>:  
     Force Vagrant box for use as VM  

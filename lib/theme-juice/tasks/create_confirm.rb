@@ -17,7 +17,7 @@ module ThemeJuice
       
       def is_user_a_smarty_pants?
         if @env.yolo && @project.use_defaults
-          @io.say "Well, don't you just have everything figured out?", {
+          @io.say "Well, don't you just have everything all figured out?", {
             :color => :blue, :icon => :general }
         end
       end

@@ -27,7 +27,7 @@ module ThemeJuice
 
         @util.inside @env.vm_path do
           res = @util.run("vagrant status --machine-readable", {
-            :verbose => @env.verbose, :capture => true}).include? "running"
+            :verbose => @env.verbose, :capture => true }).include? "running"
         end
 
         res
