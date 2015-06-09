@@ -6,10 +6,10 @@ task :default => :spec
 
 begin
   require "ronn"
-  
+
   ENV["RONN_MANUAL"] = "Theme Juice Manual"
   ENV["RONN_LAYOUT"] = "man/templates/layout.html"
-  # ENV["RONN_STYLE"]  = "toc,./man/templates/style.css"
+  ENV["RONN_STYLE"]  = "./man/templates"
 
   desc "Build the manual"
   namespace :man do
@@ -23,9 +23,9 @@ begin
       file roff => ["lib/theme-juice/man", ronn] do
         sh "#{Gem.ruby} -S ronn --roff --pipe #{ronn} > #{roff}"
       end
-      
+
       file roff => ["pages", ronn] do
-        sh "#{Gem.ruby} -S ronn -w5 --style toc,./man/templates/style.css --pipe #{ronn} > #{roff.gsub("tj-", "")}.html"
+        sh "#{Gem.ruby} -S ronn -w5 --style toc,style --pipe #{ronn} > #{roff.gsub("tj-", "")}.html"
       end
 
       file "#{roff}.txt" => roff do
@@ -38,7 +38,7 @@ begin
     task :clean do
       rm_rf "lib/theme-juice/man"
     end
-    
+
     task :pages do
       # verbose(false) {
       #   rm_rf "pages"
