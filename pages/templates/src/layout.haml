@@ -6,4 +6,23 @@
     %title
       {{ title }}
     {{{ stylesheet_tags }}}
-  %body
+  %body#manpage
+    #man.mp
+    
+      .man-navigation
+        {{#section_heads}}
+        %a(href="\#{{id}}")
+          {{text}}
+        {{/section_heads}}
+      
+      %ol.man-decor.man-head.man.head
+        %li.tl {{ page_name }}
+        %li.tc {{ manual }}
+        %li.tr {{ page_name }}
+      
+      {{{ html }}}
+      
+      %ol.man-decor.man-foot.man.foot
+        %li.tl {{ organization }}
+        %li.tc {{ date }}
+        %li.tr {{ page_name }}
