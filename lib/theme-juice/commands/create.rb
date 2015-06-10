@@ -32,6 +32,7 @@ module ThemeJuice
           end
           tasks << Tasks::DotEnv.new
           tasks << Tasks::Landrush.new
+          tasks << Tasks::ForwardPorts.new
           tasks << Tasks::SyncedFolder.new
           tasks << Tasks::DNS.new
           tasks << Tasks::WPCLI.new
