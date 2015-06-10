@@ -117,32 +117,32 @@ build scripts. Each command block sequence can be mapped to an individual
 project's build tool, allowing a streamlined set of commands to be used
 across multiple projects that utilize different tools.
 
-  * `commands`:  \
-    Collection of various command block sequences  \
+  * `commands`:  
+    Collection of various command block sequences  
 
-  * `commands.install`:  \
-    Run theme installation  \
+  * `commands.install`:  
+    Run theme installation  
 
-  * `commands.watch`:  \
-    Manage development build tools  \
+  * `commands.watch`:  
+    Manage development build tools  
 
-  * `commands.vendor`:  \
-    Manage vendor dependencies  \
+  * `commands.vendor`:  
+    Manage vendor dependencies  
 
-  * `commands.wp`:  \
-    Manage WordPress installation  \
+  * `commands.wp`:  
+    Manage WordPress installation  
 
-  * `commands.dist`:  \
-    Package project for distribution  \
+  * `commands.dist`:  
+    Package project for distribution  
 
-  * `commands.backup`:  \
-    Backup project  \
+  * `commands.backup`:  
+    Backup project  
 
-  * `commands.test`:  \
-    Manage and run project tests  \
+  * `commands.test`:  
+    Manage and run project tests  
 
-  * `deployment`:  \
-    Coming soon  \
+  * `deployment`:  
+    Coming soon  
 
 Placeholder arguments can be used within any command block sequence to
 allow splat or indexed arguments to be passed to the corresponding
