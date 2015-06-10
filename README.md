@@ -150,6 +150,9 @@ You can specify an unlimited number of commands with an unlimited number of argu
 #### Does `tj` handle deployments?
 Eventually, yes. It's not currently production-ready, but as soon as it is, we'll have detailed instructions on how to configure and deploy applications using `tj`. Right now, I'm leaning towards integrating an automated Capistrano workflow, but am open to other options. [Have an idea and want to contribute?](#contributing)
 
+#### Can I test a project with my mobile device?
+Yes! By default, `tj` sets up all project's to support [xip.io](http://xip.io/). To test a project from another device on the same network, do `<project-name>.<your-hosts-ip-address>.xip.io` e.g. `themejuice.192.168.1.1.xip.io`.
+
 #### Help! It won't let me `git clone` anything!
 You most likely don't have [SSH-keys for GitHub set up correctly (if even at all)](https://help.github.com/articles/error-permission-denied-publickey/). Either set that up, or manually run `tj` with the appropriate flags corresponding to the problem-repository, swapping out `git@github.com:` for `https://github.com/`:
 
