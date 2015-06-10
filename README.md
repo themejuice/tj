@@ -151,7 +151,9 @@ You can specify an unlimited number of commands with an unlimited number of argu
 Eventually, yes. It's not currently production-ready, but as soon as it is, we'll have detailed instructions on how to configure and deploy applications using `tj`. Right now, I'm leaning towards integrating an automated Capistrano workflow, but am open to other options. [Have an idea and want to contribute?](#contributing)
 
 #### Can I access a project from another device (i.e. mobile)?
-Yes! If you're using OSX, then everything should work out of the box. If you're not using OSX, then you'll need to point you host machines `80` port to `8080`, as Vagrant cannot do this by default for security reasons. By default, `tj` sets up all project's to support [xip.io](http://xip.io/) (definitely check it out). To access a project from another device on the same network, go to `<project-name>.<your-hosts-ip-address>.xip.io` e.g. `themejuice.192.168.1.1.xip.io`.
+Yes! Every project created with `tj` will automatically be set up to support using [xip.io](http://xip.io/). If you're using OSX, then everything should work out of the box. If you're not using OSX, then you'll need to point port `80` on your host machine to `8080`; Vagrant cannot do this by default for security reasons.
+
+Once everything is good to go, you can access a project from another device on the same network by going to `<project-name>.<your-hosts-ip-address>.xip.io` e.g. `themejuice.192.168.1.1.xip.io`.
 
 #### Help! It won't let me `git clone` anything!
 You most likely don't have [SSH-keys for GitHub set up correctly (if even at all)](https://help.github.com/articles/error-permission-denied-publickey/). Either set that up, or manually run `tj` with the appropriate flags corresponding to the problem-repository, swapping out `git@github.com:` for `https://github.com/`:
