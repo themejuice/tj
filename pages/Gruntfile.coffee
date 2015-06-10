@@ -13,8 +13,7 @@ module.exports = (grunt) ->
         files:
           "templates/layout.html": "templates/src/layout.haml"
         options:
-          bare: yes
-          language: "coffee"
+          language: "ruby"
 
     compass:
       dist:

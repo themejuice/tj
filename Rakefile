@@ -16,7 +16,9 @@ begin
 
     directory "lib/theme-juice/man"
     directory "pages/build"
-    
+
+    sh "grunt build --gruntfile pages/Gruntfile.coffee --quiet"
+
     sources = Dir["man/*.ronn"].map{ |f| File.basename(f, ".ronn") }
     sources.map do |basename|
       ronn = "man/#{basename}.ronn"

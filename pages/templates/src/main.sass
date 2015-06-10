@@ -72,7 +72,7 @@
       content: " "
       width: 100%
 
-    li
+    &__item
       +inline-block
       position: relative
 
@@ -81,3 +81,6 @@
 
   &__foot
     @extend .main__head
+
+    &__item
+      @extend .main__head__item

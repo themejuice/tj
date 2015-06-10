@@ -1,42 +1,54 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <meta http-equiv='content-type' value='text/html;charset=utf8'>
-    <meta name='generator' value='{{generator}}'>
-    <title>{{title}}</title>
-    {{{stylesheet_tags}}}
-  </head>
-  <body>
-    <header class='header__wrapper'>
-      <div class='header'>
-        <aside class='logo'>
-          <img class='logo__image' src='' alt='Theme Juice'>
-        </aside>
-        <nav class='navigation'>
-          {{#section_heads}}
-          <a class='navigation__item' href='{{id}}'>
-            {{text}}
-          </a>
-          {{/section_heads}}
-        </nav>
-      </div>
-    </header>
-    <main class='main__wrapper'>
-      <div class='main'>
-        <ol class='main__head'>
-          <li>{{page_name}}</li>
-          <li>{{manual}}</li>
-          <li>{{page_name}}</li>
-        </ol>
-        <article class='main__content'>
-          {{{html}}}
-        </article>
-        <ol class='main__foot'>
-          <li>{{organization}}</li>
-          <li>{{date}}</li>
-          <li>{{page_name}}</li>
-        </ol>
-      </div>
-    </main>
-  </body>
+<head>
+<meta http-equiv='content-type' value='text/html;charset=utf8'>
+<meta name='generator' value='{{generator}}'>
+<title>{{title}}</title>
+{{{stylesheet_tags}}}
+</head>
+<body>
+<header class='header__wrapper'>
+<div class='header'>
+<aside class='logo'>
+<img alt='Theme Juice' class='logo__image' src=''>
+</aside>
+<nav class='navigation'>
+{{#section_heads}}
+<a alt='{{text}}' class='navigation__item' href='#{{id}}'>
+{{text}}
+</a>
+{{/section_heads}}
+</nav>
+</div>
+</header>
+<main class='main__wrapper'>
+<div class='main'>
+<ol class='main__head'>
+<li class='main__head__item'>
+{{page_name}}
+</li>
+<li class='main__head__item'>
+{{manual}}
+</li>
+<li class='main__head__item'>
+{{page_name}}
+</li>
+</ol>
+<article class='main__content'>
+{{{html}}}
+</article>
+<ol class='main__foot'>
+<li class='main__foot__item'>
+{{organization}}
+</li>
+<li class='main__foot__item'>
+{{date}}
+</li>
+<li class='main__foot__item'>
+{{page_name}}
+</li>
+</ol>
+</div>
+</main>
+</body>
 </html>

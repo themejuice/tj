@@ -1,8 +1,8 @@
 !!!
 %html
   %head
-    %meta(http-equiv='content-type' value='text/html;charset=utf8')
-    %meta(name='generator' value='{{generator}}')
+    %meta(http-equiv="content-type" value="text/html;charset=utf8")
+    %meta(name="generator" value="{{generator}}")
     %title {{title}}
     {{{stylesheet_tags}}}
   %body
@@ -10,10 +10,10 @@
     %header.header__wrapper
       .header
         %aside.logo
-          %img.logo__image(src='' alt='Theme Juice')
+          %img.logo__image(src="" alt="Theme Juice")
         %nav.navigation
           {{#section_heads}}
-          %a.navigation__item(href='{{id}}')
+          %a.navigation__item(href="\#{{id}}" alt="{{text}}")
             {{text}}
           {{/section_heads}}
 
@@ -21,34 +21,20 @@
       .main
 
         %ol.main__head
-          %li {{page_name}}
-          %li {{manual}}
-          %li {{page_name}}
+          %li.main__head__item
+            {{page_name}}
+          %li.main__head__item
+            {{manual}}
+          %li.main__head__item
+            {{page_name}}
 
         %article.main__content
           {{{html}}}
 
         %ol.main__foot
-          %li {{organization}}
-          %li {{date}}
-          %li {{page_name}}
-
-  -# %body#manpage
-  -#   #man.mp
-  -#
-  -#     .man-navigation
-  -#       {{#section_heads}}
-  -#       %a(href="\#{{id}}") {{text}}
-  -#       {{/section_heads}}
-  -#
-  -#     %ol.man-decor.man-head.man.head
-  -#       %li.tl {{page_name}}
-  -#       %li.tc {{manual}}
-  -#       %li.tr {{page_name}}
-  -#
-  -#     {{{html}}}
-  -#
-  -#     %ol.man-decor.man-foot.man.foot
-  -#       %li.tl {{organization}}
-  -#       %li.tc {{date}}
-  -#       %li.tr {{page_name}}
+          %li.main__foot__item
+            {{organization}}
+          %li.main__foot__item
+            {{date}}
+          %li.main__foot__item
+            {{page_name}}
