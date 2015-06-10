@@ -24,7 +24,7 @@ describe ThemeJuice::Tasks::Nginx do
 
       expect(File.binread(@file)).to include '/srv/www/nginx-test/'
       expect(File.binread(@file)).to include 'nginx-test.dev'
-      expect(File.binread(@file)).to include '~^nginx-test\.\d+\.\d+\.\d+\.\d+\.xip\.io$'
+      expect(File.binread(@file)).to include '~(^|^[a-z0-9-]*\.)nginx-test\.\d+\.\d+\.\d+\.\d+\.xip\.io$'
 
       expect(output).to match /create/
     end

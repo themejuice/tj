@@ -33,7 +33,7 @@ module ThemeJuice
 %Q(server {
   listen       80;
   listen       443 ssl;
-  server_name  .#{@project.url} ~^#{@project.url.gsub(/\.dev$/, "")}\\.\\d+\\.\\d+\\.\\d+\\.\\d+\\.xip\\.io$;
+  server_name  .#{@project.url} ~(^|^[a-z0-9-]*\\.)#{@project.url.gsub(/\.dev$/, "")}\\.\\d+\\.\\d+\\.\\d+\\.\\d+\\.xip\\.io$;
   root         #{@project.vm_srv};
   include      /etc/nginx/nginx-wp-common.conf;
 }
