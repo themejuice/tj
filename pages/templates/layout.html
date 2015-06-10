@@ -1,33 +1,42 @@
-
+<!DOCTYPE html>
 <html>
   <head>
     <meta http-equiv='content-type' value='text/html;charset=utf8'>
-    <meta name='generator' value='{{ generator }}'>
-    <title>
-      {{ title }}
-    </title>
-    {{{ stylesheet_tags }}}
+    <meta name='generator' value='{{generator}}'>
+    <title>{{title}}</title>
+    {{{stylesheet_tags}}}
   </head>
-  <body id='manpage'>
-    <div class='mp' id='man'>
-      <div class='man-navigation'>
-        {{#section_heads}}
-        <a href='#{ $e($c({id})) }'>
-          {{text}}
-        </a>
-        {{/section_heads}}
+  <body>
+    <header class='header__wrapper'>
+      <div class='header'>
+        <aside class='logo'>
+          <img class='logo__image' src='' alt='Theme Juice CLI'>
+        </aside>
+        <nav class='navigation'>
+          {{#section_heads}}
+          <a class='navigation__item' href='{{id}}'>
+            {{text}}
+          </a>
+          {{/section_heads}}
+        </nav>
       </div>
-      <ol class='head man man-decor man-head'>
-        <li class='tl'>{{ page_name }}</li>
-        <li class='tc'>{{ manual }}</li>
-        <li class='tr'>{{ page_name }}</li>
-      </ol>
-      {{{ html }}}
-      <ol class='foot man man-decor man-foot'>
-        <li class='tl'>{{ organization }}</li>
-        <li class='tc'>{{ date }}</li>
-        <li class='tr'>{{ page_name }}</li>
-      </ol>
-    </div>
+    </header>
+    <main class='main__wrapper'>
+      <div class='main'>
+        <ol class='main__head'>
+          <li>{{page_name}}</li>
+          <li>{{manual}}</li>
+          <li>{{page_name}}</li>
+        </ol>
+        <article class='main__content'>
+          {{{html}}}
+        </article>
+        <ol class='main__foot'>
+          <li>{{organization}}</li>
+          <li>{{date}}</li>
+          <li>{{page_name}}</li>
+        </ol>
+      </div>
+    </main>
   </body>
 </html>

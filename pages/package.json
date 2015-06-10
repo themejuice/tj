@@ -1,6 +1,5 @@
 {
   "devDependencies": {
-    "grunt-contrib-clean": "^0.6.0",
     "grunt-contrib-compass": "^1.0.1",
     "grunt-contrib-watch": "~0.5.3",
     "grunt-haml": "^0.9.0",

@@ -7,11 +7,7 @@ module.exports = (grunt) ->
   require("time-grunt") grunt
 
   grunt.initConfig
-  
-    clean:
-      dist:
-        src: ["build"]
-  
+
     haml:
       dist:
         files:
@@ -19,7 +15,7 @@ module.exports = (grunt) ->
         options:
           bare: yes
           language: "coffee"
-            
+
     compass:
       dist:
         options:
@@ -27,32 +23,21 @@ module.exports = (grunt) ->
           sassDir: "templates/src"
           outputStyle: "compressed"
           require: []
-    
+
     watch:
       gruntfile:
-        files: [
-          "Gruntfile.coffee"
-          "Gruntfile.js"
-        ]
+        files: ["Gruntfile.coffee", "Gruntfile.js"]
         tasks: ["default"]
 
       template:
-        files: [
-          "templates/src/**/*.haml"
-        ]
+        files: ["templates/src/**/*.haml"]
         tasks: ["template"]
-        options:
-          livereload: yes
 
       style:
-        files: [
-          "templates/src/**/*.sass"
-        ]
+        files: ["templates/src/**/*.sass"]
         tasks: ["style"]
-        options:
-          livereload: yes
-    
+
   grunt.registerTask "default",  ["build", "watch"]
-  grunt.registerTask "build",    ["clean", "template", "style"]
+  grunt.registerTask "build",    ["template", "style"]
   grunt.registerTask "template", ["haml"]
   grunt.registerTask "style",    ["compass"]
