@@ -9,7 +9,7 @@ describe ThemeJuice::Tasks::Apache do
     allow(@project).to receive(:name).and_return "apache-test"
     allow(@project).to receive(:url).and_return "apache-test.dev"
     allow(@project).to receive(:vm_srv).and_return "/srv/www/apache-test/"
-    
+
     FileUtils.mkdir_p "#{@env.vm_path}/config/apache-config/sites"
   end
 
@@ -21,10 +21,11 @@ describe ThemeJuice::Tasks::Apache do
   describe "#execute" do
     it "should create apache conf file with project info" do
       output = capture(:stdout) { @task.execute }
-      
-      expect(File.binread(@file)).to match /\/srv\/www\/apache-test\//
-      expect(File.binread(@file)).to match /apache-test\.dev/
-      
+
+      expect(File.binread(@file)).to include '/srv/www/apache-test/'
+      expect(File.binread(@file)).to include 'apache-test.dev'
+      expect(File.binread(@file)).to include '*.apache-test.*.xip.io'
+
       expect(output).to match /create/
     end
   end
@@ -35,9 +36,9 @@ describe ThemeJuice::Tasks::Apache do
         @task.execute
         @task.unexecute
       end
-      
+
       expect(File.exist?(@file)).to be false
-      
+
       expect(output).to match /remove/
     end
   end

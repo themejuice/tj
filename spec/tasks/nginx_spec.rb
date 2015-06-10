@@ -9,7 +9,7 @@ describe ThemeJuice::Tasks::Nginx do
     allow(@project).to receive(:name).and_return "nginx-test"
     allow(@project).to receive(:url).and_return "nginx-test.dev"
     allow(@project).to receive(:vm_srv).and_return "/srv/www/nginx-test/"
-    
+
     FileUtils.mkdir_p "#{@env.vm_path}/config/nginx-config/sites"
   end
 
@@ -21,10 +21,11 @@ describe ThemeJuice::Tasks::Nginx do
   describe "#execute" do
     it "should create nginx conf file with project info" do
       output = capture(:stdout) { @task.execute }
-      
-      expect(File.binread(@file)).to match /\/srv\/www\/nginx-test\//
-      expect(File.binread(@file)).to match /nginx-test\.dev/
-      
+
+      expect(File.binread(@file)).to include '/srv/www/nginx-test/'
+      expect(File.binread(@file)).to include 'nginx-test.dev'
+      expect(File.binread(@file)).to include '~^nginx-test\.\d+\.\d+\.\d+\.\d+\.xip\.io$'
+
       expect(output).to match /create/
     end
   end
@@ -35,9 +36,9 @@ describe ThemeJuice::Tasks::Nginx do
         @task.execute
         @task.unexecute
       end
-      
+
       expect(File.exist?(@file)).to be false
-      
+
       expect(output).to match /remove/
     end
   end

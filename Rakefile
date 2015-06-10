@@ -17,8 +17,6 @@ begin
     directory "lib/theme-juice/man"
     directory "pages/build"
 
-    sh "grunt build --gruntfile pages/Gruntfile.coffee --quiet"
-
     sources = Dir["man/*.ronn"].map{ |f| File.basename(f, ".ronn") }
     sources.map do |basename|
       ronn = "man/#{basename}.ronn"
@@ -45,6 +43,10 @@ begin
       rm_rf "pages/build"
     end
 
+    task :grunt do
+      sh "grunt build --gruntfile pages/Gruntfile.coffee --quiet"
+    end
+
     task :pages do
       # verbose(false) {
       #   rm_rf "pages"
@@ -66,7 +68,7 @@ begin
     end
   end
 
-  task :man => ["man:clean", "man:build", "man:pages"]
+  task :man => ["man:clean", "man:grunt", "man:build", "man:pages"]
 rescue LoadError
   namespace :man do
     task(:build) { warn "Install the ronn gem to build the help pages" }
