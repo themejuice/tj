@@ -3,7 +3,7 @@ describe ThemeJuice::Env do
   before do
     @env = ThemeJuice::Env
   end
-  
+
   it { is_expected.to respond_to :vm_box }
   it { is_expected.to respond_to :vm_box= }
   it { is_expected.to respond_to :vm_path }
@@ -29,9 +29,39 @@ describe ThemeJuice::Env do
   it { is_expected.to respond_to :dryrun }
   it { is_expected.to respond_to :dryrun= }
 
-  describe "#inspect" do
+  describe ".inspect" do
     it "should return an array of all instance variables" do
       expect(@env.inspect).to be_a Array
+    end
+  end
+
+  %W[vm_box vm_path vm_ip vm_prefix].each do |prop|
+    describe ".#{prop}" do
+
+      it "should expect to use the set value" do
+        @env.send "#{prop}=", "test"
+        expect(@env.send(prop)).to eq "test"
+      end
+
+      it "should expect to use the default value" do
+        @env.send "#{prop}=", nil
+        expect(@env.send(prop)).to be_a String
+      end
+    end
+  end
+
+  %W[boring yolo no_unicode no_colors no_animations no_landrush verbose dryrun].each do |prop|
+    describe ".#{prop}" do
+
+      it "should expect to use the set boolean value" do
+        @env.send "#{prop}=", true
+        expect(@env.send(prop)).to eq true
+      end
+
+      it "should expect to use the default boolean value" do
+        @env.send "#{prop}=", nil
+        expect(@env.send(prop)).to eq false
+      end
     end
   end
 end

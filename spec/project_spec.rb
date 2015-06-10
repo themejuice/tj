@@ -26,7 +26,7 @@ describe ThemeJuice::Project do
   it { is_expected.to respond_to :no_wp }
   it { is_expected.to respond_to :no_db }
 
-  describe "#inspect" do
+  describe ".inspect" do
     it "should return an array of all instance variables" do
       expect(@project.inspect).to be_a Array
     end

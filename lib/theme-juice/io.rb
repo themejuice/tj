@@ -3,7 +3,7 @@
 module ThemeJuice
   module IO
     include Thor::Shell
-    
+
     alias_method :_say, :say
     alias_method :_ask, :ask
 
@@ -55,7 +55,7 @@ module ThemeJuice
                     else
                       0
                     end
-      
+
       q = format_message question, {
         :color  => :blue,
         :icon   => :question,
@@ -134,7 +134,7 @@ module ThemeJuice
         "Ouch!",
         ":(",
       ]
-      
+
       say goodbyes.sample, {
         :color   => :yellow,
         :newline => true
@@ -166,7 +166,7 @@ module ThemeJuice
 
       list.each { puts }
       update_selection list, color
-      
+
       loop do
         key = read_key
         case key
@@ -185,7 +185,7 @@ module ThemeJuice
     end
 
     private
-    
+
     # @todo Windows has issues registering the arrow and enter keys
     def choose_instructions
       if OS.windows?
@@ -230,11 +230,11 @@ module ThemeJuice
     end
 
     def format_message(message, opts = {})
-      
+
       %W[icon newline row width color indent].each do |f|
-        message = self.send("format_#{f}", message, opts)
+        message = self.send "format_#{f}", message, opts
       end
-      
+
       message
     end
 
@@ -246,37 +246,37 @@ module ThemeJuice
              else
                "#{opts[:icon]}"
              end
-             
+
       "#{ICONS[:"#{icon}"]} " << message
     end
 
     def format_newline(message, opts)
       return message if opts[:newline].nil?
-      
+
       "\n" << message
     end
 
     def format_color(message, opts)
       return message if @env.no_colors || opts[:color].nil?
-      
+
       set_color(message, *opts[:color])
     end
 
     def format_row(message, opts)
       return message if OS.windows? || opts[:row].nil?
-      
+
       message.ljust terminal_width
     end
 
     def format_width(message, opts)
       return message if opts[:width].nil?
-      
+
       message.ljust opts[:width]
     end
 
     def format_indent(message, opts)
       return message if opts[:indent].nil?
-      
+
       (" " * opts[:indent]) << message
     end
 

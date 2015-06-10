@@ -20,7 +20,7 @@ commands:
 }
   end
 
-  describe "#method_missing" do
+  describe ".method_missing" do
 
     context "when receiving an unknown message" do
 
