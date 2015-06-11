@@ -64,7 +64,7 @@ Yes! But, since Windows doesn't support UTF-8 characters inside of the terminal,
 
 Something that has worked for me on one of my Windows machines is to run all commands through [git-scm](http://git-scm.com/downloads) with the `--boring --no-landrush` flags. This will disable all unicode characters and colors from being output, and will also disable [Landrush](https://github.com/phinze/landrush), which isn't fully supported on Windows.
 
-To set these globally via the `ENV`, set these environment variables or run the following commands in your terminal:
+To set these globally via the `ENV`, set the following environment variables or run the below commands in your terminal:
 
 ```bash
 export TJ_BORING=true
