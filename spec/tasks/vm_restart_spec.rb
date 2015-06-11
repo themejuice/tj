@@ -24,7 +24,7 @@ describe ThemeJuice::Tasks::VMRestart do
   
   describe "#unexecute" do
     
-    context "when Project#vm_restart is set to true" do
+    context "when Project.vm_restart is set to true" do
       
       before do
         allow(@project).to receive(:vm_restart).and_return true
@@ -37,7 +37,7 @@ describe ThemeJuice::Tasks::VMRestart do
       end
     end
     
-    context "when Project#vm_restart is set to false" do
+    context "when Project.vm_restart is set to false" do
       it "should not restart vagrant" do
         output = capture(:stdout) { @task.unexecute }
         

@@ -43,7 +43,7 @@ describe ThemeJuice::Tasks::Database do
       expect(output).to match /gsub/
     end
 
-    context "when Project#db_drop is set to true" do
+    context "when Project.db_drop is set to true" do
 
       before do
         allow(@env).to receive(:dryrun).and_return true
@@ -69,7 +69,7 @@ describe ThemeJuice::Tasks::Database do
       end
     end
 
-    context "when Project#db_drop is set to false" do
+    context "when Project.db_drop is set to false" do
 
       before do
         allow(@project).to receive(:db_drop).and_return false
