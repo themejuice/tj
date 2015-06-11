@@ -69,7 +69,9 @@ export TJ_BORING=true
 export TJ_NO_LANDRUSH=true
 ```
 
-In addition to that, `tj` uses the [OS gem](https://github.com/rdp/os) to sniff out your OS and adjusts a few things accordingly to make sure things don't break. _I don't regularly develop on Windows, so if you encounter any bugs, please let me know through a **well-documented** issue and I'll try my best to get it resolved._
+In addition to that, `tj` uses the [OS gem](https://github.com/rdp/os) to sniff out your OS and it'll adjust a few things accordingly to make sure that nothing breaks.
+
+_I don't regularly develop on Windows, so if you encounter any bugs, please let me know through a **well-documented** issue and I'll try my best to get it resolved._
 
 #### Can I use the original VVV instead of VVV-Apache?
 Definitely. If you want to use `tj` with Nginx and the [original VVV](https://github.com/Varying-Vagrant-Vagrants/VVV), it's as simple as running `tj` with a few flags:
