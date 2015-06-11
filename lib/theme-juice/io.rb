@@ -186,7 +186,7 @@ module ThemeJuice
 
     private
 
-    # @todo Windows has issues registering the arrow and enter keys
+    # @TODO Windows has issues registering the arrow and enter keys
     def choose_instructions
       if OS.windows?
         "use WASD keys and press space"

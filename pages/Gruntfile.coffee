@@ -21,7 +21,7 @@ module.exports = (grunt) ->
           cssDir: "templates"
           sassDir: "templates/src"
           outputStyle: "compressed"
-          require: ["normalize-scss"]
+          require: ["flint", "normalize-scss"]
 
     watch:
       gruntfile:
