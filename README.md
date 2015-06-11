@@ -55,6 +55,8 @@ Want to check out all of the various flags and features `tj` offers? Just ask `t
 tj help
 ```
 
+If you're more of a read-documentation-online kind of person, check out [themejuice.it](http:themejuice.it) for a pretty website full of documentation.
+
 ## FAQ
 
 #### Is Windows supported?
