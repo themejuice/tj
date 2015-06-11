@@ -4,6 +4,8 @@ $flint: ("breakpoints": ("large": ("columns": 8, "breakpoint": 40em), "small": (
 @import "normalize"
 @import "compass"
 
+@import url("http://fonts.googleapis.com/css?family=Inconsolata:400,700")
+
 /**
  * Override compass' clearfix mixin
  */
@@ -19,6 +21,52 @@ $flint: ("breakpoints": ("large": ("columns": 8, "breakpoint": 40em), "small": (
 
   &:after
     clear: both
+
+/**
+ * Base
+ */
+body
+  background:
+    color: #fff
+
+/**
+ * Typography
+ */
+body
+  color: #333
+  font: 16px/1.875 "Inconsolata", monospace
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6
+  margin:
+    top: 1.5rem
+    bottom: 0.5rem
+
+p
+  text:
+    align: justify
+  margin:
+    top: 0.5rem
+    bottom: 1rem
+
+a
+  color: #333
+
+  &:hover,
+  &:active
+    color: #999
+
+dt
+  padding: 0 1rem
+  background:
+    color: #f3f3f3
+
+// code
+//   padding: 0 0.5rem
 
 /**
  * Header
@@ -45,14 +93,14 @@ $flint: ("breakpoints": ("large": ("columns": 8, "breakpoint": 40em), "small": (
  * Navigation
  */
 .navigation
-  +_(4)
+  +_(6 4)
   list-style: none
   text:
     align: justify
     transform: uppercase
   padding: 0
 
-  // Micro clearfix
+  // Micro clearfix for justified nav
   &:after
     +inline-block
     content: " "
@@ -66,42 +114,49 @@ $flint: ("breakpoints": ("large": ("columns": 8, "breakpoint": 40em), "small": (
  * Sidebar
  */
 .sidebar
-  +_(2)
-  text:
-    align: right
+  +_(8 4)
 
-  +_(10em greater than large)
+  +_(30em greater than large)
     position: absolute
-    right: 100%
+    left: 100%
     top: 0
     height: 100%
     height: 100vh
 
   &__navigation
-    display: block
     list-style: none
-    width: 100%
     margin: 0 auto
     padding: 0
 
     &__item
-      float: left
-      width: 100%
+      display: block
 
 /**
  * Main content area
  */
 .main
-  @extend .header
+  +_(container, clear)
+  position: relative
 
   &__wrapper
-    @extend .header__wrapper
+    width: 100%
 
   &__head
-    @extend .navigation
+    +_(8 4)
+    list-style: none
+    margin: 0 auto
+    padding: 0
 
     &__item
-      @extend .navigation__item
+      +_(8/3 4/3, auto, $gutter: row)
+
+      &:nth-child(2)
+        text:
+          align: center
+
+      &:nth-child(3)
+        text:
+          align: right
 
   &__content
     +_(8 4)
