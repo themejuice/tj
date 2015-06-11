@@ -90,7 +90,7 @@ Run `tj help` [<command>] to view an individual command's man page.
 
 These run the corresponding command from your project's config file. They
 accept any number of arguments, since the behavior and handling of
-input is defined within the config file itself
+input is defined within the config file itself.
 
   * `install`, `build`=[<arg>[,<arg>]...]:
     Run installation for project
