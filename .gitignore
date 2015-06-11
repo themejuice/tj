@@ -15,7 +15,6 @@ doc/
 lib/theme-juice/man/
 pages/.sass-cache/
 pages/node_modules/
-pages/build/
 pkg
 pkg/*
 spec/reports/
