@@ -33,7 +33,7 @@ module ThemeJuice
 %Q{<VirtualHost *:80>
   DocumentRoot #{@project.vm_srv}
   ServerName #{@project.url}
-  ServerAlias *.#{@project.url} #{@project.url.gsub(/\.dev$/, "")}.*.xip.io *.#{@project.url.gsub(/\.dev$/, "")}.*.xip.io;
+  ServerAlias *.#{@project.url} #{@project.xip}.*.xip.io *.#{@project.xip}.*.xip.io;
 </VirtualHost>
 
 }

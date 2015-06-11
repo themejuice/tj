@@ -16,11 +16,13 @@ module ThemeJuice
       end
 
       def execute
-        create_entry_file
-        create_entry do
+        unless @env.no_port_forward
+          create_entry_file
+          create_entry do
 %Q{#{forward_host_ports}
 config.vm.network "forwarded_port", guest: 80,  host: 8080
 config.vm.network "forwarded_port", guest: 443, host: 8443}
+          end
         end
       end
 

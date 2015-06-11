@@ -4,6 +4,7 @@ describe ThemeJuice::Tasks::ForwardPorts do
     @env = ThemeJuice::Env
 
     allow(@env).to receive(:vm_path).and_return File.expand_path("~/vagrant-test")
+    allow(@env).to receive(:no_port_forward).and_return false
     allow(@env).to receive(:verbose).and_return true
 
     FileUtils.mkdir_p "#{@env.vm_path}"
@@ -27,7 +28,7 @@ describe ThemeJuice::Tasks::ForwardPorts do
     end
 
     context "when using an osx machine" do
-      it "should append host port forwarding triggers to customfile" do
+      it "should append osx-specific host port forwarding triggers to customfile" do
         expect(OS).to receive(:osx?).and_return true
 
         output = capture(:stdout) { @task.execute }
@@ -40,13 +41,26 @@ describe ThemeJuice::Tasks::ForwardPorts do
     end
 
     context "when not using an osx machine" do
-      it "should not append host port forwarding triggers to customfile" do
+      it "should not append osx-specific host port forwarding triggers to customfile" do
         expect(OS).to receive(:osx?).and_return false
 
         output = capture(:stdout) { @task.execute }
 
         expect(File.binread(@file)).to_not match /rdr pass inet proto tcp from any to any port 80 -> 127\.0\.0\.1 port 8080/
         expect(File.binread(@file)).to_not match /rdr pass inet proto tcp from any to any port 443 -> 127\.0\.0\.1 port 8443/
+      end
+    end
+
+    context "when Env.no_port_forward is set to true" do
+      it "should not append port forwarding info to customfile" do
+        expect(@env).to receive(:no_port_forward).and_return true
+
+        output = capture(:stdout) { @task.execute }
+
+        expect(File.binread(@file)).to_not match /config\.vm\.network "forwarded_port", guest: 80,  host: 8080/
+        expect(File.binread(@file)).to_not match /config\.vm\.network "forwarded_port", guest: 443, host: 8443/
+
+        expect(output).to_not match /append/
       end
     end
   end

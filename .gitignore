@@ -1,6 +1,7 @@
 *.gem
 *.rbc
 *.lock
+*.log
 .bundle
 .config
 .directory

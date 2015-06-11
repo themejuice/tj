@@ -3,7 +3,7 @@
 module ThemeJuice
   module Env
     include SingletonHelper
-    
+
     attr_accessor :vm_box
     attr_accessor :vm_path
     attr_accessor :vm_ip
@@ -14,10 +14,11 @@ module ThemeJuice
     attr_accessor :no_colors
     attr_accessor :no_animations
     attr_accessor :no_landrush
+    attr_accessor :no_port_forwarding
     attr_accessor :verbose
     attr_accessor :dryrun
     attr_accessor :nginx
-    
+
     def vm_box=(val)
       @vm_box = val ||= ENV.fetch("TJ_VM_BOX") { "git@github.com:ericmann/vvv-apache.git" }
     end
@@ -58,6 +59,10 @@ module ThemeJuice
       @no_landrush = val ||= ENV.fetch("TJ_NO_LANDRUSH") { false }
     end
 
+    def no_port_forward=(val)
+      @no_port_forward = val ||= ENV.fetch("TJ_NO_PORT_FORWARD") { false }
+    end
+
     def verbose=(val)
       @verbose = val ||= ENV.fetch("TJ_VERBOSE") { false }
     end
@@ -65,7 +70,7 @@ module ThemeJuice
     def dryrun=(val)
       @dryrun = val ||= ENV.fetch("TJ_DRYRUN") { false }
     end
-    
+
     def nginx=(val)
       @nginx = val ||= ENV.fetch("TJ_NGINX") { false }
     end

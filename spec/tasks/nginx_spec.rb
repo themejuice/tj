@@ -8,6 +8,7 @@ describe ThemeJuice::Tasks::Nginx do
     allow(@env).to receive(:verbose).and_return true
     allow(@project).to receive(:name).and_return "nginx-test"
     allow(@project).to receive(:url).and_return "nginx-test.dev"
+    allow(@project).to receive(:xip).and_return "nginx-test"
     allow(@project).to receive(:vm_srv).and_return "/srv/www/nginx-test/"
 
     FileUtils.mkdir_p "#{@env.vm_path}/config/nginx-config/sites"

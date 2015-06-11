@@ -7,6 +7,7 @@ module ThemeJuice
     attr_accessor :name
     attr_accessor :location
     attr_accessor :url
+    attr_accessor :xip
     attr_accessor :theme
     attr_accessor :vm_root
     attr_accessor :vm_location
