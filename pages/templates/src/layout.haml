@@ -12,13 +12,24 @@
         %aside.logo
           %img.logo__image(src="" alt="Theme Juice")
         %nav.navigation
-          {{#section_heads}}
-          %a.navigation__item(href="\#{{id}}" alt="{{text}}")
-            {{text}}
-          {{/section_heads}}
+          %a.navigation__item(href="#PRIMARY-COMMANDS" alt="Command to create a new project")
+            Create
+          %a.navigation__item(href="#PRIMARY-COMMANDS" alt="Command to setup an existing project")
+            Setup
+          %a.navigation__item(href="#PRIMARY-COMMANDS" alt="Command to delete a project")
+            Delete
+          %a.navigation__item(href="#PRIMARY-COMMANDS" alt="Deploy a project")
+            Deploy
 
     %main.main__wrapper
       .main
+
+        %aside.sidebar
+          %nav.sidebar__navigation
+            {{#section_heads}}
+            %a.sidebar__navigation__item(href="\#{{id}}" alt="{{text}}")
+              {{text}}
+            {{/section_heads}}
 
         %ol.main__head
           %li.main__head__item

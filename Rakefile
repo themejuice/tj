@@ -61,7 +61,7 @@ begin
       #     rm -f ronn*.html index.html
       #     cp -rp ../man/ronn*.html ../man/index.txt ../man/index.html ./
       #     git add -u ronn*.html index.html index.txt
-      #     git commit -m 'rebuild manual'
+      #     git commit -m '#{ThemeJuice::VERSION}'
       #     git push #{push_url} gh-pages
       #   ", :verbose => false
       # }

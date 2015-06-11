@@ -13,16 +13,32 @@
 <img alt='Theme Juice' class='logo__image' src=''>
 </aside>
 <nav class='navigation'>
-{{#section_heads}}
-<a alt='{{text}}' class='navigation__item' href='#{{id}}'>
-{{text}}
+<a alt='Command to create a new project' class='navigation__item' href='#PRIMARY-COMMANDS'>
+Create
 </a>
-{{/section_heads}}
+<a alt='Command to setup an existing project' class='navigation__item' href='#PRIMARY-COMMANDS'>
+Setup
+</a>
+<a alt='Command to delete a project' class='navigation__item' href='#PRIMARY-COMMANDS'>
+Delete
+</a>
+<a alt='Deploy a project' class='navigation__item' href='#PRIMARY-COMMANDS'>
+Deploy
+</a>
 </nav>
 </div>
 </header>
 <main class='main__wrapper'>
 <div class='main'>
+<aside class='sidebar'>
+<nav class='sidebar__navigation'>
+{{#section_heads}}
+<a alt='{{text}}' class='sidebar__navigation__item' href='#{{id}}'>
+{{text}}
+</a>
+{{/section_heads}}
+</nav>
+</aside>
 <ol class='main__head'>
 <li class='main__head__item'>
 {{page_name}}
