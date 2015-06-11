@@ -22,8 +22,9 @@ spec/sandbox/
 test/tmp/
 test/version_tmp/
 tmp/
-tj.*
-.tj.*
+*tj
+*tj.yaml
+*tj.yml
 Juicefile*
 juicefile*
 wp-cli.*
