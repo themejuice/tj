@@ -159,9 +159,9 @@ command when executed.
 
 When naming your configuration file, use the recommended `Juicefile`, or
 `.tj.yaml` naming convention. The raw filename regex matcher is below if
-you want to be different.
+you want to be a little different.
 
-  * `/^(((\.)?(tj)|((J|j)uicefile))(.y(a)?ml)?$)/`:
+  `/^(((\.)?(tj)|((J|j)uicefile))(.y(a)?ml)?$)/`
 
 ## ENVIRONMENT
 
