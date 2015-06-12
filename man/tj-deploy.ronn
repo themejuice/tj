@@ -1,5 +1,5 @@
-tj-deploy(1) -- Manage deployment and migration
-===============================================
+tj-deploy(1) -- Deploy a project
+================================
 
 ## SYNOPSIS
 

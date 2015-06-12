@@ -137,7 +137,7 @@ module ThemeJuice
       @delete.new(options).unexecute
     end
 
-    desc "deploy", "Manage deployment and migration"
+    desc "deploy", "Deploy a project"
     def deploy
       @deploy.new(options).execute
     end
