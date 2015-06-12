@@ -14,7 +14,7 @@ module ThemeJuice
     attr_accessor :no_colors
     attr_accessor :no_animations
     attr_accessor :no_landrush
-    attr_accessor :no_port_forwarding
+    attr_accessor :no_port_forward
     attr_accessor :verbose
     attr_accessor :dryrun
     attr_accessor :nginx
