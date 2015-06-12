@@ -11,11 +11,13 @@
 
     %header.header__wrapper
       .header
+
         %aside.logo
           %a(href="tj.html" title="Theme Juice Command Line Interface")
             %h1.logo__type
               Theme Juice
               %span CLI
+
         %nav.navigation
           %a.navigation__item(href="create.html" title="Create a new project")
             Create
@@ -33,12 +35,32 @@
 
         %aside.sidebar
           %nav.sidebar__navigation
+
+            %a.sidebar__navigation__item(href="#REQUIREMENTS" title="Requirements")
+              REQUIREMENTS
+
+            %a.sidebar__navigation__item(href="#INSTALLATION" title="Installation")
+              INSTALLATION
+
             {{#section_heads}}
-            %a.sidebar__navigation__item(href="\#{{id}}" alt="{{text}}")
+            %a.sidebar__navigation__item(href="\#{{id}}" title="{{text}}")
               {{text}}
             {{/section_heads}}
 
         %article.main__content
+
+          %h2#REQUIREMENTS
+            REQUIREMENTS
+          %p
+            %strong
+              %code tj
+              requires <a href="http://vagrantup.com/">Vagrant</a> and <a href="https://www.virtualbox.org/">VirtualBox</a> to be able to create virtual machines for local development. Please download and install both of these before getting started.
+
+          %h2#INSTALLATION
+            INSTALLATION
+          %p
+            %code gem install theme-juice
+
           {{{html}}}
 
     %footer.footer__wrapper
