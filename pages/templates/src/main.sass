@@ -228,7 +228,7 @@ code
   margin:
     top: 2rem
     bottom: 2rem
-    
+
   &__wrapper
     width: 100%
 
@@ -242,6 +242,16 @@ code
       weight: 700
     margin:
       bottom: 1rem
+
+    .fa-heart
+      +animation(heartbeat 2000ms infinite)
+      color: $green
+
+      +keyframes(heartbeat)
+        0%, 40%, 60%, 80%
+          +scale(1)
+        50%, 70%
+          +scale(1.25)
 
   &__date
     font:
