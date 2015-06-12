@@ -35,7 +35,7 @@ config.vm.network "forwarded_port", guest: 443, host: 8443}
       #  OSX, so that's why there's nothing else here
       def forward_host_ports
         if OS.osx?
-          %Q{if defined? VagrantPlugins::Triggers
+%Q{if defined? VagrantPlugins::Triggers
   config.trigger.after [:up, :reload, :provision], :stdout => true do
     system \%Q{echo "
 rdr pass inet proto tcp from any to any port 80 -> 127.0.0.1 port 8080
