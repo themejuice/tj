@@ -5,6 +5,7 @@ $flint: ("breakpoints": ("large": ("columns": 8, "breakpoint": 40em), "small": (
 @import "compass"
 
 @import url("http://fonts.googleapis.com/css?family=Inconsolata:400,700")
+@import url("http://fonts.googleapis.com/css?family=Montserrat:400,700")
 
 /**
  * Override compass' clearfix mixin
@@ -42,9 +43,13 @@ h3,
 h4,
 h5,
 h6
+  font:
+    family: "Montserrat", sans-serif
+  text:
+    transform: lowercase
   margin:
     top: 1.5rem
-    bottom: 0.5rem
+    bottom: 0
 
 p
   text:
@@ -65,9 +70,6 @@ dt
   background:
     color: #f3f3f3
 
-// code
-//   padding: 0 0.5rem
-
 /**
  * Header
  */
@@ -82,18 +84,21 @@ dt
  * Logo
  */
 .logo
-  +_(2, $gutter: normal center)
+  +_(3 2, $gutter: normal center)
 
-  &__image
-    max-width: 100%
-    width: 100%
-    height: auto
+  &__type
+    color: orange
+    font:
+      family: "Montserrat", sans-serif
+    text:
+      transform: lowercase
+    margin: 0
 
 /**
  * Navigation
  */
 .navigation
-  +_(6 4)
+  +_(5 4)
   list-style: none
   text:
     align: justify
@@ -109,6 +114,8 @@ dt
   &__item
     +inline-block
     position: relative
+    padding:
+      top: 0.625rem
 
 /**
  * Sidebar
@@ -126,7 +133,9 @@ dt
   &__navigation
     list-style: none
     margin: 0 auto
-    padding: 0
+    padding: 0 1rem
+    border:
+      left: 5px solid #f3f3f3
 
     &__item
       display: block
@@ -141,28 +150,20 @@ dt
   &__wrapper
     width: 100%
 
-  &__head
-    +_(8 4)
-    list-style: none
-    margin: 0 auto
-    padding: 0
-
-    &__item
-      +_(8/3 4/3, auto, $gutter: row)
-
-      &:nth-child(2)
-        text:
-          align: center
-
-      &:nth-child(3)
-        text:
-          align: right
-
   &__content
     +_(8 4)
 
-  &__foot
-    @extend .main__head
+/**
+ * Footer
+ */
+.footer
+  +_(container, clear)
+  margin:
+    top: 2rem
 
-    &__item
-      @extend .main__head__item
+  &__wrapper
+    width: 100%
+
+  &__date
+    text:
+      align: center

@@ -10,15 +10,18 @@
     %header.header__wrapper
       .header
         %aside.logo
-          %img.logo__image(src="" alt="Theme Juice")
+          %h1.logo__type
+            Theme Juice
         %nav.navigation
-          %a.navigation__item(href="#PRIMARY-COMMANDS" alt="Command to create a new project")
+          %a.navigation__item(href="tj.html" alt="Command to create a new project")
+            Home
+          %a.navigation__item(href="create.html" alt="Command to create a new project")
             Create
-          %a.navigation__item(href="#PRIMARY-COMMANDS" alt="Command to setup an existing project")
+          %a.navigation__item(href="setup.html" alt="Command to setup an existing project")
             Setup
-          %a.navigation__item(href="#PRIMARY-COMMANDS" alt="Command to delete a project")
+          %a.navigation__item(href="delete.html" alt="Command to delete a project")
             Delete
-          %a.navigation__item(href="#PRIMARY-COMMANDS" alt="Deploy a project")
+          %a.navigation__item(href="deploy.html" alt="Deploy a project")
             Deploy
 
     %main.main__wrapper
@@ -31,21 +34,9 @@
               {{text}}
             {{/section_heads}}
 
-        %ol.main__head
-          %li.main__head__item
-            {{page_name}}
-          %li.main__head__item
-            {{manual}}
-          %li.main__head__item
-            {{page_name}}
-
         %article.main__content
           {{{html}}}
 
-        %ol.main__foot
-          %li.main__foot__item
-            {{page_name}}
-          %li.main__foot__item
-            {{date}}
-          %li.main__foot__item
-            {{page_name}}
+    %footer.footer__wrapper
+      .footer
+        .footer__date {{date}}
