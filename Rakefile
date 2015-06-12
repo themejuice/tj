@@ -21,7 +21,11 @@ begin
     sources.map do |basename|
       ronn = "man/#{basename}.ronn"
       roff = "lib/theme-juice/man/#{basename}"
-      page = "pages/build/#{basename.gsub("tj-", "")}.html"
+      html = case basename
+             when "tj" then "index"
+             else basename.gsub("tj-", "")
+             end
+      page = "pages/build/#{html}.html"
 
       file roff => ["lib/theme-juice/man", ronn] do
         sh "#{Gem.ruby} -S ronn --roff --pipe #{ronn} > #{roff}"
