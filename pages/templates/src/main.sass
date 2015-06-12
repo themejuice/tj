@@ -1,4 +1,4 @@
-$flint: ("breakpoints": ("large": ("columns": 8, "breakpoint": 40em), "small": ("columns": 4, "breakpoint": 20em)), "settings": ("default": "small", "grid": "fluid", "gutter": 1em, "float-direction": "left", "max-width": true, "center-container": true, "border-box-sizing": true, "instance-maps": true, "support-syntax": "BEM", "debug-mode": false))
+$flint: ("breakpoints": ("large": ("columns": 8, "breakpoint": 40em), "small": ("columns": 4, "breakpoint": 25em)), "settings": ("default": "small", "grid": "fluid", "gutter": 1em, "float-direction": "left", "max-width": true, "center-container": true, "border-box-sizing": true, "instance-maps": true, "support-syntax": "BEM", "debug-mode": false))
 
 @import "flint"
 @import "normalize"
@@ -8,11 +8,16 @@ $flint: ("breakpoints": ("large": ("columns": 8, "breakpoint": 40em), "small": (
 @import url("http://fonts.googleapis.com/css?family=Montserrat:400,700")
 
 /**
+ * Fonts
+ */
+$monospace: "Inconsolata", monospace
+$serif: "Montserrat", sans-serif
+
+/**
  * Colors
  */
-$black: #333
 $white: #fff
-$off-white: #f3f3f3
+$black: #333
 $orange: #f78f1e
 $green: #9FCF67
 
@@ -44,7 +49,11 @@ body
  */
 body
   color: $black
-  font: 16px/1.875 "Inconsolata", monospace
+  font: 14px/1.875 $monospace
+
+  +_(greater than small)
+    font:
+      size: 16px
 
 h1,
 h2,
@@ -54,7 +63,7 @@ h5,
 h6
   color: $green
   font:
-    family: "Montserrat", sans-serif
+    family: $serif
   text:
     transform: lowercase
   margin:
@@ -79,7 +88,7 @@ dt
   +border-radius(0.25rem)
   padding: 0 1rem
   background:
-    color: $off-white
+    color: mix($black, $white, 5%)
 
 var,
 code
@@ -100,15 +109,37 @@ code
  * Logo
  */
 .logo
-  +_(3 2, $gutter: normal center)
+  +_(3 4, $gutter: normal)
 
   &__type
     color: $orange
     font:
-      family: "Montserrat", sans-serif
+      family: $serif
+      size: 1.5rem
     text:
       transform: lowercase
     margin: 0
+
+    +_(small)
+      text:
+        align: center
+      margin:
+        top: 1em
+
+    +_(greater than small)
+      font:
+        size: 1.25rem
+      margin:
+        top: 0.5em
+
+    +_(10em greater than small)
+      font:
+        size: 1.875rem
+      margin: 0
+
+    +_(15em greater than small)
+      font:
+        size: 2rem
 
   a
     text:
