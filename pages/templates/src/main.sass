@@ -101,6 +101,8 @@ code
 .header
   +_(container, clear)
   position: relative
+  margin:
+    top: 1rem
 
   &__wrapper
     width: 100%
@@ -112,6 +114,7 @@ code
   +_(3 4, $gutter: normal)
 
   &__type
+    position: relative
     color: $orange
     font:
       family: $serif
@@ -123,8 +126,6 @@ code
     +_(small)
       text:
         align: center
-      margin:
-        top: 1em
 
     +_(greater than small)
       font:
@@ -140,6 +141,19 @@ code
     +_(15em greater than small)
       font:
         size: 2rem
+
+    span
+      font:
+        family: $monospace
+        size: 0.875rem
+        weight: 400
+      text:
+        transform: uppercase
+
+      +_(10em greater than small)
+        position: absolute
+        bottom: -1.625rem
+        right: 1rem
 
   a
     text:
