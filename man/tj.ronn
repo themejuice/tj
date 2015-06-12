@@ -200,6 +200,9 @@ features due to limited support e.g. on Windows.
   * `TJ_NO_LANDRUSH`=<bool>:
     Disable the `landrush` gem for managing DNS
 
+  * `TJ_NO_PORT_FORWARD`=<bool>:
+    Disable automatic port forwarding
+
   * `TJ_VERBOSE`=<bool>:
     Prints out additional logging information
 

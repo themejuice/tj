@@ -5,24 +5,26 @@
     %meta(name="generator" value="{{generator}}")
     %title {{title}}
     {{{stylesheet_tags}}}
+    %link(rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css")
   %body
 
     %header.header__wrapper
       .header
         %aside.logo
-          %h1.logo__type
-            Theme Juice
+          %a(href="tj.html" title="Theme Juice &mdash; Command Line Interface")
+            %h1.logo__type
+              Theme Juice
         %nav.navigation
-          %a.navigation__item(href="tj.html" alt="Command to create a new project")
-            Home
-          %a.navigation__item(href="create.html" alt="Command to create a new project")
+          %a.navigation__item(href="create.html" title="Create a new project")
             Create
-          %a.navigation__item(href="setup.html" alt="Command to setup an existing project")
+          %a.navigation__item(href="setup.html" title="Setup an existing project")
             Setup
-          %a.navigation__item(href="delete.html" alt="Command to delete a project")
+          %a.navigation__item(href="delete.html" title="Delete a project")
             Delete
-          %a.navigation__item(href="deploy.html" alt="Deploy a project")
+          %a.navigation__item(href="deploy.html" title="Deploy a project")
             Deploy
+          %a.navigation__item(href="https://github.com/ezekg/theme-juice-cli" title="View project on GitHub")
+            %i.fa.fa-github
 
     %main.main__wrapper
       .main

@@ -8,6 +8,15 @@ $flint: ("breakpoints": ("large": ("columns": 8, "breakpoint": 40em), "small": (
 @import url("http://fonts.googleapis.com/css?family=Montserrat:400,700")
 
 /**
+ * Colors
+ */
+$black: #333
+$white: #fff
+$off-white: #f3f3f3
+$orange: #f78f1e
+$green: #9FCF67
+
+/**
  * Override compass' clearfix mixin
  */
 @mixin clearfix
@@ -28,13 +37,13 @@ $flint: ("breakpoints": ("large": ("columns": 8, "breakpoint": 40em), "small": (
  */
 body
   background:
-    color: #fff
+    color: $white
 
 /**
  * Typography
  */
 body
-  color: #333
+  color: $black
   font: 16px/1.875 "Inconsolata", monospace
 
 h1,
@@ -43,6 +52,7 @@ h3,
 h4,
 h5,
 h6
+  color: $green
   font:
     family: "Montserrat", sans-serif
   text:
@@ -59,16 +69,22 @@ p
     bottom: 1rem
 
 a
-  color: #333
+  color: $black
 
   &:hover,
   &:active
-    color: #999
+    color: $black
 
 dt
+  +border-radius(0.25rem)
   padding: 0 1rem
   background:
-    color: #f3f3f3
+    color: $off-white
+
+var,
+code
+  font:
+    weight: 700
 
 /**
  * Header
@@ -87,12 +103,16 @@ dt
   +_(3 2, $gutter: normal center)
 
   &__type
-    color: orange
+    color: $orange
     font:
       family: "Montserrat", sans-serif
     text:
       transform: lowercase
     margin: 0
+
+  a
+    text:
+      decoration: none
 
 /**
  * Navigation
@@ -131,6 +151,7 @@ dt
     height: 100vh
 
   &__navigation
+    +border-radius(0.25rem)
     list-style: none
     margin: 0 auto
     padding: 0 1rem
