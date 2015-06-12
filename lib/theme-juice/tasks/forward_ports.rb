@@ -19,8 +19,7 @@ module ThemeJuice
         unless @env.no_port_forward
           create_entry_file
           create_entry do
-%Q{#{forward_host_ports}
-config.vm.network "forwarded_port", guest: 80,  host: 8080
+%Q{#{forward_host_ports}config.vm.network "forwarded_port", guest: 80,  host: 8080
 config.vm.network "forwarded_port", guest: 443, host: 8443}
           end
         end
@@ -46,7 +45,8 @@ rdr pass inet proto tcp from any to any port 443 -> 127.0.0.1 port 8443
   config.trigger.after [:halt, :suspend, :destroy], :stdout => true do
     system \%Q{sudo pfctl -F all -f /etc/pf.conf >/dev/null 2>&1; echo "Removing forwarded ports (80 => 8080)\\nRemoving forwarded ports (443 => 8443)"}
   end
-end}
+end
+}
         end
       end
     end
