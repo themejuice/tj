@@ -13,11 +13,11 @@ _yardoc/
 coverage/
 doc/
 lib/theme-juice/man/
-pages/.sass-cache/
-pages/node_modules/
-pages/build/
-pages/templates/*.html
-pages/templates/*.css
+docs/.sass-cache/
+docs/node_modules/
+docs/build/
+docs/templates/*.html
+docs/templates/*.css
 pkg
 pkg/*
 spec/reports/

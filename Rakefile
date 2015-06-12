@@ -8,14 +8,14 @@ begin
   require "ronn"
 
   ENV["RONN_MANUAL"] = "Theme Juice Manual"
-  ENV["RONN_LAYOUT"] = "pages/templates/layout.html"
-  ENV["RONN_STYLE"]  = "./pages/templates"
+  ENV["RONN_LAYOUT"] = "docs/templates/layout.html"
+  ENV["RONN_STYLE"]  = "./docs/templates"
 
   desc "Build the manual"
   namespace :man do
 
     directory "lib/theme-juice/man"
-    directory "pages/build"
+    directory "docs/build"
 
     sources = Dir["man/*.ronn"].map{ |f| File.basename(f, ".ronn") }
     sources.map do |basename|
@@ -25,13 +25,13 @@ begin
              when "tj" then "index"
              else basename.gsub("tj-", "")
              end
-      page = "pages/build/#{html}.html"
+      page = "docs/build/#{html}.html"
 
       file roff => ["lib/theme-juice/man", ronn] do
         sh "#{Gem.ruby} -S ronn --roff --pipe #{ronn} > #{roff}"
       end
 
-      file roff => ["pages/build", ronn] do
+      file roff => ["docs/build", ronn] do
         sh "#{Gem.ruby} -S ronn -w5 --style toc,main --pipe #{ronn} > #{page}"
       end
 
@@ -44,11 +44,11 @@ begin
 
     task :clean do
       rm_rf "lib/theme-juice/man"
-      rm_rf "pages/build"
+      rm_rf "docs/build"
     end
 
     task :grunt do
-      sh "grunt build --gruntfile pages/Gruntfile.coffee --quiet"
+      sh "grunt build --gruntfile docs/Gruntfile.coffee --quiet"
     end
 
     task :pages do
