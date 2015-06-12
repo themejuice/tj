@@ -234,15 +234,24 @@ code
     width: 100%
 
   &__humans,
-  &__date
+  &__date,
+  &__source
     text:
       align: center
+
+  &__humans,
+  &__date
+    margin:
+      bottom: 1rem
+
+  &__date,
+  &__source
+    font:
+      size: 0.75rem
 
   &__humans
     font:
       weight: 700
-    margin:
-      bottom: 1rem
 
     .fa-heart
       +animation(heartbeat 2000ms infinite)
@@ -254,6 +263,5 @@ code
         50%, 70%
           +scale(1.25)
 
-  &__date
-    font:
-      size: 0.75rem
+  &__source
+    color: mix($black, $white, 50%)
