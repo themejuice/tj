@@ -72,7 +72,7 @@ Run `tj help` [<command>] to view an individual command's man page.
     Delete a project
 
   * `deploy`, `server`, `remote`:
-    Manage deployment and migration
+    Deploy a project
 
 ## SECONDARY COMMANDS
 
