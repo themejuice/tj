@@ -52,10 +52,12 @@ begin
     end
 
     task :deploy do
-      sh %Q{git --work-tree docs/build/ checkout --orphan gh-pages}
-      sh %Q{git --work-tree docs/build/ rm -r "*"}
-      sh %Q{git --work-tree docs/build/ add --all}
-      sh %Q{git --work-tree docs/build/ commit -m "build for v#{ThemeJuice::VERSION} at #{Time.now.getutc}"}
+      cd "docs/build"
+      sh %Q{git checkout gh-pages}
+      sh %Q{git pull}
+      sh %Q{git rm -r .}
+      sh %Q{git add --all}
+      sh %Q{git commit -m "build for v#{ThemeJuice::VERSION} at #{Time.now.getutc}"}
       sh %Q{git push origin gh-pages}
       sh %Q{git symbolic-ref HEAD refs/heads/master}
       sh %Q{git reset --mixed}
