@@ -90,9 +90,9 @@
             node = document.getElementById hash[1...]
 
             scrollTo document.body, node.offsetTop, 500
+            removeClasses links, "active"
 
             unless node is document.body
-              removeClasses links, "active"
               addClass node, "active"
 
         scrollTo = (node, target, vel) ->

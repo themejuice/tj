@@ -284,11 +284,14 @@ code
 .scroll-to-top
   position: fixed
   bottom: 1rem
-  right: 2rem
+  right: 1rem
   font:
     size: 1.25rem
   text:
     decoration: none
+
+  +_(greater than small)
+    right: 2rem
 
   i
     color: $orange
