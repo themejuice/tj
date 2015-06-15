@@ -52,13 +52,14 @@ begin
     end
 
     task :deploy do
+      sh "echo 'themejuice.it' >> docs/build/CNAME"
       sh %Q{git --work-tree docs/build/ branch -D gh-pages} rescue nil
       sh %Q{git --work-tree docs/build/ checkout --orphan gh-pages}
-      # sh %Q{git --work-tree docs/build/ rm -rf .}
-      sh %Q{git --work-tree docs/build/ reset --mixed --quiet}
+      sh %Q{git --work-tree docs/build/ rm -rf .}
+      # sh %Q{git --work-tree docs/build/ reset --mixed --quiet}
       sh %Q{git --work-tree docs/build/ add --all}
       sh %Q{git --work-tree docs/build/ commit -m "build for v#{ThemeJuice::VERSION} at #{Time.now.getutc}"}
-      sh %Q{git push origin gh-pages}
+      sh %Q{git push origin gh-pages --force}
       sh %Q{git symbolic-ref HEAD refs/heads/master}
       sh %Q{git reset --mixed}
     end
