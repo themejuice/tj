@@ -44,6 +44,10 @@ body
   background:
     color: $white
 
+  &:not(.tj)
+    .index-only
+      display: none
+
 /**
  * Typography
  */
@@ -61,6 +65,7 @@ h3,
 h4,
 h5,
 h6
+  +transition(350ms)
   color: $green
   font:
     family: $serif
@@ -69,6 +74,12 @@ h6
   margin:
     top: 1.5rem
     bottom: 0
+  border:
+    bottom: 2px solid transparent
+
+  &.active
+    border:
+      color: $orange
 
 p
   text:

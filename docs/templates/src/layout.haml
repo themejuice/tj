@@ -7,7 +7,7 @@
     %title Theme Juice CLI - WordPress development made easy
     {{{stylesheet_tags}}}
     %link(rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css")
-  %body
+  %body(class="{{{name}}}")
 
     %header.header__wrapper
       .header
@@ -36,11 +36,12 @@
         %aside.sidebar
           %nav.sidebar__navigation
 
-            %a.sidebar__navigation__item(href="#REQUIREMENTS" title="Requirements")
-              REQUIREMENTS
+            .index-only
+              %a.sidebar__navigation__item(href="#REQUIREMENTS" title="Requirements")
+                REQUIREMENTS
 
-            %a.sidebar__navigation__item(href="#INSTALLATION" title="Installation")
-              INSTALLATION
+              %a.sidebar__navigation__item(href="#INSTALLATION" title="Installation")
+                INSTALLATION
 
             {{#section_heads}}
             %a.sidebar__navigation__item(href="\#{{id}}" title="{{text}}")
@@ -49,17 +50,18 @@
 
         %article.main__content
 
-          %h2#REQUIREMENTS
-            REQUIREMENTS
-          %p
-            %strong
-              %code tj
-              requires <a href="http://vagrantup.com/">Vagrant</a> and <a href="https://www.virtualbox.org/">VirtualBox</a> to be able to create virtual machines for local development. Please download and install both of these before getting started.
+          .index-only
+            %h2#REQUIREMENTS
+              REQUIREMENTS
+            %p
+              %strong
+                %code tj
+                requires <a href="http://vagrantup.com/">Vagrant</a> and <a href="https://www.virtualbox.org/">VirtualBox</a> to be able to create virtual machines for local development. Please download and install both of these before getting started.
 
-          %h2#INSTALLATION
-            INSTALLATION
-          %p
-            %code gem install theme-juice
+            %h2#INSTALLATION
+              INSTALLATION
+            %p
+              %code gem install theme-juice
 
           {{{html}}}
 
@@ -72,3 +74,55 @@
         .footer__source
           %a(href="https://github.com/ezekg/theme-juice-cli/tree/master/docs" target="_blank" title="View website source code")
             View Source
+
+    :coffee
+      # if document.location.hash
+      links = document.getElementsByTagName "a"
+
+      for link in links
+        link.onclick = (e) ->
+          if e.currentTarget?.hash
+            e.preventDefault()
+
+            hash = this.getAttribute "href"
+            node = document.getElementById hash[1...]
+
+            scrollTo document.body, node.offsetTop, 500
+            removeClasses links, "active"
+            addClass node, "active"
+
+        scrollTo = (node, target, vel) ->
+          y = node.scrollTop
+          vy = target - y
+          dt = 0
+          i = 20
+
+          animateScroll = () ->
+            dt += i
+
+            easeInOutQuad = (dt, y, vy, vel) ->
+              dt /= vel/2
+              return vy/2*dt*dt + y if dt < 1
+              dt--
+              return -vy/2 * (dt*(dt-2) - 1) + y
+
+            node.scrollTop = easeInOutQuad dt, y, vy, vel
+
+            if dt < vel
+              setTimeout animateScroll, i
+              return
+
+          do animateScroll
+          return
+
+        addClass = (node, klass) ->
+          return if klass in node.className.split " "
+          node.className = [node.className, klass].filter((s) -> s isnt "").join " "
+
+        removeClasses = (nodes, klass) ->
+          for link in nodes
+            hash = link.getAttribute "href"
+            node = document.getElementById hash[1...]
+
+            if node?.className? and klass in node.className.split " "
+              node.className = node.className.replace klass, ""

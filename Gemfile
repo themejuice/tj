@@ -9,6 +9,7 @@ end
 group :man do
   gem "ronn",           "~> 0.7"
   gem "haml",           "~> 4.0"
+  gem "coffee-script",  "~> 2.3"
   gem "compass",        "~> 1.0"
   gem "flint-gs",       "~> 2.2"
   gem "normalize-scss", "~> 3.0"
