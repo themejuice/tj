@@ -54,7 +54,6 @@ begin
     task :deploy do
       sh %Q{git --work-tree docs/build/ branch -D gh-pages} rescue nil
       sh %Q{git --work-tree docs/build/ checkout --orphan gh-pages}
-      sh %Q{git --work-tree docs/build/ pull origin gh-pages}
       sh %Q{git --work-tree docs/build/ rm -rf .}
       sh %Q{git --work-tree docs/build/ add --all}
       sh %Q{git --work-tree docs/build/ commit -m "build for v#{ThemeJuice::VERSION} at #{Time.now.getutc}"}
