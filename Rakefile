@@ -51,28 +51,17 @@ begin
       sh "grunt build --gruntfile docs/Gruntfile.coffee --quiet"
     end
 
-    task :pages do
-      # verbose(false) {
-      #   rm_rf "pages"
-      #   push_url = `git remote show origin`.grep(/Push.*URL/).first[/git@.*/]
-      #   sh "
-      #     set -e
-      #     git fetch -q origin
-      #     rev=$(git rev-parse origin/gh-pages)
-      #     git clone -q -b gh-pages . pages
-      #     cd pages
-      #     git reset --hard $rev
-      #     rm -f ronn*.html index.html
-      #     cp -rp ../man/ronn*.html ../man/index.txt ../man/index.html ./
-      #     git add -u ronn*.html index.html index.txt
-      #     git commit -m '#{ThemeJuice::VERSION}'
-      #     git push #{push_url} gh-pages
-      #   ", :verbose => false
-      # }
+    task :deploy do
+      sh %Q{git --work-tree docs/build/ checkout --orphan gh-pages}
+      sh %Q{git --work-tree docs/build/ rm -r "*"}
+      sh %Q{git --work-tree docs/build/ add --all}
+      sh %Q{git --work-tree docs/build/ commit -m "build for v#{ThemeJuice::VERSION} at #{Time.now.getutc}"}
+      sh %Q{git push origin gh-pages}
+      sh %Q{git symbolic-ref HEAD refs/heads/master}
     end
   end
 
-  task :man => ["man:clean", "man:grunt", "man:build", "man:pages"]
+  task :man => ["man:clean", "man:grunt", "man:build"]
 rescue LoadError
   namespace :man do
     task(:build) { warn "Install the ronn gem to build the help pages" }
