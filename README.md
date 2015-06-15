@@ -59,6 +59,16 @@ Or, check out [themejuice.it](http://themejuice.it) for a pretty website chock-f
 
 ## FAQ
 
+1. [Is Windows Supported?](#is-windows-supported)
+1. [Can I use the original VVV instead of VVV-Apache?](#can-i-use-the-original-vvv-instead-of-vvv-apache)
+1. [So, does that mean I can use any Vagrant box?](#so-does-that-mean-i-can-use-any-vagrant-box)
+1. [What is a `Customfile`?](#what-is-a-customfile)
+1. [What is a `Juicefile`?](#what-is-a-juicefile)
+1. [Does `tj` handle deployments?](#does-tj-handle-deployments)
+1. [Can I access a project from another device (i.e. mobile)?](#can-i-access-a-project-from-another-device-ie-mobile)
+1. [Help! It won't let me `git clone` anything!](#help-it-wont-let-me-git-clone-anything)
+1. [Can I add my starter theme, ________?](#can-i-add-my-starter-theme-________)
+
 #### Is Windows supported?
 Yes! But, since Windows doesn't support UTF-8 characters inside of the terminal, and is picky about ASCII colors, you'll probably have to run `tj` with a couple flags.
 
