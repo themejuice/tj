@@ -127,6 +127,7 @@ code
   +_(3 4, $gutter: normal)
 
   &__type
+    +inline-block
     position: relative
     color: $orange
     font:
@@ -166,7 +167,7 @@ code
       +_(10em greater than small)
         position: absolute
         bottom: -1.625rem
-        right: 1rem
+        right: 0
 
   a
     text:
@@ -276,3 +277,21 @@ code
 
   &__source
     color: mix($black, $white, 50%)
+
+/**
+ * Scroll to top button
+ */
+.scroll-to-top
+  position: fixed
+  bottom: 1rem
+  right: 2rem
+  font:
+    size: 1.25rem
+  text:
+    decoration: none
+
+  i
+    color: $orange
+
+    &:hover
+      color: mix($white, $orange, 25%)
