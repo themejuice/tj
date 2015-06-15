@@ -54,11 +54,11 @@ begin
     task :deploy do
       sh %Q{git --work-tree docs/build/ branch -D gh-pages} rescue nil
       sh %Q{git --work-tree docs/build/ checkout --orphan gh-pages}
+      # sh %Q{git --work-tree docs/build/ rm -rf .}
       sh %Q{git --work-tree docs/build/ reset --mixed --quiet}
-      sh %Q{git --work-tree docs/build/ rm -r "*"}
       sh %Q{git --work-tree docs/build/ add --all}
       sh %Q{git --work-tree docs/build/ commit -m "build for v#{ThemeJuice::VERSION} at #{Time.now.getutc}"}
-      sh %Q{git --quiet push origin gh-pages}
+      sh %Q{git push origin gh-pages}
       sh %Q{git symbolic-ref HEAD refs/heads/master}
       sh %Q{git reset --mixed}
     end
@@ -67,6 +67,6 @@ begin
   task :man => ["man:clean", "man:grunt", "man:build"]
 rescue LoadError
   namespace :man do
-    task(:build) { warn "Install the ronn gem to build the help pages" }
+    task(:build) { warn "Install the ronn gem to build documentation" }
   end
 end
