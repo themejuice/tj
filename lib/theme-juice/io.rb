@@ -239,7 +239,7 @@ module ThemeJuice
     end
 
     def format_icon(message, opts)
-      return message if opts[:icon].nil?
+      return " #{message}" if opts[:icon].nil?
 
       icon = if @env.no_unicode
                "fallback_#{opts[:icon]}"
@@ -247,13 +247,13 @@ module ThemeJuice
                "#{opts[:icon]}"
              end
 
-      "#{ICONS[:"#{icon}"]} " << message
+      " #{ICONS[:"#{icon}"]} " << message
     end
 
     def format_newline(message, opts)
       return message if opts[:newline].nil?
 
-      "\n" << message
+      "\n#{message}"
     end
 
     def format_color(message, opts)
