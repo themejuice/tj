@@ -58,6 +58,7 @@ begin
       sh %Q{git --work-tree docs/build/ commit -m "build for v#{ThemeJuice::VERSION} at #{Time.now.getutc}"}
       sh %Q{git push origin gh-pages}
       sh %Q{git symbolic-ref HEAD refs/heads/master}
+      sh %Q{git reset --mixed}
     end
   end
 
