@@ -42,6 +42,11 @@ begin
       task :build => "#{roff}.txt"
     end
 
+    task :copy do
+      cp "docs/templates/src/CNAME", "docs/build"
+      cp "docs/templates/src/favicon.ico", "docs/build"
+    end
+
     task :clean do
       rm_rf "lib/theme-juice/man"
       rm_rf "docs/build"
@@ -52,11 +57,9 @@ begin
     end
 
     task :deploy do
-      sh "echo 'themejuice.it' >> docs/build/CNAME"
       sh %Q{git --work-tree docs/build/ branch -D gh-pages} rescue nil
       sh %Q{git --work-tree docs/build/ checkout --orphan gh-pages}
       sh %Q{git --work-tree docs/build/ rm -rf .}
-      # sh %Q{git --work-tree docs/build/ reset --mixed --quiet}
       sh %Q{git --work-tree docs/build/ add --all}
       sh %Q{git --work-tree docs/build/ commit -m "build for v#{ThemeJuice::VERSION} at #{Time.now.getutc}"}
       sh %Q{git push origin gh-pages --force}
@@ -65,7 +68,7 @@ begin
     end
   end
 
-  task :man => ["man:clean", "man:grunt", "man:build"]
+  task :man => ["man:clean", "man:grunt", "man:build", "man:copy"]
 rescue LoadError
   namespace :man do
     task(:build) { warn "Install the ronn gem to build documentation" }

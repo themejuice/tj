@@ -125,14 +125,13 @@ module ThemeJuice
         "Later, homes",
         "I'll be back",
         "Victory is ours!",
-        "May the force be with you",
+        "May the juice be with you",
         "Take a break, man...",
         "It's not me, it's you",
         "Go home, developer, you're drunk",
         "Okay, this is getting a little out of hand...",
         "I don't like it when you press my buttons",
         "Ouch!",
-        ":(",
       ]
 
       say goodbyes.sample, {
