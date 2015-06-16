@@ -107,7 +107,7 @@
 
             easeInOutQuad = (dt, y, vy, vel) ->
               dt /= vel/2
-              return vy / 2 * dt * dt + y if dt < 1
+              return vy / 2 * (dt * dt) + y if dt < 1
               dt--
               return -vy / 2 * (dt * (dt - 2) - 1) + y
 
