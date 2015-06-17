@@ -146,7 +146,7 @@ module ThemeJuice
             @io.say "This is a stock WordPress install, so things such as the '.env' file will not be set up. You'll need to input your database information manually after the setup.", {
               :color => :yellow, :icon => :notice }
           when /(other)/
-            THEMES[choice] = @io.ask "What is the repository URL for the starter theme that you would like to clone?"
+            THEMES[choice] = @io.ask "What is the repository URL of the starter theme that you would like to clone?"
           when /(none)/
             @project.bare = true
             @io.say "Next time you need to create a project without a starter theme, you can just run the 'setup' command instead.", {
