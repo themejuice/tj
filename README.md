@@ -135,6 +135,7 @@ Below is the config that comes baked into [our starter theme](https://github.com
 commands:
   install:
     - composer install
+    - bundler install
     - npm install
     - bower install
     - grunt build
