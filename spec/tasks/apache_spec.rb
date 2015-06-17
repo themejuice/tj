@@ -8,7 +8,7 @@ describe ThemeJuice::Tasks::Apache do
     allow(@env).to receive(:verbose).and_return true
     allow(@project).to receive(:name).and_return "apache-test"
     allow(@project).to receive(:url).and_return "apache-test.dev"
-    allow(@project).to receive(:xip).and_return "apache-test"
+    allow(@project).to receive(:xip_url).and_return "apache-test"
     allow(@project).to receive(:vm_srv).and_return "/srv/www/apache-test/"
 
     FileUtils.mkdir_p "#{@env.vm_path}/config/apache-config/sites"

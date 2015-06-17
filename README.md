@@ -25,7 +25,7 @@ gem install theme-juice
 ## Getting Started
 
 #### Create a new project
-This will lead you through a series of prompts to set up required project information, such as name, location, theme, database info, etc. Using the specified information, it will run the installation process and set up a local development environment, if it hasn't already been set up. It will sync your local project location with the project
+This will lead you through a series of prompts to set up required project information, such as name, location, theme, database info, etc. Using the specified information, it will run the installation process and set up a local development environment, if one hasn't already been set up. It will sync your local project location with the project
 location within the VM, so you can run this from anywhere on your local system.
 
 ```

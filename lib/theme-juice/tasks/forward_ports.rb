@@ -32,7 +32,7 @@ config.vm.network "forwarded_port", guest: 443, host: 8443}
       private
 
       # @TODO I'd like to eventually support every OS. I'm only familiar with
-      #  OSX, so that's why there's nothing else here
+      #  OSX, so that's why there's nothing else here at the moment
       def forward_host_ports
         if OS.osx?
 %Q{if defined? VagrantPlugins::Triggers

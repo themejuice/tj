@@ -55,7 +55,7 @@ module ThemeJuice
         @project.name         = @opts.fetch("name")         { name }
         @project.location     = @opts.fetch("location")     { location }
         @project.url          = @opts.fetch("url")          { url }
-        @project.xip          = @opts.fetch("xip")          { xip }
+        @project.xip_url      = @opts.fetch("xip_url")      { xip_url }
         @project.theme        = @opts.fetch("theme")        { theme }
         @project.repository   = @opts.fetch("repository")   { repository }
         @project.db_host      = @opts.fetch("db_host")      { db_host }
@@ -125,10 +125,10 @@ module ThemeJuice
         true
       end
 
-      def xip
-        xip = @project.url.gsub /\.dev$/, ""
+      def xip_url
+        xip_url = @project.url.gsub /\.dev$/, ""
 
-        xip
+        xip_url
       end
 
       def theme
