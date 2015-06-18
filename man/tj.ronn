@@ -28,8 +28,8 @@ can even handle your deployments.
   * `--vm-prefix`=<string>:
     Force directory prefix for project in VM
 
-  * `--yolo`:
-    &#10;Say yes to anything and everything
+  * `--yolo`:  
+    Say yes to anything and everything
 
   * `--boring`:
     Prints all output without any fancy formatting
