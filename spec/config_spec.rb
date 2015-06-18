@@ -1,6 +1,7 @@
 describe ThemeJuice::Config do
 
   before :each do
+    @env = ThemeJuice::Env
     @config = ThemeJuice::Config
     expect_any_instance_of(@config).to receive(:config)
       .once.and_return YAML.load %Q{
@@ -29,10 +30,14 @@ commands:
         expect { @config.install }.not_to raise_error
       end
 
-      it "should raise error if message does not exist in config" do
-        capture(:stdout) do
-          expect { @config.invalid }.to raise_error NotImplementedError
+      it "should not raise error if message does not exist in config" do
+        allow(@env).to receive(:verbose).and_return true
+
+        output = capture(:stdout) do
+          expect { @config.invalid }.not_to raise_error
         end
+
+        expect(output).to include "NotImplementedError"
       end
 
       it "should output notice to $stdout if config is invalid" do

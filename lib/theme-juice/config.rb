@@ -14,11 +14,8 @@ module ThemeJuice
         config.fetch("commands", {})
           .fetch("#{method}") { @io.error "Command '#{method}' not found in config", NotImplementedError }
           .each { |cmd| run format_command(cmd, *args) }
-      # rescue ::NoMethodError => err
-      #   @io.error "Config file is invalid or missing", SyntaxError do
-      #     puts err
-      #   end
-      rescue
+      rescue Exception => error
+        @io.say error, :color => :red if @env.verbose
         @io.notice "Skipping..."
       end
     end
