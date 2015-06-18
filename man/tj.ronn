@@ -28,7 +28,7 @@ can even handle your deployments.
   * `--vm-prefix`=<string>:
     Force directory prefix for project in VM
 
-  * `--yolo`:  
+  * `--yolo`:
     Say yes to anything and everything
 
   * `--boring`:
