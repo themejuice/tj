@@ -7,7 +7,7 @@ tj(1) -- WordPress development made easy
 
 ## DESCRIPTION
 
-**Theme Juice** is a WordPress development command line utility that allows
+`tj` is a WordPress development command line utility that allows
 you to scaffold out an entire Vagrant development environment in seconds
 (using an Apache fork of [VVV](https://github.com/Varying-Vagrant-Vagrants/VVV)
 called [VVV-Apache](https://github.com/ericmann/vvv-apache.git) as the
@@ -82,7 +82,7 @@ Run `tj help` [<command>] to view an individual command's man page.
   * `list`, `ls`, `projects`, `apps`, `sites`:
     List all projects
 
-  * `vm`, `vagrant`, `vvv`=[<command>[,<command>]...]:
+  * `vm`, `vagrant`, `vvv`=[<command>[,<command>]...]:  
     Manage development environment via `vagrant`. Commands are proxied to
     your Vagrant installation so that they can be run from any directory.
 
