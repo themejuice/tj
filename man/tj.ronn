@@ -29,7 +29,7 @@ can even handle your deployments.
     Force directory prefix for project in VM
 
   * `--yolo`:
-    Say yes to anything and everything
+    &#10;Say yes to anything and everything
 
   * `--boring`:
     Prints all output without any fancy formatting
@@ -82,7 +82,7 @@ Run `tj help` [<command>] to view an individual command's man page.
   * `list`, `ls`, `projects`, `apps`, `sites`:
     List all projects
 
-  * `vm`, `vagrant`, `vvv`=[<command>[,<command>]...]:  
+  * `vm`, `vagrant`, `vvv`=[<command>[,<command>]...]:
     Manage development environment via `vagrant`. Commands are proxied to
     your Vagrant installation so that they can be run from any directory.
 
