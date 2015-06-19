@@ -127,7 +127,7 @@ across multiple projects that utilize different tools.
     Collection of various command block sequences
 
   * `commands.install`:
-    Command sequence used to properly install and build the theme
+    Command sequence used to properly install and build project
 
   * `commands.watch`:
     Command used to manage development build tools
