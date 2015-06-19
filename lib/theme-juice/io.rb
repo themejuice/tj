@@ -106,7 +106,11 @@ module ThemeJuice
 
       yield if block_given?
 
-      raise code
+      if @env.verbose
+        raise code
+      else
+        exit 1
+      end
     end
 
     def hello(opts = {})
@@ -131,6 +135,7 @@ module ThemeJuice
         "Go home, developer, you're drunk",
         "Okay, this is getting a little out of hand...",
         "I don't like it when you press my buttons",
+        "Look at you, dev'n up a storm!",
         "Ouch!",
       ]
 

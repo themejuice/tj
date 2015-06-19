@@ -1,7 +1,6 @@
 describe ThemeJuice::Config do
 
   before :each do
-    @env = ThemeJuice::Env
     @config = ThemeJuice::Config
     expect_any_instance_of(@config).to receive(:config)
       .once.and_return YAML.load %Q{
@@ -23,21 +22,18 @@ commands:
 
   describe ".method_missing" do
 
-    context "when receiving an unknown message" do
+    context "when receiving an unknown method" do
 
-      it "should not raise error if message exists in config" do
+      it "should not raise error if method exists in config" do
         allow(stdout).to receive :print
         expect { @config.install }.not_to raise_error
       end
 
-      it "should not raise error if message does not exist in config" do
-        allow(@env).to receive(:verbose).and_return true
-
-        output = capture(:stdout) do
-          expect { @config.invalid }.not_to raise_error
+      it "should raise error if method does not exist in config" do
+        allow(ThemeJuice::Env).to receive(:verbose).and_return true
+        capture(:stdout) do
+          expect { @config.invalid }.to raise_error NotImplementedError
         end
-
-        expect(output).to include "NotImplementedError"
       end
 
       it "should output notice to $stdout if config is invalid" do
@@ -53,7 +49,7 @@ commands:
       end
     end
 
-    context "when receiving a message that exists in config" do
+    context "when receiving a method that exists in config" do
 
       it "should map all args to single command" do
         allow(stdout).to receive :print

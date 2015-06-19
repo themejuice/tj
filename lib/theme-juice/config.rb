@@ -14,9 +14,8 @@ module ThemeJuice
         config.fetch("commands", {})
           .fetch("#{method}") { @io.error "Command '#{method}' not found in config", NotImplementedError }
           .each { |cmd| run format_command(cmd, *args) }
-      rescue Exception => error
-        @io.say error, :color => :red if @env.verbose
-        @io.notice "Skipping..."
+      rescue NoMethodError
+        @io.say "Skipping...", :color => :yellow, :icon => :notice
       end
     end
 
@@ -47,7 +46,7 @@ module ThemeJuice
         @io.error "Config file contains invalid YAML", SyntaxError do
           puts err
         end
-      rescue LoadError
+      rescue LoadError, SystemExit
         nil
       end
     end

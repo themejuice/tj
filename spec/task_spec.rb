@@ -1,5 +1,9 @@
 describe ThemeJuice::Task do
 
+  before do
+    allow(ThemeJuice::Env).to receive(:verbose).and_return true
+  end
+
   before :each do
     @task = ThemeJuice::Task.new
   end

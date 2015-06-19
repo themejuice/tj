@@ -3,7 +3,7 @@ describe ThemeJuice::Tasks::List do
   before do
     @env = ThemeJuice::Env
     @project = ThemeJuice::Project
-    
+
     allow(@env).to receive(:vm_path).and_return File.expand_path("~/vagrant-test")
     allow(@project).to receive(:vm_root).and_return "#{@env.vm_path}/www"
     allow(@project).to receive(:vm_prefix).and_return "prefix-"
@@ -15,25 +15,26 @@ test2.dev                 192.168.50.4
 test3.dev                 192.168.50.4
 test4.dev                 192.168.50.4
 }
-    
+
     FileUtils.mkdir_p "#{@env.vm_path}"
   end
 
   before :each do
     @task = ThemeJuice::Tasks::List.new
   end
-  
+
   describe "#list" do
-    
+
     it "should print all project names to $stdout" do
       expect { @task.list :projects }.to output.to_stdout
     end
-    
+
     it "should print all project urls to $stdout" do
       expect { @task.list :urls }.to output.to_stdout
     end
-    
+
     it "should raise error if prop does not exist" do
+      allow(@env).to receive(:verbose).and_return true
       expect(stdout).to receive :print
       expect { @task.list :prop }.to raise_error NotImplementedError
     end
@@ -49,14 +50,14 @@ test4.dev                 192.168.50.4
     it "should return an array of domain names" do
       expect(@task.urls).to be_a Array
     end
-    
+
     it "should return an array that includes test domains" do
       expect(@task.urls).to include /test1\.dev/
       expect(@task.urls).to include /test2\.dev/
       expect(@task.urls).to include /test3\.dev/
       expect(@task.urls).to include /test4\.dev/
     end
-    
+
     it "should return an array that does not include test domains" do
       expect(@task.urls).to_not include /test5\.dev/
     end
