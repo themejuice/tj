@@ -50,7 +50,7 @@ can even handle your deployments.
     Disable automatic port forwarding
 
   * `--verbose`:
-    Prints out additional logging information and raises all caught exceptions
+    Prints out additional logging information and raises any exception caught during runtime
 
   * `--dryrun`, `--dry-run`:
     Run a command without actually doing anything
