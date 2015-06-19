@@ -127,28 +127,28 @@ across multiple projects that utilize different tools.
     Collection of various command block sequences
 
   * `commands.install`:
-    Run theme installation
+    Command sequence used to properly install and build the theme
 
   * `commands.watch`:
-    Manage development build tools
+    Command used to manage development build tools
 
   * `commands.assets`:
-    Manage front-end dependencies
+    Command used to manage front-end dependencies
 
   * `commands.vendor`:
-    Manage back-end dependencies
+    Command used to manage back-end dependencies
 
   * `commands.wp`:
-    Manage WordPress installation
+    Command used to manage WordPress installation
 
   * `commands.dist`:
-    Package project for distribution
+    Commands used to package project for distribution
 
   * `commands.backup`:
-    Backup project
+    Commands used to backup project
 
   * `commands.test`:
-    Manage and run project tests
+    Command used to manage and run project tests
 
   * `deployment`:
     Coming soon
