@@ -142,6 +142,8 @@ commands:
     - grunt build
   watch:
     - grunt %args%
+  assets:
+    - bower %args%
   vendor:
     - composer %args%
   wp:

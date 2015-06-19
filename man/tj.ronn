@@ -98,8 +98,11 @@ input is defined within the config file itself.
   * `watch`, `dev`=[<arg>[,<arg>]...]:
     Manage and run development build tools
 
+  * `assets`, `asset`=[<arg>[,<arg>]...]:
+    Manage front-end vendor dependencies
+
   * `vendor`, `deps`=[<arg>[,<arg>]...]:
-    Manage PHP vendor dependencies
+    Manage back-end dependencies
 
   * `dist`, `pkg`, `package`, `zip`=[<arg>[,<arg>]...]:
     Package project for distribution
@@ -129,8 +132,11 @@ across multiple projects that utilize different tools.
   * `commands.watch`:
     Manage development build tools
 
+  * `commands.assets`:
+    Manage front-end dependencies
+
   * `commands.vendor`:
-    Manage vendor dependencies
+    Manage back-end dependencies
 
   * `commands.wp`:
     Manage WordPress installation

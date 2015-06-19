@@ -47,6 +47,7 @@ module ThemeJuice
     map %w[ls projects apps sites] => :list
     map %w[build]                  => :install
     map %w[dev]                    => :watch
+    map %w[asset]                  => :assets
     map %w[deps]                   => :vendor
     map %w[zip package pkg]        => :dist
     map %w[wordpress]              => :wp
@@ -162,7 +163,12 @@ module ThemeJuice
       @config.watch commands
     end
 
-    desc "vendor [COMMANDS]", "Manage vendor dependencies"
+    desc "assets [COMMANDS]", "Manage front-end dependencies"
+    def assets(*commands)
+      @config.assets commands
+    end
+
+    desc "vendor [COMMANDS]", "Manage back-end dependencies"
     def vendor(*commands)
       @config.vendor commands
     end

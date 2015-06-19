@@ -8,6 +8,8 @@ commands:
   install:
     - "%args%"
   watch: "%arguments%"
+  assets:
+    - "%argument1"
   vendor:
     - "1:%arg1% 2:%arg2%"
     - "3:%arg3% 4:%arg4%"
