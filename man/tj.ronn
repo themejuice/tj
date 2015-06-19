@@ -99,16 +99,16 @@ input is defined within the config file itself.
     Manage and run development build tools
 
   * `assets`, `asset`=[<arg>[,<arg>]...]:
-    Manage front-end vendor dependencies
+    Manage front-end dependencies for project
 
   * `vendor`, `deps`=[<arg>[,<arg>]...]:
-    Manage back-end dependencies
+    Manage back-end dependencies for project
 
   * `dist`, `pkg`, `package`, `zip`=[<arg>[,<arg>]...]:
     Package project for distribution
 
   * `wp`, `wordpress`=[<arg>[,<arg>]...]:
-    Manage WordPress installation
+    Manage project's WordPress installation
 
   * `backup`, `bk`=[<arg>[,<arg>]...]:
     Backup project
