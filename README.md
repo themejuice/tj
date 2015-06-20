@@ -113,6 +113,10 @@ Yes and no; in order for `tj` to properly create a project, the Vagrant box need
 |  |  ├── site-1.conf
 |  |  ├── site-2.conf
 |  |  ..
+|  ├── database/
+|  |  |
+|  |  ├── init-custom.sql
+|  |  ..
 |  ..
 ├── www/
 |  |
