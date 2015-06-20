@@ -33,6 +33,11 @@ location within the VM, so you can run this from anywhere on your local system.
 tj create
 ```
 
+###### What happens on your first `create`?
+`tj` will clone the selected VM to your `vm-path` (default path is `~/vagrant/`); after that finishes up, it will create all of the necessary project files, such as: a `Customfile` containing DNS and synced folder settings ; `init-custom.sql` containing database setup and credentials; `project.conf` containing project settings.
+
+Once those things are done, `tj` will run the starter theme's installation (via the `Juicefile`, if present), and then finally provision the VM to put the new configuration into effect. If you've never used Vagrant before, the first provision might take awhile, so grab some coffee (or tea). Phew!
+
 #### Set up an existing project
 This sets up an existing local project within the development environment. You will go through a series of prompts to create the necessary files. This command is essentially an alias for `tj create --bare`.
 
