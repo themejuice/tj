@@ -36,11 +36,11 @@ tj create
 ```
 
 ##### What happens on your first `create`?
-`tj` will clone the selected VM to your `vm-path` (default path is `~/vagrant/`); after that finishes up, it will create all of the necessary project files, such as: 
+`tj` will clone the selected VM to your `vm-path` (default path is `~/vagrant/`); after that finishes up, it will create all of the necessary project files, such as:
 * `Customfile` containing DNS and synced folder settings
 * `init-custom.sql` containing database setup
 * `project.conf` containing server settings
-* `wp-cli.local.yaml` containing VM paths
+* `wp-cli.local.yml` containing VM paths
 
 Once those things are done, `tj` will run the starter theme's installation (via the `Juicefile`, if present), and then finally provision the VM to put the new configuration into effect. If you've never used Vagrant before, the first provision might take awhile.
 
