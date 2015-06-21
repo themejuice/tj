@@ -42,7 +42,7 @@ tj create
 * `project.conf` containing server settings
 * `wp-cli.local.yml` containing VM paths
 
-Once those things are done, `tj` will run the starter theme's installation (via the `Juicefile`, if present), and then finally provision the VM to put the new configuration into effect. If you've never used Vagrant before, the first provision might take awhile.
+Once those things are done, `tj` will run the starter theme's installation (via the `Juicefile`, if present), and then finally provision the VM to put the new configuration into effect. If you've never used Vagrant before, the first provision might take awhile. After that's done, you should be able to access your new project at the specified url.
 
 #### Set up an existing project
 This sets up an existing local project within the development environment. You will go through a series of prompts to create the necessary files. This command is essentially an alias for `tj create --bare`.
