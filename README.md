@@ -61,7 +61,7 @@ Want to check out all of the various flags and features `tj` offers? Just ask `t
 tj help
 ```
 
-Or, check out [themejuice.it](http://themejuice.it) for a pretty website chock-full of documentation.
+Or, check out [themejuice.it](http://themejuice.it) for a pretty website chock-full of the same documentation provided by `tj help`.
 
 ## FAQ
 
@@ -182,7 +182,7 @@ Eventually, yes. It's not currently production-ready, but as soon as it is, we'l
 #### Can I access a project from another device (i.e. mobile)?
 Yes! Every project created with `tj` will automatically be set up to support using [xip.io](http://xip.io/). If you're using OSX, then everything should work out of the box. If you're not using OSX, then you'll need to point port `80` on your host machine to `8080`; Vagrant cannot do this by default for security reasons.
 
-Once everything is good to go, you can access a project from another device on the same network by going to `<project-name>.<your-hosts-ip-address>.xip.io` e.g. `themejuice.192.168.1.1.xip.io`.
+Once everything is good to go, you can access a project from another device on the same network by going to `<project-name>.<your-hosts-ip-address>.xip.io` e.g. `themejuice.192.168.1.1.xip.io`. If you're familiar with forwarding host ports on operating systems other than OSX, check out [this file](https://github.com/ezekg/theme-juice-cli/blob/master/lib/theme-juice/tasks/forward_ports.rb#L34-L51) and make a pull request so that everybody can beneafit from your smarts.
 
 #### Help! It won't let me `git clone` anything!
 You most likely don't have [SSH-keys for GitHub set up correctly (if even at all)](https://help.github.com/articles/error-permission-denied-publickey/). Either set that up, or manually run `tj` with the appropriate flags corresponding to the problem-repository, swapping out `git@github.com:` for `https://github.com/`:
