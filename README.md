@@ -61,7 +61,7 @@ Want to check out all of the various flags and features `tj` offers? Just ask `t
 tj help
 ```
 
-Or, check out [themejuice.it](http://themejuice.it) for a pretty website chock-full of the same documentation provided by `tj help`.
+Or, you can also check out [themejuice.it](http://themejuice.it) for a pretty website chock-full of the same documentation provided by `tj help`.
 
 ## FAQ
 
