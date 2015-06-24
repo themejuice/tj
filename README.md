@@ -161,7 +161,7 @@ commands:
     - bower install
     - grunt build
 
-  # Application build tools
+  # Manage build tools
   watch:
     - grunt %args%
 
