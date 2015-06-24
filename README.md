@@ -148,24 +148,41 @@ A YAML configuration file (`Juicefile`) can be used to store commonly-used build
 Below is the config that comes baked into [our starter theme](https://github.com/ezekg/theme-juice-starter):
 
 ```yml
+#
+# Manage command aliases for the current application
+#
 commands:
+
+  # Run application install scripts
   install:
     - composer install
-    - bundler install
+    - bundle install
     - npm install
     - bower install
     - grunt build
+
+  # Application build tools
   watch:
     - grunt %args%
+
+  # Manage front-end dependencies
   assets:
     - bower %args%
+
+  # Manage back-end dependencies
   vendor:
     - composer %args%
+
+  # Manage WP installation
   wp:
     - wp ssh --host=vagrant %args%
+
+  # Create a backup of the current database with a nice timestamp
   backup:
     - mkdir -p backup
     - wp ssh --host=vagrant db export backup/$(date +'%Y-%m-%d-%H-%M-%S').sql
+
+  # Package up entire application into a gzipped tar file
   dist:
     - tar -zcvf dist.tar.gz .
 ```
