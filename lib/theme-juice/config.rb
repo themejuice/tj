@@ -7,37 +7,23 @@ module ThemeJuice
     @project = Project
     @util    = Util.new
 
-    def method_missing(method, *args, &block)
-      @project.location ||= Dir.pwd
-
-      begin
-        self.send method, args.shift, *args
-      rescue
-        @io.error "Unknown method '#{type}' passed to config"
-      end
-    end
-
-    private
-
     def command(cmd, *args)
       begin
         config.fetch("commands", {})
-          .fetch("#{cmd}") { @io.error "Command '#{cmd}' not found in config", NotImplementedError }
+          .fetch("#{cmd}") {
+            @io.error "Command '#{cmd}' not found in config", NotImplementedError }
           .each { |c| run format_command(c, *args) }
       rescue NoMethodError
         @io.say "Skipping...", :color => :yellow, :icon => :notice
       end
     end
 
-    def deployment(key = nil, *args)
-      c = config.fetch("deployment") { @io.error "Deployment settings not found in config", NotImplementedError }
-
-      if key
-        c.fetch("#{key}") { @io.error "Deployment option '#{key}' not found in config", NotImplementedError }
-      else
-        c
-      end
+    def deployment
+      config.fetch("deployment") {
+        @io.error "Deployment settings not found in config", NotImplementedError }
     end
+
+    private
 
     def run(command)
       @util.inside @project.location do
@@ -58,7 +44,10 @@ module ThemeJuice
 
     def config
       begin
-        YAML.load_file Dir["#{@project.location}/*"].select { |f| config_regex =~ File.basename(f) }.last ||
+        @project.location ||= Dir.pwd
+        
+        YAML.load_file Dir["#{@project.location}/*"].select { |f|
+          config_regex =~ File.basename(f) }.last ||
           @io.error("Config file not found in '#{@project.location}'", LoadError)
       rescue ::Psych::SyntaxError => err
         @io.error "Config file contains invalid YAML", SyntaxError do
