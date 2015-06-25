@@ -29,9 +29,14 @@ module ThemeJuice
       end
     end
 
-    def deployment(key, *args)
-      config.fetch("deployment") { @io.error "Deployment settings not found in config", NotImplementedError }
-        .fetch("#{key}") { @io.error "Deployment option '#{key}' not found in config", NotImplementedError }
+    def deployment(key = nil, *args)
+      c = config.fetch("deployment") { @io.error "Deployment settings not found in config", NotImplementedError }
+
+      if key
+        c.fetch("#{key}") { @io.error "Deployment option '#{key}' not found in config", NotImplementedError }
+      else
+        c
+      end
     end
 
     def run(command)
