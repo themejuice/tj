@@ -10,6 +10,7 @@ end
 
 require "theme-juice/version"
 require "theme-juice/helpers/singleton_helper"
+require "theme-juice/helpers/hash_helper"
 require "theme-juice/env"
 require "theme-juice/project"
 require "theme-juice/util"
