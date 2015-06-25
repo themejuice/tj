@@ -11,15 +11,28 @@ module ThemeJuice
       @project.location ||= Dir.pwd
 
       begin
+        self.send method, args.shift, *args
+      rescue
+        @io.error "Unknown method '#{type}' passed to config"
+      end
+    end
+
+    private
+
+    def command(cmd, *args)
+      begin
         config.fetch("commands", {})
-          .fetch("#{method}") { @io.error "Command '#{method}' not found in config", NotImplementedError }
-          .each { |cmd| run format_command(cmd, *args) }
+          .fetch("#{cmd}") { @io.error "Command '#{cmd}' not found in config", NotImplementedError }
+          .each { |c| run format_command(c, *args) }
       rescue NoMethodError
         @io.say "Skipping...", :color => :yellow, :icon => :notice
       end
     end
 
-    private
+    def deployment(key, *args)
+      config.fetch("deployment") { @io.error "Deployment settings not found in config", NotImplementedError }
+        .fetch("#{key}") { @io.error "Deployment option '#{key}' not found in config", NotImplementedError }
+    end
 
     def run(command)
       @util.inside @project.location do
@@ -52,7 +65,7 @@ module ThemeJuice
     end
 
     def config_regex
-      %r{^(((\.)?(tj)|((J|j)uicefile))(.y(a)?ml)?$)}
+      %r{^(((\.)?(tj)|((J|j)uicefile))(\.y(a)?ml)?$)}
     end
 
     def multi_arg_regex

@@ -28,25 +28,25 @@ commands:
 
       it "should not raise error if method exists in config" do
         allow(stdout).to receive :print
-        expect { @config.install }.not_to raise_error
+        expect { @config.command :install }.not_to raise_error
       end
 
       it "should raise error if method does not exist in config" do
         allow(ThemeJuice::Env).to receive(:verbose).and_return true
         capture(:stdout) do
-          expect { @config.invalid }.to raise_error NotImplementedError
+          expect { @config.command :invalid }.to raise_error NotImplementedError
         end
       end
 
       it "should output notice to $stdout if config is invalid" do
         capture(:stdout) do
-          expect { @config.watch }.to output.to_stdout
+          expect { @config.command :watch }.to output.to_stdout
         end
       end
 
       it "should not raise error if config is invalid" do
         capture(:stdout) do
-          expect { @config.watch }.not_to raise_error
+          expect { @config.command :watch }.not_to raise_error
         end
       end
     end
@@ -55,17 +55,17 @@ commands:
 
       it "should map all args to single command" do
         allow(stdout).to receive :print
-        expect { @config.install ["1", "2", "3", "4"] }.to output(/1 2 3 4/).to_stdout
+        expect { @config.command :install, ["1", "2", "3", "4"] }.to output(/1 2 3 4/).to_stdout
       end
 
       it "should map each arg to specific command" do
         allow(stdout).to receive :print
-        expect { @config.dist ["1", "2", "3", "4"] }.to output(/1:1 2:2 3:3 4:4/).to_stdout
+        expect { @config.command :dist, ["1", "2", "3", "4"] }.to output(/1:1 2:2 3:3 4:4/).to_stdout
       end
 
       it "should handle running multiple commands" do
         allow(stdout).to receive :print
-        expect { @config.vendor ["1", "2", "3", "4"] }.to output(/(1:1 2:2)(.*)?(3:3 4:4)/m).to_stdout
+        expect { @config.command :vendor, ["1", "2", "3", "4"] }.to output(/(1:1 2:2)(.*)?(3:3 4:4)/m).to_stdout
       end
     end
   end

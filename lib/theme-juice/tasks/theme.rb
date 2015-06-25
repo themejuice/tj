@@ -27,7 +27,7 @@ module ThemeJuice
 
       def install_theme
         @io.log "Running theme installation"
-        @config.install
+        @config.command :install
       end
     end
   end

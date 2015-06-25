@@ -149,54 +149,54 @@ module ThemeJuice
     end
 
     desc "update", "Update tj and its dependencies"
-    def update(*commands)
+    def update(*args)
       @io.error "Not implemented"
     end
 
     desc "install", "Run theme installation"
-    def install(*commands)
-      @config.install commands
+    def install(*args)
+      @config.command :install, args
     end
 
-    desc "watch [COMMANDS]", "Manage development build tools"
-    def watch(*commands)
-      @config.watch commands
+    desc "watch [ARGS]", "Manage development build tools"
+    def watch(*args)
+      @config.command :watch, args
     end
 
-    desc "assets [COMMANDS]", "Manage front-end dependencies"
-    def assets(*commands)
-      @config.assets commands
+    desc "assets [ARGS]", "Manage front-end dependencies"
+    def assets(*args)
+      @config.command :assets, args
     end
 
-    desc "vendor [COMMANDS]", "Manage back-end dependencies"
-    def vendor(*commands)
-      @config.vendor commands
+    desc "vendor [ARGS]", "Manage back-end dependencies"
+    def vendor(*args)
+      @config.command :vendor, args
     end
 
-    desc "dist [COMMANDS]", "Package project for distribution"
-    def dist(*commands)
-      @config.dist commands
+    desc "dist [ARGS]", "Package project for distribution"
+    def dist(*args)
+      @config.command :dist, args
     end
 
-    desc "wp [COMMANDS]", "Manage WordPress installation"
-    def wp(*commands)
-      @config.wp commands
+    desc "wp [ARGS]", "Manage WordPress installation"
+    def wp(*args)
+      @config.command :wp, args
     end
 
-    desc "backup [COMMANDS]", "Backup project"
-    def backup(*commands)
-      @config.backup commands
+    desc "backup [ARGS]", "Backup project"
+    def backup(*args)
+      @config.command :backup, args
     end
 
-    desc "test [COMMANDS]", "Manage and run project tests"
-    def test(*commands)
-      @config.test commands
+    desc "test [ARGS]", "Manage and run project tests"
+    def test(*args)
+      @config.command :test, args
     end
 
-    desc "vm [COMMANDS]", "Manage development environment"
-    def vm(*commands)
+    desc "vm [ARGS]", "Manage development environment"
+    def vm(*args)
       @util.inside @env.vm_path do
-        @util.run "vagrant #{commands.join(" ")}", :verbose => @env.verbose
+        @util.run "vagrant #{args.join(" ")}", :verbose => @env.verbose
       end
     end
   end
