@@ -57,7 +57,8 @@ describe ThemeJuice::IO do
 
     it "should raise SystemExit when Env.verbose is false" do
       allow(ThemeJuice::Env).to receive(:verbose).and_return false
-      
+      allow(stdout).to receive :print
+
       expect { @io.error "Oops!", NotImplementedError }.to raise_error SystemExit
       expect { @io.error "Exiting!" }.to raise_error SystemExit
     end
@@ -67,6 +68,10 @@ describe ThemeJuice::IO do
     it "should allow using arrow keys to choose item in list" do
       expect(stdin).to receive(:noecho).with(no_args)
         .once.and_return "down",
+          "down",
+          "up",
+          "down",
+          "up",
           "down",
           "down",
           "return"
