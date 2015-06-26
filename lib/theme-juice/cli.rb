@@ -15,7 +15,7 @@ module ThemeJuice
       @list    = Tasks::List
       @create  = Commands::Create
       @delete  = Commands::Delete
-      @deploy  = Commands::Deploy
+      @deploy  = Subcommands::Deploy
 
       init_env
     end
@@ -138,9 +138,15 @@ module ThemeJuice
       @delete.new(options).unexecute
     end
 
-    desc "deploy", "Deploy a project"
-    def deploy
-      @deploy.new(options).execute
+    desc "deploy STAGE [,ARGS]", "Deploy a project"
+    def deploy(stage, *args)
+      begin
+        @deploy.new(options).send stage, *args
+      rescue NoMethodError => err
+        @io.error "It looks like stage '#{stage}' doesn't exist" do
+          puts err if @env.verbose
+        end
+      end
     end
 
     desc "list", "List all projects"

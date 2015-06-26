@@ -45,7 +45,7 @@ module ThemeJuice
     def config
       begin
         @project.location ||= Dir.pwd
-        
+
         YAML.load_file Dir["#{@project.location}/*"].select { |f|
           config_regex =~ File.basename(f) }.last ||
           @io.error("Config file not found in '#{@project.location}'", LoadError)
