@@ -4,6 +4,7 @@ module ThemeJuice
   module Env
     include SingletonHelper
 
+    attr_accessor :cap
     attr_accessor :vm_box
     attr_accessor :vm_path
     attr_accessor :vm_ip
