@@ -18,6 +18,8 @@ module ThemeJuice
             runner do |tasks|
               tasks << Tasks::Stage.new
               tasks << Tasks::VMStage.new
+              tasks << Tasks::Rsync.new
+              tasks << Tasks::SCM.new
             end
 
             self
