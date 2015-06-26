@@ -12,6 +12,8 @@ module ThemeJuice
         init_stages
       end
 
+      private
+
       def init_stages
         @settings.stages.keys.each do |stage|
           self.class.send :define_method, stage do
