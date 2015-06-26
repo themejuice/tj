@@ -15,7 +15,7 @@ namespace :db do
   task :backup do
     invoke "db:init"
 
-    on roles :db do
+    on roles(:db) do
 
       within release_path do
         execute :wp, :db, :export, "#{fetch(:remote_backup_dir)}/#{fetch(:remote_db)}", "--add-drop-table"
@@ -37,7 +37,7 @@ namespace :db do
   task :push do
     invoke "db:backup"
 
-    on roles :dev do
+    on roles(:dev) do
       within fetch(:dev_path) do
         execute :wp, :db, :export, "#{fetch(:vagrant_backup_dir)}/#{fetch(:vagrant_db)}"
       end
@@ -53,7 +53,7 @@ namespace :db do
       end
     end
 
-    on roles :dev do
+    on roles(:dev) do
       within fetch(:dev_path) do
         execute :rm, "#{fetch(:vagrant_backup_dir)}/#{fetch(:vagrant_db)}"
       end
@@ -64,7 +64,7 @@ namespace :db do
   task :pull do
     invoke "db:backup"
 
-    on roles :db do
+    on roles(:db) do
       within release_path do
         execute :wp, :db, :export, "#{fetch(:remote_backup_dir)}/#{fetch(:remote_db)}"
         download! "#{fetch(:remote_backup_dir)}/#{fetch(:remote_db)}", "#{fetch(:vagrant_backup_dir)}/#{fetch(:remote_db)}"
@@ -72,7 +72,7 @@ namespace :db do
       end
     end
 
-    on roles :dev do
+    on roles(:dev) do
       within fetch(:dev_path) do
         execute :wp, :db, :import, "#{fetch(:vagrant_backup_dir)}/#{fetch(:remote_db)}"
         execute :rm, "#{fetch(:vagrant_backup_dir)}/#{fetch(:remote_db)}"

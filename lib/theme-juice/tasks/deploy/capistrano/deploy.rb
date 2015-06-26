@@ -8,9 +8,9 @@ namespace :deploy do
     end
   end
 
-  after  :"rsync:stage", :"precompile"
-  before :"check",       :"wp:setup:files"
-  after  :"published",   :"wp:setup:permissions"
-  after  :"published",   :"wp:cleanup:files"
-  after  :"finishing",   :"deploy:cleanup"
+  after  "rsync:stage", "precompile"
+  before "check",       "wp:setup:files"
+  after  "published",   "wp:setup:permissions"
+  after  "published",   "wp:cleanup:files"
+  after  "finishing",   "deploy:cleanup"
 end

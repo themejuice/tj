@@ -4,7 +4,7 @@ namespace :env do
 
   desc "Push environment file to remote"
   task :push do
-    on roles :app do
+    on roles(:app) do
       if File.exists? ".env.#{fetch(:stage)}"
         upload! ".env.#{fetch(:stage)}", shared_path.join(".env.#{fetch(:stage)}")
       else
@@ -15,7 +15,7 @@ namespace :env do
 
   desc "Pull environment file from remote"
   task :pull do
-    on roles :app do
+    on roles(:app) do
       download! shared_path.join(".env.#{fetch(:stage)}"), ".env.#{fetch(:stage)}"
     end
   end
