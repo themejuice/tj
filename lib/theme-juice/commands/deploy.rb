@@ -6,7 +6,12 @@ module ThemeJuice
 
       def initialize(opts = {})
         super
-        runner { @io.error "Not implemented" }
+
+        @settings = @config.deployment.to_ostruct
+
+        runner do
+          @io.error "Not implemented"
+        end
       end
     end
   end
