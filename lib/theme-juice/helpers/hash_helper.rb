@@ -22,7 +22,7 @@ module ThemeJuice
     end
 
     def to_ostruct(acc = self, opts = {})
-      if opts.fetch :recursive, false
+      if opts[:recursive]
         case acc
         when Hash
           OpenStruct.new Hash[acc.map { |k, v| [k, to_ostruct(v)] } ]
