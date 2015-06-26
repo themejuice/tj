@@ -8,7 +8,7 @@ module ThemeJuice
         super
 
         @config.deployment.stages.keys.each do |stage|
-          self.class.send :define_method, "#{stage}" do |*args|
+          self.class.send :define_method, stage do |*args|
             @env.cap = {
               :config => Capistrano::Configuration.new,
               :app    => Capistrano::Application.new,
