@@ -6,11 +6,17 @@ module ThemeJuice
 
       def initialize(opts = {})
         super
+
+        @settings = @config.deployment
+
+        init_stages
       end
 
-      Config.deployment.stages.keys.each do |stage|
-        define_method "#{stage}" do
-          @io.log "Deploying to #{stage}"
+      def init_stages
+        @settings.stages.keys.each do |stage|
+          self.class.send :define_method, stage do
+            @io.log "Deploying to #{stage}"
+          end
         end
       end
     end
