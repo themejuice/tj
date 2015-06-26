@@ -10,7 +10,7 @@ _This project is currently under active development and will not be completely '
 
 [View our contributing guidelines to get started!](#contributing)
 
-_**Note:** The master branch contains features currently in development (such as deployment), so don't expect it to work at all times. Grab the newest RubyGem instead of building directly from the master branch._
+_**Note:** The master branch contains features currently in development (such as deployment), so don't expect it to work at all times. Grab the newest RubyGem instead of building directly from master._
 
 ## What is it?
 `tj` is a WordPress development command line utility that allows you to scaffold out an entire Vagrant development environment in seconds (using an Apache fork of [VVV](https://github.com/Varying-Vagrant-Vagrants/VVV) called [VVV-Apache](https://github.com/ericmann/vvv-apache.git) as the VM). It also helps you manage dependencies and build tools, and can even handle your deployments.
