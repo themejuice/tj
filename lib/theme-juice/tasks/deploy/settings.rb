@@ -3,20 +3,20 @@
 module ThemeJuice
   module Tasks
     module Deploy
-      class SSH < Task
+      class Settings < Task
 
         def initialize
           super
         end
 
         def execute
-          configure_ssh
+          configure_settings
         end
 
         private
 
-        def configure_ssh
-          @io.log "Configuring SSH options"
+        def configure_settings
+          @io.log "Configuring Capistrano"
 
           @config.deployment.settings.each do |_, (key, value)|
             @env.cap.config.set :"#{key}", value

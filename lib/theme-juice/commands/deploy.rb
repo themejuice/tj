@@ -12,7 +12,7 @@ module ThemeJuice
             @env.cap = {
               :config => Capistrano::Configuration.new,
               :app    => Capistrano::Application.new,
-              :stage  => stage,
+              :stage  => stage.to_sym,
               :args   => args
             }
 
@@ -22,7 +22,7 @@ module ThemeJuice
               tasks << Tasks::Deploy::VMStage.new
               tasks << Tasks::Deploy::Rsync.new
               tasks << Tasks::Deploy::Repo.new
-              tasks << Tasks::Deploy::SSH.new
+              tasks << Tasks::Deploy::Settings.new
               tasks << Tasks::Deploy::LoadCapistrano.new
               tasks << Tasks::Deploy::Invoke.new
             end
