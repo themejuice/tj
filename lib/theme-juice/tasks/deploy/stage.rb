@@ -22,7 +22,7 @@ module ThemeJuice
 
           @env.cap.config.server @stage.server, {
             :user  => @stage.user,
-            :roles => @stage.roles.map { |i| i.to_sym }
+            :roles => @stage.roles
           }
 
           @env.cap.config.set :stage,       @env.cap.stage

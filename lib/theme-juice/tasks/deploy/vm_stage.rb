@@ -23,7 +23,7 @@ module ThemeJuice
           @env.cap.config.server @vagrant.server, {
             :user       => @vagrant.user,
             :password   => @vagrant.pass,
-            :roles      => @vagrant.roles.map { |i| i.to_sym },
+            :roles      => @vagrant.roles,
             :no_release => true
           }
 
