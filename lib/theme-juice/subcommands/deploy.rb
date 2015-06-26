@@ -16,8 +16,8 @@ module ThemeJuice
 
       def init_stages
         @settings.stages.keys.each do |stage|
-          self.class.send :define_method, stage do
-            @io.log "Deploying to #{stage}"
+          self.class.send :define_method, stage do |*args|
+            @io.log "Deploying to #{stage} with args: #{args}"
           end
         end
       end
