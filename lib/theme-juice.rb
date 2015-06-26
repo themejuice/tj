@@ -4,6 +4,7 @@ require "thor"
 require "faker"
 require "os"
 require "yaml"
+require "capistrano/all"
 
 module ThemeJuice
 end
