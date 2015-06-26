@@ -25,9 +25,9 @@ module ThemeJuice
       if opts[:recursive]
         case acc
         when Hash
-          OpenStruct.new Hash[acc.map { |k, v| [k, to_ostruct(v)] } ]
+          OpenStruct.new Hash[acc.map { |k, v| [k, to_ostruct(v, opts)] } ]
         when Array
-          acc.map { |x| to_ostruct(x) }
+          acc.map { |x| to_ostruct(x, opts) }
         else
           acc
         end
