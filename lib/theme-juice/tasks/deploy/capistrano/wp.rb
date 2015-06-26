@@ -42,25 +42,7 @@ namespace :wp do
       on roles :app do
 
         # Remove development files
-        dev_files = [
-          "app/themes/theme-juice/src/",
-          "config/",
-          "lib/",
-          ".env.sample",
-          ".gitignore",
-          # ".tj.yml",
-          "Capfile",
-          "composer.json",
-          "composer.lock",
-          "config.rb",
-          "Gemfile",
-          "Gemfile.lock",
-          # "Gruntfile.js",
-          "Guardfile",
-          "README.md",
-          "tj.yml",
-          "wp-cli.local.yml",
-        ].each do |f|
+        dev_files = [].each do |f|
           execute :rm, "-rf", release_path.join(f)
         end
 
