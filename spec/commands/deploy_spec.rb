@@ -1,6 +1,6 @@
-describe ThemeJuice::Subcommands::Deploy do
+describe ThemeJuice::Commands::Deploy do
 
   before do
-    @deploy = ThemeJuice::Subcommands::Deploy
+    @deploy = ThemeJuice::Commands::Deploy
   end
 end
