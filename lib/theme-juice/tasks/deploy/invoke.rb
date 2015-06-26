@@ -17,6 +17,7 @@ module ThemeJuice
 
         def invoke_capistrano
           @io.log "Invoking Capistrano"
+
           if @env.cap.args.empty?
             @env.cap.app.invoke :deploy
           else

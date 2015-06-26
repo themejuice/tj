@@ -18,8 +18,8 @@ module ThemeJuice
         def configure_settings
           @io.log "Configuring Capistrano"
 
-          @config.deployment.settings.each do |_, (key, value)|
-            @env.cap.config.set :"#{key}", value
+          @config.deployment.settings.symbolize_keys.each do |key, value|
+            @env.cap.config.set key, value
           end
         end
       end

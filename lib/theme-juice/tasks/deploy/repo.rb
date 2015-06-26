@@ -18,8 +18,8 @@ module ThemeJuice
         def configure_scm
           @io.log "Configuring repository"
 
-          @config.deployment.repository.each do |_, (key, value)|
-            @env.cap.config.set :"#{key}", value
+          @config.deployment.repository.symbolize_keys.each do |key, value|
+            @env.cap.config.set key, value
           end
         end
       end
