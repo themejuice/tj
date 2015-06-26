@@ -12,14 +12,27 @@ module ThemeJuice
       end
     end
 
-    def to_ostruct(acc = self)
-      case acc
-      when Hash
-        OpenStruct.new Hash[acc.map { |k, v| [k, to_ostruct(v)] } ]
-      when Array
-        acc.map { |x| to_ostruct(x) }
+    # @TODO This is probably not a good idea
+    def method_missing(method)
+      if to_ostruct.respond_to? method
+        to_ostruct.send method
       else
-        acc
+        super
+      end
+    end
+
+    def to_ostruct(acc = self, opts = {})
+      if opts.fetch :recursive, false
+        case acc
+        when Hash
+          OpenStruct.new Hash[acc.map { |k, v| [k, to_ostruct(v)] } ]
+        when Array
+          acc.map { |x| to_ostruct(x) }
+        else
+          acc
+        end
+      else
+        OpenStruct.new acc
       end
     end
   end
