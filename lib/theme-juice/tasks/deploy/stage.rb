@@ -25,11 +25,11 @@ module ThemeJuice
             :roles => @stage.roles
           }
 
-          @env.cap.config.set :stage,       @env.cap.stage
           @env.cap.config.set :deploy_to,   @stage.path
           @env.cap.config.set :stage_url,   @stage.url
           @env.cap.config.set :uploads_dir, @stage.uploads
           @env.cap.config.set :tmp_dir,     @stage.tmp
+          @env.cap.config.set :stage,       @env.cap.stage
         end
       end
     end
