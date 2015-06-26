@@ -1,3 +1,5 @@
+# encoding: UTF-8
+
 module ThemeJuice
   module Tasks
     module Deploy
@@ -16,11 +18,11 @@ module ThemeJuice
         private
 
         def configure_stage
-          @io.log "Configuring '#{@env.cap.stage}' stage"
+          @io.log "Configuring stage '#{@env.cap.stage}'"
 
           @env.cap.config.server @stage.server, {
             :user  => @stage.user,
-            :roles => %w{web app db}
+            :roles => @stage.roles
           }
 
           @env.cap.config.set :stage,       @env.cap.stage

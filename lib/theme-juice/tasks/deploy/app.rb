@@ -3,22 +3,22 @@
 module ThemeJuice
   module Tasks
     module Deploy
-      class Rsync < Task
+      class App < Task
 
         def initialize
           super
         end
 
         def execute
-          configure_rsync
+          configure_app
         end
 
         private
 
-        def configure_rsync
-          @io.log "Configuring rsync"
+        def configure_app
+          @io.log "Configuring application"
 
-          @env.cap.config.set :rsync_options, @config.deployment.rsync_options
+          @env.cap.config.set :application, @config.deployment.application.name
         end
       end
     end
