@@ -16,10 +16,10 @@ module ThemeJuice
             }
 
             runner do |tasks|
-              tasks << Tasks::Stage.new
-              tasks << Tasks::VMStage.new
-              tasks << Tasks::Rsync.new
-              tasks << Tasks::SCM.new
+              tasks << Tasks::Deploy::Stage.new
+              tasks << Tasks::Deploy::VMStage.new
+              tasks << Tasks::Deploy::Rsync.new
+              tasks << Tasks::Deploy::Repo.new
             end
 
             self
