@@ -140,13 +140,7 @@ module ThemeJuice
 
     desc "deploy STAGE [,ARGS]", "Deploy a project"
     def deploy(stage, *args)
-      # begin
-        @deploy.new(options).send(stage, *args).execute
-      # rescue NoMethodError => err
-      #   @io.error "It looks like stage '#{stage}' doesn't exist" do
-      #     puts err if @env.verbose
-      #   end
-      # end
+      @deploy.new(options).send(stage, *args).execute
     end
 
     desc "list", "List all projects"

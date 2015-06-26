@@ -31,6 +31,10 @@ module ThemeJuice
           end
         end
       end
+
+      def method_missing(method)
+        @io.error "It looks like the stage '#{method}' doesn't exist"
+      end
     end
   end
 end
