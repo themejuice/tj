@@ -1,6 +1,5 @@
-#
-# Database migration
-#
+# encoding: UTF-8
+
 namespace :db do
 
   desc "Initialize database variables"

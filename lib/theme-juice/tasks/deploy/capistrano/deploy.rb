@@ -1,9 +1,7 @@
-#
-# Database migration
-#
+# encoding: UTF-8
+
 namespace :deploy do
 
-  # Precompile assets
   task :precompile do
     Dir.chdir fetch(:rsync_stage) do
       execute :composer, :install, "--no-dev --quiet"

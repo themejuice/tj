@@ -1,6 +1,5 @@
-#
-# Uploads directory
-#
+# encoding: UTF-8
+
 namespace :uploads do
 
   desc "Push local uploads to remote"

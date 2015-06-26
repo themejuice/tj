@@ -1,6 +1,5 @@
-#
-# Environment migration
-#
+# encoding: UTF-8
+
 namespace :env do
 
   desc "Push environment file to remote"

@@ -1,8 +1,7 @@
+# encoding: UTF-8
+
 namespace :wp do
 
-  #
-  # Setup WordPress
-  #
   namespace :setup do
 
     desc "Set permissions"
@@ -19,34 +18,26 @@ namespace :wp do
     task :files do
       on roles :app do
 
-        # Create shared directories
         execute :mkdir, "-p", shared_path.join("app/uploads")
 
-        # Create empty .env
         execute :touch, shared_path.join(".env.#{fetch(:stage)}")
 
-        # # Upload shared dev_files
         # upload! "wp-config.php", shared_path.join("wp-config.php")
         # upload! ".htaccess", shared_path.join(".htaccess")
       end
     end
   end
 
-  #
-  # Cleanup WordPress
-  #
   namespace :cleanup do
 
     desc "Remove development files"
     task :files do
       on roles :app do
 
-        # Remove development files
         dev_files = [].each do |f|
           execute :rm, "-rf", release_path.join(f)
         end
 
-        # Remove robots.txt on production
         execute :rm, release_path.join("robots.txt") if fetch(:stage) == :production
       end
     end
