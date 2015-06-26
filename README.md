@@ -8,6 +8,8 @@
 
 _This project is currently under active development and will not be completely 'stable' per-say until we hit `1.0`. Everything here is subject to change without notice. (We will of course semantically version all of our releases, with the minor version being incremented with new features/breaking changes.) Feel free to contribute to the development with new features, ideas or bug fixes._
 
+_The master branch contains features currently in development (such as deployment), so don't expect it to work at all times._
+
 [View our contributing guidelines to get started!](#contributing)
 
 ## What is it?
