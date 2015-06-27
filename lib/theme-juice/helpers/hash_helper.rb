@@ -13,7 +13,7 @@ module ThemeJuice
     end
 
     # @TODO This is probably not a good idea...
-    def method_missing(method)
+    def method_missing(method, *args, &block)
       if to_ostruct.respond_to? method
         to_ostruct.send method
       else
