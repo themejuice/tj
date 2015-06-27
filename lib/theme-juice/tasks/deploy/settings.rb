@@ -4,6 +4,7 @@ module ThemeJuice
   module Tasks
     module Deploy
       class Settings < Task
+        include Capistrano::DSL
 
         def initialize
           super
@@ -19,7 +20,7 @@ module ThemeJuice
           @io.log "Configuring Capistrano"
 
           @config.deployment.settings.symbolize_keys.each do |key, value|
-            @env.cap.config.set key, value
+            set key, value
           end
         end
       end

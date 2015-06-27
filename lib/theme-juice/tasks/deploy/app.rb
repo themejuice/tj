@@ -4,6 +4,7 @@ module ThemeJuice
   module Tasks
     module Deploy
       class App < Task
+        include Capistrano::DSL
 
         def initialize
           super
@@ -18,7 +19,7 @@ module ThemeJuice
         def configure_app
           @io.log "Configuring application"
 
-          @env.cap.config.set :application, @config.deployment.application.name
+          set :application, @config.deployment.application.name
         end
       end
     end

@@ -18,10 +18,6 @@ module ThemeJuice
         def invoke_capistrano
           @io.log "Invoking Capistrano"
 
-          require "pp"
-          pp @env.cap.config.send :servers
-          pp @env.cap.config.send :config
-
           if @env.cap.args.empty?
             @env.cap.app.invoke :deploy
           else

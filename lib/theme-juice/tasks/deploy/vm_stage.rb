@@ -4,6 +4,7 @@ module ThemeJuice
   module Tasks
     module Deploy
       class VMStage < Task
+        include Capistrano::DSL
 
         def initialize
           super
@@ -20,17 +21,17 @@ module ThemeJuice
         def configure_vagrant_stage
           @io.log "Configuring VM stage"
 
-          @env.cap.config.server @vagrant.server, {
+          server @vagrant.server, {
             :user       => @vagrant.user,
             :password   => @vagrant.pass,
             :roles      => @vagrant.roles,
             :no_release => true
           }
 
-          @env.cap.config.set :dev_path,            @vagrant.path
-          @env.cap.config.set :vagrant_url,         @vagrant.url
-          @env.cap.config.set :vagrant_uploads_dir, @vagrant.uploads
-          @env.cap.config.set :vagrant_tmp_dir,     @vagrant.tmp
+          set :dev_path,            @vagrant.path
+          set :vagrant_url,         @vagrant.url
+          set :vagrant_uploads_dir, @vagrant.uploads
+          set :vagrant_tmp_dir,     @vagrant.tmp
         end
       end
     end

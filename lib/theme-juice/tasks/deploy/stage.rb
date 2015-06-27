@@ -4,6 +4,7 @@ module ThemeJuice
   module Tasks
     module Deploy
       class Stage < Task
+        include Capistrano::DSL
 
         def initialize
           super
@@ -20,16 +21,18 @@ module ThemeJuice
         def configure_stage
           @io.log "Configuring stage '#{@env.cap.stage}'"
 
-          @env.cap.config.server @stage.server, {
+          stages = "#{@env.cap.stage}"
+
+          server @stage.server, {
             :user  => @stage.user,
             :roles => @stage.roles
           }
 
-          @env.cap.config.set :deploy_to,   @stage.path
-          @env.cap.config.set :stage_url,   @stage.url
-          @env.cap.config.set :uploads_dir, @stage.uploads
-          @env.cap.config.set :tmp_dir,     @stage.tmp
-          @env.cap.config.set :stage,       @env.cap.stage
+          set :deploy_to,   @stage.path
+          set :stage_url,   @stage.url
+          set :uploads_dir, @stage.uploads
+          set :tmp_dir,     @stage.tmp
+          set :stage,       @env.cap.stage
         end
       end
     end

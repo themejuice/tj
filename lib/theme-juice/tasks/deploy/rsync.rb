@@ -4,6 +4,7 @@ module ThemeJuice
   module Tasks
     module Deploy
       class Rsync < Task
+        include Capistrano::DSL
 
         def initialize
           super
@@ -18,7 +19,7 @@ module ThemeJuice
         def configure_rsync
           @io.log "Configuring rsync"
 
-          @env.cap.config.set :rsync_options, @config.deployment.rsync_options
+          set :rsync_options, @config.deployment.rsync_options rescue nil
         end
       end
     end
