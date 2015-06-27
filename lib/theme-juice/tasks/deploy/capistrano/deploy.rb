@@ -4,7 +4,7 @@ namespace :deploy do
 
   task :precompile do
     Dir.chdir fetch(:rsync_stage) do
-      execute :composer, :install, "--no-dev --quiet"
+      fetch(:rsync_build, {}).each { |t| execute t }
     end
   end
 
