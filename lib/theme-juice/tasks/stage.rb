@@ -8,7 +8,7 @@ module ThemeJuice
       def initialize
         super
 
-        @stage = @config.deployment.stages.send(@env.cap.stage)
+        @stage = @config.deployment.stages.send(@env.stage)
       end
 
       def execute
@@ -18,9 +18,9 @@ module ThemeJuice
       private
 
       def configure_stage
-        @io.log "Configuring stage '#{@env.cap.stage}'"
+        @io.log "Configuring stage '#{@env.stage}'"
 
-        stages = "#{@env.cap.stage}"
+        stages = "#{@env.stage}"
 
         server @stage.server, {
           :user  => @stage.user,
@@ -31,7 +31,7 @@ module ThemeJuice
         set :stage_url,   @stage.url
         set :uploads_dir, @stage.uploads
         set :tmp_dir,     @stage.tmp
-        set :stage,       @env.cap.stage
+        set :stage,       @env.stage
       end
     end
   end

@@ -4,7 +4,6 @@ module ThemeJuice
   module Env
     include SingletonHelper
 
-    attr_accessor :cap
     attr_accessor :vm_box
     attr_accessor :vm_path
     attr_accessor :vm_ip
@@ -19,6 +18,8 @@ module ThemeJuice
     attr_accessor :verbose
     attr_accessor :dryrun
     attr_accessor :nginx
+    attr_accessor :stage
+    attr_accessor :cap
 
     def vm_box=(val)
       @vm_box = val ||= ENV.fetch("TJ_VM_BOX") { "git@github.com:ericmann/vvv-apache.git" }

@@ -4,8 +4,10 @@ module ThemeJuice
   module Tasks
     class Invoke < Task
 
-      def initialize
+      def initialize(args)
         super
+
+        @args = args
       end
 
       def execute
@@ -17,10 +19,10 @@ module ThemeJuice
       def invoke_capistrano
         @io.log "Invoking Capistrano"
 
-        if @env.cap.args.empty?
-          @env.cap.app.invoke :deploy
+        if @args.empty?
+          @env.cap.invoke :deploy
         else
-          @env.cap.app.invoke *@env.cap.args
+          @env.cap.invoke *@args
         end
       end
     end
