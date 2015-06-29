@@ -1,3 +1,5 @@
+# encoding: UTF-8
+
 namespace :rsync do
 
   # @see https://github.com/moll/capistrano-rsync/issues/15
