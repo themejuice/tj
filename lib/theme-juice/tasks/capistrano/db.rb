@@ -41,7 +41,7 @@ namespace :db do
       end
     end
 
-    on roles :web do
+    on roles(:web) do
       upload! "#{fetch(:vm_backup_dir)}/#{fetch(:vm_db)}", "#{fetch(:tmp_dir)}/#{fetch(:vm_db)}"
 
       within release_path do

@@ -3,7 +3,7 @@
 namespace :deploy do
 
   task :precompile do
-    on roles :all do
+    on roles(:all) do
       Dir.chdir fetch(:rsync_stage) do
         fetch(:rsync_install, {}).each { |t| quietly { execute(t) } }
       end
