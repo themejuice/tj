@@ -23,8 +23,10 @@ module ThemeJuice
         case
         when args.empty?
           @env.cap.invoke "deploy"
-        when args.include?("rollback")
+        when args.last == "rollback"
           @env.cap.invoke "deploy:rollback"
+        when args.last == "check"
+          @env.cap.invoke "deploy:check"
         else
           @env.cap.invoke *args
         end
