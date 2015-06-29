@@ -8,6 +8,6 @@ namespace :deploy do
     end
   end
 
-  after  "rsync:stage", "precompile"
-  after  "finishing",   "deploy:cleanup"
+  after "rsync:stage", "precompile"
+  after "finishing",   "deploy:cleanup"
 end
