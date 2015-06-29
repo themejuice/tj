@@ -27,10 +27,10 @@ module ThemeJuice
           :no_release => true
         }
 
-        set :dev_path,            @vagrant.path
-        set :vagrant_url,         @vagrant.url
-        set :vagrant_uploads_dir, @vagrant.uploads
-        set :vagrant_tmp_dir,     @vagrant.tmp
+        set :dev_path,            -> { @vagrant.path }
+        set :vagrant_url,         -> { @vagrant.url }
+        set :vagrant_uploads_dir, -> { @vagrant.uploads }
+        set :vagrant_tmp_dir,     -> { @vagrant.tmp }
       end
     end
   end

@@ -20,7 +20,6 @@ module ThemeJuice
 
         require "capistrano/setup"
         require "capistrano/deploy"
-        require "capistrano/git"
         require "capistrano/rsync"
       end
 

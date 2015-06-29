@@ -27,11 +27,12 @@ module ThemeJuice
           :roles => @stage.roles
         }
 
-        set :deploy_to,   @stage.path
-        set :stage_url,   @stage.url
-        set :uploads_dir, @stage.uploads
-        set :tmp_dir,     @stage.tmp
-        set :stage,       @env.stage
+        set :deploy_to,    -> { @stage.path }
+        set :stage_url,    -> { @stage.url }
+        set :uploads_dir,  -> { @stage.uploads }
+        set :shared_files, -> { @stage.shared }
+        set :tmp_dir,      -> { @stage.tmp }
+        set :stage,        -> { @env.stage }
       end
     end
   end

@@ -21,14 +21,17 @@ module ThemeJuice
         begin
           set :application, @config.deployment.application.name
 
-          @config.deployment.rsync.symbolize_keys.each do |key, value|
-            set :"rsync_#{key}", proc { value }
-          end
-
           %w[settings repository].each do |task|
             @config.deployment.send(task).symbolize_keys.each do |key, value|
               set key, proc { value }
             end
+          end
+
+          set :linked_files, fetch(:linked_files, []).push(fetch(:shared_files))
+          set :linked_dirs, fetch(:linked_dirs, []).push(fetch(:uploads_dir))
+
+          @config.deployment.rsync.symbolize_keys.each do |key, value|
+            set :"rsync_#{key}", proc { value }
           end
         rescue NoMethodError => err
           @io.error "Oops! It looks like you're missing a few deployment settings" do
