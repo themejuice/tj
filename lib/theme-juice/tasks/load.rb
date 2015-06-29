@@ -30,7 +30,7 @@ module ThemeJuice
         require "capistrano/framework"
 
         tasks_dir = "#{File.dirname(__FILE__)}/capistrano"
-        tasks     = %w[db uploads deploy rsync]
+        tasks     = %w[db uploads env deploy rsync]
 
         tasks.each { |task| load "#{tasks_dir}/#{task}.rb" }
       end
