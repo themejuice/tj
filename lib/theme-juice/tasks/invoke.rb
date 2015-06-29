@@ -5,7 +5,7 @@ module ThemeJuice
     class Invoke < Task
       attr_reader :args
 
-      def initialize(args)
+      def initialize(args = [])
         super
 
         @args = args
