@@ -21,7 +21,7 @@ module ThemeJuice
         require "capistrano/setup"
         require "capistrano/deploy"
         require "capistrano/rsync"
-        require "capistrano/slackify" if @config.deployment[:slack]
+        require "capistrano/slackify" if @config.deployment.key? "slack"
       end
 
       def load_tasks
