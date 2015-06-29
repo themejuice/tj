@@ -8,7 +8,7 @@ namespace :env do
       if File.exist? ".env.#{fetch(:stage)}"
         upload! ".env.#{fetch(:stage)}", shared_path.join(".env.#{fetch(:stage)}")
       else
-        ThemeJuice::IO.error "Could not locate local .env.#{fetch(:stage)} file"
+        error "Could not locate local .env.#{fetch(:stage)} file"
       end
     end
   end
