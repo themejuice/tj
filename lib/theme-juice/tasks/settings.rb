@@ -19,8 +19,12 @@ module ThemeJuice
         @io.log "Configuring Capistrano"
 
         begin
-          set :application, @config.deployment.application.name
-          set :rsync_options, @config.deployment.rsync_options
+          set :application,   @config.deployment.application.name
+
+          @config.deployment.rsync.symbolize_keys.each do |key, value|
+            set :"rsync_#{key}", proc { value }
+          end
+
           %w[settings repository].each do |task|
             @config.deployment.send(task).symbolize_keys.each do |key, value|
               set key, proc { value }
