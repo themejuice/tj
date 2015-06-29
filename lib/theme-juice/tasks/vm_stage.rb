@@ -12,12 +12,12 @@ module ThemeJuice
       end
 
       def execute
-        configure_vagrant_stage
+        configure_vm_stage
       end
 
       private
 
-      def configure_vagrant_stage
+      def configure_vm_stage
         @io.log "Configuring VM stage"
 
         server @vagrant.server, {
@@ -27,10 +27,11 @@ module ThemeJuice
           :no_release => true
         }
 
-        set :dev_path,            -> { @vagrant.path }
-        set :vagrant_url,         -> { @vagrant.url }
-        set :vagrant_uploads_dir, -> { @vagrant.uploads }
-        set :vagrant_tmp_dir,     -> { @vagrant.tmp }
+        set :dev_path,       -> { @vagrant.path }
+        set :vm_url,         -> { @vagrant.url }
+        set :vm_uploads_dir, -> { @vagrant.uploads }
+        set :vm_backup_dir,  -> { @vagrant.backup }
+        set :vm_tmp_dir,     -> { @vagrant.tmp }
       end
     end
   end
