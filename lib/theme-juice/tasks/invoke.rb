@@ -3,6 +3,7 @@
 module ThemeJuice
   module Tasks
     class Invoke < Task
+      attr_reader :args
 
       def initialize(args)
         super
@@ -19,10 +20,13 @@ module ThemeJuice
       def invoke_capistrano
         @io.log "Invoking Capistrano"
 
-        if @args.empty?
-          @env.cap.invoke :deploy
+        case
+        when args.empty?
+          @env.cap.invoke "deploy"
+        when args.include?("rollback")
+          @env.cap.invoke "deploy:rollback"
         else
-          @env.cap.invoke *@args
+          @env.cap.invoke *args
         end
       end
     end
