@@ -23,7 +23,7 @@ module ThemeJuice
           set :rsync_options, @config.deployment.rsync_options
           %w[settings repository].each do |task|
             @config.deployment.send(task).symbolize_keys.each do |key, value|
-              set key, value
+              set key, proc { value }
             end
           end
         rescue NoMethodError => err
