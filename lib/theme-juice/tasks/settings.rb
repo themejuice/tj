@@ -19,7 +19,7 @@ module ThemeJuice
         @io.log "Configuring Capistrano"
 
         begin
-          set :application,   @config.deployment.application.name
+          set :application, @config.deployment.application.name
 
           @config.deployment.rsync.symbolize_keys.each do |key, value|
             set :"rsync_#{key}", proc { value }
