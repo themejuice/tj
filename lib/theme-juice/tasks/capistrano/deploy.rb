@@ -4,7 +4,7 @@ namespace :deploy do
 
   task :precompile do
     Dir.chdir fetch(:rsync_stage) do
-      fetch(:rsync_build, {}).each { |t| execute t }
+      fetch(:rsync_install, {}).each { |t| execute t }
     end
   end
 
