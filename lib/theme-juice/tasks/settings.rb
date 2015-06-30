@@ -10,38 +10,40 @@ module ThemeJuice
       end
 
       def execute
-        configure_settings
+        configure_required_settings
+        configure_optional_settings
       end
 
       private
 
-      def configure_settings
+      # Required global settings
+      def configure_required_settings
         @io.log "Configuring Capistrano"
 
         begin
-          set :application, @config.deployment.application.name
-
+          set :application,  @config.deployment.application.name
           set :linked_files, fetch(:linked_files, []).push(fetch(:shared_files))
-          set :linked_dirs, fetch(:linked_dirs, []).push(fetch(:uploads_dir))
+          set :linked_dirs,  fetch(:linked_dirs, []).push(fetch(:uploads_dir))
 
-          # Required global settings
           %w[settings repository].each do |task|
             @config.deployment.send(task).symbolize_keys.each do |key, value|
               set key, proc { value }
             end
           end
-
-          # Optional namespaced settings
-          %w[rsync slack].each do |task|
-            if @config.deployment.key? task
-              @config.deployment.send(task).symbolize_keys.each do |key, value|
-                set :"#{task}_#{key}", proc { value }
-              end
-            end
-          end
         rescue NoMethodError => err
           @io.error "Oops! It looks like you're missing a few deployment settings" do
             puts err
+          end
+        end
+      end
+
+      # Optional namespaced settings
+      def configure_optional_settings
+        %w[rsync slack].each do |task|
+          if @config.deployment.key? task
+            @config.deployment.send(task).symbolize_keys.each do |key, value|
+              set :"#{task}_#{key}", proc { value }
+            end
           end
         end
       end
