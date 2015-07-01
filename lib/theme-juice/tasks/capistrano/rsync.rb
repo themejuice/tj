@@ -1,6 +1,13 @@
 # encoding: UTF-8
 
 namespace :rsync do
+  task :stage
+
+  after :stage, :precompile do
+    Dir.chdir fetch(:rsync_stage) do
+      fetch(:rsync_install, []).each { |t| system t }
+    end
+  end
 
   # @see https://github.com/moll/capistrano-rsync/issues/15
   task :set_current_revision do
