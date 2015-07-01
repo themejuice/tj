@@ -102,7 +102,8 @@ your project's deployment settings. All of these will be passed to
     Relative path from application root to the tmp folder
 
   * `deployment.stages.<stage>.shared`:
-    Sequence of relative files to place in the shared folder
+    Sequence of relative files from application root to place in
+    the shared folder
 
   * `deployment.stages.<stage>.roles`:
     Sequence of deployment roles for the stage
