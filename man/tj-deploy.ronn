@@ -12,6 +12,8 @@ Deploys a project to the passed `stage`. All commands are piped directly to
 
 ## SETUP
 
+Follow these steps to quickly get up and running:
+
 1. Create a `deploy` user on the `stage` server
 1. Create SSH keys for the new `deploy` user
 1. Create a deployment key for the `stage` server to clone your repository
