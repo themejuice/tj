@@ -20,12 +20,12 @@ module ThemeJuice
       def invoke_capistrano
         @io.log "Invoking Capistrano"
 
-        case
-        when args.empty?
+        case args.last
+        when nil
           @env.cap.invoke "deploy"
-        when args.last == "rollback"
+        when "rollback"
           @env.cap.invoke "deploy:rollback"
-        when args.last == "check"
+        when "setup", "check"
           @env.cap.invoke "deploy:check"
         else
           @env.cap.invoke *args
