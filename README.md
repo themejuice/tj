@@ -205,7 +205,7 @@ cmd3 "%arg4%"
 You can specify an unlimited number of commands with an unlimited number of arguments; however, you should be careful with how this is used. Don't go including `sudo rm -rf %arg1%` in a command, while passing `/` as an argument. Keep it simple. These are meant to make your life easier by helping you manage build tools, not to do fancy scripting.
 
 #### Does `tj` handle deployments?
-Eventually, yes. It's not currently production-ready, but as soon as it is, we'll have detailed instructions on how to configure and deploy applications using `tj`. Right now, I'm leaning towards integrating an automated Capistrano workflow, but am open to other options. [Have an idea and want to contribute?](#contributing)
+As of `0.11`, yes! Check out the [documentation](http://themejuice.it/deploy) to get started.
 
 #### Can I access a project from another device (i.e. mobile)?
 Yes! Every project created with `tj` will automatically be set up to support using [xip.io](http://xip.io/). If you're using OSX, then everything should work out of the box. If you're not using OSX, then you'll need to point port `80` on your host machine to `8080`; Vagrant cannot do this by default for security reasons.
