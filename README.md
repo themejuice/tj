@@ -66,7 +66,7 @@ tj delete
 ```
 
 #### Deploying a project
-This will deploy a project to the passed `stage`.
+This will deploy a project to the passed `stage` using [Capistrano](http://capistranorb.com/).
 
 ```
 tj deploy <stage>
