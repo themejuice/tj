@@ -65,6 +65,13 @@ It will not touch your local folders that were synced to the VM.
 tj delete
 ```
 
+#### Deploying a project
+This will deploy a project to the passed `stage`.
+
+```
+tj deploy <stage>
+```
+
 #### Want more?
 Want to check out all of the various flags and features `tj` offers? Just ask `tj` for help, and you'll be greeted with a nice `man` page full of information about how to use just about everything.
 

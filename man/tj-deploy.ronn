@@ -7,7 +7,18 @@ tj-deploy(1) -- Deploy a project
 
 ## DESCRIPTION
 
-Deploys a project to the passed stage.
+Deploys a project to the passed `stage`. All commands are piped directly to
+[`capistrano(1)`](http://capistranorb.com/).
+
+## SETUP
+
+1. Create a `deploy` user on the `stage` server
+1. Create SSH keys for the new `deploy` user
+1. Create a deployment key for the `stage` server to clone your repository
+1. Confirm the `deploy` user owns the deploy path
+1. Run `tj deploy <stage> setup` to setup the initial shared and releases
+   directories
+1. Deploy!
 
 ## PRIMARY COMMANDS
 
@@ -19,7 +30,7 @@ If no command is passed, the default task to be executed is `deploy`
   * `rollback`:
     Rollback a previous deployment
 
-  * `check`:
+  * `setup`, `check`:
     Run a preliminary deployment check, making sure that all necessary folders
     are created and accessible on the passed `stage`
 
@@ -64,21 +75,21 @@ your project's deployment settings. All of these will be passed to
     Deployment configuration
 
   * `deployment.application`:
-    Application settings passed directly to `capistrano(1)`
+    Application settings passed directly to [`capistrano(1)`](http://capistranorb.com/)
 
   * `deployment.settings`:
-    Deployment settings passed directly to `capistrano(1)`
+    Deployment settings passed directly to [`capistrano(1)`](http://capistranorb.com/)
 
   * `deployment.repository`:
-    Repository settings passed directly to `capistrano(1)`
+    Repository settings passed directly to [`capistrano(1)`](http://capistranorb.com/)
 
   * `deployment.rsync`:
-    Optional settings passed to `capistrano-rsync(1)`; mapped as
-    `rsync_<setting>` during the deployment initialization
+    Optional settings passed to [`capistrano-rsync(1)`](https://github.com/moll/capistrano-rsync);
+    mapped as `rsync_<setting>` during the deployment initialization
 
   * `deployment.slack`:
-    Optional settings passed to `capistrano-slackify(1)`; mapped as
-    `slack_<setting>` during the deployment initialization
+    Optional settings passed to [`capistrano-slackify(1)`](https://github.com/onthebeach/capistrano-slackify);
+    mapped as `slack_<setting>` during the deployment initialization
 
   * `deployment.stages`:
     Deployment stages
