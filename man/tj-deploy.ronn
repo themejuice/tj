@@ -71,7 +71,7 @@ If no command is passed, the default task to be executed is `deploy`
 The YAML configuration file (`Juicefile`) may be used to store deployment-related
 settings. Below you will find the various block sequences you may use to define
 your project's deployment settings. All of these will be passed to
-`capistrano(1)` to invoke a deployment.
+[`capistrano(1)`](http://capistranorb.com/) to invoke a deployment.
 
   * `deployment`:
     Deployment configuration
