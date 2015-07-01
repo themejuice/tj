@@ -22,12 +22,11 @@ module ThemeJuice
         require "capistrano/deploy"
         require "capistrano/rsync"
         require "capistrano/slackify" if @config.deployment.key? "slack"
+        require "capistrano/framework"
       end
 
       def load_tasks
         @io.log "Loading Capistrano tasks"
-
-        require "capistrano/framework"
 
         tasks_dir = "#{File.dirname(__FILE__)}/capistrano"
         tasks     = %w[db uploads env rsync]
