@@ -63,7 +63,7 @@
               REQUIREMENTS
             %p
               %strong
-                %code tj
+                %code tj(1)
                 requires <a href="http://vagrantup.com/">Vagrant</a> and <a href="https://www.virtualbox.org/">VirtualBox</a> to be able to create virtual machines for local development. Please download and install both of these before getting started.
             %p
               I recommend one of the latest versions of Ruby MRI (2.2, 2.1, 2.0). <code>tj</code> requires at least MRI 1.9.3. For the full report, check out the <a href="https://travis-ci.org/ezekg/theme-juice-cli">Travis CI build status</a>, where I test against an array of Ruby interpreters.
@@ -109,7 +109,7 @@
 
         scrollTo = (node, target, vel) ->
           y = node.scrollTop
-          vy = target - y
+          vy = target - (y - 75)
           dt = 0
           i = 20
 
