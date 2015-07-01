@@ -62,16 +62,16 @@ can even handle your deployments.
 
 Run `tj help` [<command>] to view an individual command's man page.
 
-  * [create(1)](create.html), `new`, `mk`:
+  * [create(1)](/create), `new`, `mk`:
     Create a new project
 
-  * [setup(1)](setup.html), `up`, `init`:
+  * [setup(1)](/setup), `up`, `init`:
     Setup an existing project
 
-  * [delete(1)](delete.html), `rm`, `remove`, `trash`:
+  * [delete(1)](/delete), `rm`, `remove`, `trash`:
     Delete a project
 
-  * [deploy(1)](deploy.html), `server`, `remote`:
+  * [deploy(1)](/deploy), `server`, `remote`:
     Deploy a project
 
 ## SECONDARY COMMANDS
