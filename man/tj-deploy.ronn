@@ -3,8 +3,137 @@ tj-deploy(1) -- Deploy a project
 
 ## SYNOPSIS
 
-`tj deploy` [--flag=<arg>] [--flag]
+`tj deploy` <stage> [<command>] [--flag=<arg>] [--flag]
 
 ## DESCRIPTION
 
-Coming soon
+Deploys a project to the passed stage.
+
+## PRIMARY COMMANDS
+
+If no command is passed, the default task to be executed is `deploy`
+
+  * `deploy`:
+    Deploy a project
+
+  * `rollback`:
+    Rollback a previous deployment
+
+  * `check`:
+    Run a preliminary deployment check, making sure that all necessary folders
+    are created and accessible on the passed `stage`
+
+## SECONDARY COMMANDS
+
+  * `db:backup`:
+    Back up the database on the passed `stage` and store it locally in the
+    `deployment.stages.vagrant.backup` directory
+
+  * `db:pull`:
+    Pull the database from the passed `stage` and import it into the development
+    environment
+
+  * `db:push`:
+    Push the database from the development environment and import it into
+    the passed `stage`
+
+  * `env:pull`:
+    Pull the current `.env.<stage>` file from the passed `stage` to the
+    development environment
+
+  * `env:push`:
+    Push the current `.env.<stage>` file from the development environment
+    to the passed `stage`
+
+  * `uploads:pull`:
+    Pull the current `stage`'s uploads folder from the passed `stage` to the
+    development environment
+
+  * `uploads:push`:
+    Push the uploads folder from the development environment to the passed
+    `stage` `stage`'s uploads folder
+
+## CONFIG FILE
+
+The YAML configuration file (`Juicefile`) may be used to store deployment-related
+settings. Below you will find the various block sequences you may use to define
+your project's deployment settings. All of these will be passed to
+`capistrano(1)` to invoke a deployment.
+
+  * `deployment`:
+    Deployment configuration
+
+  * `deployment.application`:
+    Application settings passed directly to `capistrano(1)`
+
+  * `deployment.settings`:
+    Deployment settings passed directly to `capistrano(1)`
+
+  * `deployment.repository`:
+    Repository settings passed directly to `capistrano(1)`
+
+  * `deployment.rsync`:
+    Optional settings passed to `capistrano-rsync(1)`; mapped as
+    `rsync_<setting>` during the deployment initialization
+
+  * `deployment.slack`:
+    Optional settings passed to `capistrano-slackify(1)`; mapped as
+    `slack_<setting>` during the deployment initialization
+
+  * `deployment.stages`:
+    Deployment stages
+
+  * `deployment.stages.<stage>.server`:
+    Domain or IP address of the server
+
+  * `deployment.stages.<stage>.path`:
+    Root path to the deployment directory
+
+  * `deployment.stages.<stage>.user`:
+    User account to deploy as (it is recommended _not_ to use `root`)
+
+  * `deployment.stages.<stage>.url`:
+    URL of the stage
+
+  * `deployment.stages.<stage>.uploads`:
+    Relative path from application root to the uploads folder
+
+  * `deployment.stages.<stage>.tmp`:
+    Relative path from application root to the tmp folder
+
+  * `deployment.stages.<stage>.shared`:
+    Sequence of relative files to place in the shared folder
+
+  * `deployment.stages.<stage>.roles`:
+    Sequence of deployment roles for the stage
+
+  * `deployment.stages.vagrant`:
+    Required development environment settings; these are used for database
+    and file migration
+
+  * `deployment.stages.vagrant.server`:
+    Domain or IP address of the development environment
+
+  * `deployment.stages.vagrant.path`:
+    Root path to the application directory within the VM
+
+  * `deployment.stages.vagrant.user`:
+    User account to deploy as (usually `vagrant`)
+
+  * `deployment.stages.vagrant.pass`:
+    Password for the user (usually `vagrant`)
+
+  * `deployment.stages.vagrant.url`:
+    URL of the project
+
+  * `deployment.stages.vagrant.uploads`:
+    Relative path from application root to the uploads folder
+
+  * `deployment.stages.vagrant.backup`:
+    Relative path from application root to the backup folder
+
+  * `deployment.stages.vagrant.tmp`:
+    Relative path from application root to the tmp folder
+
+  * `deployment.stages.vagrant.roles`:
+    Sequence of roles for the development environment

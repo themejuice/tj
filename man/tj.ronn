@@ -62,27 +62,27 @@ can even handle your deployments.
 
 Run `tj help` [<command>] to view an individual command's man page.
 
-  * `create`, `new`, `mk`:
+  * [create(1)](create.html), `new`, `mk`:
     Create a new project
 
-  * `setup`, `up`, `init`:
+  * [setup(1)](setup.html), `up`, `init`:
     Setup an existing project
 
-  * `delete`, `rm`, `remove`, `trash`:
+  * [delete(1)](delete.html), `rm`, `remove`, `trash`:
     Delete a project
 
-  * `deploy`, `server`, `remote`:
+  * [deploy(1)](deploy.html), `server`, `remote`:
     Deploy a project
 
 ## SECONDARY COMMANDS
 
-  * `version`, `--version`, `-v`:
+  * `version(1)`, `--version`, `-v`:
     Print the current version
 
-  * `list`, `ls`, `projects`, `apps`, `sites`:
+  * `list(1)`, `ls`, `projects`, `apps`, `sites`:
     List all projects
 
-  * `vm`, `vagrant`, `vvv`=[<command>[,<command>]...]:
+  * `vm(1)`, `vagrant`, `vvv`=[<command>[,<command>]...]:
     Manage development environment via `vagrant`. Commands are proxied to
     your Vagrant installation so that they can be run from any directory.
 
@@ -92,28 +92,28 @@ These run the corresponding command from your project's config file. They
 accept any number of arguments, since the behavior and handling of
 input is defined within the config file itself.
 
-  * `install`, `build`=[<arg>[,<arg>]...]:
+  * `install(1)`, `build`=[<arg>[,<arg>]...]:
     Run installation for project
 
-  * `watch`, `dev`=[<arg>[,<arg>]...]:
+  * `watch(1)`, `dev`=[<arg>[,<arg>]...]:
     Manage and run development build tools
 
-  * `assets`, `asset`=[<arg>[,<arg>]...]:
+  * `assets(1)`, `asset`=[<arg>[,<arg>]...]:
     Manage front-end dependencies for project
 
-  * `vendor`, `deps`=[<arg>[,<arg>]...]:
+  * `vendor(1)`, `deps`=[<arg>[,<arg>]...]:
     Manage back-end dependencies for project
 
-  * `dist`, `pkg`, `package`, `zip`=[<arg>[,<arg>]...]:
+  * `dist(1)`, `pkg`, `package`, `zip`=[<arg>[,<arg>]...]:
     Package project for distribution
 
-  * `wp`, `wordpress`=[<arg>[,<arg>]...]:
+  * `wp(1)`, `wordpress`=[<arg>[,<arg>]...]:
     Manage project's WordPress installation
 
-  * `backup`, `bk`=[<arg>[,<arg>]...]:
+  * `backup(1)`, `bk`=[<arg>[,<arg>]...]:
     Backup project
 
-  * `test`, `tests`, `spec`, `specs`=[<arg>[,<arg>]...]:
+  * `test(1)`, `tests`, `spec`, `specs`=[<arg>[,<arg>]...]:
     Manage and run project tests
 
 ## CONFIG FILE
@@ -149,9 +149,6 @@ across multiple projects that utilize different tools.
 
   * `commands.test`:
     Command used to manage and run project tests
-
-  * `deployment`:
-    Coming soon
 
 Placeholder arguments can be used within any command block sequence to
 allow splat or indexed arguments to be passed to the corresponding
