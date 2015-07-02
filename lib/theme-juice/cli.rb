@@ -56,20 +56,20 @@ module ThemeJuice
     map %w[server remote]          => :deploy
     map %w[vagrant vvv]            => :vm
 
-    class_option :vm_box,          :type => :string,  :default => nil,                    :desc => "Force Vagrant box for use as VM"
-    class_option :vm_path,         :type => :string,  :default => nil,                    :desc => "Force path to VM"
-    class_option :vm_ip,           :type => :string,  :default => nil,                    :desc => "Force IP address of VM"
-    class_option :vm_prefix,       :type => :string,  :default => nil,                    :desc => "Force directory prefix for project in VM"
-    class_option :yolo,            :type => :boolean,                                     :desc => "Say yes to anything and everything (try it)"
-    class_option :boring,          :type => :boolean,                                     :desc => "Prints all output without anything fancy"
-    class_option :no_unicode,      :type => :boolean,                                     :desc => "Prints all output without unicode characters"
-    class_option :no_colors,       :type => :boolean, :aliases => "--no-color",           :desc => "Prints all output without color"
-    class_option :no_animations,   :type => :boolean,                                     :desc => "Prints all output without animations"
-    class_option :no_landrush,     :type => :boolean,                                     :desc => "Disable landrush for DNS"
-    class_option :no_port_forward, :type => :boolean, :aliases => "--no-port-forwarding", :desc => "Disable automatic port forwarding"
-    class_option :verbose,         :type => :boolean,                                     :desc => "Prints out additional logging information"
-    class_option :dryrun,          :type => :boolean, :aliases => "--dry-run",            :desc => "Run a command without actually executing anything"
-    class_option :nginx,           :type => :boolean, :aliases => "--no-apache",          :desc => "Create conf files for nginx instead of apache"
+    class_option :vm_box,          :type => :string,  :default => nil,                    :desc => ""
+    class_option :vm_path,         :type => :string,  :default => nil,                    :desc => ""
+    class_option :vm_ip,           :type => :string,  :default => nil,                    :desc => ""
+    class_option :vm_prefix,       :type => :string,  :default => nil,                    :desc => ""
+    class_option :yolo,            :type => :boolean,                                     :desc => ""
+    class_option :boring,          :type => :boolean,                                     :desc => ""
+    class_option :no_unicode,      :type => :boolean,                                     :desc => ""
+    class_option :no_colors,       :type => :boolean, :aliases => "--no-color",           :desc => ""
+    class_option :no_animations,   :type => :boolean,                                     :desc => ""
+    class_option :no_landrush,     :type => :boolean,                                     :desc => ""
+    class_option :no_port_forward, :type => :boolean, :aliases => "--no-port-forwarding", :desc => ""
+    class_option :verbose,         :type => :boolean,                                     :desc => ""
+    class_option :dryrun,          :type => :boolean, :aliases => "--dry-run",            :desc => ""
+    class_option :nginx,           :type => :boolean, :aliases => "--no-apache",          :desc => ""
 
     desc "--help, -h", "View man page"
     def help(command = nil)
@@ -96,44 +96,44 @@ module ThemeJuice
     end
 
     desc "create", "Create new project"
-    method_option :name,         :type => :string,  :aliases => "-n", :default => nil, :desc => "Name of the project"
-    method_option :location,     :type => :string,  :aliases => "-l", :default => nil, :desc => "Location of the local project"
-    method_option :theme,        :type => :string,  :aliases => "-t", :default => nil, :desc => "Starter theme to install"
-    method_option :url,          :type => :string,  :aliases => "-u", :default => nil, :desc => "Development URL for the project"
-    method_option :repository,   :type => :string,  :aliases => "-r",                  :desc => "Initialize a new Git remote repository"
-    method_option :db_import,    :type => :string,  :aliases => %w[-i --import-db],    :desc => "Import an existing database"
-    method_option :bare,         :type => :boolean, :aliases => %w[--no-theme],        :desc => "Create a project without a starter theme"
-    method_option :skip_repo,    :type => :boolean,                                    :desc => "Skip repository prompts and use default settings"
-    method_option :skip_db,      :type => :boolean,                                    :desc => "Skip database prompts and use default settings"
-    method_option :use_defaults, :type => :boolean,                                    :desc => "Skip all prompts and use default settings"
-    method_option :no_wp,        :type => :boolean,                                    :desc => "Project is not a WordPress install"
-    method_option :no_db,        :type => :boolean,                                    :desc => "Project does not need a database"
+    method_option :name,         :type => :string,  :aliases => "-n", :default => nil, :desc => ""
+    method_option :location,     :type => :string,  :aliases => "-l", :default => nil, :desc => ""
+    method_option :theme,        :type => :string,  :aliases => "-t", :default => nil, :desc => ""
+    method_option :url,          :type => :string,  :aliases => "-u", :default => nil, :desc => ""
+    method_option :repository,   :type => :string,  :aliases => "-r",                  :desc => ""
+    method_option :db_import,    :type => :string,  :aliases => %w[-i --import-db],    :desc => ""
+    method_option :bare,         :type => :boolean, :aliases => %w[--no-theme],        :desc => ""
+    method_option :skip_repo,    :type => :boolean,                                    :desc => ""
+    method_option :skip_db,      :type => :boolean,                                    :desc => ""
+    method_option :use_defaults, :type => :boolean,                                    :desc => ""
+    method_option :no_wp,        :type => :boolean,                                    :desc => ""
+    method_option :no_db,        :type => :boolean,                                    :desc => ""
     def create
       @io.hello
       @create.new(options).execute
     end
 
     desc "setup", "Setup existing project"
-    method_option :name,         :type => :string,  :aliases => "-n", :default => nil, :desc => "Name of the project"
-    method_option :location,     :type => :string,  :aliases => "-l", :default => nil, :desc => "Location of the local project"
-    method_option :url,          :type => :string,  :aliases => "-u", :default => nil, :desc => "Development URL for the project"
-    method_option :repository,   :type => :string,  :aliases => "-r",                  :desc => "Initialize a new Git remote repository"
-    method_option :db_import,    :type => :string,  :aliases => %w[-i --import-db],    :desc => "Import an existing database"
-    method_option :skip_repo,    :type => :boolean,                                    :desc => "Skip repository prompts and use default settings"
-    method_option :skip_db,      :type => :boolean,                                    :desc => "Skip database prompts and use default settings"
-    method_option :use_defaults, :type => :boolean,                                    :desc => "Skip all prompts and use default settings"
-    method_option :no_wp,        :type => :boolean,                                    :desc => "Project is not a WordPress install"
-    method_option :no_db,        :type => :boolean,                                    :desc => "Project does not need a database"
+    method_option :name,         :type => :string,  :aliases => "-n", :default => nil, :desc => ""
+    method_option :location,     :type => :string,  :aliases => "-l", :default => nil, :desc => ""
+    method_option :url,          :type => :string,  :aliases => "-u", :default => nil, :desc => ""
+    method_option :repository,   :type => :string,  :aliases => "-r",                  :desc => ""
+    method_option :db_import,    :type => :string,  :aliases => %w[-i --import-db],    :desc => ""
+    method_option :skip_repo,    :type => :boolean,                                    :desc => ""
+    method_option :skip_db,      :type => :boolean,                                    :desc => ""
+    method_option :use_defaults, :type => :boolean,                                    :desc => ""
+    method_option :no_wp,        :type => :boolean,                                    :desc => ""
+    method_option :no_db,        :type => :boolean,                                    :desc => ""
     def setup
       @io.hello
       @create.new(options.dup.merge(:bare => true)).execute
     end
 
     desc "delete", "Delete a project (does not delete local project)"
-    method_option :name,       :type => :string,  :aliases => "-n", :default => nil, :desc => "Name of the project"
-    method_option :url,        :type => :string,  :aliases => "-u", :default => nil, :desc => "Development URL for the project"
-    method_option :db_drop,    :type => :boolean, :aliases => "--drop-db",           :desc => "Drop the project's database"
-    method_option :vm_restart, :type => :boolean, :aliases => "--restart-vm",        :desc => "Restart the VM after deletion"
+    method_option :name,       :type => :string,  :aliases => "-n", :default => nil, :desc => ""
+    method_option :url,        :type => :string,  :aliases => "-u", :default => nil, :desc => ""
+    method_option :db_drop,    :type => :boolean, :aliases => "--drop-db",           :desc => ""
+    method_option :vm_restart, :type => :boolean, :aliases => "--restart-vm",        :desc => ""
     def delete
       @delete.new(options).unexecute
     end
