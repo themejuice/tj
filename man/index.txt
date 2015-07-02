@@ -12,6 +12,6 @@ setup(1)               /setup
 delete(1)              /delete
 deploy(1)              /deploy
 capistrano(1)          http://capistranorb.com/
-capistrano-rsync(1)    https://github.com/moll/capistrano-rsync-bladrak
+capistrano-rsync(1)    https://github.com/Bladrak/capistrano-rsync-bladrak
 capistrano-slackify(1) https://github.com/onthebeach/capistrano-slackify
 landrush(1)            https://github.com/phinze/landrush
