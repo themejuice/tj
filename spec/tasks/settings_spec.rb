@@ -32,7 +32,7 @@ deployment:
       - --recursive
       - --delete
       - --delete-excluded
-      - --exclude .git*
+      - --exclude=".git*"
   stages:
     staging:
       server: 192.168.50.4
@@ -70,7 +70,7 @@ deployment:
       - --recursive
       - --delete
       - --delete-excluded
-      - --exclude .git*
+      - --exclude=".git*"
 }
       end
 
