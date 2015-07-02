@@ -1,0 +1,17 @@
+vagrant(1)             https://www.vagrantup.com/
+Vagrant(1)             https://www.vagrantup.com/
+Apache(7)              http://httpd.apache.org/
+Nginx(7)               http://nginx.org/en/
+VVV(7)                 https://github.com/Varying-Vagrant-Vagrants/VVV
+VVV-Apache(7)          https://github.com/ericmann/vvv-apache
+WordPress(7)           https://wordpress.org/
+Juicefile(5)           /index
+tj(1)                  /index
+create(1)              /create
+setup(1)               /setup
+delete(1)              /delete
+deploy(1)              /deploy
+capistrano(1)          http://capistranorb.com/
+capistrano-rsync(1)    https://github.com/moll/capistrano-rsync
+capistrano-slackify(1) https://github.com/onthebeach/capistrano-slackify
+landrush(1)            https://github.com/phinze/landrush
