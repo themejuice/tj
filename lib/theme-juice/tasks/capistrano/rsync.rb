@@ -3,18 +3,14 @@
 namespace :rsync do
 
   after :stage, :precompile do
-    run_locally do
-      within fetch(:rsync_stage) do
-        fetch(:rsync_install, []).each { |t| execute t }
-      end
+    Dir.chdir fetch(:rsync_stage) do
+      fetch(:rsync_install, []).each { |t| system t }
     end
   end
 
   after :precompile, :ignore do
-    run_locally do
-      within fetch(:rsync_stage) do
-        fetch(:rsync_ignore, []).each { |f| execute :rm, f }
-      end
+    Dir.chdir fetch(:rsync_stage) do
+      fetch(:rsync_ignore, []).each { |f| system "rm #{f}" }
     end
   end
 
