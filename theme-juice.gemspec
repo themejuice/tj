@@ -25,12 +25,12 @@ Gem::Specification.new do |gem|
 
   gem.required_ruby_version = ">= 1.9.3"
 
-  gem.add_runtime_dependency "thor",                "~> 0.19.0"
-  gem.add_runtime_dependency "faker",               "~> 1.4.0"
-  gem.add_runtime_dependency "os",                  "~> 0.9.0"
-  gem.add_runtime_dependency "capistrano",          "~> 3.2.0"
-  gem.add_runtime_dependency "capistrano-slackify", "~> 2.4.0"
-  gem.add_runtime_dependency "capistrano-rsync",    "~> 1.0.0"
+  gem.add_runtime_dependency "thor",                     "~> 0.19.0"
+  gem.add_runtime_dependency "faker",                    "~> 1.4.0"
+  gem.add_runtime_dependency "os",                       "~> 0.9.0"
+  gem.add_runtime_dependency "capistrano",               "~> 3.4.0"
+  gem.add_runtime_dependency "capistrano-slackify",      "~> 2.4.0"
+  gem.add_runtime_dependency "capistrano-rsync-bladrak", "~> 1.3.0"
 
   gem.add_development_dependency "bundler", "~> 1.0"
   gem.add_development_dependency "rake",    "~> 10.4"
