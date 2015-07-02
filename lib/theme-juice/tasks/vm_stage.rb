@@ -21,10 +21,9 @@ module ThemeJuice
         @io.log "Configuring VM stage"
 
         server @vagrant.server, {
-          :user       => @vagrant.user,
-          :password   => @vagrant.pass,
-          :roles      => @vagrant.roles,
-          :no_release => true
+          :user     => @vagrant.user,
+          :password => @vagrant.pass,
+          :roles    => @vagrant.roles
         }
 
         set :dev_path,       -> { @vagrant.path }
