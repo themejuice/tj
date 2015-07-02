@@ -7,12 +7,11 @@ tj(1) -- WordPress development made easy
 
 ## DESCRIPTION
 
-`tj(1)` is a WordPress development command line utility that allows
-you to scaffold out an entire Vagrant development environment in seconds
-(using an Apache fork of [VVV](https://github.com/Varying-Vagrant-Vagrants/VVV)
-called [VVV-Apache](https://github.com/ericmann/vvv-apache.git) as the
-VM). It also helps you manage dependencies and build tools, and
-can even handle your deployments.
+Theme Juice (tj(1)) is a command line utility modern for WordPress development.
+It allows you to scaffold out a Vagrant(1) development environment in seconds,
+and generate/manage an unlimited number of development projects. It also
+helps you manage dependencies and build tools, and can even handle
+your deployments.
 
 ## GLOBAL OPTIONS
 
@@ -29,7 +28,7 @@ can even handle your deployments.
     Force directory prefix for project in VM
 
   * `--yolo`:
-    Say yes to anything and everything
+    Say yes to anything and everything, and maybe get a few surprises
 
   * `--boring`:
     Prints all output without any fancy formatting
@@ -44,7 +43,7 @@ can even handle your deployments.
     Prints all output without animations
 
   * `--no-landrush`:
-    Disable the `landrush` gem for managing DNS
+    Disable the landrush(1) gem for managing DNS
 
   * `--no-port-forward`, `--no-port-forwarding`:
     Disable automatic port forwarding
@@ -56,34 +55,34 @@ can even handle your deployments.
     Run a command without actually doing anything
 
   * `--nginx`, `--no-apache`:
-    Create conf files for nginx instead of apache
+    Create `conf` files for Nginx(7) instead of Apache(7)
 
 ## PRIMARY COMMANDS
 
 Run `tj help` [<command>] to view an individual command's man page.
 
-  * [`create(1)`](/create), `new`, `mk`:
+  * create(1), `new`, `mk`:
     Create a new project
 
-  * [`setup(1)`](/setup), `up`, `init`:
+  * setup(1), `up`, `init`:
     Setup an existing project
 
-  * [`delete(1)`](/delete), `rm`, `remove`, `trash`:
+  * delete(1), `rm`, `remove`, `trash`:
     Delete a project
 
-  * [`deploy(1)`](/deploy), `server`, `remote`:
+  * deploy(1), `server`, `remote`:
     Deploy a project
 
 ## SECONDARY COMMANDS
 
-  * `version(1)`, `--version`, `-v`:
+  * `version`, `--version`, `-v`:
     Print the current version
 
-  * `list(1)`, `ls`, `projects`, `apps`, `sites`:
+  * `list`, `ls`, `projects`, `apps`, `sites`:
     List all projects
 
-  * `vm(1)`, `vagrant`, `vvv`=[<command>[,<command>]...]:
-    Manage development environment via `vagrant`. Commands are proxied to
+  * `vm`, `vagrant`, `vvv`=[<command>[,<command>]...]:
+    Manage development environment via vagrant(1). Commands are proxied to
     your Vagrant installation so that they can be run from any directory.
 
 ## CONFIG COMMANDS
@@ -92,33 +91,33 @@ These run the corresponding command from your project's config file. They
 accept any number of arguments, since the behavior and handling of
 input is defined within the config file itself.
 
-  * `install(1)`, `build`=[<arg>[,<arg>]...]:
+  * `install`, `build`=[<arg>[,<arg>]...]:
     Run installation for project
 
-  * `watch(1)`, `dev`=[<arg>[,<arg>]...]:
+  * `watch`, `dev`=[<arg>[,<arg>]...]:
     Manage and run development build tools
 
-  * `assets(1)`, `asset`=[<arg>[,<arg>]...]:
+  * `assets`, `asset`=[<arg>[,<arg>]...]:
     Manage front-end dependencies for project
 
-  * `vendor(1)`, `deps`=[<arg>[,<arg>]...]:
+  * `vendor`, `deps`=[<arg>[,<arg>]...]:
     Manage back-end dependencies for project
 
-  * `dist(1)`, `pkg`, `package`, `zip`=[<arg>[,<arg>]...]:
+  * `dist`, `pkg`, `package`, `zip`=[<arg>[,<arg>]...]:
     Package project for distribution
 
-  * `wp(1)`, `wordpress`=[<arg>[,<arg>]...]:
+  * `wp`, `wordpress`=[<arg>[,<arg>]...]:
     Manage project's WordPress installation
 
-  * `backup(1)`, `bk`=[<arg>[,<arg>]...]:
+  * `backup`, `bk`=[<arg>[,<arg>]...]:
     Backup project
 
-  * `test(1)`, `tests`, `spec`, `specs`=[<arg>[,<arg>]...]:
+  * `test`, `tests`, `spec`, `specs`=[<arg>[,<arg>]...]:
     Manage and run project tests
 
 ## CONFIG FILE
 
-A YAML configuration file (`Juicefile`) can be used to store commonly-used
+A YAML Juicefile(5) configuration can be used to store commonly-used
 build scripts. Each command block sequence can be mapped to an individual
 project's build tool, allowing a streamlined set of commands to be used
 across multiple projects that utilize different tools.
@@ -164,13 +163,13 @@ When naming your configuration file, use the recommended `Juicefile`, or
 `.tj.yaml` naming convention. The raw filename regex matcher is below if
 you want to be a little different.
 
-  `/^(((\.)?(tj)|((J|j)uicefile))(.y(a)?ml)?$)/`
+  `/^(((\.)?(tj)|((J|j)uicefile))(\.y(a)?ml)?$)/`
 
 ## ENVIRONMENT
 
 All of the global options have a corresponding `ENV` variable that can be set
-to permanently use the specified value each time `tj` is run. This is useful
-if you're using an alternate Vagrant box, or if you need to disable certain
+to permanently use the specified value each time tj(1) is run. This is useful
+if you're using an alternate Vagrant(1) box, or if you need to disable certain
 features due to limited support e.g. on Windows.
 
   * `TJ_VM_BOX`=<repository>:
@@ -186,7 +185,7 @@ features due to limited support e.g. on Windows.
     Force directory prefix for project in VM
 
   * `TJ_YOLO`=<bool>:
-    Say yes to anything and everything
+    Say yes to anything and everything, and maybe get a few surprises
 
   * `TJ_BORING`=<bool>:
     Prints all output without any fancy formatting
@@ -207,10 +206,10 @@ features due to limited support e.g. on Windows.
     Disable automatic port forwarding
 
   * `TJ_VERBOSE`=<bool>:
-    Prints out additional logging information
+    Prints out additional logging information and raises any exceptions caught during runtime
 
   * `TJ_DRYRUN`=<bool>:
     Run a command without actually doing anything
 
   * `TJ_NGINX`=<bool>:
-    Create conf files for nginx instead of apache
+    Create `conf` files for Nginx(7) instead of Apache(7)

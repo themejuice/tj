@@ -47,7 +47,7 @@ location within the VM.
     Skip all prompts and use default settings
 
   * `--no-wp`:
-    Project is not a WordPress install
+    Project is not a WordPress(7) install
 
   * `--no-db`:
     Project does not need a database

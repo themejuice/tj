@@ -7,8 +7,8 @@ tj-deploy(1) -- Deploy a project
 
 ## DESCRIPTION
 
-Deploys a project to the passed `stage`. All commands are piped directly to
-[`capistrano(1)`](http://capistranorb.com/).
+Deploys a project to the passed `stage`. All commands are transformed and then
+piped directly to capistrano(1) to handle deployment.
 
 ## SETUP
 
@@ -68,29 +68,29 @@ If no command is passed, the default task to be executed is `deploy`
 
 ## CONFIG FILE
 
-The YAML configuration file (`Juicefile`) may be used to store deployment-related
+The YAML Juicefile(5) configuration may be used to store deployment-related
 settings. Below you will find the various block sequences you may use to define
 your project's deployment settings. All of these will be passed to
-[`capistrano(1)`](http://capistranorb.com/) to invoke a deployment.
+capistrano(1) to invoke a deployment.
 
   * `deployment`:
     Deployment configuration
 
   * `deployment.application`:
-    Application settings passed directly to [`capistrano(1)`](http://capistranorb.com/)
+    Application settings passed directly to capistrano(1)
 
   * `deployment.settings`:
-    Deployment settings passed directly to [`capistrano(1)`](http://capistranorb.com/)
+    Deployment settings passed directly to capistrano(1)
 
   * `deployment.repository`:
-    Repository settings passed directly to [`capistrano(1)`](http://capistranorb.com/)
+    Repository settings passed directly to capistrano(1)
 
   * `deployment.rsync`:
-    Optional settings passed to [`capistrano-rsync(1)`](https://github.com/moll/capistrano-rsync);
+    Optional settings passed to capistrano-rsync(1);
     mapped as `rsync_<setting>` during the deployment initialization
 
   * `deployment.slack`:
-    Optional settings passed to [`capistrano-slackify(1)`](https://github.com/onthebeach/capistrano-slackify);
+    Optional settings passed to capistrano-slackify(1);
     mapped as `slack_<setting>` during the deployment initialization
 
   * `deployment.stages`:
