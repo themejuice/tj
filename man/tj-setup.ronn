@@ -23,7 +23,7 @@ essentially an alias for `tj create --bare`.
     Development URL for the project
 
   * `-r`, `--repository`=<repository>:
-    Initialize a new Git remote repository
+    Initialize a new git(1) remote repository
 
   * `-i`, `--import-db`=<path>:
     Import an existing database
@@ -38,7 +38,7 @@ essentially an alias for `tj create --bare`.
     Skip all prompts and use default settings
 
   * `--no-wp`:
-    Project is not a WordPress install
+    Project is not a wordpress(7) install
 
   * `--no-db`:
     Project does not need a database

@@ -64,7 +64,7 @@ If no command is passed, the default task to be executed is `deploy`
 
   * `uploads:push`:
     Push the uploads folder from the development environment to the passed
-    `stage` `stage`'s uploads folder
+    `stage`'s uploads folder
 
 ## CONFIG FILE
 
@@ -109,13 +109,13 @@ capistrano(1) to invoke a deployment.
     URL of the stage
 
   * `deployment.stages.<stage>.uploads`:
-    Relative path from application root to the uploads folder
+    Relative path from deploy path to the uploads folder
 
   * `deployment.stages.<stage>.tmp`:
-    Relative path from application root to the tmp folder
+    Relative path from deploy path to the tmp folder
 
   * `deployment.stages.<stage>.shared`:
-    Sequence of relative files from application root to place in
+    Sequence of relative files from application root to place inside of
     the shared folder
 
   * `deployment.stages.<stage>.roles`:
