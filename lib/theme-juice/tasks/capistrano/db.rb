@@ -4,7 +4,7 @@ namespace :db do
 
   desc "Initialize database variables"
   task :init do
-    set :timestamp, Time.now.strftime("%Y%m%d%H%M%S")
+    set :timestamp, Time.now.strftime("%Y-%m-%d-%H-%M-%S")
     set :remote_db, "#{fetch(:timestamp)}.#{fetch(:stage)}.sql"
     set :vm_db, "#{fetch(:timestamp)}.local.sql"
   end
@@ -13,9 +13,10 @@ namespace :db do
   task :backup do
     invoke "db:init"
 
-    on roles(:db) do
+    on release_roles(:db) do
 
       within release_path do
+        execute :mkdir, "-p", fetch(:tmp_dir)
         execute :wp, :db, :export, "#{fetch(:tmp_dir)}/#{fetch(:remote_db)}", "--add-drop-table"
       end
 
@@ -23,7 +24,8 @@ namespace :db do
         execute :mkdir, "-p", fetch(:vm_backup_dir)
       end
 
-      download! "#{fetch(:tmp_dir)}/#{fetch(:remote_db)}", "#{fetch(:vm_backup_dir)}/#{fetch(:remote_db)}"
+      download! release_path.join("#{fetch(:tmp_dir)}/#{fetch(:remote_db)}"),
+        "#{fetch(:vm_backup_dir)}/#{fetch(:remote_db)}"
 
       within release_path do
         execute :rm, "#{fetch(:tmp_dir)}/#{fetch(:remote_db)}"
@@ -41,8 +43,9 @@ namespace :db do
       end
     end
 
-    on roles(:web) do
-      upload! "#{fetch(:vm_backup_dir)}/#{fetch(:vm_db)}", "#{fetch(:tmp_dir)}/#{fetch(:vm_db)}"
+    on release_roles(:db) do
+      upload! "#{fetch(:vm_backup_dir)}/#{fetch(:vm_db)}", release_path
+        .join("#{fetch(:tmp_dir)}/#{fetch(:vm_db)}")
 
       within release_path do
         execute :wp, :db, :import, "#{fetch(:tmp_dir)}/#{fetch(:vm_db)}"
@@ -62,10 +65,11 @@ namespace :db do
   task :pull do
     invoke "db:backup"
 
-    on roles(:db) do
+    on release_roles(:db) do
       within release_path do
         execute :wp, :db, :export, "#{fetch(:tmp_dir)}/#{fetch(:remote_db)}"
-        download! "#{fetch(:tmp_dir)}/#{fetch(:remote_db)}", "#{fetch(:vm_backup_dir)}/#{fetch(:remote_db)}"
+        download! release_path.join("#{fetch(:tmp_dir)}/#{fetch(:remote_db)}"),
+          "#{fetch(:vm_backup_dir)}/#{fetch(:remote_db)}"
         execute :rm, "#{fetch(:tmp_dir)}/#{fetch(:remote_db)}"
       end
     end
