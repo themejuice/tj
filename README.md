@@ -67,7 +67,7 @@ tj delete
 ```
 
 #### Deploying a project
-This will deploy a project to the passed `stage` using [Capistrano](http://capistranorb.com/).
+This will deploy a project to the passed `stage` using [Capistrano](http://capistranorb.com/). Head over to the [docs](http://themejuice.it/deploy) to get started.
 
 ```
 tj deploy <stage>
