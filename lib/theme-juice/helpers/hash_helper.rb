@@ -4,16 +4,19 @@ module ThemeJuice
   module HashHelper
 
     def symbolize_keys
-      inject({}) do |acc, (k, v)|
-        key = String === k ? k.to_sym : k
-        value = Hash === v ? v.symbolize_keys : v
-        acc[key] = value
+      inject({}) do |acc, (key, value)|
+        acc[(key.to_sym rescue key) || key] = value
         acc
       end
     end
 
+    def symbolize_keys!
+      self.replace(self.symbolize_keys)
+    end
+
     # @TODO This is probably not a good idea...
     def method_missing(method, *args, &block)
+      super if method == "symbolize_keys"
       if to_ostruct.respond_to? method
         to_ostruct.send method
       else

@@ -1,6 +1,6 @@
 describe ThemeJuice::HashHelper do
 
-  before do
+  before :each do
     @hash = {
       "one" => "1",
       "two" => {
@@ -52,7 +52,7 @@ describe ThemeJuice::HashHelper do
     end
 
     it "should raise error for invalid keys" do
-      expect { @hash.four }.to raise_error NoMethodError
+      expect { @hash.some_random_key }.to raise_error NoMethodError
     end
   end
 end
