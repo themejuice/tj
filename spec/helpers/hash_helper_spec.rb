@@ -23,24 +23,8 @@ describe ThemeJuice::HashHelper do
 
   describe "#to_ostruct" do
 
-    it "should cast hash to open struct 1 level deep" do
-      @hash.to_ostruct.each do |key, value|
-        expect(key).to be_an OpenStruct
-
-        key.each do |k, v|
-          expect(k).not_to be_an OpenStruct
-        end
-      end
-    end
-
-    it "should recursively cast hash to open struct" do
-      @hash.to_ostruct(:recursive => true).each do |key, value|
-        expect(key).to be_an OpenStruct
-
-        key.each do |k, v|
-          expect(k).to be_an OpenStruct
-        end
-      end
+    it "should cast hash to open struct" do
+      expect(@hash.to_ostruct).to be_an OpenStruct
     end
 
     it "should allow hash to be traversed via method calls" do

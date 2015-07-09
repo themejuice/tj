@@ -4,6 +4,9 @@ CodeClimate::TestReporter.start
 lib = File.expand_path "../../../", __FILE__
 $:.unshift lib unless $:.include? lib
 
+# pp must be required before fakefs
+# @see https://github.com/defunkt/fakefs/issues/99
+require "pp"
 require "fakefs/spec_helpers"
 require "lib/theme-juice"
 
