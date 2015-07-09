@@ -8,16 +8,16 @@ $flint: ("breakpoints": ("large": ("columns": 8, "breakpoint": 40em), "small": (
 @import url("http://fonts.googleapis.com/css?family=Montserrat:400,700")
 
 /**
- * Fonts
+ * Font stacks
  */
-$monospace: "Inconsolata", monospace
-$serif: "Montserrat", sans-serif
+$monospace: "Inconsolata", "Consolas", "Courier New", "Courier", monospace
+$serif: "Montserrat", "Helvetica Neue", "Helvetica", "Arial", sans-serif
 
 /**
  * Colors
  */
-$white: #fff
-$black: #333
+$white: #fcfcfc
+$black: #516066
 $orange: #f78f1e
 $green: #9FCF67
 
@@ -71,6 +71,7 @@ h6
   color: $green
   font:
     family: $serif
+    weight: 700
   text:
     transform: lowercase
   margin:

@@ -80,7 +80,7 @@
     %footer.footer__wrapper
       .footer
         .footer__humans
-          <i class='fa fa-code'></i> with <i class='fa fa-heart'></i> by <a href="http://produceresults.com" target="_blank">Produce Results</a>
+          <i class="fa fa-code"></i> with <i class="fa fa-heart"></i> by <a href="http://produceresults.com" target="_blank">Produce Results</a>
         .footer__date
           Documentation was last generated on {{date}} using <a href="https://github.com/rtomayko/ronn" target="_blank">Ronn</a>
         .footer__source
@@ -88,7 +88,7 @@
             View Source
 
     %a.scroll-to-top(href="#top" title="Scroll to top")
-      %i.fa.fa-hand-o-up
+      %i.fa.fa-level-up
 
     :coffee
       links = document.getElementsByTagName "a"
@@ -101,7 +101,11 @@
             hash = this.getAttribute "href"
             node = document.getElementById hash[1...]
 
-            scrollTo document.body, node.offsetTop, 500
+            if hash is "#top"
+              scrollTo document.body, node.offsetTop, 500
+            else
+              scrollTo document.body, (node.offsetTop + 75), 500
+
             removeClasses links, "active"
 
             unless node is document.body
@@ -109,7 +113,7 @@
 
         scrollTo = (node, target, vel) ->
           y = node.scrollTop
-          vy = target - (y - 75)
+          vy = target - y
           dt = 0
           i = 20
 
