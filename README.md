@@ -12,10 +12,8 @@ _The master branch contains features currently in development (such as deploymen
 
 [View our contributing guidelines to get started!](#contributing)
 
-
 ## What is it?
 Theme Juice (`tj`) is a command line utility for modern WordPress development. It allows you to scaffold out a Vagrant development environment in seconds (using an Apache fork of [VVV](https://github.com/Varying-Vagrant-Vagrants/VVV) called [VVV-Apache](https://github.com/ericmann/vvv-apache.git) as the VM), and generate/manage an unlimited number of development projects. It also helps you manage dependencies and build tools, and can even handle your deployments.
-
 
 ## Requirements
 **`tj` requires [Vagrant](https://www.vagrantup.com/) and [VirtualBox](https://www.virtualbox.org/) to be able to create virtual machines for local development. Please download and install both of these before getting started.**
@@ -90,6 +88,7 @@ Or, you can also check out [themejuice.it](http://themejuice.it) for a pretty we
 1. [What is a `Customfile`?](#what-is-a-customfile)
 1. [What is a `Juicefile`?](#what-is-a-juicefile)
 1. [Does `tj` handle deployments?](#does-tj-handle-deployments)
+1. [Does `tj` support subdomain multi-sites?](#does-tj-support-subdomain-multi-sites)
 1. [Can I access a project from another device (i.e. mobile)?](#can-i-access-a-project-from-another-device-ie-mobile)
 1. [Help! It won't let me `git clone` anything!](#help-it-wont-let-me-git-clone-anything)
 1. [Can I add my starter theme, ________?](#can-i-add-my-starter-theme-________)
@@ -214,6 +213,9 @@ You can specify an unlimited number of commands with an unlimited number of argu
 
 #### Does `tj` handle deployments?
 As of `0.11`, yes! Check out the [documentation](http://themejuice.it/deploy) to get started.
+
+#### Does `tj` support subdomain multi-sites?
+If you're able to use [Landrush](https://github.com/phinze/landrush) for your DNS, then yes. All subdomains will resolve to their parent domain. Landrush comes pre-installed when you create your first project with `tj`. Having said that, unfortunately, if you're on Windows you'll probably have to manually add the subdomains due to Landrush not being fully supported. If you have the Windows chops, head over there and contribute to Landrush by squashing that bug. I'm sure he would appreciate it!
 
 #### Can I access a project from another device (i.e. mobile)?
 Yes! Every project created with `tj` will automatically be set up to support using [xip.io](http://xip.io/). If you're using OSX, then everything should work out of the box. If you're not using OSX, then you'll need to point port `80` on your host machine to `8080`; Vagrant cannot do this by default for security reasons.
