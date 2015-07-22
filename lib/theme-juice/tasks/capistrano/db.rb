@@ -11,24 +11,25 @@ namespace :db do
 
   desc "Backup database on remote to local"
   task :backup do
-    invoke "db:init"
+    set :timestamp_backup, Time.now.strftime("%Y-%m-%d-%H-%M-%S")
+    set :remote_db_backup, "#{fetch(:timestamp_backup)}.#{fetch(:stage)}.backup.sql"
 
     on release_roles(:db) do
 
       within release_path do
         execute :mkdir, "-p", fetch(:tmp_dir)
-        execute :wp, :db, :export, "#{fetch(:tmp_dir)}/#{fetch(:remote_db)}", "--add-drop-table"
+        execute :wp, :db, :export, "#{fetch(:tmp_dir)}/#{fetch(:remote_db_backup)}", "--add-drop-table"
       end
 
       run_locally do
         execute :mkdir, "-p", fetch(:vm_backup_dir)
       end
 
-      download! release_path.join("#{fetch(:tmp_dir)}/#{fetch(:remote_db)}"),
-        "#{fetch(:vm_backup_dir)}/#{fetch(:remote_db)}"
+      download! release_path.join("#{fetch(:tmp_dir)}/#{fetch(:remote_db_backup)}"),
+        "#{fetch(:vm_backup_dir)}/#{fetch(:remote_db_backup)}"
 
       within release_path do
-        execute :rm, "#{fetch(:tmp_dir)}/#{fetch(:remote_db)}"
+        execute :rm, "#{fetch(:tmp_dir)}/#{fetch(:remote_db_backup)}"
       end
     end
   end
@@ -36,6 +37,7 @@ namespace :db do
   desc "Push local database to remote"
   task :push do
     invoke "db:backup"
+    invoke "db:init"
 
     on roles(:dev) do
       within fetch(:dev_path) do
@@ -64,6 +66,7 @@ namespace :db do
   desc "Pull remote database to local"
   task :pull do
     invoke "db:backup"
+    invoke "db:init"
 
     on release_roles(:db) do
       within release_path do
