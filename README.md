@@ -8,7 +8,7 @@
 
 _This project is currently under active development and will not be completely 'stable' per-say until we hit `1.0`. Everything here is subject to change without notice. (We will of course semantically version all of our releases, with the minor version being incremented with new features/breaking changes.) Feel free to contribute to the development with new features, ideas or bug fixes._
 
-_The master branch contains features currently in development (such as deployment), so don't expect it to work at all times. Grab the newest RubyGem instead of building directly from master._
+_The master branch contains features currently in development, so don't expect it to work at all times. Grab the newest RubyGem instead of building directly from master._
 
 [View our contributing guidelines to get started!](#contributing)
 
@@ -65,7 +65,7 @@ tj delete
 ```
 
 #### Deploying a project
-This will deploy a project to the passed `stage` using [Capistrano](http://capistranorb.com/). Head over to the [docs](http://themejuice.it/deploy) to get started.
+This will deploy a project to the passed `<stage>` using [Capistrano](http://capistranorb.com/). Head over to the [docs](http://themejuice.it/deploy) to get started with your first deployment.
 
 ```
 tj deploy <stage>
