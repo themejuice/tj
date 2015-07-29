@@ -23,7 +23,8 @@ module ThemeJuice
       def restart
         @io.log "Restarting VM"
         @util.inside @env.vm_path do
-          @util.run "vagrant reload", :verbose => @env.verbose
+          @util.run "vagrant reload", { :verbose => @env.verbose,
+            :capture => @env.quiet }
         end
       end
     end

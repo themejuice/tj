@@ -16,7 +16,8 @@ module ThemeJuice
 
       def create_path
         @io.log "Creating project location"
-        @util.empty_directory @project.location, :verbose => @env.verbose
+        @util.empty_directory @project.location, { :verbose => @env.verbose,
+          :capture => @env.quiet }
       end
     end
   end

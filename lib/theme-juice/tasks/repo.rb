@@ -30,7 +30,8 @@ module ThemeJuice
         remove_repo if repo_is_setup?
 
         @util.inside @project.location do
-          @util.run [], :verbose => @env.verbose do |cmds|
+          @util.run [], { :verbose => @env.verbose,
+            :capture => @env.quiet } do |cmds|
             cmds << "git init"
             cmds << "git remote add origin #{@project.repository}"
           end
@@ -39,7 +40,8 @@ module ThemeJuice
 
       def remove_repo
         if @io.agree? "Do you want to overwrite the current repo in '#{@project.location}'?"
-          @util.remove_dir git_dir, :verbose => @env.verbose
+          @util.remove_dir git_dir, { :verbose => @env.verbose,
+            :capture => @env.quiet }
         else
           @io.error "Run the command again without a repository, or remove the repository currently in '#{@project.location}'"
         end

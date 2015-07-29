@@ -16,6 +16,8 @@ module ThemeJuice
     attr_accessor :no_landrush
     attr_accessor :no_port_forward
     attr_accessor :verbose
+    attr_accessor :quiet
+    attr_accessor :trace
     attr_accessor :dryrun
     attr_accessor :nginx
     attr_accessor :stage
@@ -67,6 +69,14 @@ module ThemeJuice
 
     def verbose=(val)
       @verbose = val ||= ENV.fetch("TJ_VERBOSE") { false }
+    end
+
+    def quiet=(val)
+      @quiet = val ||= ENV.fetch("TJ_QUIET") { false }
+    end
+
+    def trace=(val)
+      @trace = val ||= ENV.fetch("TJ_TRACE") { false }
     end
 
     def dryrun=(val)

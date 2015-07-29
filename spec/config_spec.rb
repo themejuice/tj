@@ -32,7 +32,7 @@ commands:
       end
 
       it "should raise error if method does not exist in config and Env.verbose is true" do
-        allow(ThemeJuice::Env).to receive(:verbose).and_return true
+        allow(ThemeJuice::Env).to receive(:trace).and_return true
         capture(:stdout) do
           expect { @config.command :invalid }.to raise_error NotImplementedError
         end

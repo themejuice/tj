@@ -24,7 +24,7 @@ module ThemeJuice
       def run(command, config = {}, &block)
         if command.is_a? Array
           yield command if block_given?
-          _run command.join("&&"), config
+          _run command.join(" && "), config
         else
           _run command, config
         end
@@ -34,7 +34,7 @@ module ThemeJuice
         inside @env.vm_path do
           if command.is_a? Array
             yield command if block_given?
-            _run %Q[vagrant ssh -c "#{command.join("&&")}"], config
+            _run %Q[vagrant ssh -c "#{command.join(" && ")}"], config
           else
             _run %Q[vagrant ssh -c "#{command}"], config
           end

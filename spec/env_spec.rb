@@ -26,6 +26,10 @@ describe ThemeJuice::Env do
   it { is_expected.to respond_to :yolo= }
   it { is_expected.to respond_to :verbose }
   it { is_expected.to respond_to :verbose= }
+  it { is_expected.to respond_to :quiet }
+  it { is_expected.to respond_to :quiet= }
+  it { is_expected.to respond_to :trace }
+  it { is_expected.to respond_to :trace= }
   it { is_expected.to respond_to :dryrun }
   it { is_expected.to respond_to :dryrun= }
   it { is_expected.to respond_to :stage }
@@ -54,7 +58,7 @@ describe ThemeJuice::Env do
     end
   end
 
-  %W[boring yolo no_unicode no_colors no_animations no_landrush verbose dryrun].each do |prop|
+  %W[boring yolo no_unicode no_colors no_animations no_landrush verbose quiet trace dryrun].each do |prop|
     describe ".#{prop}" do
 
       it "should expect to use the set boolean value" do

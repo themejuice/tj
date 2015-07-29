@@ -48,15 +48,15 @@ describe ThemeJuice::IO do
       expect { @io.error "Oh noes!" }.to raise_error SystemExit
     end
 
-    it "should raise passed exception type when Env.verbose is true" do
-      allow(ThemeJuice::Env).to receive(:verbose).and_return true
+    it "should raise passed exception type when Env.trace is true" do
+      allow(ThemeJuice::Env).to receive(:trace).and_return true
 
       expect(stdout).to receive(:print).with kind_of String
       expect { @io.error "Exception!", NotImplementedError }.to raise_error NotImplementedError
     end
 
-    it "should raise SystemExit when Env.verbose is false" do
-      allow(ThemeJuice::Env).to receive(:verbose).and_return false
+    it "should raise SystemExit when Env.trace is false" do
+      allow(ThemeJuice::Env).to receive(:trace).and_return false
       allow(stdout).to receive :print
 
       expect { @io.error "Oops!", NotImplementedError }.to raise_error SystemExit

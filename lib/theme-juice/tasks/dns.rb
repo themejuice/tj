@@ -36,8 +36,8 @@ end}
       def remove_landrush_entry
         unless @env.no_landrush
           @io.log "Removing URL from Landrush"
-          @util.run "vagrant landrush rm #{@project.url}",
-            :verbose => @env.verbose
+          @util.run "vagrant landrush rm #{@project.url}", { :verbose => @env.verbose,
+            :capture => @env.quiet }
         end
       end
     end

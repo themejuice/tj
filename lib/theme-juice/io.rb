@@ -106,7 +106,7 @@ module ThemeJuice
 
       yield if block_given?
 
-      if @env.verbose
+      if @env.trace
         raise code
       else
         exit 1

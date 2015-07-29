@@ -50,7 +50,13 @@ your deployments.
     Disable automatic port forwarding
 
   * `--verbose`:
-    Prints out additional logging information and raises any exceptions caught during runtime
+    Prints out additional logging information
+
+  * `--quiet`, `--shh`:
+    Suppresses all command output
+
+  * `--trace`:
+    Raises any exceptions caught during runtime
 
   * `--dryrun`, `--dry-run`:
     Run a command without actually doing anything
@@ -207,7 +213,13 @@ features due to limited support e.g. on Windows.
     Disable automatic port forwarding
 
   * `TJ_VERBOSE`=<bool>:
-    Prints out additional logging information and raises any exceptions caught during runtime
+    Prints out additional logging information
+
+  * `TJ_QUIET`=<bool>:
+    Suppresses all command output
+
+  * `TJ_TRACE`=<bool>:
+    Raises any exceptions caught during runtime
 
   * `TJ_DRYRUN`=<bool>:
     Run a command without actually doing anything

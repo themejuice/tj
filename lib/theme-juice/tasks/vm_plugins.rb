@@ -23,8 +23,8 @@ module ThemeJuice
       def install_vagrant_plugin(plugin, version)
         unless vagrant_plugin_is_installed? plugin
           @io.log "Installing #{plugin}"
-          @util.run "vagrant plugin install #{plugin} --plugin-version #{version}",
-            :verbose => @env.verbose
+          @util.run "vagrant plugin install #{plugin} --plugin-version #{version}", {
+            :verbose => @env.verbose, :capture => @env.quiet }
         end
       end
     end

@@ -11,7 +11,7 @@ describe ThemeJuice::Tasks::Database do
     allow(@project).to receive(:db_name).and_return "test_db_name"
     allow(@project).to receive(:db_user).and_return "test_db_user"
     allow(@project).to receive(:db_pass).and_return "test_db_pass"
-    
+
     FileUtils.mkdir_p "#{@env.vm_path}/database"
     FileUtils.touch "#{@env.vm_path}/database/init-custom.sql"
   end
@@ -24,7 +24,7 @@ describe ThemeJuice::Tasks::Database do
   describe "#execute" do
     it "should append project info to custom database file" do
       output = capture(:stdout) { @task.execute }
-      
+
       expect(File.binread(@file)).to match /test_db_name/
       expect(File.binread(@file)).to match /test_db_user/
       expect(File.binread(@file)).to match /test_db_pass/
@@ -35,11 +35,11 @@ describe ThemeJuice::Tasks::Database do
 
     it "should gsub project info from custom database file" do
       output = capture(:stdout) { @task.unexecute }
-      
+
       expect(File.binread(@file)).not_to match /test_db_name/
       expect(File.binread(@file)).not_to match /test_db_user/
       expect(File.binread(@file)).not_to match /test_db_pass/
-      
+
       expect(output).to match /gsub/
     end
 

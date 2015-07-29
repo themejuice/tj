@@ -29,13 +29,15 @@ module ThemeJuice
       def create_custom_file
         unless custom_file_is_setup?
           @io.log "Creating customfile"
-          @util.create_file custom_file, nil, :verbose => @env.verbose
+          @util.create_file custom_file, nil, { :verbose => @env.verbose,
+            :capture => @env.quiet }
         end
       end
 
       def remove_custom_file
         @io.log "Removing customfile"
-        @util.remove_file custom_file, :verbose => @env.verbose
+        @util.remove_file custom_file, { :verbose => @env.verbose,
+          :capture => @env.quiet }
       end
     end
   end

@@ -29,7 +29,8 @@ module ThemeJuice
       def create_apache_file
         unless apache_is_setup?
           @io.log "Creating apache conf file"
-          @util.create_file apache_file, :verbose => @env.verbose do
+          @util.create_file apache_file, { :verbose => @env.verbose,
+            :capture => @env.quiet } do
 %Q{<VirtualHost *:80>
   DocumentRoot #{@project.vm_srv}
   ServerName #{@project.url}
@@ -43,7 +44,8 @@ module ThemeJuice
 
       def remove_apache_file
         @io.log "Removing apache conf file"
-        @util.remove_file apache_file, :verbose => @env.verbose
+        @util.remove_file apache_file, { :verbose => @env.verbose,
+          :capture => @env.quiet }
       end
     end
   end

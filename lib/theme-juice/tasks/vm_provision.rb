@@ -36,7 +36,7 @@ module ThemeJuice
       def provision
         @io.log "Provisioning VM"
         @util.inside @env.vm_path do
-          @util.run [], :verbose => @env.verbose do |cmds|
+          @util.run [] do |cmds|
             cmds << "vagrant halt" if vm_is_up?
             cmds << "vagrant up --provision"
           end

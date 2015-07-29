@@ -29,7 +29,8 @@ module ThemeJuice
       def create_nginx_file
         unless nginx_is_setup?
           @io.log "Creating nginx conf file"
-          @util.create_file nginx_file, :verbose => @env.verbose do
+          @util.create_file nginx_file, { :verbose => @env.verbose,
+            :capture => @env.quiet } do
 %Q(server {
   listen       80;
   listen       443 ssl;
@@ -45,7 +46,8 @@ module ThemeJuice
 
       def remove_nginx_file
         @io.log "Removing nginx conf file"
-        @util.remove_file nginx_file, :verbose => @env.verbose
+        @util.remove_file nginx_file, { :verbose => @env.verbose,
+          :capture => @env.quiet }
       end
     end
   end

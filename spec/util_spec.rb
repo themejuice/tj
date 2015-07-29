@@ -2,9 +2,10 @@ describe ThemeJuice::Util do
 
   before do
     @env = ThemeJuice::Env
-    
+
     allow(@env).to receive(:vm_path).and_return File.expand_path("~/vagrant-test")
-    allow(@env).to receive(:verbose).and_return false
+    allow(@env).to receive(:verbose).and_return true
+    allow(@env).to receive(:quiet).and_return false
     allow(@env).to receive(:dryrun).and_return true
   end
 
@@ -15,7 +16,7 @@ describe ThemeJuice::Util do
   describe "#run" do
 
     it "should yield when given a block" do
-      expect(stdout).to receive(:print).once
+      expect(stdout).to receive :print
       expect { |b| @util.run([], &b) }.to yield_control
     end
 
@@ -34,6 +35,37 @@ describe ThemeJuice::Util do
 
       expect(output).to be_a String
       expect(output).to match /&&/
+    end
+
+    context "when Env.quiet is true" do
+
+      before :each do
+        allow(@env).to receive(:verbose).and_return false
+        allow(@env).to receive(:quiet).and_return true
+      end
+
+      it "should not output to $stdout with single command" do
+        config = {
+          :verbose => @env.verbose,
+          :capture => @env.quiet
+        }
+
+        expect { @util.run "echo 'a command'", config }.to_not output.to_stdout
+      end
+
+      it "should not output to $stdout with multiple commands" do
+        config = {
+          :verbose => @env.verbose,
+          :capture => @env.quiet
+        }
+
+        expect do
+          @util.run [], config do |cmds|
+            cmds << "echo 'a command'"
+            cmds << "echo 'another command'"
+          end
+        end.to_not output.to_stdout
+      end
     end
   end
 
@@ -57,6 +89,37 @@ describe ThemeJuice::Util do
       expect(output).to be_a String
       expect(output).to match /&&/
       expect(output).to match /vagrant ssh/
+    end
+
+    context "when Env.quiet is true" do
+
+      before :each do
+        allow(@env).to receive(:verbose).and_return false
+        allow(@env).to receive(:quiet).and_return true
+      end
+
+      it "should not output to $stdout with single command" do
+        config = {
+          :verbose => @env.verbose,
+          :capture => @env.quiet
+        }
+
+        expect { @util.run_inside_vm "echo 'a command'", config }.to_not output.to_stdout
+      end
+
+      it "should not output to $stdout with multiple commands" do
+        config = {
+          :verbose => @env.verbose,
+          :capture => @env.quiet
+        }
+
+        expect do
+          @util.run_inside_vm [], config do |cmds|
+            cmds << "echo 'a command'"
+            cmds << "echo 'another command'"
+          end
+        end.to_not output.to_stdout
+      end
     end
   end
 end

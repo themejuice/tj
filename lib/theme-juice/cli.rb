@@ -34,6 +34,8 @@ module ThemeJuice
         @env.no_landrush     = options[:no_landrush]
         @env.no_port_forward = options[:no_port_forward]
         @env.verbose         = options[:verbose]
+        @env.quiet           = options[:quiet]
+        @env.trace           = options[:trace]
         @env.dryrun          = options[:dryrun]
         @env.nginx           = options[:nginx]
       end
@@ -68,6 +70,8 @@ module ThemeJuice
     class_option :no_landrush,     :type => :boolean,                                     :desc => ""
     class_option :no_port_forward, :type => :boolean, :aliases => "--no-port-forwarding", :desc => ""
     class_option :verbose,         :type => :boolean,                                     :desc => ""
+    class_option :quiet,           :type => :boolean, :aliases => "--shh",                :desc => ""
+    class_option :trace,           :type => :boolean,                                     :desc => ""
     class_option :dryrun,          :type => :boolean, :aliases => "--dry-run",            :desc => ""
     class_option :nginx,           :type => :boolean, :aliases => "--no-apache",          :desc => ""
 

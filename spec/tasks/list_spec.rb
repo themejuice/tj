@@ -34,7 +34,7 @@ test4.dev                 192.168.50.4
     end
 
     it "should raise error if prop does not exist" do
-      allow(@env).to receive(:verbose).and_return true
+      allow(@env).to receive(:trace).and_return true
       expect(stdout).to receive :print
       expect { @task.list :prop }.to raise_error NotImplementedError
     end

@@ -17,7 +17,8 @@ module ThemeJuice
       def import_db
         if @project.db_import
           @io.log "Importing existing database"
-          @util.run_inside_vm [], :verbose => @env.verbose do |cmds|
+          @util.run_inside_vm [], { :verbose => @env.verbose,
+            :capture => @env.quiet } do |cmds|
             cmds << "cd #{@project.vm_srv}"
             cmds << "wp db import #{@project.db_import}"
           end
