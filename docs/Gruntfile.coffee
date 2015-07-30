@@ -1,9 +1,7 @@
 module.exports = (grunt) ->
   "use strict"
 
-  require("jit-grunt") grunt,
-    haml: "grunt-haml-php"
-
+  require("jit-grunt")  grunt
   require("time-grunt") grunt
 
   grunt.initConfig
