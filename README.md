@@ -1,4 +1,6 @@
 # Theme Juice CLI
+
+[![Join the chat at https://gitter.im/ezekg/theme-juice-cli](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/ezekg/theme-juice-cli?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 [![Gem Version](http://img.shields.io/gem/v/theme-juice.svg?style=flat-square)](https://rubygems.org/gems/theme-juice)
 [![Travis](https://img.shields.io/travis/ezekg/theme-juice-cli.svg?style=flat-square)](https://travis-ci.org/ezekg/theme-juice-cli)
 [![Code Climate](https://img.shields.io/codeclimate/github/ezekg/theme-juice-cli.svg?style=flat-square)](https://codeclimate.com/github/ezekg/theme-juice-cli)
