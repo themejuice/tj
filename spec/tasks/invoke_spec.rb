@@ -21,10 +21,26 @@ describe ThemeJuice::Tasks::Invoke do
     end
 
     context "when called with the 'rollback' argument" do
-      it "should invoke a rollback" do
+      it "should invoke a deploy:rollback" do
         expect(@env.cap).to receive(:invoke).with "deploy:rollback"
 
         capture(:stdout) { @task.new(["rollback"]).execute }
+      end
+    end
+
+    context "when called with the 'check' argument" do
+      it "should invoke a deploy:check" do
+        expect(@env.cap).to receive(:invoke).with "deploy:check"
+
+        capture(:stdout) { @task.new(["check"]).execute }
+      end
+    end
+
+    context "when called with the 'setup' argument" do
+      it "should invoke a deploy:check using alias" do
+        expect(@env.cap).to receive(:invoke).with "deploy:check"
+
+        capture(:stdout) { @task.new(["setup"]).execute }
       end
     end
 
