@@ -94,12 +94,13 @@ module ThemeJuice
       end
 
       def location
-        path = "#{Dir.pwd}/"
+        path = "#{Dir.pwd}"
 
         if @project.use_defaults
-          location = File.expand_path path + @project.name
+          location = File.absolute_path @project.name, path
         else
-          location = File.expand_path @io.ask("Where do you want to setup the project?", :default => path, :path => true)
+          location = File.absolute_path @io.ask("Where do you want to setup the project?",
+            :default => path, :path => true), path
         end
 
         location
