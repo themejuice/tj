@@ -38,6 +38,13 @@ $green: #9FCF67
     clear: both
 
 /**
+ * Blink animation
+ */
++keyframes(blink)
+  to
+    visibility: hidden
+
+/**
  * Base
  */
 body
@@ -177,6 +184,10 @@ code
         position: absolute
         bottom: -1.625rem
         right: 0
+
+      &:after
+        +animation(blink 1500ms steps(2, start) infinite)
+        content: "_"
 
   a
     text:
