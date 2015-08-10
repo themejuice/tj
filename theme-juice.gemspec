@@ -10,7 +10,7 @@ Gem::Specification.new do |gem|
   gem.version        = ::ThemeJuice::VERSION
   gem.authors        = ["Ezekiel Gabrielse"]
   gem.email          = ["ezekg@yahoo.com"]
-  gem.description    = %q{Theme Juice (tj) is a command line utility for modern WordPress development. It allows you to scaffold out a Vagrant development environment in seconds, and generate/manage an unlimited number of development projects. It also helps you manage dependencies and build tools, and can even handle your deployments.}
+  gem.description    = %q{tj is a command line utility that allows you to generate, manage and deploy new local WordPress development applications in seconds using Vagrant.}
   gem.summary        = %q{WordPress development made easy}
   gem.homepage       = "http://themejuice.it"
 

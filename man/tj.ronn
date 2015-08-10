@@ -7,12 +7,10 @@ tj(1) -- WordPress development made easy
 
 ## DESCRIPTION
 
-Theme Juice (tj(1)) is a command line utility for modern WordPress development.
-It allows you to scaffold out a vagrant(1) development environment in seconds
-(using an apache(7) fork of vvv(7) called vvv-apache(7) as the VM), and
-generate/manage an unlimited number of development projects. It also
-helps you manage dependencies and build tools, and can even handle
-your deployments.
+Theme Juice (tj(1)) is a command line utility that allows you to generate,
+manage and deploy new local WordPress development applications in seconds
+using vagrant(1), utilizing an apache(7) fork of vvv(7) called vvv-apache(7)
+as the virtual machine.
 
 ## GLOBAL OPTIONS
 
