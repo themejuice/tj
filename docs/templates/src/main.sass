@@ -16,10 +16,11 @@ $serif: "Montserrat", "Helvetica Neue", "Helvetica", "Arial", sans-serif
 /**
  * Colors
  */
-$foreground: #F0FAFF
-$background: #00141F
-$primary: #00CC00
-$secondary: #FF9900
+$foreground: #E6F5FA
+$background: #050A0F
+$primary: #339933
+$secondary: #E68A00
+$tertiary: #33CC33
 
 /**
  * Override compass' clearfix mixin
@@ -106,7 +107,7 @@ p
     bottom: 1rem
 
 a
-  color: $primary
+  color: $tertiary
   font:
     weight: 700
   text:
@@ -128,7 +129,7 @@ dt,
     top: 0.75rem
   padding: 0 1rem
   background:
-    color: mix($foreground, $background, 5%)
+    color: mix($foreground, $background, 10%)
 
 #INSTALLATION + p > code:before,
 #SYNOPSIS + p > code:before,
@@ -136,7 +137,7 @@ dt,
 
 var,
 code
-  color: $primary
+  color: $tertiary
   font:
     weight: 700
 
