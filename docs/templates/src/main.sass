@@ -16,10 +16,10 @@ $serif: "Montserrat", "Helvetica Neue", "Helvetica", "Arial", sans-serif
 /**
  * Colors
  */
-$white: #fcfcfc
-$black: #516066
-$orange: #f78f1e
-$green: #9FCF67
+$foreground: #F0FAFF
+$background: #00141F
+$primary: #00CC00
+$secondary: #FF9900
 
 /**
  * Override compass' clearfix mixin
@@ -38,6 +38,14 @@ $green: #9FCF67
     clear: both
 
 /**
+ * Blinking cursor pseudo element
+ */
+@mixin blinking-cursor
+  &:after
+    +animation(blink 1500ms steps(2, start) infinite)
+    content: "_"
+
+/**
  * Blink animation
  */
 +keyframes(blink)
@@ -51,7 +59,7 @@ body
   overflow:
     x: hidden
   background:
-    color: $white
+    color: $background
 
   &:not(.tj)
     .index-only
@@ -61,8 +69,8 @@ body
  * Typography
  */
 body
-  color: $black
-  font: 14px/1.875 $monospace
+  color: $primary
+  font: 400 14px/1.875 $monospace
 
   +_(greater than small)
     font:
@@ -75,12 +83,11 @@ h4,
 h5,
 h6
   +transition(350ms)
-  color: $green
+  color: $secondary
   font:
-    family: $serif
+    size: 1rem
+    family: $monospace
     weight: 700
-  text:
-    transform: lowercase
   margin:
     top: 1.5rem
     bottom: 0
@@ -89,21 +96,23 @@ h6
 
   &.active
     border:
-      color: $orange
+      color: $secondary
 
 p
   text:
     align: justify
   margin:
-    top: 0.5rem
+    top: 0.25rem
     bottom: 1rem
 
 a
-  color: $black
-
-  &:hover,
-  &:active
-    color: mix($white, $black, 50%)
+  color: $primary
+  font:
+    weight: 700
+  text:
+    decoration: none
+  border:
+    bottom: 1px solid currentColor
 
 p,
 dt
@@ -115,14 +124,24 @@ dt,
 #INSTALLATION + p,
 #SYNOPSIS + p
   +border-radius(0.25rem)
+  margin:
+    top: 0.75rem
   padding: 0 1rem
   background:
-    color: mix($black, $white, 5%)
+    color: mix($foreground, $background, 5%)
+
+#INSTALLATION + p > code:before,
+#SYNOPSIS + p > code:before,
+  content: "$ "
 
 var,
 code
+  color: $primary
   font:
     weight: 700
+
+dl
+  margin: 0
 
 /**
  * Header
@@ -142,10 +161,14 @@ code
 .logo
   +_(3 4, $gutter: normal)
 
+  a
+    border:
+      bottom: none
+
   &__type
     +inline-block
     position: relative
-    color: $orange
+    color: $secondary
     font:
       family: $serif
       size: 1.5rem
@@ -173,6 +196,7 @@ code
         size: 2rem
 
     span
+      +blinking-cursor
       font:
         family: $monospace
         size: 0.875rem
@@ -184,10 +208,6 @@ code
         position: absolute
         bottom: -1.625rem
         right: 0
-
-      &:after
-        +animation(blink 1500ms steps(2, start) infinite)
-        content: "_"
 
   a
     text:
@@ -215,6 +235,8 @@ code
     position: relative
     padding:
       top: 0.625rem
+    border:
+      bottom: none
 
 /**
  * Sidebar
@@ -226,19 +248,19 @@ code
     position: absolute
     left: 100%
     top: 0
-    height: 100%
-    height: 100vh
 
   &__navigation
-    +border-radius(0.25rem)
     list-style: none
     margin: 0 auto
-    padding: 0 1rem
-    border:
-      left: 5px solid #f3f3f3
+
+    +_(30em greater than large)
+      padding: 0 1rem
 
     &__item
       display: block
+      color: $secondary
+      border:
+        bottom: none
 
 /**
  * Main content area
@@ -288,7 +310,7 @@ code
 
     .fa-heart
       +animation(heartbeat 2000ms infinite)
-      color: $orange
+      color: $secondary
 
       +keyframes(heartbeat)
         0%, 40%, 60%, 80%
@@ -297,7 +319,7 @@ code
           +scale(1.25)
 
   &__source
-    color: mix($black, $white, 50%)
+    color: mix($background, $foreground, 50%)
 
 /**
  * Scroll to top button
@@ -310,12 +332,14 @@ code
     size: 1.25rem
   text:
     decoration: none
+  border:
+    bottom: none
 
   +_(greater than small)
     right: 2rem
 
   i
-    color: $orange
+    color: $secondary
 
     &:hover
-      color: mix($white, $orange, 25%)
+      color: mix($foreground, $secondary, 25%)

@@ -20,7 +20,7 @@
     %header.header__wrapper
       .header
 
-        %aside.logo
+        .logo
           %a(href="/" title="Theme Juice Command Line Interface")
             %h1.logo__type
               Theme Juice
@@ -91,6 +91,39 @@
       %i.fa.fa-level-up
 
     :coffee
+
+      #
+      # Sticky sidebar
+      #
+      sidebars = document.getElementsByTagName "aside"
+
+      getScrollPosition = () ->
+        d = document.documentElement or document.body.parentNode or document.body
+        vect = {}
+        vect.x = if window.pageXOffset?
+            window.pageXOffset
+          else
+            d.scrollLeft
+        vect.y = if window.pageYOffset?
+            window.pageYOffset
+          else
+            d.scrollTop
+
+        vect
+
+      window.addEventListener "scroll", () ->
+        return if window.innerWidth < 1120
+
+        pos = getScrollPosition()
+
+        for sidebar in sidebars
+          sidebar.style["-webkit-transform"] =
+          sidebar.style["-moz-transform"] =
+          sidebar.style["transform"] = "translateY(" + pos.y + "px)"
+
+      #
+      # Scroll to heading when link in sidebar is clicked
+      #
       links = document.getElementsByTagName "a"
 
       for link in links
@@ -98,7 +131,7 @@
           if e.currentTarget?.hash
             e.preventDefault()
 
-            hash = this.getAttribute "href"
+            hash = @.getAttribute "href"
             node = document.getElementById hash[1...]
 
             if hash is "#top"
@@ -110,6 +143,7 @@
 
             unless node is document.body
               addClass node, "active"
+              addClass @, "active"
 
       scrollTo = (node, target, vel) ->
         y = node.scrollTop
@@ -142,7 +176,12 @@
       removeClasses = (links, klass) ->
         for link in links
           hash = link.getAttribute "href"
+
+          unless hash[0] is "#"
+            continue
+
           node = document.getElementById hash[1...]
 
-          if node?.className? and klass in node.className.split " "
-            node.className = node.className.replace klass, ""
+          for el in [link, node]
+            if el?.className? and klass in el.className.split " "
+              el.className = el.className.replace klass, ""
