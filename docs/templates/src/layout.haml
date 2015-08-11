@@ -125,26 +125,44 @@
       # Scroll to heading when link in sidebar is clicked
       #
       links = document.getElementsByTagName "a"
+      threshold = getScrollPosition()
+      dist = 250
 
       for link in links
         link.onclick = (e) ->
-          if e.currentTarget?.hash
-            e.preventDefault()
+          return unless e.currentTarget?.hash
 
-            hash = @.getAttribute "href"
-            node = document.getElementById hash[1...]
+          e.preventDefault()
 
-            if hash is "#top"
-              scrollTo document.body, node.offsetTop, 500
-            else
-              scrollTo document.body, (node.offsetTop + 75), 500
+          hash = @.getAttribute "href"
+          node = document.getElementById hash[1...]
 
-            removeClasses links, "active"
+          if hash is "#top"
+            threshold = node.offsetTop
+          else
+            threshold = (node.offsetTop + 75)
 
-            unless node is document.body
-              addClass node, "active"
-              addClass @, "active"
+          scrollTo document.body, threshold, 500
+          removeClasses links, "active"
 
+          unless node is document.body
+            addClass node, "active"
+            addClass @, "active"
+
+      # Remove any active classes if scrolled past threshold
+      window.addEventListener "scroll", () ->
+        pos = getScrollPosition()
+
+        if pos.y > threshold + dist or pos.y < threshold - dist
+
+          # @NOTE Check if the scroll position is different in 50ms, and if
+          #  it is, assume we're in the middle of an animation and don't
+          #  remove the classes until we've stopped moving
+          setTimeout () ->
+            removeClasses links, "active" if getScrollPosition().y is pos.y
+          , 50
+
+      # Helpers
       scrollTo = (node, target, vel) ->
         y = node.scrollTop
         vy = target - y

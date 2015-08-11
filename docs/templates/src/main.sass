@@ -41,10 +41,10 @@ $tertiary: #33CC33
 /**
  * Blinking cursor pseudo element
  */
-@mixin blinking-cursor
-  &:after
+@mixin blinking-cursor($cursor: "_", $element: "after")
+  &:#{$element}
     +animation(blink 1500ms steps(2, start) infinite)
-    content: "_"
+    content: $cursor
 
 /**
  * Blink animation
@@ -262,6 +262,9 @@ dl
       color: $secondary
       border:
         bottom: none
+
+      &.active
+        +blinking-cursor(">", "before")
 
 /**
  * Main content area
