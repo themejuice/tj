@@ -12,7 +12,7 @@ _The master branch contains features currently in development, so don't expect i
 [View our contributing guidelines to get started!](#contributing)
 
 ## What is it?
-[Theme Juice CLI]((http://themejuice.it)) (`tj`) is a command line utility that allows you to generate, manage and deploy new local WordPress development applications in seconds using Vagrant, utilizing an Apache fork of [VVV](https://github.com/Varying-Vagrant-Vagrants/VVV) called [VVV-Apache](https://github.com/ericmann/vvv-apache.git) as the virtual machine.
+[Theme Juice CLI](http://themejuice.it) (`tj`) is a command line utility that allows you to generate, manage and deploy new local WordPress development applications in seconds using Vagrant, utilizing an Apache fork of [VVV](https://github.com/Varying-Vagrant-Vagrants/VVV) called [VVV-Apache](https://github.com/ericmann/vvv-apache.git) as the virtual machine.
 
 [View full documentation](http://themejuice.it).
 
