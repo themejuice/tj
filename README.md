@@ -7,8 +7,6 @@
 
 ![Theme Juice CLI](demo.gif)
 
-_This project is currently under active development and will not be completely 'stable' per-say until we hit `1.0`. Everything here is subject to change without notice. (We will of course semantically version all of our releases, with the minor version being incremented with new features/breaking changes.) Feel free to contribute to the development with new features, ideas or bug fixes._
-
 _The master branch contains features currently in development, so don't expect it to work at all times. Grab the newest RubyGem instead of building directly from master._
 
 [View our contributing guidelines to get started!](#contributing)
@@ -41,13 +39,17 @@ tj create
 ```
 
 #### What happens on your first `create`?
-`tj` will clone the selected VM to your `vm-path` (default path is `~/vagrant/`); after that finishes up, it will create all of the necessary project files, such as:
-* `Customfile` containing DNS and synced folder settings
-* `init-custom.sql` containing database setup
-* `project.conf` containing server settings
-* `wp-cli.local.yml` containing VM paths
+1. `tj` will clone the selected VM to your `vm-path` (default path is `~/vagrant/`)
+1. `tj` will clone the selected starter theme
+1. `tj` will run the starter theme's installation (via the `Juicefile`, if present)
+1. `tj` will create all of the necessary project files, such as:
+  * `Customfile` containing DNS and synced folder settings
+  * `init-custom.sql` containing database setup
+  * `project.conf` containing server settings
+  * `wp-cli.local.yml` containing VM paths
+1. `tj` will provision the VM to put the new configuration into effect.
 
-Once those things are done, `tj` will run the starter theme's installation (via the `Juicefile`, if present), and then finally provision the VM to put the new configuration into effect. If you've never used Vagrant before, the first provision might take awhile. After that's done, you should be able to access your new project at the specified url.
+If you've never used `tj` before, the that last step might take awhile. After that's done, you should be able to access your new project at the specified url!
 
 ### Set up an existing project
 This sets up an existing local project within the development environment. You will go through a series of prompts to create the necessary files. This command is essentially an alias for `tj create --bare`.
@@ -66,7 +68,7 @@ tj delete
 ```
 
 ### Deploying a project
-This will deploy a project to the passed `<stage>` using [Capistrano](http://capistranorb.com/). Head over to the [docs](http://themejuice.it/deploy) to get started with your first deployment.
+This will deploy a project to the passed `<stage>` using [Capistrano](http://capistranorb.com/). Head over to the [docs](http://themejuice.it/deploy) to get started with your first deployment. (There's a quick getting started section there too!)
 
 ```
 tj deploy <stage>
@@ -88,11 +90,10 @@ Or, you can also check out [themejuice.it](http://themejuice.it) for a pretty we
 1. [So, does that mean I can use any Vagrant box?](#so-does-that-mean-i-can-use-any-vagrant-box)
 1. [What is a `Customfile`?](#what-is-a-customfile)
 1. [What is a `Juicefile`?](#what-is-a-juicefile)
-1. [Does `tj` handle deployments?](#does-tj-handle-deployments)
 1. [Does `tj` support subdomain multi-sites?](#does-tj-support-subdomain-multi-sites)
 1. [Can I access a project from another device (i.e. mobile)?](#can-i-access-a-project-from-another-device-ie-mobile)
-1. [Help! It won't let me `git clone` anything!](#help-it-wont-let-me-git-clone-anything)
 1. [Can I add my starter theme, ________?](#can-i-add-my-starter-theme-________)
+1. [Troubleshooting](#troubleshooting)
 
 ### Is Windows supported?
 Yes! But, since Windows doesn't support UTF-8 characters inside of the terminal, and is picky about ASCII colors, you'll probably have to run `tj` with a couple flags.
@@ -153,7 +154,7 @@ Yes and no; in order for `tj` to properly create a project, the Vagrant box need
 ```
 
 ### What is a `Customfile`?
-[It's a file that contains custom rules to add into the main `Vagrantfile`, without actually having to modify it](https://github.com/Varying-Vagrant-Vagrants/VVV/blob/develop/Vagrantfile#L208-L218). This allows us to easily modify the Vagrant box without causing merge conflicts if you were to update the VM source via `git pull`.
+[It's a file that contains custom rules to add into the main `Vagrantfile`, without actually having to modify it](https://github.com/Varying-Vagrant-Vagrants/VVV/blob/develop/Vagrantfile#L208-L218). This allows us to easily modify the Vagrant box without causing merge conflicts if you were to update the VM source via `git pull`. Every file that `tj` modifies is _meant to be modified_, so at any time you may update your installation of VVV with a simple `git pull` without getting merge conflicts out the wazoo.
 
 ### What is a `Juicefile`?
 A YAML configuration file (`Juicefile`) can be used to store commonly-used build scripts. Each command block sequence can be mapped to an individual project's build tool, allowing a streamlined set of commands to be used across multiple projects that utilize different tools. In the near-future, this will also house your deployment configuration.
@@ -212,9 +213,6 @@ cmd3 "%arg4%"
 
 You can specify an unlimited number of commands with an unlimited number of arguments; however, you should be careful with how this is used. Don't go including `sudo rm -rf %arg1%` in a command, while passing `/` as an argument. Keep it simple. These are meant to make your life easier by helping you manage build tools, not to do fancy scripting.
 
-### Does `tj` handle deployments?
-As of `0.11`, yes! Check out the [documentation](http://themejuice.it/deploy) to get started.
-
 ### Does `tj` support subdomain multi-sites?
 If you're able to use [Landrush](https://github.com/phinze/landrush) for your DNS, then yes. All subdomains will resolve to their parent domain. Landrush comes pre-installed when you create your first project with `tj`. Having said that, unfortunately, if you're on Windows you'll probably have to manually add the subdomains due to Landrush not being fully supported. If you have the Windows chops, head over there and contribute to Landrush by squashing that bug. I'm sure he would appreciate it!
 
@@ -225,15 +223,35 @@ Once everything is good to go, you can access a project from another device on t
 
 _If you're familiar with forwarding host ports on operating systems other than OSX, check out [this file](https://github.com/ezekg/theme-juice-cli/blob/master/lib/theme-juice/tasks/forward_ports.rb#L34-L51) and make a pull request so that everybody else can benefit from your smarts._
 
+### Can I add my starter theme, ________?
+Yes! Just update the `THEMES` constant inside [commands/create.rb](https://github.com/ezekg/theme-juice-cli/blob/master/lib/theme-juice/commands/create.rb#L7-L12) and make a pull request. I'll verify that the theme includes a `Juicefile` (not required, but preferred to automate build steps), and that everything looks solid. Until then (or if your theme is private), just run the command below to clone your theme.
+
+```
+tj create --theme git@your.repo:link/goes-here.git
+```
+
+## Troubleshooting
+
+1. [Help! It won't let me `git clone` anything!](#help-it-wont-let-me-git-clone-anything)
+1. [What the heck is an `invalid multibyte char (US-ASCII)`](#what-the-heck-is-an-invalid-multibyte-char-us-ascii)
+
 ### Help! It won't let me `git clone` anything!
-You most likely don't have [SSH-keys for GitHub set up correctly (if even at all)](https://help.github.com/articles/error-permission-denied-publickey/). Either set that up, or manually run `tj` with the appropriate flags corresponding to the problem-repository, swapping out `git@github.com:` for `https://github.com/`:
+If you're hitting issues related to `git clone`, either cloning the VM or a starter theme, then you most likely don't have [SSH-keys for GitHub set up correctly](https://help.github.com/articles/error-permission-denied-publickey/). Either go through that article and assure that you can use Git with the `git@github.com` protocol, or else you can manually run `tj` with the appropriate flags corresponding to the problem-repository, swapping out `git@github.com:` for `https://github.com/`. For example:
 
 ```
 tj create --theme https://github.com/theme/repository.git --vm-box https://github.com/vm-box/repository.git
 ```
 
-### Can I add my starter theme, ________?
-Yes! Just update the `THEMES` constant inside [commands/create.rb](https://github.com/ezekg/theme-juice-cli/blob/master/lib/theme-juice/commands/create.rb#L7-L12) and make a pull request. I'll verify that the theme includes a `Juicefile` (not required, but preferred to automate build steps), and that everything looks solid. Until then (or if your theme is private), just run `tj create --theme https://your.repo/link/goes.here` to clone your theme.
+This replaces the starter theme and VM box repository URLs to use `https://` instead of the `git@` protocol.
+
+### What the heck is an `invalid multibyte char (US-ASCII)`?!
+For one reason or another, your terminal probably doesn't support UTF-8, so it's throwing a fit. Use the `--no-unicode` flag to disable the unicode characters. If the problem still persists, try running it with the `--boring` flag. That should disable all unicode characters and coloring.
+
+```
+tj create --no-unicode # Or: tj create --boring
+```
+
+_Still having issues? [Yell at me!](https://github.com/ezekg/theme-juice-cli/issues)_
 
 ## Contributing
 1. First, create a _well documented_ [issue](https://github.com/ezekg/theme-juice-cli/issues) for your proposed feature/bug fix
