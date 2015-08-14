@@ -51,7 +51,7 @@ tj create
   * `wp-cli.local.yml` containing VM paths
 1. `tj` will provision the VM to put the new configuration into effect.
 
-If you've never used `tj` before, the that last step might take awhile. After that's done, you should be able to access your new project at the specified url!
+If you've never used `tj` before, the that last step might take awhile. After that's done, you should be able to access your new project at the specified url. It's that easy!
 
 ### Set up an existing project
 This sets up an existing local project within the development environment. You will go through a series of prompts to create the necessary files. This command is essentially an alias for `tj create --bare`.
