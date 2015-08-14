@@ -216,7 +216,7 @@ You can specify an unlimited number of commands with an unlimited number of argu
 ### Does `tj` support subdomain multi-sites?
 If you're able to use [Landrush](https://github.com/phinze/landrush) for your DNS, then yes. All subdomains will resolve to their parent domain. Landrush comes pre-installed when you create your first project with `tj`. Having said that, unfortunately, if you're on Windows you'll probably have to manually add the subdomains due to Landrush not being fully supported. If you have the Windows chops, head over there and contribute to Landrush by squashing that bug. I'm sure he would appreciate it!
 
-#### Can I access a project from another device (i.e. mobile)?
+### Can I access a project from another device (i.e. mobile)?
 Yes! Every project created with `tj` will automatically be set up to support using [xip.io](http://xip.io/). If you're using OSX, then everything should work out of the box. If you're not using OSX, then you'll need to point port `80` on your host machine to `8080`; Vagrant cannot do this by default for security reasons.
 
 Once everything is good to go, you can access a project from another device on the same network by going to `<project-name>.<your-hosts-ip-address>.xip.io` e.g. `themejuice.192.168.1.1.xip.io`.
