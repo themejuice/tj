@@ -93,7 +93,7 @@ Or, you can also check out [themejuice.it](http://themejuice.it) for a pretty we
 1. [Does `tj` support subdomain multi-sites?](#does-tj-support-subdomain-multi-sites)
 1. [Can I access a project from another device (i.e. mobile)?](#can-i-access-a-project-from-another-device-ie-mobile)
 1. [Can I add my starter theme, ________?](#can-i-add-my-starter-theme-________)
-1. [Slack deployment notifications](#slack-deployment-notifications)
+1. [Can I integrate my deployments with Slack?](#can-i-integrate-my-deployments-with-slack)
 1. [Troubleshooting](#troubleshooting)
 
 ### Is Windows supported?
@@ -231,8 +231,8 @@ Yes! Just update the `THEMES` constant inside [commands/create.rb](https://githu
 tj create --theme git@your.repo:link/goes-here.git
 ```
 
-# Slack deployment notifications
-You can integrate deployment notifications with your teams Slack account by adding the following template to your `Juicefile`:
+### Can I integrate my deployments with Slack?
+Yes, you can integrate deployment notifications with your teams Slack account by adding the following template to your `Juicefile`:
 
 ```yml
 deployment:
