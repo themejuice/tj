@@ -119,7 +119,7 @@ module ThemeJuice
       end
 
       def valid_url?(url)
-        unless "#{url}".match /(.dev)$/
+        unless "#{url}".match /\.dev$/
           @io.error "Your development url '#{url}' doesn't end with '.dev'. This is used internally by Landrush, so that's not gonna work. Aborting mission."
         end
 
