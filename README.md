@@ -258,7 +258,7 @@ Check out [capistrano-slackify](https://github.com/onthebeach/capistrano-slackif
 
 1. [Help! It won't let me `git clone` anything!](#help-it-wont-let-me-git-clone-anything)
 1. [What the heck is an `invalid multibyte char (US-ASCII)`?!](#what-the-heck-is-an-invalid-multibyte-char-us-ascii)
-1. [Why are my `.dev` domains resolving to `127.0.53.53`?!](#why-are-my-dev-domains-resolving-to-127-0-53-53)
+1. [Why are my `.dev` domains resolving to `127.0.53.53`?!](#why-are-my-dev-domains-resolving-to-12705353)
 
 ### Help! It won't let me `git clone` anything!
 If you're hitting issues related to `git clone`, either cloning the VM or a starter template, then you most likely don't have [SSH-keys for GitHub set up correctly](https://help.github.com/articles/error-permission-denied-publickey/). Either go through that article and assure that you can use Git with the `git@github.com` protocol, or else you can manually run `tj` with the appropriate flags corresponding to the problem-repository, swapping out `git@github.com:` for `https://github.com/`. For example:
