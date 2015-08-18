@@ -4,7 +4,7 @@ describe ThemeJuice::Tasks::VMLocation do
     @env     = ThemeJuice::Env
     @project = ThemeJuice::Project
     
-    allow(@env).to receive(:vm_path).and_return File.expand_path("~/vagrant-test")
+    allow(@env).to receive(:vm_path).and_return File.expand_path("~/tj-vagrant-test")
     allow(@env).to receive(:verbose).and_return true
     allow(@project).to receive(:vm_location).and_return "#{@env.vm_path}/vm-location-test"
     

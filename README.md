@@ -39,7 +39,7 @@ tj create
 ```
 
 #### What happens on your first `create`?
-1. `tj` will clone the selected VM to your `vm-path` (default path is `~/vagrant/`)
+1. `tj` will clone the selected VM to your `vm-path` (default path is `~/tj-vagrant/`)
 1. `tj` will clone the selected starter theme
 1. `tj` will run the starter theme's installation (via the `Juicefile`, if present)
 1. `tj` will create all of the necessary project files, such as:
@@ -121,7 +121,7 @@ tj new --vm-box git@github.com:Varying-Vagrant-Vagrants/VVV.git --nginx
 
 To use these permanently, set the appropriate `ENV` variables through your `.bashrc` or similar, i.e. `export TJ_VM_BOX=git@github.com:Varying-Vagrant-Vagrants/VVV.git` and `export TJ_NGINX=true`.
 
-_Note: Before running this, you might want to either choose a new `vm-path`, or destroy any existing VMs inside of your `~/vagrant` directory. If `tj` detects that a VM already installed, it will skip installing the new box._
+_Note: Before running this, you might want to either choose a new `vm-path`, or destroy any existing VMs inside of your `~/tj-vagrant` directory. If `tj` detects that a VM already installed, it will skip installing the new box._
 
 ### So, does that mean I can use any Vagrant box?
 Yes and no; in order for `tj` to properly create a project, the Vagrant box needs to follow the same directory structure as VVV, and include a `Customfile`. Here is the required structure that `tj` needs in order to be able to create new projects:

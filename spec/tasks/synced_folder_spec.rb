@@ -4,7 +4,7 @@ describe ThemeJuice::Tasks::SyncedFolder do
     @env     = ThemeJuice::Env
     @project = ThemeJuice::Project
     
-    allow(@env).to receive(:vm_path).and_return File.expand_path("~/vagrant-test")
+    allow(@env).to receive(:vm_path).and_return File.expand_path("~/tj-vagrant-test")
     allow(@env).to receive(:verbose).and_return true
     allow(@project).to receive(:name).and_return "synced-folder-test"
     allow(@project).to receive(:location).and_return Dir.pwd

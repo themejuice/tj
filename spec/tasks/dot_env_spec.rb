@@ -4,7 +4,7 @@ describe ThemeJuice::Tasks::DotEnv do
     @env = ThemeJuice::Env
     @project = ThemeJuice::Project
 
-    allow(@env).to receive(:vm_path).and_return File.expand_path("~/vagrant-test")
+    allow(@env).to receive(:vm_path).and_return File.expand_path("~/tj-vagrant-test")
     allow(@env).to receive(:vm_ip).and_return "1.1.1.1"
     allow(@env).to receive(:no_landrush).and_return false
     allow(@env).to receive(:verbose).and_return true

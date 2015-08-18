@@ -3,7 +3,7 @@ describe ThemeJuice::Tasks::Landrush do
   before do
     @env = ThemeJuice::Env
     
-    allow(@env).to receive(:vm_path).and_return File.expand_path("~/vagrant-test")
+    allow(@env).to receive(:vm_path).and_return File.expand_path("~/tj-vagrant-test")
     allow(@env).to receive(:verbose).and_return true
     allow(@env).to receive(:no_landrush).and_return false
     

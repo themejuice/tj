@@ -4,7 +4,7 @@ describe ThemeJuice::Tasks::Database do
     @env = ThemeJuice::Env
     @project = ThemeJuice::Project
 
-    allow(@env).to receive(:vm_path).and_return File.expand_path("~/vagrant-test")
+    allow(@env).to receive(:vm_path).and_return File.expand_path("~/tj-vagrant-test")
     allow(@env).to receive(:verbose).and_return true
     allow(@project).to receive(:name).and_return "database-test"
     allow(@project).to receive(:db_host).and_return "test_db_host"

@@ -28,7 +28,7 @@ module ThemeJuice
     end
 
     def vm_path=(val)
-      @vm_path = val || ENV.fetch("TJ_VM_PATH") { File.expand_path("~/vagrant") }
+      @vm_path = val || ENV.fetch("TJ_VM_PATH") { File.expand_path("~/tj-vagrant") }
     end
 
     def vm_ip=(val)

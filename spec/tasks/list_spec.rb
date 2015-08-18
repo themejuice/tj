@@ -4,7 +4,7 @@ describe ThemeJuice::Tasks::List do
     @env = ThemeJuice::Env
     @project = ThemeJuice::Project
 
-    allow(@env).to receive(:vm_path).and_return File.expand_path("~/vagrant-test")
+    allow(@env).to receive(:vm_path).and_return File.expand_path("~/tj-vagrant-test")
     allow(@project).to receive(:vm_root).and_return "#{@env.vm_path}/www"
     allow(@project).to receive(:vm_prefix).and_return "prefix-"
     allow_any_instance_of(Kernel).to receive(:`).with(/vagrant/).and_return %Q{
