@@ -7,7 +7,7 @@
 
 ![Theme Juice CLI](demo.gif)
 
-***The master branch contains features currently in development, so don't expect it to work at all times. Grab the newest RubyGem instead of building directly from master. Until `1.0`, we'll most likely be adjusting things, and that means breaking changes. Before updating, be sure to check back here to make sure that nothing major breaks.***
+***The master branch contains features currently in development, so don't expect it to work at all times. Grab the newest RubyGem instead of building directly from master. Until `1.0`, we'll most likely be adjusting things, and that means breaking changes. Before updating, be sure to check back here to make sure that nothing major has changed.***
 
 _All breaking changes will go up a minor version (`0.x.0`), while patches and backwards compatible changes will bump up the patch number (`0.0.x`). After `1.0`, we will follow [semantic versioning](http://semver.org/)_.
 
