@@ -3,7 +3,7 @@ git(1)                 https://git-scm.com/
 apache(7)              http://httpd.apache.org/
 nginx(7)               http://nginx.org/en/
 vvv(7)                 https://github.com/Varying-Vagrant-Vagrants/VVV
-vvv-apache(7)          https://github.com/ericmann/vvv-apache
+vvv-apache(7)          https://github.com/ezekg/theme-juice-vvv
 wordpress(7)           https://wordpress.org/
 Juicefile(5)           /index
 tj(1)                  /index
