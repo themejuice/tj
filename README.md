@@ -28,10 +28,10 @@ gem install theme-juice
 
 ## Getting Started
 
-_If you're going to be using [our starter theme](https://github.com/ezekg/theme-juice-starter), then I recommend checking out [it's dependencies](https://github.com/ezekg/theme-juice-starter#development-dependencies) before running your first `create`. That way, the build step doesn't fail._
+_If you're going to be using [our starter template](https://github.com/ezekg/theme-juice-starter), then I recommend checking out [it's dependencies](https://github.com/ezekg/theme-juice-starter#development-dependencies) before running your first `create`. That way, the build step doesn't fail._
 
 ### Create a new project
-This will lead you through a series of prompts to set up required project information, such as name, location, theme, database info, etc. Using the specified information, it will run the installation process and set up a local development environment, if one hasn't already been set up. It will sync your local project location with the project
+This will lead you through a series of prompts to set up required project information, such as name, location, template, database info, etc. Using the specified information, it will run the installation process and set up a local development environment, if one hasn't already been set up. It will sync your local project location with the project
 location within the VM, so you can run this from anywhere on your local system.
 
 ```
@@ -40,8 +40,8 @@ tj create
 
 #### What happens on your first `create`?
 1. `tj` will clone the selected VM to your `vm-path` (default path is `~/tj-vagrant/`)
-1. `tj` will clone the selected starter theme
-1. `tj` will run the starter theme's installation (via the `Juicefile`, if present)
+1. `tj` will clone the selected starter template
+1. `tj` will run the starter template's installation (via the `Juicefile`, if present)
 1. `tj` will create all of the necessary project files, such as:
   * `Customfile` containing DNS and synced folder settings
   * `init-custom.sql` containing database setup
@@ -92,7 +92,7 @@ Or, you can also check out [themejuice.it](http://themejuice.it) for a pretty we
 1. [What is a `Juicefile`?](#what-is-a-juicefile)
 1. [Does `tj` support subdomain multi-sites?](#does-tj-support-subdomain-multi-sites)
 1. [Can I access a project from another device (i.e. mobile)?](#can-i-access-a-project-from-another-device-ie-mobile)
-1. [Can I add my starter theme, ________?](#can-i-add-my-starter-theme-________)
+1. [Can I add my starter template, ________?](#can-i-add-my-starter-template-________)
 1. [Can I integrate my deployments with Slack?](#can-i-integrate-my-deployments-with-slack)
 1. [Troubleshooting](#troubleshooting)
 
@@ -160,7 +160,7 @@ Yes and no; in order for `tj` to properly create a project, the Vagrant box need
 ### What is a `Juicefile`?
 A YAML configuration file (`Juicefile`) can be used to store commonly-used build scripts. Each command block sequence can be mapped to an individual project's build tool, allowing a streamlined set of commands to be used across multiple projects that utilize different tools. In the near-future, this will also house your deployment configuration.
 
-Below is the config that comes baked into [our starter theme](https://github.com/ezekg/theme-juice-starter):
+Below is the config that comes baked into [our starter template](https://github.com/ezekg/theme-juice-starter):
 
 ```yml
 #
@@ -224,11 +224,11 @@ Once everything is good to go, you can access a project from another device on t
 
 _If you're familiar with forwarding host ports on operating systems other than OSX, check out [this file](https://github.com/ezekg/theme-juice-cli/blob/master/lib/theme-juice/tasks/forward_ports.rb#L34-L51) and make a pull request so that everybody else can benefit from your smarts._
 
-### Can I add my starter theme, ________?
-Yes! Just update the `THEMES` constant inside [commands/create.rb](https://github.com/ezekg/theme-juice-cli/blob/master/lib/theme-juice/commands/create.rb#L7-L12) and make a pull request. I'll verify that the theme includes a `Juicefile` (not required, but preferred to automate build steps), and that everything looks solid. Until then (or if your theme is private), just run the command below to clone your theme.
+### Can I add my starter template, ________?
+Yes! Just update the `TEMPLATES` constant inside [commands/create.rb](https://github.com/ezekg/theme-juice-cli/blob/master/lib/theme-juice/commands/create.rb#L7-L12) and make a pull request. I'll verify that the template includes a `Juicefile` (not required, but preferred to automate build steps), and that everything looks solid. Until then (or if your template is private), just run the command below to clone your template.
 
 ```
-tj create --theme git@your.repo:link/goes-here.git
+tj create --template git@your.repo:link/goes-here.git
 ```
 
 ### Can I integrate my deployments with Slack?
@@ -256,13 +256,13 @@ Check out [capistrano-slackify](https://github.com/onthebeach/capistrano-slackif
 1. [What the heck is an `invalid multibyte char (US-ASCII)`](#what-the-heck-is-an-invalid-multibyte-char-us-ascii)
 
 ### Help! It won't let me `git clone` anything!
-If you're hitting issues related to `git clone`, either cloning the VM or a starter theme, then you most likely don't have [SSH-keys for GitHub set up correctly](https://help.github.com/articles/error-permission-denied-publickey/). Either go through that article and assure that you can use Git with the `git@github.com` protocol, or else you can manually run `tj` with the appropriate flags corresponding to the problem-repository, swapping out `git@github.com:` for `https://github.com/`. For example:
+If you're hitting issues related to `git clone`, either cloning the VM or a starter template, then you most likely don't have [SSH-keys for GitHub set up correctly](https://help.github.com/articles/error-permission-denied-publickey/). Either go through that article and assure that you can use Git with the `git@github.com` protocol, or else you can manually run `tj` with the appropriate flags corresponding to the problem-repository, swapping out `git@github.com:` for `https://github.com/`. For example:
 
 ```
-tj create --theme https://github.com/theme/repository.git --vm-box https://github.com/vm-box/repository.git
+tj create --template https://github.com/theme/repository.git --vm-box https://github.com/vm-box/repository.git
 ```
 
-This replaces the starter theme and VM box repository URLs to use `https://` instead of the `git@` protocol.
+This replaces the starter template and VM box repository URLs to use `https://` instead of the `git@` protocol.
 
 ### What the heck is an `invalid multibyte char (US-ASCII)`?!
 For one reason or another, your terminal probably doesn't support UTF-8, so it's throwing a fit. Use the `--no-unicode` flag to disable the unicode characters. If the problem still persists, try running it with the `--boring` flag. That should disable all unicode characters and coloring.

@@ -102,7 +102,7 @@ module ThemeJuice
     desc "create", "Create new project"
     method_option :name,         :type => :string,  :aliases => "-n", :default => nil, :desc => ""
     method_option :location,     :type => :string,  :aliases => "-l", :default => nil, :desc => ""
-    method_option :theme,        :type => :string,  :aliases => "-t", :default => nil, :desc => ""
+    method_option :template,     :type => :string,  :aliases => "-t", :default => nil, :desc => ""
     method_option :url,          :type => :string,  :aliases => "-u", :default => nil, :desc => ""
     method_option :repository,   :type => :string,  :aliases => "-r",                  :desc => ""
     method_option :db_import,    :type => :string,  :aliases => %w[-i --import-db],    :desc => ""

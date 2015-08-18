@@ -4,7 +4,7 @@ module ThemeJuice
   module Commands
     class Create < Command
 
-      THEMES = {
+      TEMPLATES = {
         "theme-juice/trellis" => "git@github.com:ezekg/theme-juice-starter.git",
         "wordpress/wordpress" => "git@github.com:WordPress/WordPress.git",
         "other (specify)"     => nil,
@@ -19,7 +19,7 @@ module ThemeJuice
         runner do |tasks|
           tasks << Tasks::CreateConfirm.new
           tasks << Tasks::Location.new
-          tasks << Tasks::Theme.new
+          tasks << Tasks::Template.new
           tasks << Tasks::VMBox.new
           tasks << Tasks::VMPlugins.new
           tasks << Tasks::VMLocation.new
@@ -56,7 +56,7 @@ module ThemeJuice
         @project.location     = @opts.fetch("location")     { location }
         @project.url          = @opts.fetch("url")          { url }
         @project.xip_url      = @opts.fetch("xip_url")      { xip_url }
-        @project.theme        = @opts.fetch("theme")        { theme }
+        @project.template     = @opts.fetch("template")     { template }
         @project.repository   = @opts.fetch("repository")   { repository }
         @project.db_host      = @opts.fetch("db_host")      { db_host }
         @project.db_name      = @opts.fetch("db_name")      { db_name }
@@ -132,13 +132,13 @@ module ThemeJuice
         xip_url
       end
 
-      def theme
+      def template
         return false if @project.bare
 
         if @project.use_defaults
-          theme = THEMES["theme-juice/trellis"]
+          template = TEMPLATES["theme-juice/trellis"]
         else
-          choice = @io.choose "Which starter theme would you like to use?", :blue, THEMES.keys
+          choice = @io.choose "Which starter template would you like to use?", :blue, TEMPLATES.keys
 
           case choice
           when /(theme-juice)/
@@ -147,17 +147,17 @@ module ThemeJuice
             @io.say "This is a stock WordPress install, so things such as the '.env' file will not be set up. You'll need to input your database information manually after the setup.", {
               :color => :yellow, :icon => :notice }
           when /(other)/
-            THEMES[choice] = @io.ask "What is the repository URL of the starter theme that you would like to clone?"
+            TEMPLATES[choice] = @io.ask "What is the repository URL of the starter template that you would like to clone?"
           when /(none)/
             @project.bare = true
-            @io.say "Next time you need to create a project without a starter theme, you can just run the 'setup' command instead.", {
+            @io.say "Next time you need to create a project without a starter template, you can just run the 'setup' command instead.", {
               :color => :yellow, :icon => :notice }
           end
 
-          theme = THEMES[choice]
+          template = TEMPLATES[choice]
         end
 
-        theme
+        template
       end
 
       def repository

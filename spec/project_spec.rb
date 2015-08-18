@@ -8,7 +8,7 @@ describe ThemeJuice::Project do
   it { is_expected.to respond_to :location }
   it { is_expected.to respond_to :url }
   it { is_expected.to respond_to :xip_url }
-  it { is_expected.to respond_to :theme }
+  it { is_expected.to respond_to :template }
   it { is_expected.to respond_to :vm_root }
   it { is_expected.to respond_to :vm_location }
   it { is_expected.to respond_to :vm_srv }

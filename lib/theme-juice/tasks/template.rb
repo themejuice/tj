@@ -2,31 +2,31 @@
 
 module ThemeJuice
   module Tasks
-    class Theme < Task
+    class Template < Task
 
       def initialize(opts = {})
         super
       end
 
       def execute
-        if @project.theme
-          clone_theme
-          install_theme
+        if @project.template
+          clone_template
+          install_template
         end
       end
 
       private
 
-      def clone_theme
-        @io.log "Cloning theme"
+      def clone_template
+        @io.log "Cloning template"
         @util.inside @project.location do
-          @util.run "git clone --depth 1 #{@project.theme} .", {
+          @util.run "git clone --depth 1 #{@project.template} .", {
             :verbose => @env.verbose, :capture => @env.quiet }
         end
       end
 
-      def install_theme
-        @io.log "Running theme installation"
+      def install_template
+        @io.log "Running template installation"
         @config.command :install
       end
     end

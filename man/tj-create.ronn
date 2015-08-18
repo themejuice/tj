@@ -8,7 +8,7 @@ tj-create(1) -- Create a new project
 ## DESCRIPTION
 
 Creates a new project. It will lead you through a series of prompts to set
-up required project information, such as name, location, theme, database
+up required project information, such as name, location, template, database
 info, etc. Using the specified information, it will run the installation
 process and set up a local development environment, if one hasn't already
 been set up. It will sync your local project location with the project
@@ -22,8 +22,8 @@ location within the VM.
   * `-l`, `--location`=<path>:
     Location of the local project
 
-  * `-t`, `--theme`=<repository>:
-    Starter theme to install
+  * `-t`, `--template`=<repository>:
+    Starter template to install
 
   * `-u`, `--url`=<url>:
     Development URL for the project
@@ -34,8 +34,8 @@ location within the VM.
   * `-i`, `--import-db`=<path>:
     Import an existing database
 
-  * `--bare`, `--no-theme`:
-    Create a project without a starter theme
+  * `--bare`, `--no-template`:
+    Create a project without a starter template
 
   * `--skip-repo`:
     Skip repository prompts and use default settings
