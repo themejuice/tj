@@ -7,7 +7,9 @@
 
 ![Theme Juice CLI](demo.gif)
 
-_The master branch contains features currently in development, so don't expect it to work at all times. Grab the newest RubyGem instead of building directly from master._
+_The master branch contains features currently in development, so don't expect it to work at all times. Grab the newest RubyGem instead of building directly from master. Until `1.0`, we'll most likely be adjusting things, and that means breaking changes, so before updating, be sure to check back here to make sure that nothing major breaks. All breaking changes will go up a minor version (`0.x.0`), while patches and backwards compatible changes will bump up the patch number (`0.0.x`). After `1.0`, we will follow [semantic versioning](http://semver.org/)._
+
+_On that note, as of `0.12`, we have renamed all mentions of "theme" to "template" (to avoid confusion, since these are application templates, and not just WordPress themes), and we have also renamed the default directory where `tj` installs the virtual machine to `~/tj-vagrant` to avoid possible conflicts with existing Vagrant installations._
 
 ## What is it?
 [Theme Juice CLI](http://themejuice.it) (`tj`) is a command line utility that allows you to generate, manage and deploy new local WordPress development applications in seconds using Vagrant, utilizing an Apache fork of [VVV](https://github.com/Varying-Vagrant-Vagrants/VVV) called [VVV-Apache](https://github.com/ezekg/theme-juice-vvv) as the virtual machine.
