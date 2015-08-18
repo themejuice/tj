@@ -24,7 +24,7 @@ module ThemeJuice
     attr_accessor :cap
 
     def vm_box=(val)
-      @vm_box = val ||= ENV.fetch("TJ_VM_BOX") { "git@github.com:ericmann/vvv-apache.git" }
+      @vm_box = val ||= ENV.fetch("TJ_VM_BOX") { "git@github.com:ezekg/theme-juice-vvv.git" }
     end
 
     def vm_path=(val)
