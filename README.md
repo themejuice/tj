@@ -264,7 +264,7 @@ Check out [capistrano-slackify](https://github.com/onthebeach/capistrano-slackif
 If you're hitting issues related to `git clone`, either cloning the VM or a starter template, then you most likely don't have [SSH-keys for GitHub set up correctly](https://help.github.com/articles/error-permission-denied-publickey/). Either go through that article and assure that you can use Git with the `git@github.com` protocol, or else you can manually run `tj` with the appropriate flags corresponding to the problem-repository, swapping out `git@github.com:` for `https://github.com/`. For example:
 
 ```
-tj create --template https://github.com/theme/repository.git --vm-box https://github.com/vm-box/repository.git
+tj create --template https://github.com/starter-template/repository.git --vm-box https://github.com/vm-box/repository.git
 ```
 
 The flag duo above replaces the URLs for the starter template and VM box repositories so that they use `https` instead of the `git` protocol.
