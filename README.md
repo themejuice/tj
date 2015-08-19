@@ -267,7 +267,7 @@ If you're hitting issues related to `git clone`, either cloning the VM or a star
 tj create --template https://github.com/theme/repository.git --vm-box https://github.com/vm-box/repository.git
 ```
 
-This replaces the starter template and VM box repository URLs, so that they use `https` instead of the `git` protocol.
+The flag duo above replaces the URLs for the starter template and VM box repositories so that they use `https` instead of the `git` protocol.
 
 ### What the heck is an `invalid multibyte char (US-ASCII)`?!
 For one reason or another, your terminal probably doesn't support UTF-8, so it's throwing a fit. Use the `--no-unicode` flag to disable the unicode characters. If the problem still persists, try running it with the `--boring` flag. That should disable all unicode characters and coloring.
