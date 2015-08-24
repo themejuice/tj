@@ -123,9 +123,9 @@ input is defined within the config file itself.
 ## CONFIG FILE
 
 A YAML Juicefile(5) configuration can be used to store commonly-used
-build scripts. Each command block sequence can be mapped to an individual
-project's build tool, allowing a streamlined set of commands to be used
-across multiple projects that utilize different tools.
+build scripts, similar to npm(1) scripts. Each command block sequence can be
+mapped to an individual project's build tool, allowing a streamlined set of
+commands to be used across multiple projects that utilize different tools.
 
   * `commands`:
     Collection of various command block sequences

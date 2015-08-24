@@ -16,3 +16,4 @@ capistrano-rsync(1)    https://github.com/Bladrak/capistrano-rsync
 capistrano-slackify(1) https://github.com/onthebeach/capistrano-slackify
 landrush(1)            https://github.com/phinze/landrush
 wp-cli(1)              http://wp-cli.org/
+npm(1)                 https://docs.npmjs.com/misc/scripts
