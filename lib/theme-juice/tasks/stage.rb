@@ -30,7 +30,8 @@ module ThemeJuice
         set :deploy_to,    -> { @stage.path }
         set :stage_url,    -> { @stage.url }
         set :uploads_dir,  -> { @stage.uploads }
-        set :shared_files, -> { @stage.shared }
+        set :shared_files, -> { @stage.shared.select { |f| !f.end_with? "/" } }
+        set :shared_dirs,  -> { @stage.shared.select { |f| f.end_with? "/" }.map { |f| f.chomp "/" } }
         set :tmp_dir,      -> { @stage.tmp }
         set :stage,        -> { @env.stage }
       end

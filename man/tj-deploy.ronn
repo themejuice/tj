@@ -116,7 +116,8 @@ capistrano(1) to invoke a deployment.
 
   * `deployment.stages.<stage>.shared`:
     Sequence of relative files from application root to place inside of
-    the shared folder
+    the shared folder. Files that end with a trailing forward slash are
+    assumed to be a directory.
 
   * `deployment.stages.<stage>.roles`:
     Sequence of deployment roles for the stage

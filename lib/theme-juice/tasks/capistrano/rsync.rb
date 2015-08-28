@@ -35,5 +35,11 @@ namespace :rsync do
         fetch(:linked_files).each { |f| execute :touch, shared_path.join(f) }
       end
     end
+
+    before "deploy:check:linked_dirs", :dirs do
+      on roles(:app) do
+        fetch(:linked_dirs).each { |f| execute :mkdir, "-p", shared_path.join(f) }
+      end
+    end
   end
 end

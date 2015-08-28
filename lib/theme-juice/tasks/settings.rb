@@ -24,7 +24,8 @@ module ThemeJuice
           set :application,  @config.deployment.application.name
 
           set :linked_files, fetch(:linked_files, []).concat(fetch(:shared_files, []))
-          set :linked_dirs,  fetch(:linked_dirs, []).push(fetch(:uploads_dir, ""))
+          set :linked_dirs,  fetch(:linked_dirs, []).concat(fetch(:shared_dirs, []))
+             .push(fetch(:uploads_dir, ""))
 
           %w[settings repository].each do |task|
             @config.deployment.send(task).symbolize_keys.each do |key, value|

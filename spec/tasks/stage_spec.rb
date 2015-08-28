@@ -17,6 +17,7 @@ deployment:
       shared:
         - .htaccess
         - .env
+        - shared/dir/
       roles:
         - :web
         - :app
@@ -49,6 +50,8 @@ deployment:
         .and_return "app/uploads"
       expect(@task).to receive(:set).with(:shared_files, kind_of(Proc))
         .and_return [".htaccess", ".env"]
+      expect(@task).to receive(:set).with(:shared_dirs, kind_of(Proc))
+        .and_return ["shared/dir"]
       expect(@task).to receive(:set).with(:tmp_dir, kind_of(Proc))
         .and_return "tmp"
       expect(@task).to receive(:set).with(:stage, kind_of(Proc))
