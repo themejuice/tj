@@ -106,7 +106,7 @@ module ThemeJuice
     method_option :url,          :type => :string,  :aliases => "-u", :default => nil, :desc => ""
     method_option :repository,   :type => :string,  :aliases => "-r",                  :desc => ""
     method_option :db_import,    :type => :string,  :aliases => %w[-i --import-db],    :desc => ""
-    method_option :bare,         :type => :boolean, :aliases => %w[--no-theme],        :desc => ""
+    method_option :bare,         :type => :boolean, :aliases => %w[--no-template],     :desc => ""
     method_option :skip_repo,    :type => :boolean,                                    :desc => ""
     method_option :skip_db,      :type => :boolean,                                    :desc => ""
     method_option :use_defaults, :type => :boolean,                                    :desc => ""
