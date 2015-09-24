@@ -16,7 +16,11 @@ namespace :rsync do
 
   after "deploy:finished", :clean do
     run_locally do
-      execute :rm, "-rf", fetch(:rsync_stage)
+      return if Pathname.new(fetch(:rsync_stage)).absolute?
+
+      if fetch(:clean_tmp, true)
+        execute :rm, "-rf", fetch(:rsync_stage)
+      end
     end
   end
 
