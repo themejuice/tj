@@ -66,6 +66,14 @@ If no command is passed, the default task to be executed is `deploy`
     Push the uploads folder from the development environment to the passed
     `stage`'s uploads folder
 
+  * `file:pull`=<file>:
+    Pull an arbitrary relative file from the passed `stage` to the development
+    environment.
+
+  * `file:push`=<file>:
+    Push an arbitrary relative file from the development environment to the
+    passed `stage`.
+
 ## CONFIG FILE
 
 The YAML Juicefile(5) configuration may be used to store deployment-related
