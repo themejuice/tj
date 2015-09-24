@@ -47,14 +47,6 @@ module ThemeJuice
     map %w[up init]                => :setup
     map %w[rm remove trash]        => :delete
     map %w[ls projects apps sites] => :list
-    map %w[build]                  => :install
-    map %w[dev]                    => :watch
-    map %w[asset]                  => :assets
-    map %w[deps]                   => :vendor
-    map %w[zip package pkg]        => :dist
-    map %w[wordpress]              => :wp
-    map %w[bk]                     => :backup
-    map %w[tests spec specs]       => :test
     map %w[server remote]          => :deploy
     map %w[vagrant vvv]            => :vm
 
@@ -157,50 +149,19 @@ module ThemeJuice
       @io.error "Not implemented"
     end
 
-    desc "install", "Run theme installation"
-    def install(*args)
-      @config.command :install, args
-    end
-
-    desc "watch [ARGS]", "Manage development build tools"
-    def watch(*args)
-      @config.command :watch, args
-    end
-
-    desc "assets [ARGS]", "Manage front-end dependencies"
-    def assets(*args)
-      @config.command :assets, args
-    end
-
-    desc "vendor [ARGS]", "Manage back-end dependencies"
-    def vendor(*args)
-      @config.command :vendor, args
-    end
-
-    desc "dist [ARGS]", "Package project for distribution"
-    def dist(*args)
-      @config.command :dist, args
-    end
-
-    desc "wp [ARGS]", "Manage WordPress installation"
-    def wp(*args)
-      @config.command :wp, args
-    end
-
-    desc "backup [ARGS]", "Backup project"
-    def backup(*args)
-      @config.command :backup, args
-    end
-
-    desc "test [ARGS]", "Manage and run project tests"
-    def test(*args)
-      @config.command :test, args
-    end
-
     desc "vm [ARGS]", "Manage development environment"
     def vm(*args)
       @util.inside @env.vm_path do
         @util.run "vagrant #{args.join(" ")}", :verbose => @env.verbose
+      end
+    end
+
+    # For dynamic methods defined within the config
+    def method_missing(method, *args, &block)
+      if @config.commands.has_key? "#{method}"
+        @config.command method.to_sym, args
+      else
+        super
       end
     end
   end
