@@ -93,31 +93,32 @@ Run `tj help` [<command>] to view an individual command's man page.
 ## CONFIG COMMANDS
 
 These run the corresponding command from your project's config file. They
-accept any number of arguments, since the behavior and handling of
-input is defined within the config file itself.
+accept any number of arguments, since the behavior and handling of input is
+defined within the config file itself. Below are the commands defined within
+the Theme Juice starter template.
 
-  * `install`, `build`=[<arg>[,<arg>]...]:
+  * `install`=[<arg>[,<arg>]...]:
     Run installation for project
 
-  * `watch`, `dev`=[<arg>[,<arg>]...]:
+  * `watch`=[<arg>[,<arg>]...]:
     Manage and run development build tools
 
-  * `assets`, `asset`=[<arg>[,<arg>]...]:
+  * `assets`=[<arg>[,<arg>]...]:
     Manage front-end dependencies for project
 
-  * `vendor`, `deps`=[<arg>[,<arg>]...]:
+  * `vendor`=[<arg>[,<arg>]...]:
     Manage back-end dependencies for project
 
-  * `dist`, `pkg`, `package`, `zip`=[<arg>[,<arg>]...]:
+  * `dist`=[<arg>[,<arg>]...]:
     Package project for distribution
 
-  * `wp`, `wordpress`=[<arg>[,<arg>]...]:
+  * `wp`=[<arg>[,<arg>]...]:
     Manage project's wordpress(7) installation with wp-cli(1)
 
-  * `backup`, `bk`=[<arg>[,<arg>]...]:
+  * `backup`=[<arg>[,<arg>]...]:
     Backup project
 
-  * `test`, `tests`, `spec`, `specs`=[<arg>[,<arg>]...]:
+  * `test`=[<arg>[,<arg>]...]:
     Manage and run project tests
 
 ## CONFIG FILE
