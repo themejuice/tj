@@ -6,15 +6,21 @@ module ThemeJuice
     @io      = IO
     @project = Project
     @util    = Util.new
+    @config  = nil
 
-    def command(sequence, *args)
+    def command(cmd, *args)
       begin
-        config.commands.fetch("#{sequence}") {
-          @io.error "Command '#{sequence}' not found in config", NotImplementedError }
+        config.commands.fetch("#{cmd}") {
+          @io.error "Command '#{cmd}' not found in config", NotImplementedError }
           .each { |c| run format_command(c, *args) }
       rescue NoMethodError
         @io.say "Skipping...", :color => :yellow, :icon => :notice
       end
+    end
+
+    def commands
+      config.commands ||
+        @io.error("No commands found in config", NotImplementedError)
     end
 
     def deployment
@@ -43,6 +49,11 @@ module ThemeJuice
     end
 
     def config
+      @config = read_config if @config.nil?
+      @config
+    end
+
+    def read_config
       begin
         @project.location ||= Dir.pwd
 
