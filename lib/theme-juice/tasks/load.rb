@@ -29,7 +29,7 @@ module ThemeJuice
         @io.log "Loading Capistrano tasks"
 
         tasks_dir = "#{File.dirname(__FILE__)}/capistrano"
-        tasks     = %w[db uploads file env rsync]
+        tasks     = %w[db uploads file dir env rsync]
 
         tasks.each { |task| load "#{tasks_dir}/#{task}.rb" }
       end
