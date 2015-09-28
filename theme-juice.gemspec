@@ -29,7 +29,7 @@ Gem::Specification.new do |gem|
   gem.add_runtime_dependency "faker",                    "~> 1.4.0"
   gem.add_runtime_dependency "os",                       "~> 0.9.0"
   gem.add_runtime_dependency "capistrano",               "~> 3.4.0"
-  gem.add_runtime_dependency "net-ssh",                  "~> 2.8.0"
+  gem.add_runtime_dependency "net-ssh",                  "~> 2.9.0"
   gem.add_runtime_dependency "capistrano-slackify",      "~> 2.6.0"
   gem.add_runtime_dependency "capistrano-rsync-bladrak", "~> 1.3.2"
 
