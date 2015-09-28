@@ -7,6 +7,7 @@ describe ThemeJuice::Tasks::Settings do
 
   before :each do
     @task = ThemeJuice::Tasks::Settings.new
+    @cap = Capistrano::Application.new
   end
 
   describe "#execute" do
@@ -54,7 +55,7 @@ deployment:
       it "should set capistrano configuration" do
         expect(@task).to receive(:set).at_least :once
 
-        capture(:stdout) { @task.execute }
+        capture(:stdout) { @task.send :configure_required_settings }
       end
     end
 
@@ -76,7 +77,7 @@ deployment:
 
       it "should raise error" do
         allow(stdout).to receive :print
-        expect { @task.execute }.to raise_error SystemExit
+        expect { @task.send :configure_required_settings }.to raise_error SystemExit
       end
     end
 
@@ -100,7 +101,7 @@ deployment:
 
       it "should not raise error" do
         allow(stdout).to receive :print
-        expect { @task.execute }.to_not raise_error
+        expect { @task.send :configure_optional_settings }.to_not raise_error
       end
     end
   end

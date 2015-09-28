@@ -39,9 +39,6 @@ deployment:
     end
 
     it "should set stage options" do
-      allow(@env).to receive(:stage).at_least(:once)
-        .and_return :staging
-
       expect(@task).to receive(:set).with(:deploy_to, kind_of(Proc))
         .and_return "/srv/www/tj-example"
       expect(@task).to receive(:set).with(:stage_url, kind_of(Proc))

@@ -3,6 +3,8 @@
 module ThemeJuice
   module Tasks
     class Invoke < Task
+      include Capistrano::DSL
+
       attr_reader :args
 
       def initialize(args = [])
@@ -19,6 +21,9 @@ module ThemeJuice
 
       def invoke_capistrano
         @io.log "Invoking Capistrano"
+
+        @env.cap.invoke "load:defaults"
+        @env.cap.invoke "load:settings"
 
         case args.last
         when nil

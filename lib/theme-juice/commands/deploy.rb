@@ -13,9 +13,9 @@ module ThemeJuice
             @env.stage = stage.to_sym
 
             runner do |tasks|
+              tasks << Tasks::Settings.new
               tasks << Tasks::Stage.new
               tasks << Tasks::VMStage.new
-              tasks << Tasks::Settings.new
               tasks << Tasks::Load.new
               tasks << Tasks::Invoke.new(args)
             end

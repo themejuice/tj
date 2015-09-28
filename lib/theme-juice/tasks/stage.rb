@@ -20,8 +20,6 @@ module ThemeJuice
       def configure_stage
         @io.log "Configuring stage '#{@env.stage}'"
 
-        stages = "#{@env.stage}"
-
         server @stage.server, {
           :user  => @stage.user,
           :roles => @stage.roles

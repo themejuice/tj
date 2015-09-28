@@ -10,16 +10,20 @@ module ThemeJuice
       end
 
       def execute
-        configure_required_settings
-        configure_optional_settings
+        @io.log "Configuring Capistrano"
+
+        # We define this as a Rake task so our settings don't get overridden
+        #  when invoking the 'load:defaults' task before deployment
+        ::Rake::Task.define_task "load:settings" do
+          configure_required_settings
+          configure_optional_settings
+        end
       end
 
       private
 
       # Required global settings
       def configure_required_settings
-        @io.log "Configuring Capistrano"
-
         begin
           set :application,  @config.deployment.application.name
 
