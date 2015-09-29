@@ -244,8 +244,7 @@ deployment:
 
   slack:
     url: https://hooks.slack.com/services/your-token
-    subdomain: example
-    user: deploybot
+    username: Deploybot
     channel: "#devops"
     emoji: ":rocket:"
 
