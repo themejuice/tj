@@ -45,9 +45,6 @@ module ThemeJuice
 
       # Optional namespaced settings
       def configure_optional_settings
-        set :rsync_ignore, @config.deployment.stages.send(@env.stage)
-          .symbolize_keys.fetch(:ignore, []) rescue nil
-
         %w[rsync slack].each do |task|
           if @config.deployment.key? task
             @config.deployment.send(task).each do |key, value|

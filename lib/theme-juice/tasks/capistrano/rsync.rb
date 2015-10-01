@@ -9,8 +9,9 @@ namespace :rsync do
   end
 
   after :precompile, :ignore do
-    Dir.chdir fetch(:rsync_stage) do
-      fetch(:rsync_ignore, []).each { |f| system "rm #{f}" }
+    run_locally do
+      fetch(:rsync_ignore, []).each { |f|
+        execute :rm, Pathname.new(fetch(:rsync_stage)).join(f) }
     end
   end
 
@@ -36,13 +37,15 @@ namespace :rsync do
 
     before "deploy:check:linked_files", :files do
       on roles(:app) do
-        fetch(:linked_files).each { |f| execute :touch, shared_path.join(f) }
+        fetch(:linked_files).each { |f|
+          execute :touch, shared_path.join(f) }
       end
     end
 
     before "deploy:check:linked_dirs", :dirs do
       on roles(:app) do
-        fetch(:linked_dirs).each { |f| execute :mkdir, "-p", shared_path.join(f) }
+        fetch(:linked_dirs).each { |f|
+          execute :mkdir, "-p", shared_path.join(f) }
       end
     end
   end

@@ -32,6 +32,7 @@ module ThemeJuice
         set :shared_dirs,  -> { @stage.shared.select { |f| f.end_with? "/" }.map { |f| f.chomp "/" } }
         set :tmp_dir,      -> { @stage.tmp }
         set :stage,        -> { @env.stage }
+        set :rsync_ignore, -> { @stage.symbolize_keys.fetch(:ignore, []) }
       end
     end
   end
