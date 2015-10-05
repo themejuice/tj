@@ -162,7 +162,7 @@ Yes and no; in order for `tj` to properly create a project, the Vagrant box need
 [It's a file that contains custom rules to add into the main `Vagrantfile`, without actually having to modify it](https://github.com/Varying-Vagrant-Vagrants/VVV/blob/develop/Vagrantfile#L208-L218). This allows us to easily modify the Vagrant box without causing merge conflicts if you were to update the VM source via `git pull`. Every file that `tj` modifies is _meant to be modified_, so at any time you may update your installation of VVV with a simple `git pull` without getting merge conflicts out the wazoo.
 
 ### What is a `Juicefile`?
-A YAML configuration file called `Juicefile` can be used to store commonly-used build scripts, similar to [npm scripts](https://docs.npmjs.com/misc/scripts). Each command block sequence can be mapped to an individual project's build script, allowing a streamlined set of commands to be used across multiple projects that utilize different tools. In the near-future, this will also house your deployment configuration.
+A YAML configuration file called `Juicefile` can be used to store commonly-used build scripts, similar to [npm scripts](https://docs.npmjs.com/misc/scripts). Each command block sequence can be mapped to an individual project's build script, allowing a streamlined set of commands to be used across multiple projects that utilize different tools. If you plan to deploy using `tj`, this file will also house your [deployment configuration](http://themejuice.it/deploy).
 
 Below is the config that comes baked into [our starter template](https://github.com/ezekg/theme-juice-starter):
 
