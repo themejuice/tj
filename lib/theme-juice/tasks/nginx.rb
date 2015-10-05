@@ -27,10 +27,11 @@ module ThemeJuice
       end
 
       def create_nginx_file
-        unless nginx_is_setup?
-          @io.log "Creating nginx conf file"
-          @util.create_file nginx_file, { :verbose => @env.verbose,
-            :capture => @env.quiet } do
+        return if nginx_is_setup?
+        
+        @io.log "Creating nginx conf file"
+        @util.create_file nginx_file, { :verbose => @env.verbose,
+          :capture => @env.quiet } do
 %Q(server {
   listen       80;
   listen       443 ssl;
@@ -40,7 +41,6 @@ module ThemeJuice
 }
 
 )
-          end
         end
       end
 

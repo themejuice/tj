@@ -9,10 +9,10 @@ module ThemeJuice
       end
 
       def execute
-        if @project.template
-          clone_template
-          install_template
-        end
+        return unless @project.template
+        
+        clone_template
+        install_template
       end
 
       private

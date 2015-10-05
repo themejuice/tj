@@ -27,10 +27,11 @@ module ThemeJuice
       end
 
       def create_apache_file
-        unless apache_is_setup?
-          @io.log "Creating apache conf file"
-          @util.create_file apache_file, { :verbose => @env.verbose,
-            :capture => @env.quiet } do
+        return if apache_is_setup?
+        
+        @io.log "Creating apache conf file"
+        @util.create_file apache_file, { :verbose => @env.verbose,
+          :capture => @env.quiet } do
 %Q{<VirtualHost *:80>
   DocumentRoot #{@project.vm_srv}
   ServerName #{@project.url}
@@ -38,7 +39,6 @@ module ThemeJuice
 </VirtualHost>
 
 }
-          end
         end
       end
 

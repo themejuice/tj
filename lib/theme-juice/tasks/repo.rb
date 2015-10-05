@@ -9,9 +9,9 @@ module ThemeJuice
       end
 
       def execute
-        if @project.repository
-          create_repo
-        end
+        return unless @project.repository
+
+        create_repo
       end
 
       private
