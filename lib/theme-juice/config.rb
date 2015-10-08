@@ -9,23 +9,23 @@ module ThemeJuice
     @config  = nil
 
     def command(cmd, *args)
-      begin
-        config.commands.fetch("#{cmd}") {
-          @io.error "Command '#{cmd}' not found in config", NotImplementedError }
-          .each { |c| run format_command(c, *args) }
-      rescue NoMethodError
-        @io.say "Skipping...", :color => :yellow, :icon => :notice
-      end
+      commands.fetch("#{cmd}") {
+        @io.error "Command '#{cmd}' not found in config", NotImplementedError }
+        .each { |c| run format_command(c, *args) }
+    rescue NoMethodError
+      @io.say "Skipping...", :color => :yellow, :icon => :notice
     end
 
     def commands
-      config.commands ||
-        @io.error("No commands found in config", NotImplementedError)
+      config.commands
+    rescue NoMethodError
+      {}
     end
 
     def deployment
-      config.deployment ||
-        @io.error("Deployment settings not found in config", NotImplementedError)
+      config.deployment
+    rescue NoMethodError
+      @io.error("Deployment settings not found in config", NotImplementedError)
     end
 
     private
@@ -54,19 +54,17 @@ module ThemeJuice
     end
 
     def read_config
-      begin
-        @project.location ||= Dir.pwd
+      @project.location ||= Dir.pwd
 
-        YAML.load_file Dir["#{@project.location}/*"].select { |f|
-          config_regex =~ File.basename(f) }.last ||
-          @io.error("Config file not found in '#{@project.location}'", LoadError)
-      rescue ::Psych::SyntaxError => err
-        @io.error "Config file contains invalid YAML", SyntaxError do
-          puts err
-        end
-      rescue LoadError, SystemExit
-        nil
+      YAML.load_file Dir["#{@project.location}/*"].select { |f|
+        config_regex =~ File.basename(f) }.last ||
+        @io.error("Config file not found in '#{@project.location}'", LoadError)
+    rescue ::Psych::SyntaxError => err
+      @io.error "Config file contains invalid YAML", SyntaxError do
+        puts err
       end
+    rescue LoadError, SystemExit
+      nil
     end
 
     def config_regex
