@@ -174,7 +174,7 @@ module ThemeJuice
 
       %w[host name user pass].each do |task|
         define_method "db_#{task}" do
-          return false if @project.no_db || @project.no_wp
+          return false if @project.no_db
 
           default = case task
                     when "host" then "vvv"
@@ -194,7 +194,7 @@ module ThemeJuice
       end
 
       def db_import
-        return false if @project.no_db || @project.no_wp || @project.use_defaults
+        return false if @project.no_db || @project.use_defaults
 
         if @io.agree? "Would you like to import an existing database?"
           db = @io.ask "Where is the database file?", {
