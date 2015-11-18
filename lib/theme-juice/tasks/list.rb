@@ -22,8 +22,10 @@ module ThemeJuice
         res = []
 
         Dir["#{@project.vm_root}/*"].each do |f|
-          if File.directory?(f) && f.include?(@env.vm_prefix)
-            res << File.basename(f).gsub(/(#{@env.vm_prefix})/, "")
+          name = File.basename f
+          
+          if File.directory?(f) && name.include?(@env.vm_prefix)
+            res << name.gsub(/(#{@env.vm_prefix})/, "")
           end
         end
 
