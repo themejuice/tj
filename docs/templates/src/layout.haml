@@ -119,25 +119,23 @@
       #
       # Generate hero background
       #
-      heros = document.getElementsByClassName "hero__wrapper"
+      hero = document.getElementsByClassName("hero__wrapper")[0]
+      pattern = Trianglify {
+        width: window.innerWidth
+        height: window.innerHeight
+        x_colors: [
+          "#1C2227"
+          "#1C2227"
+          "#214937"
+          "#33CC33"
+        ]
+        y_colors: [
+          "#1C2227"
+          "#214937"
+        ]
+      }
 
-      for hero in heros
-        pattern = Trianglify {
-          width: window.innerWidth
-          height: window.innerHeight
-          x_colors: [
-            "#1C2227"
-            "#1C2227"
-            "#214937"
-            "#33CC33"
-          ]
-          y_colors: [
-            "#1C2227"
-            "#214937"
-          ]
-        }
-
-        hero.setAttribute "style", "background-image: url(" + pattern.png() + ")"
+      hero.setAttribute "style", "background-image: url(" + pattern.png() + ")"
 
       #
       # Sticky sidebar
@@ -160,15 +158,19 @@
 
         vect
 
-      window.addEventListener "scroll", () ->
-        if window.innerWidth < 1120 or window.pageYOffset < threshold
-          return
+      setElementTransform = (element, transform) ->
+        element.style["-webkit-transform"] =
+        element.style["-moz-transform"] =
+        element.style["transform"] = transform
 
+      window.addEventListener "scroll", () ->
         pos = getScrollPosition()
 
-        sidebar.style["-webkit-transform"] =
-        sidebar.style["-moz-transform"] =
-        sidebar.style["transform"] = "translateY(" + (pos.y - threshold) + "px)"
+        if window.innerWidth < 1120 or pos.y < threshold
+          setElementTransform sidebar, "translateY(0)"
+          return
+
+        setElementTransform sidebar, "translateY(" + (pos.y - threshold) + "px)"
 
       #
       # Scroll to heading when link in sidebar is clicked
