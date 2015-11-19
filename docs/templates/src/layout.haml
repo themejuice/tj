@@ -22,7 +22,7 @@
 
         .logo
           %a(href="/" title="Theme Juice Command Line Interface")
-            %h1.logo__type
+            %h4.logo__type
               Theme Juice
               %span CLI
 
@@ -38,6 +38,19 @@
           %a.navigation__item(href="https://github.com/ezekg/theme-juice-cli" target="_blank" title="View project on GitHub")
             %i.fa.fa-github
 
+    .index-only
+      %section.hero__wrapper
+        .hero
+
+          .hero__content
+            %h1 WordPress development made easy
+            %p
+              %strong
+                <code>tj</code> is a command line utility that generates, manages and deploys WordPress development applications.
+            %a(class="button" href="#" alt="Watch the introduction video")
+              %i.fa.fa-play-circle
+              Watch Intro Video
+
     %main.main__wrapper
       .main
 
@@ -45,11 +58,14 @@
           %nav.sidebar__navigation
 
             .index-only
+              %a.sidebar__navigation__item(href="#INTRODUCTION" title="Introduction")
+                Introduction
+
               %a.sidebar__navigation__item(href="#REQUIREMENTS" title="Requirements")
-                REQUIREMENTS
+                Requirements
 
               %a.sidebar__navigation__item(href="#INSTALLATION" title="Installation")
-                INSTALLATION
+                Installation
 
             {{#section_heads}}
             %a.sidebar__navigation__item(href="\#{{id}}" title="{{text}}")
@@ -59,19 +75,26 @@
         %article.main__content
 
           .index-only
-            %h2#REQUIREMENTS
-              REQUIREMENTS
+            %h2#INTRODUCTION
+              Introduction
             %p
               %strong
-                %code tj
-                requires <a href="http://vagrantup.com/">Vagrant</a> and <a href="https://www.virtualbox.org/">VirtualBox</a> to be able to create virtual machines for local development. Please download and install both of these before getting started.
+                Meet <code>tj</code>, a command line utility that allows you to generate, manage and deploy new local WordPress development applications in seconds using Vagrant and Capistrano.
+            %p
+              <code>tj</code> handles all of the hard stuff: creation of a local development environment, managing local and remote WordPress applications, and the most annoying part of all, <em>actually deploying those applications</em>!
+
+            %h2#REQUIREMENTS
+              Requirements
+            %p
+              %strong
+                <code>tj</code> requires <a href="http://vagrantup.com/">Vagrant</a> and <a href="https://www.virtualbox.org/">VirtualBox</a> to be able to create virtual machines for local development. Please download and install both of these before getting started.
             %p
               I recommend one of the latest versions of Ruby MRI (2.2, 2.1, 2.0). <code>tj</code> requires at least MRI 1.9.3. For the full report, check out the <a href="https://travis-ci.org/ezekg/theme-juice-cli">Travis CI build status</a>, where I test against an array of Ruby interpreters.
             %p
               I also recommend you set up <a href="https://help.github.com/articles/generating-ssh-keys/">SSH-keys for GitHub</a>. Internally, <code>tj</code> uses <code>git clone</code> with SSH URLs, so things might break if you don't have your keys set up properly.
 
             %h2#INSTALLATION
-              INSTALLATION
+              Installation
             %p
               %code gem install theme-juice
 
@@ -90,12 +113,38 @@
     %a.scroll-to-top(href="#top" title="Scroll to top")
       %i.fa.fa-level-up
 
+    %script(type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/trianglify/0.4.0/trianglify.min.js")
     :coffee
+
+      #
+      # Generate hero background
+      #
+      heros = document.getElementsByClassName "hero__wrapper"
+
+      for hero in heros
+        pattern = Trianglify {
+          width: window.innerWidth
+          height: window.innerHeight
+          x_colors: [
+            "#1C2227"
+            "#1C2227"
+            "#214937"
+            "#33CC33"
+          ]
+          y_colors: [
+            "#1C2227"
+            "#214937"
+          ]
+        }
+
+        hero.setAttribute "style", "background-image: url(" + pattern.png() + ")"
 
       #
       # Sticky sidebar
       #
-      sidebars = document.getElementsByTagName "aside"
+      main = document.getElementsByTagName("main")[0]
+      sidebar = document.getElementsByTagName("aside")[0]
+      threshold = main.offsetTop - 25
 
       getScrollPosition = () ->
         d = document.documentElement or document.body.parentNode or document.body
@@ -112,21 +161,21 @@
         vect
 
       window.addEventListener "scroll", () ->
-        return if window.innerWidth < 1120
+        if window.innerWidth < 1120 or window.pageYOffset < threshold
+          return
 
         pos = getScrollPosition()
 
-        for sidebar in sidebars
-          sidebar.style["-webkit-transform"] =
-          sidebar.style["-moz-transform"] =
-          sidebar.style["transform"] = "translateY(" + pos.y + "px)"
+        sidebar.style["-webkit-transform"] =
+        sidebar.style["-moz-transform"] =
+        sidebar.style["transform"] = "translateY(" + (pos.y - threshold) + "px)"
 
       #
       # Scroll to heading when link in sidebar is clicked
       #
       links = document.getElementsByTagName "a"
-      threshold = getScrollPosition()
-      dist = 250
+      target = getScrollPosition()
+      offset = 250
 
       for link in links
         link.onclick = (e) ->
@@ -138,11 +187,11 @@
           node = document.getElementById hash[1...]
 
           if hash is "#top"
-            threshold = node.offsetTop
+            target = node.offsetTop
           else
-            threshold = (node.offsetTop + 75)
+            target = node.offsetTop + threshold - 75
 
-          scrollTo document.body, threshold, 500
+          scrollTo document.body, target, 500
           removeClasses links, "active"
 
           unless node is document.body
@@ -153,7 +202,7 @@
       window.addEventListener "scroll", () ->
         pos = getScrollPosition()
 
-        if pos.y > threshold + dist or pos.y < threshold - dist
+        if pos.y > target + offset or pos.y < target - offset
 
           # @NOTE Check if the scroll position is different in 50ms, and if
           #  it is, assume we're in the middle of an animation and don't
@@ -165,20 +214,20 @@
       # Helpers
       scrollTo = (node, target, vel) ->
         y = node.scrollTop
-        vy = target - y
+        dy = target - y
         dt = 0
         i = 20
 
         animateScroll = () ->
           dt += i
 
-          easeInOutQuad = (dt, y, vy, vel) ->
+          easeInOutQuad = (dt, y, dy, vel) ->
             dt /= vel / 2
-            return vy / 2 * (dt * dt) + y if dt < 1
+            return dy / 2 * (dt * dt) + y if dt < 1
             dt--
-            return -vy / 2 * (dt * (dt - 2) - 1) + y
+            return -dy / 2 * (dt * (dt - 2) - 1) + y
 
-          node.scrollTop = easeInOutQuad dt, y, vy, vel
+          node.scrollTop = easeInOutQuad dt, y, dy, vel
 
           if dt < vel
             setTimeout animateScroll, i

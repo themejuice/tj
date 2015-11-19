@@ -39,6 +39,33 @@ $tertiary: #33CC33
     clear: both
 
 /**
+ * Align element
+ *
+ * @param {String} $alignment
+ * @param {Number} $height
+ *
+ * @example
+ *   ```haml
+ *   %div
+ *     %div= $foo
+ *   ```
+ *
+ *   ```sass
+ *   div
+ *     +align(middle)
+ *   ```
+ *
+ * @output - Styles to align direct children of parent
+ */
+@mixin align($alignment, $height: null)
+  display: table
+  height: $height
+
+  & > *
+    display: table-cell
+    vertical-align: $alignment
+
+/**
  * Blinking cursor pseudo element
  */
 @mixin blinking-cursor($cursor: "_", $element: "after")
@@ -135,6 +162,10 @@ dt,
 #SYNOPSIS + p > code:before,
   content: "$ "
 
+#INTRODUCTION
+  margin:
+    top: 0
+
 var,
 code
   color: $tertiary
@@ -143,6 +174,23 @@ code
 
 dl
   margin: 0
+
+/**
+ * Buttons
+ */
+.button
+  +inline-block
+  color: $secondary
+  font:
+    family: $serif
+  padding: 0.5rem 1rem
+  border: 2px solid $secondary
+  border:
+    radius: 1.5em
+
+  i
+    margin:
+      right: 0.25rem
 
 /**
  * Header
@@ -240,6 +288,53 @@ dl
       bottom: none
 
 /**
+ * Hero section
+ */
+.hero
+  +_(container, clear)
+  +align(middle, 100%)
+  position: relative
+
+  &__wrapper
+    +background-size(cover)
+    width: 100%
+    height: 40rem
+    border:
+      top: 1px solid $secondary
+      bottom: 1px solid $secondary
+
+    +_(greater than small)
+      margin:
+        bottom: 2rem
+
+  &__content
+    width: 100%
+    text:
+      align: center
+    padding: 0 1rem
+
+    h1
+      color: $secondary
+      font:
+        family: $serif
+        size: 1.5rem
+        // weight: 400
+
+      +_(greater than small)
+        font:
+          size: 2rem
+
+    p
+      color: $tertiary
+      text:
+        align: center
+      margin:
+        bottom: 1.5rem
+
+      +_(greater than small)
+        padding: 0 1rem
+
+/**
  * Sidebar
  */
 .sidebar
@@ -260,6 +355,8 @@ dl
     &__item
       display: block
       color: $secondary
+      text:
+        transform: uppercase
       border:
         bottom: none
 
@@ -278,6 +375,10 @@ dl
 
   &__content
     +_(8 4)
+
+    h2
+      text:
+        transform: uppercase
 
 /**
  * Footer
