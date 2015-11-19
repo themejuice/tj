@@ -43,6 +43,12 @@ namespace :dir do
           execute :rm,"#{fetch(:tmp_dir)}/#{fetch(:dir_archive)}"
         end
       end
+
+      on roles(:dev) do
+        within fetch(:dev_path) do
+          execute :rm,"#{fetch(:vm_tmp_dir)}/#{fetch(:dir_archive)}"
+        end
+      end
     else
       on roles(:app) do
         upload! args[:dir], release_path.join(Pathname.new(args[:dir]).parent), {
