@@ -22,6 +22,11 @@ Follow these steps to quickly get up and running:
    directories
 1. Deploy!
 
+## GLOBAL OPTIONS
+
+  * `--archive`, `--tar`, `--gzip`, `--zip`:
+    Archive directories when performing file transfers with tar(1)
+
 ## PRIMARY COMMANDS
 
 If no command is passed, the default task to be executed is `deploy`
