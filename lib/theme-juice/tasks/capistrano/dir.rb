@@ -40,13 +40,13 @@ namespace :dir do
 
         within release_path do
           execute :tar, "--no-overwrite-dir -zxf", "#{fetch(:tmp_dir)}/#{fetch(:dir_archive)}", "#{args[:dir]}/"
-          execute :rm,"#{fetch(:tmp_dir)}/#{fetch(:dir_archive)}"
+          execute :rm, "#{fetch(:tmp_dir)}/#{fetch(:dir_archive)}"
         end
       end
 
       on roles(:dev) do
         within fetch(:dev_path) do
-          execute :rm,"#{fetch(:vm_tmp_dir)}/#{fetch(:dir_archive)}"
+          execute :rm, "#{fetch(:vm_tmp_dir)}/#{fetch(:dir_archive)}"
         end
       end
     else
@@ -72,14 +72,14 @@ namespace :dir do
           execute :tar, "-hzcf", "#{fetch(:tmp_dir)}/#{fetch(:dir_archive)}", "#{args[:dir]}/*"
           download! release_path.join("#{fetch(:tmp_dir)}/#{fetch(:dir_archive)}"),
             "#{fetch(:vm_tmp_dir)}/#{fetch(:dir_archive)}"
-          execute :rm,"#{fetch(:tmp_dir)}/#{fetch(:dir_archive)}"
+          execute :rm, "#{fetch(:tmp_dir)}/#{fetch(:dir_archive)}"
         end
       end
 
       on roles(:dev) do
         within fetch(:dev_path) do
           execute :tar, "--no-overwrite-dir -zxf", "#{fetch(:vm_tmp_dir)}/#{fetch(:dir_archive)}", "#{args[:dir]}/"
-          execute :rm,"#{fetch(:vm_tmp_dir)}/#{fetch(:dir_archive)}"
+          execute :rm, "#{fetch(:vm_tmp_dir)}/#{fetch(:dir_archive)}"
         end
       end
     else
