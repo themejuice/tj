@@ -26,6 +26,7 @@ module ThemeJuice
       def configure_required_settings
         begin
           set :application,  @config.deployment.application.name
+          set :archive,      @env.archive
 
           set :linked_files, fetch(:linked_files, []).concat(fetch(:shared_files, []))
           set :linked_dirs,  fetch(:linked_dirs, []).concat(fetch(:shared_dirs, []))

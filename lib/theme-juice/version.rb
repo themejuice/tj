@@ -1,5 +1,5 @@
 # encoding: UTF-8
 
 module ThemeJuice
-  VERSION = "0.16.7"
+  VERSION = "0.17.0"
 end

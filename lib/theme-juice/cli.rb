@@ -135,6 +135,7 @@ module ThemeJuice
     end
 
     desc "deploy STAGE [,ARGS]", "Deploy a project"
+    method_option :archive, :type => :boolean, :aliases => %w[--tar --gzip --zip], :desc => ""
     def deploy(stage, *args)
       @deploy.new(options).send(stage, *args).execute
     end
