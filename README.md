@@ -43,15 +43,15 @@ tj create
 ```
 
 #### What happens on your first `create`?
-1. `tj` will clone the selected VM to your `vm-path` (default path is `~/tj-vagrant/`)
+1. `tj` will clone the selected VM into your `vm-path`
 1. `tj` will clone the selected starter template
-1. `tj` will run the starter template's installation (via the `Juicefile`, if present)
+1. `tj` will run the starter template's Juicefile(1) `install` command
 1. `tj` will create all of the necessary project files, such as:
   * `Customfile` containing DNS and synced folder settings
   * `init-custom.sql` containing database setup
   * `project.conf` containing server settings
   * `wp-cli.local.yml` containing VM paths
-1. `tj` will provision the VM to put the new configuration into effect.
+1. `tj` will provision the VM to put the new configuration into effect
 
 If you've never used `tj` before, then that last step might take awhile. After that's done, you should be able to access your new project at the specified url. It's that easy!
 
