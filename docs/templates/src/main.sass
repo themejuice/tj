@@ -39,23 +39,7 @@ $tertiary: #33CC33
     clear: both
 
 /**
- * Align element
- *
- * @param {String} $alignment
- * @param {Number} $height
- *
- * @example
- *   ```haml
- *   %div
- *     %div= $foo
- *   ```
- *
- *   ```sass
- *   div
- *     +align(middle)
- *   ```
- *
- * @output - Styles to align direct children of parent
+ * Align direct children of element
  */
 @mixin align($alignment, $height: null)
   display: table
@@ -141,6 +125,13 @@ a
     decoration: none
   border:
     bottom: 1px solid currentColor
+
+ul,
+ol
+  margin: 1.5rem 0
+
+  li &
+    margin: 0
 
 p,
 dt

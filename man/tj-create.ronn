@@ -10,9 +10,21 @@ tj-create(1) -- Create a new project
 Creates a new project. It will lead you through a series of prompts to set
 up required project information, such as name, location, template, database
 info, etc. Using the specified information, it will run the installation
-process and set up a local development environment, if one hasn't already
-been set up. It will sync your local project location with the project
-location within the VM.
+process below.
+
+  1. `tj` will clone the selected VM into your `vm-path`
+  1. `tj` will clone the selected starter template
+  1. `tj` will run the starter template's Juicefile(1) `install` command
+  1. `tj` will create all of the necessary project files, such as:
+    * `Customfile` containing DNS and synced folder settings
+    * `init-custom.sql` containing database setup
+    * `project.conf` containing server settings
+    * `wp-cli.local.yml` containing VM paths
+  1. `tj` will provision the VM to put the new configuration into effect
+
+If you've never used `tj` before (meaning, this is your first create(1)), then
+that last step might take awhile. After that's done, you should be able to
+access your new project at the specified url. It's that easy!
 
 ## GLOBAL OPTIONS
 
