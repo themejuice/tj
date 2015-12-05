@@ -25,7 +25,5 @@ module ThemeJuice
     def unexecute
       @io.error "Method 'unexecute' not implemented for #{self.class.name}", NotImplementedError
     end
-
-    private
   end
 end

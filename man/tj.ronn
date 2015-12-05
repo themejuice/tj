@@ -64,10 +64,13 @@ tj(1) -- WordPress development made easy
 
 Run `tj help` [<command>] to view an individual command's man page.
 
-  * create(1), `new`, `mk`:
-    Create a new project
+  * init(1), `up`:
+    Initialize the VM
 
-  * setup(1), `up`, `init`:
+  * create(1), `new`, `mk`:
+    Create a new project (also runs init(1) if VM is uninitialized)
+
+  * setup(1):
     Setup an existing project (alias for create(1) `--bare`)
 
   * delete(1), `rm`, `remove`, `trash`:

@@ -13,6 +13,7 @@ module ThemeJuice
       @project = Project
       @util    = Util.new
       @list    = Tasks::List
+      @init    = Commands::Init
       @create  = Commands::Create
       @delete  = Commands::Delete
       @deploy  = Commands::Deploy
@@ -44,7 +45,7 @@ module ThemeJuice
     map %w[man doc docs]           => :help
     map %w[--version -v]           => :version
     map %w[mk new]                 => :create
-    map %w[up init]                => :setup
+    map %w[up]                     => :init
     map %w[rm remove trash]        => :delete
     map %w[ls projects apps sites] => :list
     map %w[server remote]          => :deploy
@@ -89,6 +90,15 @@ module ThemeJuice
     desc "--version, -v", "Print current version"
     def version
       @io.say @version, :color => :green
+    end
+
+    desc "init", "Initialize the VM"
+    def init
+      @io.say "Initializing the VM...", {
+        :color => [:black, :on_green, :bold],
+        :row   => true
+      }
+      @init.new(options).execute
     end
 
     desc "create", "Create new project"
