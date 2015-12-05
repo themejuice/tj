@@ -35,7 +35,7 @@ gem install theme-juice
 _If you're going to be using [our starter template](https://github.com/ezekg/theme-juice-starter), then I recommend checking out [it's dependencies](https://github.com/ezekg/theme-juice-starter#development-dependencies) before running your first `create`. That way, the build step doesn't fail._
 
 ### Initialize the VM
-This will install and configure the virtual machine. This will clone the VM into the `vm-path`, install the required Vagrant plugins (such as Landrush, unless disabled) and will also set up port forwarding in you're on OSX.
+This will install and configure the virtual machine. This will clone the VM into the `vm-path`, install the required Vagrant plugins (such as [Landrush](https://github.com/phinze/landrush), unless disabled) and will also set up port forwarding in you're on OSX.
 
 ```
 tj init
