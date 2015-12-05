@@ -12,15 +12,15 @@ up required project information, such as name, location, template, database
 info, etc. Using the specified information, it will run the installation
 process below.
 
-  1. `tj` will execute init(1) if the VM is uninitialized
-  1. `tj` will clone the selected starter template
-  1. `tj` will run the starter template's Juicefile(1) `install` command
-  1. `tj` will create all of the necessary project files, such as:  
-    * `Customfile` containing DNS and synced folder settings
-    * `init-custom.sql` containing database setup
-    * `project.conf` containing server settings
-    * `wp-cli.local.yml` containing VM paths
-  1. `tj` will provision the VM to put the new configuration into effect
+  * `tj` will execute init(1) if the VM is uninitialized
+  * `tj` will clone the selected starter template
+  * `tj` will run the starter template's Juicefile(1) `install` command
+  * `tj` will create all of the necessary project files, such as:
+  * `Customfile` containing DNS and synced folder settings
+  * `init-custom.sql` containing database setup
+  * `project.conf` containing server settings
+  * `wp-cli.local.yml` containing VM paths
+  * Finally, `tj` will provision the VM to put the new configuration into effect
 
 If you've never used `tj` before (meaning, this is your first create(1)), then
 that last step might take awhile. After that's done, you should be able to
