@@ -14,7 +14,7 @@ process below.
 
   * `tj` will execute init(1) if the VM is uninitialized
   * `tj` will clone the selected starter template
-  * `tj` will run the starter template's Juicefile(1) `install` command
+  * `tj` will run the starter template's Juicefile(5) `install` command
   * `tj` will create all of the necessary project files, such as:
   * `Customfile` containing DNS and synced folder settings
   * `init-custom.sql` containing database setup
