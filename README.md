@@ -14,7 +14,7 @@ _All breaking changes will go up a minor version (`0.x.0`), while patches and ba
 _On that note, as of `0.12`, we have renamed all mentions of "theme" to "template" (to avoid confusion, since these are application templates, and not just WordPress themes), and we have also renamed the default directory where `tj` installs the virtual machine to `~/tj-vagrant` to avoid possible conflicts with existing Vagrant installations._
 
 ## What is it?
-[Theme Juice CLI](http://themejuice.it) (`tj`) is a command line utility that allows you to generate, manage and deploy new local WordPress development applications in seconds using Vagrant, utilizing an Apache fork of [VVV](https://github.com/Varying-Vagrant-Vagrants/VVV) called [VVV-Apache](https://github.com/ezekg/theme-juice-vvv) as the virtual machine.
+[Theme Juice CLI](http://themejuice.it) (`tj`) is a command line utility that allows you to generate, manage and deploy new local WordPress development applications in seconds using Vagrant, utilizing an [Apache fork](https://github.com/ezekg/theme-juice-vvv) of [VVV](https://github.com/Varying-Vagrant-Vagrants/VVV) for the virtual machine.
 
 Check out [our getting started guide over at SitePoint](http://www.sitepoint.com/introducing-theme-juice-for-local-wordpress-development/), or [view the documentation site](http://themejuice.it).
 
@@ -34,6 +34,13 @@ gem install theme-juice
 
 _If you're going to be using [our starter template](https://github.com/ezekg/theme-juice-starter), then I recommend checking out [it's dependencies](https://github.com/ezekg/theme-juice-starter#development-dependencies) before running your first `create`. That way, the build step doesn't fail._
 
+### Initialize the VM
+This will install and configure the virtual machine. This will clone the VM into the `vm-path`, install the required Vagrant plugins (such as Landrush, unless disabled) and will also set up port forwarding in you're on OSX.
+
+```
+tj init
+```
+
 ### Create a new project
 This will lead you through a series of prompts to set up required project information, such as name, location, template, database info, etc. Using the specified information, it will run the installation process and set up a local development environment, if one hasn't already been set up. It will sync your local project location with the project
 location within the VM, so you can run this from anywhere on your local system.
@@ -43,7 +50,7 @@ tj create
 ```
 
 #### What happens on your first `create`?
-1. `tj` will clone the selected VM into your `vm-path`
+1. `tj` will execute `tj init` if the VM is uninitialized
 1. `tj` will clone the selected starter template
 1. `tj` will run the starter template's Juicefile(1) `install` command
 1. `tj` will create all of the necessary project files, such as:
