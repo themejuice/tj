@@ -11,7 +11,6 @@ module ThemeJuice
           tasks << Tasks::InitConfirm.new
           tasks << Tasks::VMBox.new
           tasks << Tasks::VMPlugins.new
-          tasks << Tasks::VMLocation.new
           tasks << Tasks::VMCustomfile.new
           tasks << Tasks::Landrush.new
           tasks << Tasks::ForwardPorts.new
