@@ -12,7 +12,7 @@
 
 Check out [our getting started guide over at SitePoint](http://www.sitepoint.com/introducing-theme-juice-for-local-wordpress-development/), or [view the documentation site](http://themejuice.it).
 
-## What problems `tj` helps solve
+## What problems does `tj` help solve?
 To get the most out of `tj`, it is recommended that you use our [starter template](https://github.com/ezekg/theme-juice-starter). Why? Keep on reading and we'll tell you. `tj` is built on tried-and-true open source libraries such as [Capistrano](http://capistranorb.com/) for deployments and [Vagrant](https://www.vagrantup.com/) for local development. Some of the main pain points `tj` helps solve are:
 
 ### 1. `tj` is designed for multi-environment development
