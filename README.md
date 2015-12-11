@@ -12,6 +12,21 @@
 
 Check out [our getting started guide over at SitePoint](http://www.sitepoint.com/introducing-theme-juice-for-local-wordpress-development/), or [view the documentation site](http://themejuice.it).
 
+## What problems `tj` helps solve
+To get the most out of `tj`, it is recommended that you use our [starter template](https://github.com/ezekg/theme-juice-starter). Why? Keep on reading and we'll tell you. `tj` is built on tried-and-true open source libraries such as [Capistrano](http://capistranorb.com/) for deployments and [Vagrant](https://www.vagrantup.com/) for local development. Some of the main pain points `tj` helps solve are:
+
+### 1. `tj` is designed for multi-environment development
+Oh, multi-environment development! Usually, you would have to ignore your entire `wp-config.php` file and create one for every single stage. These can get out of sync fast. Even worse, the config file actually gets checked into the project repo and so the credentials fluctuate from `dev` to `staging` to `production`. Not good. Not good at all.
+
+This is one was of the main pain points we were hitting and one that `tj` helps solve. Our [starter template](https://github.com/ezekg/theme-juice-starter) uses a `.env` file, and has support for an unlimited number of environments (we generally do `development`, `staging` and `production`). Since these settings are housed in a `.env` file, they are not checked into the repo. That means the codebase is 100% environment agnostic. [The way it should be.](http://12factor.net/)
+
+### 2. Multi-environment deployments with `tj` are a breeze
+Really. Want to deploy to staging? Set up a staging environment inside of the [`Juicefile`](https://github.com/ezekg/theme-juice-starter/blob/master/Juicefile?ts=2), make sure you can SSH in without a password (required by Capistrano) and run `tj deploy staging`. Boom, you're done. Make a mistake? Run `tj rollback staging`. Crisis averted!
+
+Want to pull the database from your production server to your development install? Run `tj production db:pull` and you're good to go; `tj` will automatically handle rewriting any URLs within the database.
+
+How about pushing your development database and your local uploads folder? Run `tj production db:push && tj production uploads:push` and you're done. [You can even send notifications to your teams Slack channel if you wanted.](https://github.com/ezekg/theme-juice-cli#can-i-integrate-my-deployments-with-slack)
+
 ## Requirements
 **`tj` requires [Vagrant](https://www.vagrantup.com/) and [VirtualBox](https://www.virtualbox.org/) to be able to create virtual machines for local development. Please download and install both of these before getting started.**
 
