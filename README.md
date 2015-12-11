@@ -13,7 +13,7 @@
 Check out [our getting started guide over at SitePoint](http://www.sitepoint.com/introducing-theme-juice-for-local-wordpress-development/), or [view the documentation site](http://themejuice.it).
 
 ## What problems does `tj` help solve?
-To get the most out of `tj`, it is recommended that you use our [starter template](https://github.com/ezekg/theme-juice-starter). Why? Keep on reading and we'll tell you. `tj` is built on tried-and-true open source libraries such as [Capistrano](http://capistranorb.com/) for deployments, [Vagrant](https://www.vagrantup.com/) for local development, and even a little bit of [WP-CLI](wp-cli.org). Some of the main pain points `tj` helps solve are:
+To get the most out of `tj`, it is recommended that you use our [starter template](https://github.com/ezekg/theme-juice-starter). Why? Keep on reading and we'll tell you. `tj` is built on tried-and-true open source libraries such as [Capistrano](http://capistranorb.com/) for deployments, [Vagrant](https://www.vagrantup.com/) for local development, and even a little bit of [WP-CLI](http://wp-cli.org). Some of the main pain points `tj` helps solve are:
 
 ### 1. `tj` is designed for multi-environment development
 Oh, multi-environment development! Usually, you would have to ignore your entire `wp-config.php` file and create one for every single stage. These can get out of sync fast. Even worse, the config file actually gets checked into the project repo and so the credentials fluctuate from `dev` to `staging` to `production`. Not good. Not good at all.
