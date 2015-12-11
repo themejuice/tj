@@ -23,9 +23,9 @@ This is one was of the main pain points we were hitting and one that `tj` helps 
 ### 2. Multi-environment deployments with `tj` are a breeze
 Really. Want to deploy to staging? Set up a staging environment inside of the [`Juicefile`](https://github.com/ezekg/theme-juice-starter/blob/master/Juicefile?ts=2), make sure you can SSH in without a password (required by Capistrano) and run `tj deploy staging`. Boom, you're done. Make a mistake? Run `tj rollback staging`. Crisis averted!
 
-Want to pull the database from your production server to your development install? Run `tj production db:pull` and you're good to go; `tj` will automatically handle rewriting any URLs within the database.
+Want to pull the database from your production server to your development install? Run `tj remote production db:pull` and you're good to go; `tj` will automatically handle rewriting any URLs within the database.
 
-How about pushing your development database and your local uploads folder? Run `tj production db:push && tj production uploads:push` and you're done. [You can even send notifications to your teams Slack channel if you wanted.](https://github.com/ezekg/theme-juice-cli#can-i-integrate-my-deployments-with-slack)
+How about pushing your development database and your local uploads folder? Run `tj remote production db:push && tj remote production uploads:push` and you're done. [You can even send notifications to your teams Slack channel if you wanted.](https://github.com/ezekg/theme-juice-cli#can-i-integrate-my-deployments-with-slack)
 
 ## Requirements
 **`tj` requires [Vagrant](https://www.vagrantup.com/) and [VirtualBox](https://www.virtualbox.org/) to be able to create virtual machines for local development. Please download and install both of these before getting started.**
