@@ -64,7 +64,7 @@ tj create
 #### What happens on your first `create`?
 1. `tj` will execute `tj init` if the VM is uninitialized
 1. `tj` will clone the selected starter template
-1. `tj` will run the starter template's Juicefile(1) `install` command
+1. `tj` will run the starter template's Juicefile `install` command
 1. `tj` will create all of the necessary project files, such as:
   * `Customfile` containing DNS and synced folder settings
   * `init-custom.sql` containing database setup
