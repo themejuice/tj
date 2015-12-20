@@ -28,7 +28,7 @@ Really. Want to deploy to staging? Set up a staging environment inside of the [`
 
 Want to pull the database from your production server to your development install? Run `tj remote production db:pull` and you're good to go; `tj` will automatically handle rewriting any URLs within the database.
 
-How about pushing your development database and your local uploads folder? Run `tj remote production db:push && tj remote production uploads:push` and you're done. [You can even send notifications to your teams Slack channel if you wanted.](https://github.com/ezekg/theme-juice-cli#can-i-integrate-my-deployments-with-slack)
+How about pushing your development database and your local uploads folder? Run `tj remote production db:push && tj remote production uploads:push` and you're done. [You can even send notifications to your teams Slack channel if you want to!](https://github.com/ezekg/theme-juice-cli#can-i-integrate-my-deployments-with-slack)
 
 ## Requirements
 **`tj` requires [Vagrant](https://www.vagrantup.com/) and [VirtualBox](https://www.virtualbox.org/) to be able to create virtual machines for local development. Please download and install both of these before getting started.**
