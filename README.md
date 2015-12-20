@@ -21,7 +21,7 @@ Say goodbye to MAMP! With one command, `tj create`, you can have a new local dev
 ### 2. Multi-environment projects
 Oh, multi-environment development! Usually, you would have to ignore your entire `wp-config.php` file and create one for every single stage. These can get out of sync fast. Even worse, the config file actually gets checked into the project repo and so the credentials fluctuate from `dev` to `staging` to `production`. Not good. Not good at all.
 
-This is one was of the main pain points we were hitting and one that `tj` helps solve. Our [starter template](https://github.com/ezekg/theme-juice-starter) uses a `.env` file, and has support for an unlimited number of environments (we generally do `development`, `staging` and `production`). Since these settings are housed in a `.env` file, they are not checked into the repo. That means the codebase is 100% environment agnostic. [The way it should be.](http://12factor.net/)
+Our [starter template](https://github.com/ezekg/theme-juice-starter) uses a `.env` file, and has support for an unlimited number of environments (we generally do `development`, `staging` and `production`). Since these settings are housed in a `.env` file, they are not checked into the repo. That means the codebase is 100% environment agnostic. [The way it should be.](http://12factor.net/)
 
 ### 3. Multi-environment deployments
 Really. Want to deploy to staging? Set up a staging environment inside of the [`Juicefile`](https://github.com/ezekg/theme-juice-starter/blob/master/Juicefile?ts=2), make sure you can SSH in without a password (required by Capistrano) and run `tj deploy staging`. Boom, you're done. Make a mistake? Run `tj rollback staging`. Crisis averted!
