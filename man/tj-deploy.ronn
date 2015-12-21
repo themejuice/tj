@@ -10,6 +10,11 @@ tj-deploy(1) -- Deploy a project
 Deploys a project to the passed `stage`. All commands are transformed and then
 piped directly to capistrano(1) to handle deployment.
 
+## REQUIREMENTS
+
+The `remote` that is being deployed to needs to have wp-cli(1) installed in
+order for tj(1) to be able to handle database migration.
+
 ## SETUP
 
 Follow these steps to quickly get up and running:

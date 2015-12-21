@@ -46,7 +46,7 @@
             %h1 WordPress development made easy
             %p
               %strong
-                <code>tj</code> is a command line utility that generates, manages and deploys WordPress development applications.
+                <code>tj</code> is a command line utility that generates, manages and deploys WordPress development sites.
             %a(class="button" href="#" alt="Watch the introduction video")
               %i.fa.fa-play-circle
               Watch Intro Video
@@ -79,15 +79,18 @@
               Introduction
             %p
               %strong
-                Meet <code>tj</code>, a command line utility that allows you to generate, manage and deploy new local WordPress development applications in seconds using Vagrant and Capistrano.
+                Meet <code>tj</code>, a tool that helps you create new local WordPress development sites, manage existing sites, and deploy them, all from the command line.
             %p
-              <code>tj</code> handles all of the hard stuff: creation of a local development environment, managing local and remote WordPress applications, and the most annoying part of all, <em>actually deploying those applications</em>!
+              <code>tj</code> is built on top of tried and true open source libraries such as <a href="http://capistranorb.com/">Capistrano</a> for deployments, <a href="http://vagrantup.com/">Vagrant</a> for local development, and even a little bit of <a href="http://wp-cli.org/">WP-CLI</a> for database migration.
+            %p
+              <code>tj</code> handles all of the hard stuff: creation of a local development environment, managing local and remote WordPress sites, and the most annoying part of all, <em>actually deploying those sites</em>. Say goodbye to MAMP!
 
             %h2#REQUIREMENTS
               Requirements
             %p
               %strong
                 <code>tj</code> requires <a href="http://vagrantup.com/">Vagrant</a> and <a href="https://www.virtualbox.org/">VirtualBox</a> to be able to create virtual machines for local development. Please download and install both of these before getting started.
+              If you plan on using <code>tj</code> for deployments, you should also ensure that your <code>remote</code> servers have <a href="http://wp-cli.org/">WP-CLI</a> installed in order for <code>tj</code> to be able to handle database migration.
             %p
               I recommend one of the latest versions of Ruby MRI (2.2, 2.1, 2.0). <code>tj</code> requires at least MRI 1.9.3. For the full report, check out the <a href="https://travis-ci.org/ezekg/theme-juice-cli">Travis CI build status</a>, where I test against an array of Ruby interpreters.
             %p

@@ -8,12 +8,12 @@
 ![Theme Juice CLI](demo.gif)
 
 ## What is it?
-[Theme Juice CLI](http://themejuice.it) (`tj`) is a command line utility that allows you to generate, manage and deploy new local WordPress development applications in seconds using Vagrant, utilizing an [Apache fork](https://github.com/ezekg/theme-juice-vvv) of [VVV](https://github.com/Varying-Vagrant-Vagrants/VVV) for the virtual machine.
+The [Theme Juice CLI](http://themejuice.it), also known as `tj`, helps you create new local WordPress development sites, manage existing sites, and deploy them, all from the command line. It utilizes an [Apache fork](https://github.com/ezekg/theme-juice-vvv) of [VVV](https://github.com/Varying-Vagrant-Vagrants/VVV) for the virtual machine to spin up new development sites in seconds.
 
 Check out [our getting started guide over at SitePoint](http://www.sitepoint.com/introducing-theme-juice-for-local-wordpress-development/), or [view the documentation site](http://themejuice.it).
 
 ## What problems does `tj` help solve?
-To get the most out of `tj`, it is recommended that you use our [starter template](https://github.com/ezekg/theme-juice-starter). Why? Keep on reading and we'll tell you. `tj` is built on tried-and-true open source libraries such as [Capistrano](http://capistranorb.com/) for deployments, [Vagrant](https://www.vagrantup.com/) for local development, and even a little bit of [WP-CLI](http://wp-cli.org). Some of the main pain points `tj` helps solve are:
+To get the most out of `tj`, it is recommended that you use our [starter template](https://github.com/ezekg/theme-juice-starter). Why? Keep on reading and we'll tell you. `tj` is built on top of tried and true open source libraries such as [Capistrano](http://capistranorb.com/) for deployments, [Vagrant](https://www.vagrantup.com/) for local development, and even a little bit of [WP-CLI](http://wp-cli.org) for database migration. Some of the main pain points `tj` helps solve are:
 
 ### 1. Local development
 Say goodbye to MAMP! With one command, `tj create`, you can have a new local development site up and running in under a minute. It uses a streamlined fork of VVV (listed above) to create a Vagrant development environment, and lets you create and manage multiple projects within a single virtual machine. It also handles deployments over SSH using Capistrano if you want to move away from FTP (more about that below).
@@ -31,7 +31,7 @@ Want to pull the database from your production server to your development instal
 How about pushing your development database and your local uploads folder? Run `tj remote production db:push && tj remote production uploads:push` and you're done. [You can even send notifications to your teams Slack channel if you want to!](https://github.com/ezekg/theme-juice-cli#can-i-integrate-my-deployments-with-slack)
 
 ## Requirements
-**`tj` requires [Vagrant](https://www.vagrantup.com/) and [VirtualBox](https://www.virtualbox.org/) to be able to create virtual machines for local development. Please download and install both of these before getting started.**
+**`tj` requires [Vagrant](https://www.vagrantup.com/) and [VirtualBox](https://www.virtualbox.org/) to be able to create virtual machines for local development. Please download and install both of these before getting started.** If you plan on using `tj` for deployments, you should also ensure that your `remote` servers have [WP-CLI](http://wp-cli.org/") installed in order for `tj` to be able to handle database migration.
 
 I recommend one of the latest versions of Ruby MRI (2.2, 2.1, 2.0). `tj` requires at least MRI 1.9.3. For the full report, check out the [Travis CI build status](https://travis-ci.org/ezekg/theme-juice-cli), where I test against an array of Ruby interpreters.
 
@@ -187,11 +187,11 @@ Below is the config that comes baked into [our starter template](https://github.
 
 ```yml
 #
-# Manage command aliases for the current application
+# Manage command aliases for the current project
 #
 commands:
 
-  # Run application install scripts
+  # Run project install scripts
   install:
     - composer install
     - bundle install
@@ -220,7 +220,7 @@ commands:
     - mkdir -p backup
     - wp ssh --host=vagrant db export backup/$(date +'%Y-%m-%d-%H-%M-%S').sql
 
-  # Package up entire application into a gzipped tar file
+  # Package up entire project into a gzipped tar file
   dist:
     - tar -zcvf dist.tar.gz .
 ```
