@@ -287,7 +287,7 @@ tj create --template https://github.com/starter-template/repository.git --vm-box
 
 The flag duo above replaces the URLs for the starter template and VM box repositories so that they use `https` instead of the `git` protocol.
 
-Or, you can globally update `git` to **always** swap out `git@github.com:` with `https://github.com/` by modifying your `git config`:
+Or, you can globally update `git` to **always** swap out `git@github.com:` with `https://github.com/` by modifying your `git config` with this command:
 
 ```
 git config --global url."https://github.com/".insteadOf "git@github.com:"
