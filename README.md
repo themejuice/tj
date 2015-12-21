@@ -279,13 +279,19 @@ Check out [capistrano-slackify](https://github.com/onthebeach/capistrano-slackif
 1. [Why are my `.dev` domains resolving to `127.0.53.53`?!](#why-are-my-dev-domains-resolving-to-12705353)
 
 ### Help! It won't let me `git clone` anything!
-If you're hitting issues related to `git clone`, either cloning the VM or a starter template, then you most likely don't have [SSH-keys for GitHub set up correctly](https://help.github.com/articles/error-permission-denied-publickey/). Either go through that article and assure that you can use Git with the `git@github.com` protocol, or else you can manually run `tj` with the appropriate flags corresponding to the problem-repository, swapping out `git@github.com:` for `https://github.com/`. For example:
+If you're hitting issues related to `git clone`, either cloning the VM or a starter template, then you most likely don't have [SSH-keys for GitHub set up correctly](https://help.github.com/articles/error-permission-denied-publickey/). Either go through that article and assure that you can use Git with the `git@` (`ssh://git@`) protocol, or else you can manually run `tj` with the appropriate flags corresponding to the problem-repository, swapping out `git@github.com:` for `https://github.com/`. For example:
 
 ```
 tj create --template https://github.com/starter-template/repository.git --vm-box https://github.com/vm-box/repository.git
 ```
 
 The flag duo above replaces the URLs for the starter template and VM box repositories so that they use `https` instead of the `git` protocol.
+
+Or, you can globally update `git` to **always** swap out `git@github.com:` with `https://github.com/` by modifying your `git config`:
+
+```
+git config --global url."https://github.com/".insteadOf "git@github.com:"
+```
 
 ### What the heck is an `invalid multibyte char (US-ASCII)`?!
 For one reason or another, your terminal probably doesn't support UTF-8, so it's throwing a fit. Use the `--no-unicode` flag to disable the unicode characters. If the problem still persists, try running it with the `--boring` flag. That should disable all unicode characters and coloring.
