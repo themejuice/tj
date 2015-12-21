@@ -120,7 +120,7 @@ Or, you can also check out [themejuice.it](http://themejuice.it) for a pretty we
 1. [Troubleshooting](#troubleshooting)
 
 ### Is Windows supported?
-Yes! But, since Windows doesn't support UTF-8 characters inside of the terminal, and is picky about ASCII colors, you'll probably have to run `tj` with a couple flags.
+Yes! But, since Windows doesn't support UTF-8 characters inside of the terminal, and is picky about ANSI color codes, you'll probably have to run `tj` with a couple flags.
 
 Something that has worked for me on one of my Windows machines is to run all commands through [git-scm](http://git-scm.com/downloads) with the `--boring --no-landrush` flags. This will disable all unicode characters and colors from being output, and will also disable [Landrush](https://github.com/phinze/landrush), which isn't fully supported on Windows.
 
