@@ -31,7 +31,7 @@ Want to pull the database from your production server to your development instal
 How about pushing your development database and your local uploads folder? Run `tj remote production db:push && tj remote production uploads:push` and you're done. [You can even send notifications to your teams Slack channel if you want to!](https://github.com/ezekg/theme-juice-cli#can-i-integrate-my-deployments-with-slack)
 
 ## Requirements
-**`tj` requires [Vagrant](https://www.vagrantup.com/) and [VirtualBox](https://www.virtualbox.org/) to be able to create virtual machines for local development. Please download and install both of these before getting started.** If you plan on using `tj` for deployments, you should also ensure that your `remote` servers have [WP-CLI](http://wp-cli.org/") installed in order for `tj` to be able to handle database migration.
+**`tj` requires [Vagrant](https://www.vagrantup.com/) and [VirtualBox](https://www.virtualbox.org/) to be able to create virtual machines for local development. Please download and install both of these before getting started.** If you plan on using `tj` for deployments, you should also ensure that your `remote` servers have [WP-CLI](http://wp-cli.org/) installed in order for `tj` to be able to handle database migration.
 
 I recommend one of the latest versions of Ruby MRI (2.2, 2.1, 2.0). `tj` requires at least MRI 1.9.3. For the full report, check out the [Travis CI build status](https://travis-ci.org/ezekg/theme-juice-cli), where I test against an array of Ruby interpreters.
 
