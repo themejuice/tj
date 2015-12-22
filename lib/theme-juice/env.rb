@@ -17,6 +17,7 @@ module ThemeJuice
     attr_accessor :no_port_forward
     attr_accessor :verbose
     attr_accessor :quiet
+    attr_accessor :robot
     attr_accessor :trace
     attr_accessor :dryrun
     attr_accessor :nginx
@@ -44,8 +45,12 @@ module ThemeJuice
       @yolo = val || ENV.fetch("TJ_YOLO") { false }
     end
 
+    def robot=(val)
+      @robot = val || ENV.fetch("TJ_ROBOT") { false }
+    end
+
     def boring=(val)
-      @boring = val || ENV.fetch("TJ_BORING") { false }
+      @boring = val || ENV.fetch("TJ_BORING") { robot || false }
     end
 
     def no_unicode=(val)

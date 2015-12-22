@@ -36,6 +36,7 @@ module ThemeJuice
         @env.no_port_forward = options[:no_port_forward]
         @env.verbose         = options[:verbose]
         @env.quiet           = options[:quiet]
+        @env.robot           = options[:robot]
         @env.trace           = options[:trace]
         @env.dryrun          = options[:dryrun]
         @env.nginx           = options[:nginx]
@@ -64,6 +65,7 @@ module ThemeJuice
     class_option :no_port_forward, :type => :boolean, :aliases => "--no-port-forwarding", :desc => ""
     class_option :verbose,         :type => :boolean,                                     :desc => ""
     class_option :quiet,           :type => :boolean, :aliases => "--shh",                :desc => ""
+    class_option :robot,           :type => :boolean,                                     :desc => ""
     class_option :trace,           :type => :boolean,                                     :desc => ""
     class_option :dryrun,          :type => :boolean, :aliases => "--dry-run",            :desc => ""
     class_option :nginx,           :type => :boolean, :aliases => "--no-apache",          :desc => ""

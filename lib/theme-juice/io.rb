@@ -234,6 +234,7 @@ module ThemeJuice
     end
 
     def format_message(message, opts = {})
+      return message if @env.robot
 
       %W[icon newline row width color indent].each do |f|
         message = self.send "format_#{f}", message, opts
