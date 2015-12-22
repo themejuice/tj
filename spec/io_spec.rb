@@ -5,9 +5,17 @@ describe ThemeJuice::IO do
   end
 
   describe ".say" do
+
     it "should output a message to $stdout" do
       output = capture(:stdout) { @io.say "According to my calculations..." }
       expect(output).to be_a String
+    end
+
+    it "should output plain message when Env.robot is true" do
+      allow(ThemeJuice::Env).to receive(:robot).and_return true
+
+      output = capture(:stdout) { @io.say "Some plain ol' boring message" }
+      expect(output).to match "Some plain ol' boring message\n"
     end
   end
 

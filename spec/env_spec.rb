@@ -28,6 +28,8 @@ describe ThemeJuice::Env do
   it { is_expected.to respond_to :verbose= }
   it { is_expected.to respond_to :quiet }
   it { is_expected.to respond_to :quiet= }
+  it { is_expected.to respond_to :robot }
+  it { is_expected.to respond_to :robot= }
   it { is_expected.to respond_to :trace }
   it { is_expected.to respond_to :trace= }
   it { is_expected.to respond_to :dryrun }
