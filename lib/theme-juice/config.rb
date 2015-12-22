@@ -28,6 +28,10 @@ module ThemeJuice
       @io.error("Deployment settings not found in config", NotImplementedError)
     end
 
+    def exist?
+      !capture { config }.nil?
+    end
+
     private
 
     def run(command)
@@ -77,6 +81,17 @@ module ThemeJuice
 
     def single_arg_regex(i)
       %r{(%arg#{i}%)|(%argument#{i}%)}
+    end
+
+    def capture
+      begin
+        old = $stdout
+        $stdout = StringIO.new
+        yield
+        # $stdout.string
+      ensure
+        $stdout = old
+      end
     end
 
     extend self

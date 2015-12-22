@@ -169,10 +169,21 @@ module ThemeJuice
 
     # For dynamic methods defined within the config
     def method_missing(method, *args, &block)
+
+      # Force Thor to parse options
+      parser   = Thor::Options.new self.class.class_options
+      @options = parser.parse args
+
+      # Init env (again) with parsed options
+      init_env
+
+      err = -> { @io.error "Could not find command '#{method}'" }
+      err.call unless @config.exist?
+
       if @config.commands.has_key? "#{method}"
         @config.command method.to_sym, args
       else
-        super
+        err.call
       end
     end
   end
