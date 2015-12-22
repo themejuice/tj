@@ -147,5 +147,31 @@ commands:
         end
       end
     end
+
+    describe ".exist?" do
+
+      context "when config exists" do
+
+        before :each do
+          expect_any_instance_of(@config).to receive(:config)
+            .once.and_return YAML.load %Q{
+commands:
+  install:
+    - "%args%"
+  watch: "%arguments%"
+}
+        end
+
+        it "should return true" do
+          expect(@config.exist?).to be true
+        end
+      end
+
+      context "when config does not exist" do
+        it "should return false" do
+          expect(@config.exist?).to be false
+        end
+      end
+    end
   end
 end
