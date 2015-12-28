@@ -13,7 +13,7 @@ The [Theme Juice CLI](http://themejuice.it), also known as `tj`, helps you creat
 Check out [our getting started guide over at SitePoint](http://www.sitepoint.com/introducing-theme-juice-for-local-wordpress-development/), or [view the documentation site](http://themejuice.it).
 
 ## What problems does `tj` help solve?
-To get the most out of `tj`, it is recommended that you use our [starter template](https://github.com/ezekg/theme-juice-starter). Why? Keep on reading and we'll tell you. `tj` is built on top of tried and true open source libraries such as [Capistrano](http://capistranorb.com/) for deployments, [Vagrant](https://www.vagrantup.com/) for local development, and even a little bit of [WP-CLI](http://wp-cli.org) for database migration. Some of the main pain points `tj` helps solve are:
+To get the most out of `tj`, it is recommended that you use our [starter template](https://github.com/ezekg/theme-juice-starter). Why? Keep on reading and we'll tell you. `tj` is built on top of tried and true open source libraries such as [Capistrano](http://capistranorb.com/) for deployment, [Vagrant](https://www.vagrantup.com/) for local development, and even a little bit of [WP-CLI](http://wp-cli.org) for database migration. Some of the main pain points `tj` helps solve are:
 
 ### 1. Local development
 Say goodbye to MAMP! With one command, `tj create`, you can have a new local development site up and running in under a minute. It uses a streamlined fork of VVV (listed above) to create a Vagrant development environment, and lets you create and manage multiple projects within a single virtual machine. It also handles deployments over SSH using Capistrano if you want to move away from FTP (more about that below).
@@ -24,7 +24,7 @@ Oh, multi-environment development! Usually, you would have to ignore your entire
 Our [starter template](https://github.com/ezekg/theme-juice-starter) uses a `.env` file, and has support for an unlimited number of environments (we generally do `development`, `staging` and `production`). Since these settings are housed in a `.env` file, they are not checked into the repo. That means the codebase is 100% environment agnostic. [The way it should be.](http://12factor.net/)
 
 ### 3. Multi-environment deployments
-Really. Want to deploy to staging? Set up a staging environment inside of the [`Juicefile`](https://github.com/ezekg/theme-juice-starter/blob/master/Juicefile?ts=2), make sure you can SSH in without a password (remember, best practices here!) and run `tj deploy staging`. Boom, you're done. Make a mistake? Run `tj rollback staging`. Crisis averted!
+Really. Want to deploy to staging? Set up a staging environment inside of the [`Juicefile`](https://github.com/ezekg/theme-juice-starter/blob/master/Juicefile?ts=2), make sure you can SSH in without a password (remember, best practices here!) and run `tj deploy staging`. Boom, you're done. Make a mistake? Run `tj remote staging rollback`. Crisis averted!
 
 Want to pull the database from your production server to your development install? Run `tj remote production db:pull` and you're good to go; `tj` will automatically handle rewriting any URLs within the database.
 
