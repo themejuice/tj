@@ -34,6 +34,9 @@ tj(1) -- WordPress development made easy
   * `--no-animations`:
     Prints all output without animations**
 
+  * `--robot`:
+    Prints all output with absolutely no formatting
+
   * `--no-landrush`:
     Disable the landrush(1) gem for managing DNS*
 
