@@ -84,6 +84,9 @@ Run `tj help` [<command>] to view an individual command's man page.
   * `version`, `--version`, `-v`:
     Print the current version
 
+  * `env`, `--env`=<property>:
+    Print an environment property
+
   * `list`, `ls`, `projects`, `apps`, `sites`:
     List all projects
 

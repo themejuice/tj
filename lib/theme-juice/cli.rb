@@ -45,6 +45,7 @@ module ThemeJuice
 
     map %w[man doc docs]           => :help
     map %w[--version -v]           => :version
+    map %w[--env]                  => :env
     map %w[mk new]                 => :create
     map %w[up]                     => :init
     map %w[rm remove trash]        => :delete
@@ -92,6 +93,17 @@ module ThemeJuice
     desc "--version, -v", "Print current version"
     def version
       @io.say @version, :color => :green
+    end
+
+    desc "--env", "Print an environment property"
+    method_option :property, :type => :string, :aliases => %w[-p --prop], :required => true, :desc => ""
+    def env
+      prop = options[:property].gsub "-", "_"
+
+      @io.error "Environment property '#{prop}' does not exist",
+        NotImplementedError unless @env.respond_to? prop
+
+      @io.say @env.send(prop), :color => :green
     end
 
     desc "init", "Initialize the VM"
