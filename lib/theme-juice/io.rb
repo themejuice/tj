@@ -66,6 +66,8 @@ module ThemeJuice
     end
 
     def agree?(question, opts = {})
+      return true if @env.yolo
+
       q = format_message question, {
         :color => opts.fetch("color", :blue),
         :icon  => :question

@@ -28,10 +28,25 @@ describe ThemeJuice::IO do
   end
 
   describe ".agree?" do
-    it "should prompt to $stdout and receive Y/n from $stdin" do
-      expect(thor_stdin).to receive(:readline).with(kind_of(String),
-        kind_of(Hash)).and_return "Y"
-      expect(@io.agree?("So, is that a yes?")).to eq true
+
+    context "when Env.yolo is set to true" do
+      it "should not prompt to $stdout and to automatically receive Y" do
+        allow(ThemeJuice::Env).to receive(:yolo).and_return true
+        allow(stdout).to receive :print
+
+        expect(thor_stdin).to_not receive(:readline)
+        expect(@io.agree?("YOLO, right?")).to eq true
+      end
+    end
+
+    context "when Env.yolo is set to false" do
+      it "should prompt to $stdout and receive Y/n from $stdin" do
+        allow(ThemeJuice::Env).to receive(:yolo).and_return false
+        
+        expect(thor_stdin).to receive(:readline).with(kind_of(String),
+          kind_of(Hash)).and_return "Y"
+        expect(@io.agree?("So, is that a yes?")).to eq true
+      end
     end
   end
 
