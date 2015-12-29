@@ -57,7 +57,7 @@ module ThemeJuice
     class_option :vm_path,         :type => :string,  :default => nil,                    :desc => ""
     class_option :vm_ip,           :type => :string,  :default => nil,                    :desc => ""
     class_option :vm_prefix,       :type => :string,  :default => nil,                    :desc => ""
-    class_option :yolo,            :type => :boolean,                                     :desc => ""
+    class_option :yolo,            :type => :boolean, :aliases => "--yes",                :desc => ""
     class_option :boring,          :type => :boolean,                                     :desc => ""
     class_option :no_unicode,      :type => :boolean,                                     :desc => ""
     class_option :no_colors,       :type => :boolean, :aliases => "--no-color",           :desc => ""

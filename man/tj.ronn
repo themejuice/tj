@@ -19,7 +19,7 @@ tj(1) -- WordPress development made easy
   * `--vm-prefix`=<string>:
     Force directory prefix for project in VM*
 
-  * `--yolo`:
+  * `--yolo`, `--yes`:
     Say yes to anything and everything, and maybe even get a few surprises
 
   * `--boring`:
