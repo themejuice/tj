@@ -40,6 +40,8 @@ module ThemeJuice
         @env.trace           = options[:trace]
         @env.dryrun          = options[:dryrun]
         @env.nginx           = options[:nginx]
+        @env.archive         = options[:archive]
+        @env.branch          = options[:branch]
       end
     end
 
@@ -160,6 +162,7 @@ module ThemeJuice
 
     desc "deploy STAGE [,ARGS]", "Deploy a project"
     method_option :archive, :type => :boolean, :aliases => %w[--tar --gzip --zip], :desc => ""
+    method_option :branch,  :type => :string,  :aliases => "-b", :default => nil,  :desc => ""
     def deploy(stage, *args)
       @deploy.new(options).send(stage, *args).execute
     end

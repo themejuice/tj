@@ -24,6 +24,7 @@ module ThemeJuice
     attr_accessor :stage
     attr_accessor :cap
     attr_accessor :archive
+    attr_accessor :branch
 
     def vm_box=(val)
       @vm_box = val || ENV.fetch("TJ_VM_BOX") { "git@github.com:ezekg/theme-juice-vvv.git" }

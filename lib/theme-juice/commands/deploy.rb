@@ -11,7 +11,6 @@ module ThemeJuice
           self.class.send :define_method, stage do |*args|
             @env.cap     = Capistrano::Application.new
             @env.stage   = stage.to_sym
-            @env.archive = opts[:archive]
 
             runner do |tasks|
               tasks << Tasks::Settings.new

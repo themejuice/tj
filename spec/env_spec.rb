@@ -60,7 +60,8 @@ describe ThemeJuice::Env do
     end
   end
 
-  %W[boring yolo no_unicode no_colors no_animations no_landrush verbose quiet trace dryrun].each do |prop|
+  %W[boring yolo no_unicode no_colors no_animations no_landrush verbose quiet
+    trace dryrun].each do |prop|
     describe ".#{prop}" do
 
       it "should expect to use the set boolean value" do

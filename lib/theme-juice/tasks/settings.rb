@@ -24,33 +24,36 @@ module ThemeJuice
 
       # Required global settings
       def configure_required_settings
-        begin
-          set :application,  @config.deployment.application.name
-          set :archive,      @env.archive
+        set :application,  @config.deployment.application.name
+        set :archive,      @env.archive
 
-          set :linked_files, fetch(:linked_files, []).concat(fetch(:shared_files, []))
-          set :linked_dirs,  fetch(:linked_dirs, []).concat(fetch(:shared_dirs, []))
-             .push(fetch(:uploads_dir, ""))
+        set :linked_files, fetch(:linked_files, []).concat(fetch(:shared_files, []))
+        set :linked_dirs,  fetch(:linked_dirs, []).concat(fetch(:shared_dirs, []))
+           .push(fetch(:uploads_dir, ""))
 
-          %w[settings repository].each do |task|
-            @config.deployment.send(task).symbolize_keys.each do |key, value|
-              set key, proc { value }
-            end
+        %w[settings repository].each do |task|
+          @config.deployment.send(task).symbolize_keys.each do |key, value|
+            set key, proc { value }
           end
-        rescue NoMethodError => err
-          @io.error "Oops! It looks like you're missing a few deployment settings" do
-            puts err
-          end
+        end
+
+        # Allow the branch to be overridden (casts possible nil to string)
+        unless @env.branch.to_s.empty?
+          set :branch, @env.branch
+        end
+      rescue NoMethodError => err
+        @io.error "Oops! It looks like you're missing a few deployment settings" do
+          puts err
         end
       end
 
       # Optional namespaced settings
       def configure_optional_settings
         %w[rsync slack].each do |task|
-          if @config.deployment.key? task
-            @config.deployment.send(task).each do |key, value|
-              set :"#{task}_#{key}", proc { value }
-            end
+          next unless @config.deployment.key? task
+
+          @config.deployment.send(task).each do |key, value|
+            set :"#{task}_#{key}", proc { value }
           end
         end
       end
