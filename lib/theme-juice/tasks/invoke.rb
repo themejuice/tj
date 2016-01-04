@@ -36,7 +36,7 @@ module ThemeJuice
           @env.cap.invoke *args
         end
       rescue SSHKit::Command::Failed, SSHKit::Runner::ExecuteError => err
-        @env.cap.invoke "deploy:failed"
+        @env.cap.invoke "deploy:failed" if !args.last || args.last == "deploy"
         @io.error "Capistrano has encountered a fatal error", StandardError do
           puts err.message.force_encoding "UTF-8"
         end
