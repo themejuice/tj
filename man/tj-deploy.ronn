@@ -27,6 +27,9 @@ Follow these steps to quickly get up and running:
 
 ## GLOBAL OPTIONS
 
+  * `-b`, `--branch`=<branch>:
+    Use an alternate git(1) branch for current deployment
+
   * `--archive`, `--tar`, `--gzip`, `--zip`:
     Archive directories with tar(1) when performing file transfers
 
