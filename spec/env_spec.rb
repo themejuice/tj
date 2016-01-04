@@ -38,6 +38,10 @@ describe ThemeJuice::Env do
   it { is_expected.to respond_to :stage= }
   it { is_expected.to respond_to :cap }
   it { is_expected.to respond_to :cap= }
+  it { is_expected.to respond_to :archive }
+  it { is_expected.to respond_to :archive= }
+  it { is_expected.to respond_to :branch }
+  it { is_expected.to respond_to :branch= }
 
   describe ".inspect" do
     it "should return an array of all instance variables" do
