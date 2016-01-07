@@ -97,15 +97,19 @@ module ThemeJuice
       @io.say @version, :color => :green
     end
 
-    desc "--env", "Print an environment property"
-    method_option :property, :type => :string, :aliases => %w[-p --prop], :required => true, :desc => ""
+    desc "--env [PROP]", "Print an environment property"
+    method_option :property, :type => :string, :aliases => %w[-p --prop], :default => nil, :desc => ""
     def env
-      prop = options[:property].gsub "-", "_"
+      if options[:property].nil?
+        @io.list "Environment:", :green, @env.inspect
+      else
+        prop = options[:property].gsub "-", "_"
 
-      @io.error "Environment property '#{prop}' does not exist",
+        @io.error "Environment property '#{prop}' does not exist",
         NotImplementedError unless @env.respond_to? prop
 
-      @io.say @env.send(prop), :color => :green
+        @io.say @env.send(prop), :color => :green
+      end
     end
 
     desc "init", "Initialize the VM"
