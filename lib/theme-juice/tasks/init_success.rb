@@ -16,7 +16,7 @@ module ThemeJuice
 
       def success
         @io.success "Successfully initialized VM"
-        @io.list "Your settings :", :blue, @env.inspect
+        @io.list "Your settings:", :blue, @env.inspect
       end
     end
   end

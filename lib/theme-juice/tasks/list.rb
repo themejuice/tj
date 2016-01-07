@@ -14,7 +14,7 @@ module ThemeJuice
         if self.send(prop).empty?
           @io.log "Nothing to list"
         else
-          @io.list "#{prop.capitalize} :", :green, self.send(prop)
+          @io.list "#{prop.capitalize}:", :green, self.send(prop)
         end
       end
 
@@ -23,7 +23,7 @@ module ThemeJuice
 
         Dir["#{@project.vm_root}/*"].each do |f|
           name = File.basename f
-          
+
           if File.directory?(f) && name.include?(@env.vm_prefix)
             res << name.gsub(/(#{@env.vm_prefix})/, "")
           end

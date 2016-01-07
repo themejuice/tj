@@ -14,7 +14,7 @@ module ThemeJuice
       end
 
       private
-      
+
       def is_user_a_smarty_pants?
         if @env.yolo && @project.use_defaults
           @io.say "Well, don't you just have everything all figured out?", {
@@ -23,8 +23,8 @@ module ThemeJuice
       end
 
       def confirm
-        @io.list "Your settings :", :yellow, settings
-        
+        @io.list "Your settings:", :yellow, settings
+
         unless @io.agree? "Do these settings look correct?"
           @io.error "Dang typos..."
         end

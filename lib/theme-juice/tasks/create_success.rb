@@ -16,7 +16,7 @@ module ThemeJuice
 
       def success
         @io.success "Successfully created project '#{@project.name}'"
-        @io.list "Your settings :", :blue, settings
+        @io.list "Your settings:", :blue, settings
       end
 
       def settings

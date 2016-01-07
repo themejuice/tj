@@ -14,11 +14,11 @@ module ThemeJuice
       end
 
       private
-      
+
       def boom?
         if @env.yolo
-          @io.say "Why in the world would you run this command with yolo? Anyways...", {
-            :color => :yellow, :icon => :general }
+          @io.say "Livin' on the edge, huh?!", { :color => :yellow,
+            :icon => :general }
         end
       end
 
