@@ -194,7 +194,7 @@ module ThemeJuice
       end
 
       def db_import
-        return false if @project.no_db || @project.use_defaults
+        return false if @project.no_db || @project.skip_db || @project.use_defaults
 
         if @io.agree? "Would you like to import an existing database?"
           db = @io.ask "Where is the database file?", {
