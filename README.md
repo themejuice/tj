@@ -154,8 +154,11 @@ Yes and no; in order for `tj` to properly create a project, the Vagrant box need
 |  |
 |  ├── {apache,nginx}-config/
 |  |  |
-|  |  ├── site-1.conf
-|  |  ├── site-2.conf
+|  |  ├── sites/
+|  |  |  |
+|  |  |  ├── site-1.conf
+|  |  |  ├── site-2.conf
+|  |  |  ..
 |  |  ..
 |  ├── database/
 |  |  |
