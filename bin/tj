@@ -8,6 +8,7 @@ require "theme-juice"
 
 Signal.trap "INT" do
   ThemeJuice::IO.goodbye
+  Process.kill "INT", 0
 end
 
 ThemeJuice::CLI.start
