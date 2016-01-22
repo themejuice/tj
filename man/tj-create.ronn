@@ -71,7 +71,7 @@ access your new project at the specified url. It's that easy!
     Project does not need a `.env` file
 
   * `--no-config`, `--no-juicefile`:
-    Project does not have a Juicefile(1) config
+    Project does not have a Juicefile(5) config
 
   * `--modify-wp-config`, `--wp-config-modify`:
     Modify `wp-config.php` file contents with project configuration (this flag
