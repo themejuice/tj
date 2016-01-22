@@ -57,9 +57,9 @@ module ThemeJuice
         @project.no_wp            = @opts.fetch("no_wp")            { false }
         @project.no_wp_cli        = @opts.fetch("no_wp_cli")        { false }
         @project.no_db            = @opts.fetch("no_db")            { false }
-        @project.no_env           = @opts.fetch("no_env")           { false }
-        @project.no_config        = @opts.fetch("no_config")        { false }
         @project.wp_config_modify = @opts.fetch("wp_config_modify") { false }
+        @project.no_config        = @opts.fetch("no_config")        { false }
+        @project.no_env           = @opts.fetch("no_env")           { @project.wp_config_modify }
         @project.name             = @opts.fetch("name")             { name }
         @project.location         = @opts.fetch("location")         { location }
         @project.url              = @opts.fetch("url")              { url }
