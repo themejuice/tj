@@ -30,7 +30,11 @@ module ThemeJuice
           else
             tasks << Tasks::Apache.new
           end
-          tasks << Tasks::DotEnv.new
+          if @project.no_env
+            tasks << Tasks::WPConfig.new
+          else
+            tasks << Tasks::DotEnv.new
+          end
           tasks << Tasks::Landrush.new
           tasks << Tasks::ForwardPorts.new
           tasks << Tasks::SyncedFolder.new
@@ -46,23 +50,27 @@ module ThemeJuice
       private
 
       def init_project
-        @project.use_defaults = @opts.fetch("use_defaults") { false }
-        @project.bare         = @opts.fetch("bare")         { false }
-        @project.skip_repo    = @opts.fetch("skip_repo")    { false }
-        @project.skip_db      = @opts.fetch("skip_db")      { false }
-        @project.no_wp        = @opts.fetch("no_wp")        { false }
-        @project.no_db        = @opts.fetch("no_db")        { false }
-        @project.name         = @opts.fetch("name")         { name }
-        @project.location     = @opts.fetch("location")     { location }
-        @project.url          = @opts.fetch("url")          { url }
-        @project.xip_url      = @opts.fetch("xip_url")      { xip_url }
-        @project.template     = @opts.fetch("template")     { template }
-        @project.repository   = @opts.fetch("repository")   { repository }
-        @project.db_host      = @opts.fetch("db_host")      { db_host }
-        @project.db_name      = @opts.fetch("db_name")      { db_name }
-        @project.db_user      = @opts.fetch("db_user")      { db_user }
-        @project.db_pass      = @opts.fetch("db_pass")      { db_pass }
-        @project.db_import    = @opts.fetch("db_import")    { db_import }
+        @project.use_defaults     = @opts.fetch("use_defaults")     { false }
+        @project.bare             = @opts.fetch("bare")             { false }
+        @project.skip_repo        = @opts.fetch("skip_repo")        { false }
+        @project.skip_db          = @opts.fetch("skip_db")          { false }
+        @project.no_wp            = @opts.fetch("no_wp")            { false }
+        @project.no_wp_cli        = @opts.fetch("no_wp_cli")        { false }
+        @project.no_db            = @opts.fetch("no_db")            { false }
+        @project.no_env           = @opts.fetch("no_env")           { false }
+        @project.no_config        = @opts.fetch("no_config")        { false }
+        @project.wp_config_modify = @opts.fetch("wp_config_modify") { false }
+        @project.name             = @opts.fetch("name")             { name }
+        @project.location         = @opts.fetch("location")         { location }
+        @project.url              = @opts.fetch("url")              { url }
+        @project.xip_url          = @opts.fetch("xip_url")          { xip_url }
+        @project.template         = @opts.fetch("template")         { template }
+        @project.repository       = @opts.fetch("repository")       { repository }
+        @project.db_host          = @opts.fetch("db_host")          { db_host }
+        @project.db_name          = @opts.fetch("db_name")          { db_name }
+        @project.db_user          = @opts.fetch("db_user")          { db_user }
+        @project.db_pass          = @opts.fetch("db_pass")          { db_pass }
+        @project.db_import        = @opts.fetch("db_import")        { db_import }
       end
 
       def name
@@ -144,7 +152,11 @@ module ThemeJuice
           when /(theme-juice)/
             @io.say "Awesome choice!", :color => :green, :icon => :success
           when /(wordpress)/
-            @io.say "This is a stock WordPress install, so things such as the '.env' file will not be set up. You'll need to input your database information manually after the setup.", {
+            @project.wp_config_modify = true
+            @project.no_config        = true
+            @project.no_wp_cli        = true
+            @project.no_env           = true
+            @io.say "This is a stock WordPress install, so I'll go ahead and modify the 'wp-config' file for you.", {
               :color => :yellow, :icon => :notice }
           when /(other)/
             TEMPLATES[choice] = @io.ask "What is the repository URL of the starter template that you would like to clone?"

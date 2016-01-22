@@ -9,6 +9,8 @@ module ThemeJuice
     @config  = nil
 
     def command(cmd, *args)
+      return if @project.no_config
+
       commands.fetch("#{cmd}") {
         @io.error "Command '#{cmd}' not found in config", NotImplementedError }
         .each { |c| run format_command(c, *args) }

@@ -25,7 +25,11 @@ module ThemeJuice
     attr_accessor :skip_db
     attr_accessor :use_defaults
     attr_accessor :no_wp
+    attr_accessor :no_wp_cli
     attr_accessor :no_db
+    attr_accessor :no_env
+    attr_accessor :no_config
+    attr_accessor :wp_config_modify
 
     def vm_root
       @vm_root ||= File.expand_path("#{Env.vm_path}/www")

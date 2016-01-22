@@ -38,6 +38,23 @@ describe ThemeJuice::Tasks::WPCLI do
       end
     end
 
+    context "when Project.no_wp_cli is false" do
+
+      before do
+        allow(@project).to receive(:no_wp_cli).and_return false
+      end
+
+      it "should create wp-cli local file" do
+        output = capture(:stdout) { @task.execute }
+
+        expect(File.binread(@file)).to match /wp-cli-test\.dev/
+        expect(File.binread(@file)).to match /\/srv\/www\/wp-cli-test\//
+        expect(File.binread(@file)).to match /\/tj-vagrant-test/
+
+        expect(output).to match /create/
+      end
+    end
+
     context "when Project.no_wp is true" do
 
       before do
@@ -50,10 +67,23 @@ describe ThemeJuice::Tasks::WPCLI do
         expect(File.exist?(@file)).to be false
       end
     end
+
+    context "when Project.no_wp_cli is true" do
+
+      before do
+        allow(@project).to receive(:no_wp_cli).and_return true
+      end
+
+      it "should not create wp-cli local file" do
+        output = capture(:stdout) { @task.execute }
+
+        expect(File.exist?(@file)).to be false
+      end
+    end
   end
 
   describe "#unexecute" do
-    it "should remove nginx conf file" do
+    it "should remove wp-cli local file" do
       output = capture(:stdout) do
         @task.execute
         @task.unexecute

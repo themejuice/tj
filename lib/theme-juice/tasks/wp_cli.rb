@@ -27,7 +27,7 @@ module ThemeJuice
       end
 
       def create_wp_cli_file
-        return if wp_cli_is_setup? || @project.no_wp
+        return if wp_cli_is_setup? || @project.no_wp_cli || @project.no_wp
 
         @io.log "Creating WP-CLI file"
         @util.create_file wp_cli_file, { :verbose => @env.verbose,

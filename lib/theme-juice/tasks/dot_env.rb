@@ -9,7 +9,7 @@ module ThemeJuice
       end
 
       def execute
-        return if @project.no_wp
+        return if @project.no_env || @project.no_wp
 
         create_dot_env_file
       end

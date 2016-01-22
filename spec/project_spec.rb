@@ -25,7 +25,11 @@ describe ThemeJuice::Project do
   it { is_expected.to respond_to :skip_db }
   it { is_expected.to respond_to :use_defaults }
   it { is_expected.to respond_to :no_wp }
+  it { is_expected.to respond_to :no_wp_cli }
   it { is_expected.to respond_to :no_db }
+  it { is_expected.to respond_to :no_env }
+  it { is_expected.to respond_to :no_config }
+  it { is_expected.to respond_to :wp_config_modify }
 
   describe ".inspect" do
     it "should return an array of all instance variables" do
