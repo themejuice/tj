@@ -78,8 +78,9 @@ module ThemeJuice
       root = File.expand_path "../man", __FILE__
       man = ["tj", command].compact.join("-")
       begin
-        shell_escaped_man_path = "#{root}/#{man}".shellescape
-        if File.exist? shell_escaped_man_path
+        man_path = "#{root}/#{man}"
+        if File.exist? man_path
+          shell_escaped_man_path = man_path.shellescape
           if OS.windows?
             @io.say File.read "#{shell_escaped_man_path}.txt", :color => :white
           else
