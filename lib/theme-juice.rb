@@ -4,6 +4,7 @@ require "thor"
 require "faker"
 require "os"
 require "yaml"
+require "shellwords"
 require "capistrano/all"
 
 module ThemeJuice

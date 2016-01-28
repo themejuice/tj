@@ -78,11 +78,12 @@ module ThemeJuice
       root = File.expand_path "../man", __FILE__
       man = ["tj", command].compact.join("-")
       begin
-        if File.exist? "#{root}/#{man}"
+        shell_escaped_man_path = "#{root}/#{man}".shellescape
+        if File.exist? shell_escaped_man_path
           if OS.windows?
-            @io.say File.read "#{root}/#{man}.txt", :color => :white
+            @io.say File.read "#{shell_escaped_man_path}.txt", :color => :white
           else
-            @util.run "man #{root}/#{man}", :verbose => @env.verbose
+            @util.run "man #{shell_escaped_man_path}", :verbose => @env.verbose
           end
         else
           @io.say "No man page available for '#{command}'", :color => :red
