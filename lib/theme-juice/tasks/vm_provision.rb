@@ -9,7 +9,9 @@ module ThemeJuice
       end
 
       def execute
-        if @io.agree? "In order to complete the process, you need to provision the VM. Do it now?"
+        if @project.no_provision
+          @io.notice "Skipping provision..."
+        elsif @io.agree? "In order to complete the process, you need to provision the VM. Do it now?"
           provision
         else
           @io.notice "Remember, the VM needs to be provisioned before your changes take effect"

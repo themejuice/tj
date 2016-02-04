@@ -138,6 +138,7 @@ module ThemeJuice
     method_option :no_wp_cli,        :type => :boolean, :aliases => %w[--no-wp-cli-config], :desc => ""
     method_option :no_db,            :type => :boolean,                                     :desc => ""
     method_option :no_env,           :type => :boolean,                                     :desc => ""
+    method_option :no_provision,     :type => :boolean, :aliases => %w[--no-restart],       :desc => ""
     method_option :no_config,        :type => :boolean, :aliases => %w[--no-juicefile],     :desc => ""
     method_option :wp_config_modify, :type => :boolean, :aliases => %w[--modify-wp-config], :desc => ""
     def create
@@ -146,26 +147,31 @@ module ThemeJuice
     end
 
     desc "setup", "Setup existing project"
-    method_option :name,         :type => :string,  :aliases => "-n", :default => nil, :desc => ""
-    method_option :location,     :type => :string,  :aliases => "-l", :default => nil, :desc => ""
-    method_option :url,          :type => :string,  :aliases => "-u", :default => nil, :desc => ""
-    method_option :repository,   :type => :string,  :aliases => "-r",                  :desc => ""
-    method_option :db_import,    :type => :string,  :aliases => %w[-i --import-db],    :desc => ""
-    method_option :skip_repo,    :type => :boolean,                                    :desc => ""
-    method_option :skip_db,      :type => :boolean,                                    :desc => ""
-    method_option :use_defaults, :type => :boolean,                                    :desc => ""
-    method_option :no_wp,        :type => :boolean,                                    :desc => ""
-    method_option :no_db,        :type => :boolean,                                    :desc => ""
+    method_option :name,             :type => :string,  :aliases => "-n", :default => nil,  :desc => ""
+    method_option :location,         :type => :string,  :aliases => "-l", :default => nil,  :desc => ""
+    method_option :url,              :type => :string,  :aliases => "-u", :default => nil,  :desc => ""
+    method_option :repository,       :type => :string,  :aliases => "-r",                   :desc => ""
+    method_option :db_import,        :type => :string,  :aliases => %w[-i --import-db],     :desc => ""
+    method_option :skip_repo,        :type => :boolean,                                     :desc => ""
+    method_option :skip_db,          :type => :boolean,                                     :desc => ""
+    method_option :use_defaults,     :type => :boolean,                                     :desc => ""
+    method_option :no_wp,            :type => :boolean,                                     :desc => ""
+    method_option :no_wp_cli,        :type => :boolean, :aliases => %w[--no-wp-cli-config], :desc => ""
+    method_option :no_db,            :type => :boolean,                                     :desc => ""
+    method_option :no_env,           :type => :boolean,                                     :desc => ""
+    method_option :no_provision,     :type => :boolean, :aliases => %w[--no-restart],       :desc => ""
+    method_option :no_config,        :type => :boolean, :aliases => %w[--no-juicefile],     :desc => ""
+    method_option :wp_config_modify, :type => :boolean, :aliases => %w[--modify-wp-config], :desc => ""
     def setup
       @io.hello
       @create.new(options.dup.merge(:bare => true)).execute
     end
 
     desc "delete", "Delete a project (does not delete local project)"
-    method_option :name,       :type => :string,  :aliases => "-n", :default => nil, :desc => ""
-    method_option :url,        :type => :string,  :aliases => "-u", :default => nil, :desc => ""
-    method_option :db_drop,    :type => :boolean, :aliases => "--drop-db",           :desc => ""
-    method_option :vm_restart, :type => :boolean, :aliases => "--restart-vm",        :desc => ""
+    method_option :name,       :type => :string,  :aliases => "-n", :default => nil,      :desc => ""
+    method_option :url,        :type => :string,  :aliases => "-u", :default => nil,      :desc => ""
+    method_option :db_drop,    :type => :boolean, :aliases => "--drop-db",                :desc => ""
+    method_option :vm_restart, :type => :boolean, :aliases => %w[--restart-vm --restart], :desc => ""
     def delete
       @delete.new(options).unexecute
     end

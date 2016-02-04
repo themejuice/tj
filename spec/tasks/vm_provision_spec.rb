@@ -67,6 +67,35 @@ describe ThemeJuice::Tasks::VMProvision do
         expect(output).to_not match /vagrant halt/
       end
     end
+
+    context "when Project.no_provision is set to false" do
+
+      before do
+        allow(@project).to receive(:no_provision).and_return false
+      end
+
+      it "should restart vagrant" do
+        expect(thor_stdin).to receive(:readline).with(kind_of(String),
+          kind_of(Hash)).once.and_return "Y"
+
+        output = capture(:stdout) { @task.execute }
+
+        expect(output).to match /vagrant up --provision/
+      end
+    end
+
+    context "when Project.no_provision is set to true" do
+
+      before do
+        allow(@project).to receive(:no_provision).and_return true
+      end
+
+      it "should not restart vagrant" do
+        output = capture(:stdout) { @task.execute }
+
+        expect(output).to_not match /vagrant up --provision/
+      end
+    end
   end
 
   describe "#unexecute" do

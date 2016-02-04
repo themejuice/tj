@@ -28,6 +28,7 @@ describe ThemeJuice::Project do
   it { is_expected.to respond_to :no_wp_cli }
   it { is_expected.to respond_to :no_db }
   it { is_expected.to respond_to :no_env }
+  it { is_expected.to respond_to :no_provision }
   it { is_expected.to respond_to :no_config }
   it { is_expected.to respond_to :wp_config_modify }
 
