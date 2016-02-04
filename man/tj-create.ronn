@@ -70,6 +70,9 @@ access your new project at the specified url. It's that easy!
   * `--no-env`:
     Project does not need a `.env` file
 
+  * `--no-provision`, `--no-restart`:
+    Do not provision VM after create(1)
+
   * `--no-config`, `--no-juicefile`:
     Project does not have a Juicefile(5) config
 
