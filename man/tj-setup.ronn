@@ -40,5 +40,18 @@ essentially an alias for `tj create --bare`.
   * `--no-wp`:
     Project is not a wordpress(7) install
 
+  * `--no-wp-cli`, `--no-wp-cli-config`:
+    Skip creating the local wp-cli(1) config file
+
   * `--no-db`:
     Project does not need a database
+
+  * `--no-env`:
+    Project does not need a `.env` file
+
+  * `--no-config`, `--no-juicefile`:
+    Project does not have a Juicefile(5) config
+
+  * `--modify-wp-config`, `--wp-config-modify`:
+    Modify `wp-config.php` file contents with project configuration (this flag
+    automatically disables the `.env` file when used)
