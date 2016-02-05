@@ -22,12 +22,32 @@ describe ThemeJuice::Tasks::Database do
   end
 
   describe "#execute" do
-    it "should append project info to custom database file" do
-      output = capture(:stdout) { @task.execute }
 
-      expect(File.binread(@file)).to match /test_db_name/
-      expect(File.binread(@file)).to match /test_db_user/
-      expect(File.binread(@file)).to match /test_db_pass/
+    context "when custom database file does exist" do
+      it "should append project info to custom database file" do
+        output = capture(:stdout) { @task.execute }
+
+        expect(File.binread(@file)).to match /test_db_name/
+        expect(File.binread(@file)).to match /test_db_user/
+        expect(File.binread(@file)).to match /test_db_pass/
+      end
+    end
+
+    context "when custom database file does not exist" do
+
+      it "should create the custom database file" do
+        output = capture(:stdout) { @task.execute }
+
+        expect(File.exist?(@file)).to equal true
+      end
+
+      it "should append project info to custom database file" do
+        output = capture(:stdout) { @task.execute }
+
+        expect(File.binread(@file)).to match /test_db_name/
+        expect(File.binread(@file)).to match /test_db_user/
+        expect(File.binread(@file)).to match /test_db_pass/
+      end
     end
   end
 
