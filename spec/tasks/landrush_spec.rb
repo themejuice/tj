@@ -2,11 +2,11 @@ describe ThemeJuice::Tasks::Landrush do
 
   before do
     @env = ThemeJuice::Env
-    
+
     allow(@env).to receive(:vm_path).and_return File.expand_path("~/tj-vagrant-test")
     allow(@env).to receive(:verbose).and_return true
     allow(@env).to receive(:no_landrush).and_return false
-    
+
     FileUtils.mkdir_p "#{@env.vm_path}"
     FileUtils.touch "#{@env.vm_path}/Customfile"
   end
@@ -19,19 +19,21 @@ describe ThemeJuice::Tasks::Landrush do
   describe "#execute" do
     it "should append dns info to customfile" do
       output = capture(:stdout) { @task.execute }
-      
+
       expect(File.binread(@file)).to match /config\.landrush\.enabled = true/
       expect(File.binread(@file)).to match /config\.landrush\.tld = 'dev'/
+      expect(File.binread(@file)).to match /config\.landrush\.host 'vvv.dev', '192.168.50.4'/
     end
   end
 
   describe "#unexecute" do
     it "should gsub dns info from customfile" do
       output = capture(:stdout) { @task.unexecute }
-      
+
       expect(File.binread(@file)).not_to match /config\.landrush\.enabled = true/
       expect(File.binread(@file)).not_to match /config\.landrush\.tld = 'dev'/
-      
+      expect(File.binread(@file)).not_to match /config\.landrush\.host 'vvv.dev', '192.168.50.4'/
+
       expect(output).to match /gsub/
     end
   end
