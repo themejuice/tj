@@ -29,7 +29,7 @@ module ThemeJuice
 
       def create_entry(&block)
         return if entry_is_setup?
-        
+
         @io.log "Creating #{@entry.fetch(:name)} entry"
         @util.append_to_file @entry.fetch(:file), { :verbose => @env.verbose,
           :capture => @env.quiet } do
@@ -43,6 +43,8 @@ module ThemeJuice
       end
 
       def remove_entry
+        return unless entry_file_is_setup?
+
         @io.log "Removing #{@entry.fetch(:name)} entry"
         @util.gsub_file @entry.fetch(:file), /(#(#*)? Begin '#{@entry.fetch(:project)}' #{@entry.fetch(:id)})(.*?)(#(#*)? End '#{@entry.fetch(:project)}' #{@entry.fetch(:id)})\n+/m,
           "", { :verbose => @env.verbose, :capture => @env.quiet }
