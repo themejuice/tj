@@ -13,7 +13,6 @@ describe ThemeJuice::Tasks::Database do
     allow(@project).to receive(:db_pass).and_return "test_db_pass"
 
     FileUtils.mkdir_p "#{@env.vm_path}/database"
-    FileUtils.touch "#{@env.vm_path}/database/init-custom.sql"
   end
 
   before :each do
@@ -24,6 +23,11 @@ describe ThemeJuice::Tasks::Database do
   describe "#execute" do
 
     context "when custom database file does exist" do
+
+      before do
+        FileUtils.touch "#{@env.vm_path}/database/init-custom.sql"
+      end
+
       it "should append project info to custom database file" do
         output = capture(:stdout) { @task.execute }
 
@@ -36,6 +40,8 @@ describe ThemeJuice::Tasks::Database do
     context "when custom database file does not exist" do
 
       it "should create the custom database file" do
+        expect(File.exist?(@file)).to equal false
+
         output = capture(:stdout) { @task.execute }
 
         expect(File.exist?(@file)).to equal true
@@ -53,19 +59,38 @@ describe ThemeJuice::Tasks::Database do
 
   describe "#unexecute" do
 
-    it "should gsub project info from custom database file" do
-      output = capture(:stdout) { @task.unexecute }
+    context "when custom database file does exist" do
 
-      expect(File.binread(@file)).not_to match /test_db_name/
-      expect(File.binread(@file)).not_to match /test_db_user/
-      expect(File.binread(@file)).not_to match /test_db_pass/
+      before do
+        FileUtils.touch "#{@env.vm_path}/database/init-custom.sql"
+      end
 
-      expect(output).to match /gsub/
+      it "should gsub project info from custom database file" do
+        output = capture(:stdout) { @task.unexecute }
+
+        expect(File.binread(@file)).not_to match /test_db_name/
+        expect(File.binread(@file)).not_to match /test_db_user/
+        expect(File.binread(@file)).not_to match /test_db_pass/
+
+        expect(output).to match /gsub/
+      end
+    end
+
+    context "when custom database file does not exist" do
+      it "should not gsub project info from non-existent file" do
+        output = capture(:stdout) { @task.unexecute }
+
+        expect(File.exist?(@file)).to equal false
+
+        expect(output).to_not match /gsub/
+      end
     end
 
     context "when Project.db_drop is set to true" do
 
       before do
+        FileUtils.touch "#{@env.vm_path}/database/init-custom.sql"
+
         allow(@env).to receive(:dryrun).and_return true
         allow(@project).to receive(:db_drop).and_return true
       end
@@ -92,6 +117,8 @@ describe ThemeJuice::Tasks::Database do
     context "when Project.db_drop is set to false" do
 
       before do
+        FileUtils.touch "#{@env.vm_path}/database/init-custom.sql"
+
         allow(@project).to receive(:db_drop).and_return false
       end
 
