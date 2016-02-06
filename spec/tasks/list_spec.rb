@@ -5,8 +5,8 @@ describe ThemeJuice::Tasks::List do
     @project = ThemeJuice::Project
 
     allow(@env).to receive(:vm_path).and_return File.expand_path("~/tj-vagrant-test")
+    allow(@env).to receive(:vm_prefix).and_return "prefix-"
     allow(@project).to receive(:vm_root).and_return "#{@env.vm_path}/www"
-    allow(@project).to receive(:vm_prefix).and_return "prefix-"
     allow_any_instance_of(Kernel).to receive(:`).with(/vagrant/).and_return %Q{
 vvv                       192.168.50.4
 4.50.168.192.in-addr.arpa test4.dev
@@ -41,12 +41,28 @@ test4.dev                 192.168.50.4
   end
 
   describe "#projects" do
+
+    before :each do
+      FileUtils.mkdir_p "#{@project.vm_root}/prefix-test-1"
+      FileUtils.mkdir_p "#{@project.vm_root}/prefix-test-2"
+    end
+
     it "should return an array of project names" do
       expect(@task.projects).to be_a Array
+    end
+
+    it "should return an array that includes test projects" do
+      expect(@task.projects).to include /test-1/
+      expect(@task.projects).to include /test-2/
+    end
+
+    it "should return an array that does not include test projects" do
+      expect(@task.projects).to_not include /test-3/
     end
   end
 
   describe "#urls" do
+
     it "should return an array of domain names" do
       expect(@task.urls).to be_a Array
     end
