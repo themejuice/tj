@@ -10,7 +10,8 @@ describe ThemeJuice::Tasks::VMBox do
   end
 
   before :each do
-    @task = ThemeJuice::Tasks::VMBox.new
+    @task    = ThemeJuice::Tasks::VMBox.new
+    @vm_path = @env.vm_path.gsub /\//, "." # Thor formats `/` (delimiter) as `.`
   end
 
   describe "#execute" do
@@ -22,7 +23,7 @@ describe ThemeJuice::Tasks::VMBox do
 
         expect(output).to match /git clone/
         expect(output).to match /#{@env.vm_box}/
-        expect(output).to match /#{@env.vm_path}/
+        expect(output).to match /#{@vm_path}/
       end
     end
 
@@ -38,7 +39,7 @@ describe ThemeJuice::Tasks::VMBox do
 
         expect(output).to_not match /git clone/
         expect(output).to_not match /#{@env.vm_box}/
-        expect(output).to_not match /#{@env.vm_path}/
+        expect(output).to_not match /#{@vm_path}/
       end
     end
   end

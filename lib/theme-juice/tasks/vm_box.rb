@@ -22,8 +22,10 @@ module ThemeJuice
         return if box_is_installed?
 
         @io.log "Installing Vagrant box"
-        @util.run "git clone #{@env.vm_box} #{@env.vm_path} --depth 1", {
-          :verbose => @env.verbose, :capture => @env.quiet }
+        @util.inside @env.vm_path do
+          @util.run "git clone #{@env.vm_box} . --depth 1", {
+            :verbose => @env.verbose, :capture => @env.quiet }
+        end
       end
     end
   end
