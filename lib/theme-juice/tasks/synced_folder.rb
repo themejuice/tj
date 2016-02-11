@@ -18,7 +18,7 @@ module ThemeJuice
       def execute
         create_entry_file
         create_entry do
-          %Q{config.vm.synced_folder '#{@project.location}', '/srv/www/tj-#{@project.name}', mount_options: ['dmode=777','fmode=777']}
+          %Q{config.vm.synced_folder '#{@project.location}', '/srv/www/tj-#{@project.name}', :owner => 'vagrant', :group => 'www-data', :mount_options => ['dmode=777', 'fmode=777']}
         end
       end
 
