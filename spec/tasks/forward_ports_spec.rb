@@ -21,8 +21,8 @@ describe ThemeJuice::Tasks::ForwardPorts do
     it "should append port forwarding info to customfile" do
       output = capture(:stdout) { @task.execute }
 
-      expect(File.binread(@file)).to match /config\.vm\.network "forwarded_port", guest: 80,  host: 8080/
-      expect(File.binread(@file)).to match /config\.vm\.network "forwarded_port", guest: 443, host: 8443/
+      expect(File.binread(@file)).to match /config\.vm\.network "forwarded_port", :guest => 80,  :host => 8080/
+      expect(File.binread(@file)).to match /config\.vm\.network "forwarded_port", :guest => 443, :host => 8443/
 
       expect(output).to match /append/
     end
@@ -57,8 +57,8 @@ describe ThemeJuice::Tasks::ForwardPorts do
 
         output = capture(:stdout) { @task.execute }
 
-        expect(File.binread(@file)).to_not match /config\.vm\.network "forwarded_port", guest: 80,  host: 8080/
-        expect(File.binread(@file)).to_not match /config\.vm\.network "forwarded_port", guest: 443, host: 8443/
+        expect(File.binread(@file)).to_not match /config\.vm\.network "forwarded_port", :guest => 80,  :host => 8080/
+        expect(File.binread(@file)).to_not match /config\.vm\.network "forwarded_port", :guest => 443, :host => 8443/
 
         expect(output).to_not match /append/
       end
@@ -69,8 +69,8 @@ describe ThemeJuice::Tasks::ForwardPorts do
     it "should gsub port forwarding info from customfile" do
       output = capture(:stdout) { @task.unexecute }
 
-      expect(File.binread(@file)).not_to match /config\.vm\.network "forwarded_port", guest: 80,  host: 8080/
-      expect(File.binread(@file)).not_to match /config\.vm\.network "forwarded_port", guest: 443, host: 8443/
+      expect(File.binread(@file)).not_to match /config\.vm\.network "forwarded_port", :guest => 80,  :host => 8080/
+      expect(File.binread(@file)).not_to match /config\.vm\.network "forwarded_port", :guest => 443, :host => 8443/
 
       expect(output).to match /gsub/
     end
