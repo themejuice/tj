@@ -190,7 +190,7 @@ module ThemeJuice
           return false if @project.no_db
 
           default = case task
-                    when "host" then "vvv"
+                    when "host" then "localhost"
                     when "name" then "#{clean_name}_db"
                     when "user" then "#{clean_name}_user"
                     when "pass" then Faker::Internet.password(24)
