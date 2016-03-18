@@ -17,6 +17,22 @@ namespace :rsync do
     end
   end
 
+  after "deploy:starting", :pre_scripts do
+    on roles(:app) do
+      within current_path do
+        fetch(:rsync_pre_scripts, []).each { |t| execute t }
+      end
+    end
+  end
+
+  after "deploy:finishing", :post_scripts do
+    on roles(:app) do
+      within current_path do
+        fetch(:rsync_post_scripts, []).each { |t| execute t }
+      end
+    end
+  end
+
   after "deploy:finished", :clean do
     run_locally do
       return if Pathname.new(fetch(:rsync_stage)).absolute?
