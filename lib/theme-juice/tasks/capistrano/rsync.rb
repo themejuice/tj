@@ -17,17 +17,17 @@ namespace :rsync do
     end
   end
 
-  after "deploy:starting", :pre_scripts do
+  after "deploy:started", :pre_scripts do
     on roles(:app) do
-      within current_path do
+      within fetch(:deploy_to) do
         fetch(:rsync_pre_scripts, []).each { |t| execute t }
       end
     end
   end
 
-  after "deploy:finishing", :post_scripts do
+  after "deploy:finished", :post_scripts do
     on roles(:app) do
-      within current_path do
+      within fetch(:deploy_to) do
         fetch(:rsync_post_scripts, []).each { |t| execute t }
       end
     end
