@@ -141,6 +141,7 @@ module ThemeJuice
     method_option :no_provision,     :type => :boolean, :aliases => %w[--no-restart],       :desc => ""
     method_option :no_config,        :type => :boolean, :aliases => %w[--no-juicefile],     :desc => ""
     method_option :wp_config_modify, :type => :boolean, :aliases => %w[--modify-wp-config], :desc => ""
+    method_option :no_ssl,           :type => :boolean, :aliases => %w[--no-https],         :desc => ""
     def create
       @io.hello
       @create.new(options).execute
@@ -162,6 +163,7 @@ module ThemeJuice
     method_option :no_provision,     :type => :boolean, :aliases => %w[--no-restart],       :desc => ""
     method_option :no_config,        :type => :boolean, :aliases => %w[--no-juicefile],     :desc => ""
     method_option :wp_config_modify, :type => :boolean, :aliases => %w[--modify-wp-config], :desc => ""
+    method_option :no_ssl,           :type => :boolean, :aliases => %w[--no-https],         :desc => ""
     def setup
       @io.hello
       @create.new(options.dup.merge(:bare => true)).execute

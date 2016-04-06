@@ -28,17 +28,16 @@ module ThemeJuice
 
       def create_nginx_file
         return if nginx_is_setup?
-        
+
         @io.log "Creating nginx conf file"
         @util.create_file nginx_file, { :verbose => @env.verbose,
           :capture => @env.quiet } do
 %Q(server {
   listen       80;
-  listen       443 ssl;
   server_name  .#{@project.url} ~(^|^[a-z0-9.-]*\\.)#{@project.xip_url}\\.\\d+\\.\\d+\\.\\d+\\.\\d+\\.xip\\.io$;
   root         #{@project.vm_srv};
   include      /etc/nginx/nginx-wp-common.conf;
-}
+#{ssl_configuration}}
 
 )
         end
@@ -48,6 +47,15 @@ module ThemeJuice
         @io.log "Removing nginx conf file"
         @util.remove_file nginx_file, { :verbose => @env.verbose,
           :capture => @env.quiet }
+      end
+
+      def ssl_configuration
+        return if @project.no_ssl
+%Q{
+  listen              443 ssl;
+  ssl_certificate     {vvv_path_to_folder}/ssl/#{@project.url}.cert;
+  ssl_certificate_key {vvv_path_to_folder}/ssl/#{@project.url}.key;
+}
       end
     end
   end

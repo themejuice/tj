@@ -28,7 +28,7 @@ module ThemeJuice
 
       def create_apache_file
         return if apache_is_setup?
-        
+
         @io.log "Creating apache conf file"
         @util.create_file apache_file, { :verbose => @env.verbose,
           :capture => @env.quiet } do
@@ -38,6 +38,7 @@ module ThemeJuice
   ServerAlias *.#{@project.url} #{@project.xip_url}.*.xip.io *.#{@project.xip_url}.*.xip.io
 </VirtualHost>
 
+#{ssl_configuration}
 }
         end
       end
@@ -46,6 +47,19 @@ module ThemeJuice
         @io.log "Removing apache conf file"
         @util.remove_file apache_file, { :verbose => @env.verbose,
           :capture => @env.quiet }
+      end
+
+      def ssl_configuration
+        return if @project.no_ssl
+%Q{<VirtualHost *:443>
+  DocumentRoot #{@project.vm_srv}
+  ServerName #{@project.url}
+  SSLEngine on
+  SSLCertificateFile "/etc/ssl/certs/#{@project.url}.pem"
+  SSLCertificateKeyFile "/etc/ssl/private/#{@project.url}.key"
+</VirtualHost>
+
+}
       end
     end
   end

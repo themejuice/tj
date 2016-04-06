@@ -60,6 +60,7 @@ module ThemeJuice
         @project.wp_config_modify = @opts.fetch("wp_config_modify") { false }
         @project.no_config        = @opts.fetch("no_config")        { false }
         @project.no_provision     = @opts.fetch("no_provision")     { false }
+        @project.no_ssl           = @opts.fetch("no_ssl")           { false }
         @project.no_env           = @opts.fetch("no_env")           { @project.wp_config_modify }
         @project.name             = @opts.fetch("name")             { name }
         @project.location         = @opts.fetch("location")         { location }

@@ -58,3 +58,6 @@ essentially an alias for `tj create --bare`.
   * `--modify-wp-config`, `--wp-config-modify`:
     Modify `wp-config.php` file contents with project configuration (this flag
     automatically disables the `.env` file when used)
+
+  * `--no-ssl`, `--no-https`:
+    Project does not need SSL support

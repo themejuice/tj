@@ -117,6 +117,7 @@ Or, you can also check out [themejuice.it](http://themejuice.it) for a pretty we
 1. [Can I access a project from another device (i.e. mobile)?](#can-i-access-a-project-from-another-device-ie-mobile)
 1. [Can I add my starter template, ________?](#can-i-add-my-starter-template-________)
 1. [Can I integrate my deployments with Slack?](#can-i-integrate-my-deployments-with-slack)
+1. [Can I use a self-signed SSL cert?](#can-i-use-a-self-signed-ssl-cert)
 1. [Troubleshooting](#troubleshooting)
 
 ### Is Windows supported?
@@ -274,6 +275,9 @@ deployment:
 ```
 
 Check out [capistrano-slackify](https://github.com/onthebeach/capistrano-slackify) for more information.
+
+### Can I use a self-signed SSL cert?
+Yes, unless you used the `--no-ssl` flag, `tj` will set up each new site to support SSL, [and the VM will generate a new self-signed certificate](https://github.com/ezekg/theme-juice-vvv#automatically-generated-self-signed-ssl-certs). In order to take advantage of it, [you'll need to accept the self-signed certificate on your host machine](https://github.com/ezekg/theme-juice-vvv#accepting-a-self-signed-ssl-cert).
 
 ## Troubleshooting
 

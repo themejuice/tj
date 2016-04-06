@@ -10,6 +10,7 @@ describe ThemeJuice::Tasks::Apache do
     allow(@project).to receive(:url).and_return "apache-test.dev"
     allow(@project).to receive(:xip_url).and_return "apache-test"
     allow(@project).to receive(:vm_srv).and_return "/srv/www/apache-test/"
+    allow(@project).to receive(:no_ssl).and_return false
 
     FileUtils.mkdir_p "#{@env.vm_path}/config/apache-config/sites"
   end
@@ -28,6 +29,37 @@ describe ThemeJuice::Tasks::Apache do
       expect(File.binread(@file)).to include '*.apache-test.*.xip.io'
 
       expect(output).to match /create/
+    end
+
+    context "when Project.no_ssl is false" do
+      it "should create apache conf file with SSL info" do
+        output = capture(:stdout) { @task.execute }
+
+        expect(File.binread(@file)).to include '<VirtualHost *:443>'
+        expect(File.binread(@file)).to include 'SSLEngine on'
+        expect(File.binread(@file)).to include 'SSLCertificateFile "/etc/ssl/certs/apache-test.dev.pem"'
+        expect(File.binread(@file)).to include 'SSLCertificateKeyFile "/etc/ssl/private/apache-test.dev.key"'
+
+        expect(output).to match /create/
+      end
+    end
+
+    context "when Project.no_ssl is true" do
+
+      before do
+        allow(@project).to receive(:no_ssl).and_return true
+      end
+
+      it "should not create apache conf file with SSL info" do
+        output = capture(:stdout) { @task.execute }
+
+        expect(File.binread(@file)).to_not include '<VirtualHost *:443>'
+        expect(File.binread(@file)).to_not include 'SSLEngine on'
+        expect(File.binread(@file)).to_not include 'SSLCertificateFile "/etc/ssl/certs/apache-test.dev.pem"'
+        expect(File.binread(@file)).to_not include 'SSLCertificateKeyFile "/etc/ssl/private/apache-test.dev.key"'
+
+        expect(output).to match /create/
+      end
     end
   end
 
