@@ -1,6 +1,7 @@
 describe ThemeJuice::Config do
 
   before :each do
+    @env = ThemeJuice::Env
     @config = ThemeJuice::Config
   end
 
@@ -91,6 +92,43 @@ commands:
         it "should handle running multiple commands" do
           allow(stdout).to receive :print
           expect { @config.command :vendor, ["1", "2", "3", "4"] }.to output(/(1:1 2:2)(.*)?(3:3 4:4)/m).to_stdout
+        end
+      end
+
+      context "when receiving a command with the Env.from_path flag" do
+
+        before :each do
+          allow(@env).to receive(:from_path).and_return "/some/path"
+          allow(@env).to receive(:verbose).and_return true
+          expect_any_instance_of(@config).to receive(:config)
+            .once.and_return YAML.load %Q{
+commands:
+  install:
+    - echo "test"
+}
+        end
+
+        it "should exectue the command from the given path" do
+          allow(stdout).to receive :print
+          expect { @config.command :install }.to output(/run\s+echo\s+"test"\s+from\s+"\/some\/path"/).to_stdout
+        end
+      end
+
+      context "when receiving a command without the Env.from_path flag" do
+
+        before :each do
+          allow(@env).to receive(:verbose).and_return true
+          expect_any_instance_of(@config).to receive(:config)
+            .once.and_return YAML.load %Q{
+commands:
+  install:
+    - echo "test"
+}
+        end
+
+        it "should exectue the command from the current path" do
+          allow(stdout).to receive :print
+          expect { @config.command :install }.to output(/run\s+echo\s+"test"\s+from\s+"\/"/).to_stdout
         end
       end
     end

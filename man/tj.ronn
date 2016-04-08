@@ -19,6 +19,10 @@ tj(1) -- WordPress development made easy
   * `--vm-prefix`=<string>:
     Force directory prefix for project in VM*
 
+  * `--from-path`, `--in-path`=<path>:
+    Run Juicefile(5) commands from the passed path instead of the from
+    current directory.
+
   * `--yolo`, `--yes`:
     Say yes to anything and everything, and maybe even get a few surprises
 
@@ -58,8 +62,8 @@ tj(1) -- WordPress development made easy
   * `--nginx`, `--no-apache`:
     Create `conf` files for nginx(7) instead of apache(7)*
 
-  `*` Flag is only applicable on first create(1) before the VM has been
-  created, unless an new (unused) `vm-path` is specified.
+  `*` Flag is really only applicable on init(1) before the VM has been created,
+  unless an new (unused) `vm-path` is specified.
 
   `**` Coming soon (possibly)
 

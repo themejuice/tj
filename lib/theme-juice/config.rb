@@ -37,7 +37,7 @@ module ThemeJuice
     private
 
     def run(command)
-      @util.inside @project.location do
+      @util.inside (@env.from_path || @project.location) do
         @util.run command, { :verbose => @env.verbose,
           :capture => @env.quiet }
       end
@@ -60,7 +60,7 @@ module ThemeJuice
     end
 
     def read_config
-      @project.location ||= Dir.pwd
+      @project.location ||= @env.from_path || Dir.pwd
 
       YAML.load_file Dir["#{@project.location}/*"].select { |f|
         config_regex =~ File.basename(f) }.last ||

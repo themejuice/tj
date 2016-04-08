@@ -27,6 +27,7 @@ module ThemeJuice
         @env.vm_path         = options[:vm_path]
         @env.vm_ip           = options[:vm_ip]
         @env.vm_prefix       = options[:vm_prefix]
+        @env.from_path       = options[:from_path]
         @env.yolo            = options[:yolo]
         @env.boring          = options[:boring]
         @env.no_unicode      = options[:no_unicode]
@@ -55,23 +56,24 @@ module ThemeJuice
     map %w[server remote]          => :deploy
     map %w[vagrant vvv]            => :vm
 
-    class_option :vm_box,          :type => :string,  :default => nil,                    :desc => ""
-    class_option :vm_path,         :type => :string,  :default => nil,                    :desc => ""
-    class_option :vm_ip,           :type => :string,  :default => nil,                    :desc => ""
-    class_option :vm_prefix,       :type => :string,  :default => nil,                    :desc => ""
-    class_option :yolo,            :type => :boolean, :aliases => "--yes",                :desc => ""
-    class_option :boring,          :type => :boolean,                                     :desc => ""
-    class_option :no_unicode,      :type => :boolean,                                     :desc => ""
-    class_option :no_colors,       :type => :boolean, :aliases => "--no-color",           :desc => ""
-    class_option :no_animations,   :type => :boolean,                                     :desc => ""
-    class_option :no_landrush,     :type => :boolean,                                     :desc => ""
-    class_option :no_port_forward, :type => :boolean, :aliases => "--no-port-forwarding", :desc => ""
-    class_option :verbose,         :type => :boolean,                                     :desc => ""
-    class_option :quiet,           :type => :boolean, :aliases => "--shh",                :desc => ""
-    class_option :robot,           :type => :boolean,                                     :desc => ""
-    class_option :trace,           :type => :boolean,                                     :desc => ""
-    class_option :dryrun,          :type => :boolean, :aliases => "--dry-run",            :desc => ""
-    class_option :nginx,           :type => :boolean, :aliases => "--no-apache",          :desc => ""
+    class_option :vm_box,          :type => :string,                           :default => nil, :desc => ""
+    class_option :vm_path,         :type => :string,                           :default => nil, :desc => ""
+    class_option :vm_ip,           :type => :string,                           :default => nil, :desc => ""
+    class_option :vm_prefix,       :type => :string,                           :default => nil, :desc => ""
+    class_option :from_path,       :type => :string,  :aliases => "--in-path", :default => nil, :desc => ""
+    class_option :yolo,            :type => :boolean, :aliases => "--yes",                      :desc => ""
+    class_option :boring,          :type => :boolean,                                           :desc => ""
+    class_option :no_unicode,      :type => :boolean,                                           :desc => ""
+    class_option :no_colors,       :type => :boolean, :aliases => "--no-color",                 :desc => ""
+    class_option :no_animations,   :type => :boolean,                                           :desc => ""
+    class_option :no_landrush,     :type => :boolean,                                           :desc => ""
+    class_option :no_port_forward, :type => :boolean, :aliases => "--no-port-forwarding",       :desc => ""
+    class_option :verbose,         :type => :boolean,                                           :desc => ""
+    class_option :quiet,           :type => :boolean, :aliases => "--shh",                      :desc => ""
+    class_option :robot,           :type => :boolean,                                           :desc => ""
+    class_option :trace,           :type => :boolean,                                           :desc => ""
+    class_option :dryrun,          :type => :boolean, :aliases => "--dry-run",                  :desc => ""
+    class_option :nginx,           :type => :boolean, :aliases => "--no-apache",                :desc => ""
 
     desc "--help, -h", "View man page"
     def help(command = nil)
