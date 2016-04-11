@@ -150,7 +150,7 @@ commands:
         it "should execute the command from inside the VM using cwd as project name" do
           allow(stdout).to receive :print
           expect { @config.command :install }.to output(
-            /run  vagrant ssh -c 'cd \/srv\/www\/project && echo "test"' from "\/Users\/EzekielGabrielse\/tj-vagrant-test"/
+            /run  vagrant ssh -c 'cd \/srv\/www\/project && echo "test"' from "\/[^\/]+\/[^\/]+\/tj-vagrant-test"/
           ).to_stdout
         end
       end
@@ -174,7 +174,7 @@ commands:
         it "should execute the command from the given path inside the VM" do
           allow(stdout).to receive :print
           expect { @config.command :install }.to output(
-            /run  vagrant ssh -c 'cd \/some\/path && echo "test"' from "\/Users\/EzekielGabrielse\/tj-vagrant-test"/
+            /run  vagrant ssh -c 'cd \/some\/path && echo "test"' from "\/[^\/]+\/[^\/]+\/tj-vagrant-test"/
           ).to_stdout
         end
       end
