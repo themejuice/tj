@@ -23,6 +23,14 @@ tj(1) -- WordPress development made easy
     Run Juicefile(5) commands from the passed path instead of the from
     current directory.
 
+  * `--from-srv`, `--in-srv`=<path>:
+    Run Juicefile(5) commands from the passed srv path instead of the from
+    current directory when using the `--inside-vm` flag.
+
+  * `--inside-vm`, `--in-vm`:
+    Run Juicefile(5) commands from inside of the virtual machine instead of
+    your host machine.
+
   * `--yolo`, `--yes`:
     Say yes to anything and everything, and maybe even get a few surprises
 

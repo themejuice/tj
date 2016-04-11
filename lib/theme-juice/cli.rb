@@ -28,6 +28,8 @@ module ThemeJuice
         @env.vm_ip           = options[:vm_ip]
         @env.vm_prefix       = options[:vm_prefix]
         @env.from_path       = options[:from_path]
+        @env.from_srv        = options[:from_srv]
+        @env.inside_vm       = options[:inside_vm]
         @env.yolo            = options[:yolo]
         @env.boring          = options[:boring]
         @env.no_unicode      = options[:no_unicode]
@@ -61,6 +63,8 @@ module ThemeJuice
     class_option :vm_ip,           :type => :string,                           :default => nil, :desc => ""
     class_option :vm_prefix,       :type => :string,                           :default => nil, :desc => ""
     class_option :from_path,       :type => :string,  :aliases => "--in-path", :default => nil, :desc => ""
+    class_option :from_srv,        :type => :string,  :aliases => "--in-srv",  :default => nil, :desc => ""
+    class_option :inside_vm,       :type => :boolean, :aliases => "--in-vm",                    :desc => ""
     class_option :yolo,            :type => :boolean, :aliases => "--yes",                      :desc => ""
     class_option :boring,          :type => :boolean,                                           :desc => ""
     class_option :no_unicode,      :type => :boolean,                                           :desc => ""

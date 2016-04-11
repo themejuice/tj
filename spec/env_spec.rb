@@ -14,6 +14,10 @@ describe ThemeJuice::Env do
   it { is_expected.to respond_to :vm_prefix= }
   it { is_expected.to respond_to :from_path }
   it { is_expected.to respond_to :from_path= }
+  it { is_expected.to respond_to :from_srv }
+  it { is_expected.to respond_to :from_srv= }
+  it { is_expected.to respond_to :inside_vm }
+  it { is_expected.to respond_to :inside_vm= }
   it { is_expected.to respond_to :no_unicode }
   it { is_expected.to respond_to :no_unicode= }
   it { is_expected.to respond_to :no_colors }

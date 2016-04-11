@@ -9,6 +9,8 @@ module ThemeJuice
     attr_accessor :vm_ip
     attr_accessor :vm_prefix
     attr_accessor :from_path
+    attr_accessor :from_srv
+    attr_accessor :inside_vm
     attr_accessor :yolo
     attr_accessor :boring
     attr_accessor :no_unicode
@@ -41,6 +43,18 @@ module ThemeJuice
 
     def vm_prefix=(val)
       @vm_prefix = val || ENV.fetch("TJ_VM_PREFIX") { "tj-" }
+    end
+
+    def from_path=(val)
+      @from_path = val || ENV.fetch("TJ_FROM_PATH") { nil }
+    end
+
+    def from_srv=(val)
+      @from_srv = val || ENV.fetch("TJ_FROM_SRV") { nil }
+    end
+
+    def inside_vm=(val)
+      @inside_vm = val || ENV.fetch("TJ_INSIDE_VM") { false }
     end
 
     def yolo=(val)
