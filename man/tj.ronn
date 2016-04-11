@@ -71,7 +71,7 @@ tj(1) -- WordPress development made easy
     Create `conf` files for nginx(7) instead of apache(7)*
 
   `*` Flag is really only applicable on init(1) before the VM has been created,
-  unless an new (unused) `vm-path` is specified.
+  unless a new (unused) `vm-path` is specified.
 
   `**` Coming soon (possibly)
 
