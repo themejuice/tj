@@ -6,7 +6,9 @@ namespace :env do
   task :push do
     on roles(:app) do
       if File.exist? ".env.#{fetch(:stage)}"
-        upload! ".env.#{fetch(:stage)}", shared_path.join(".env.#{fetch(:stage)}")
+        upload! ".env.#{fetch(:stage)}", shared_path.join(".env.#{fetch(:stage)}"), {
+          mode: "644"
+        }
       else
         error "Could not locate local .env.#{fetch(:stage)} file"
       end
