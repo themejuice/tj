@@ -64,6 +64,7 @@ module ThemeJuice
           cmd.gsub! single_arg_regex(i), arg
         end
       end
+      cmd.gsub! any_arg_regex, ""
       cmd
     end
 
@@ -89,6 +90,10 @@ module ThemeJuice
 
     def config_regex
       %r{^(((\.)?(tj)|((J|j)uicefile))(\.y(a)?ml)?$)}
+    end
+
+    def any_arg_regex
+      %r{(%arg(\w+)?%)|(%argument(\w+)?%)}
     end
 
     def multi_arg_regex

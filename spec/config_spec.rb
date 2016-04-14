@@ -87,12 +87,21 @@ commands:
         it "should reject all flags/switches inside given args" do
           allow(stdout).to receive :print
           expect { @config.command :install, ["a", "b", "-c", "--defg"] }.to_not output(/(-c|--defg)/).to_stdout
+        end
+
+        it "should not reject all non-flag/switch args" do
+          allow(stdout).to receive :print
           expect { @config.command :install, ["a", "b", "-c", "--defg"] }.to output(/a b/).to_stdout
         end
 
         it "should map each arg to specific command" do
           allow(stdout).to receive :print
           expect { @config.command :dist, ["1", "2", "3", "4"] }.to output(/1:1 2:2 3:3 4:4/).to_stdout
+        end
+
+        it "should remove remaining placeholder args" do
+          allow(stdout).to receive :print
+          expect { @config.command :dist, ["1", "2", "3"] }.to output(/1:1 2:2 3:3 4:\s/).to_stdout
         end
 
         it "should handle running multiple commands" do
