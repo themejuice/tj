@@ -67,7 +67,7 @@ commands:
 
         before :each do
           expect_any_instance_of(@config).to receive(:config)
-            .once.and_return YAML.load %Q{
+            .at_least(1).times.and_return YAML.load %Q{
 commands:
   install:
     - "%args%"
@@ -82,6 +82,12 @@ commands:
         it "should map all args to single command" do
           allow(stdout).to receive :print
           expect { @config.command :install, ["1", "2", "3", "4"] }.to output(/1 2 3 4/).to_stdout
+        end
+
+        it "should reject all flags/switches inside given args" do
+          allow(stdout).to receive :print
+          expect { @config.command :install, ["a", "b", "-c", "--defg"] }.to_not output(/(-c|--defg)/).to_stdout
+          expect { @config.command :install, ["a", "b", "-c", "--defg"] }.to output(/a b/).to_stdout
         end
 
         it "should map each arg to specific command" do

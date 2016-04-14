@@ -11,6 +11,9 @@ module ThemeJuice
     def command(cmd, *args)
       return if @project.no_config
 
+      args.map { |arg|
+        arg.reject! { |a| /^-/ =~ a } if arg.is_a?(Array) }
+
       commands.fetch("#{cmd}") {
         @io.error "Command '#{cmd}' not found in config", NotImplementedError }
         .each { |c| cmds = format_command(c, *args)
