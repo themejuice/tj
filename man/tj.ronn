@@ -20,12 +20,12 @@ tj(1) -- WordPress development made easy
     Force directory prefix for project in VM*
 
   * `--from-path`, `--in-path`=<path>:
-    Run Juicefile(5) commands from the passed path instead of the from
+    Run Juicefile(5) commands from the passed path instead of from the
     current directory.
 
   * `--from-srv`, `--in-srv`=<path>:
-    Run Juicefile(5) commands from the passed srv path instead of the from
-    current directory when using the `--inside-vm` flag.
+    Run Juicefile(5) commands from the passed srv path instead of from the
+    current host directory path when using the `--inside-vm` flag.
 
   * `--inside-vm`, `--in-vm`:
     Run Juicefile(5) commands from inside of the virtual machine instead of
