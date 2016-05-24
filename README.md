@@ -281,7 +281,11 @@ Check out [capistrano-slackify](https://github.com/onthebeach/capistrano-slackif
 Yes, unless you used the `--no-ssl` flag, `tj` will set up each new site to support SSL, [and the VM will generate a new self-signed certificate](https://github.com/ezekg/theme-juice-vvv#automatically-generated-self-signed-ssl-certs). In order to take advantage of it, [you'll need to accept the self-signed certificate on your host machine](https://github.com/ezekg/theme-juice-vvv#accepting-a-self-signed-ssl-cert).
 
 ### Can I define my own Capistrano tasks?
-Yes. Within our [starter template](https://github.com/ezekg/theme-juice-starter), you will find a `deploy/` directory, inside is an example task named `task.rb.example`. Open the file and you will see an example task invokable by `tj remote <stage> hello:world`. To learn more about Rake and how you can define your own Capistrano tasks, check out the [official Rake repository](https://github.com/ruby/rake) as well as the [official Capistrano tasks documentation](http://capistranorb.com/documentation/getting-started/tasks/).
+Yes. Any file within a directory called `deploy/` in your project with extensions `.rb`, `.cap` or `.rake` will be automatically loaded by Capistrano.
+
+For example, within our [starter template](https://github.com/ezekg/theme-juice-starter), you will find a `deploy/` directory, inside is an example task named `task.rb.example`. Open the file and you will see an example task invokable by `tj remote <stage> hello:world`.
+
+To learn more about Rake and how you can define your own Capistrano tasks, check out the [official Rake repository](https://github.com/ruby/rake) as well as the [official Capistrano tasks documentation](http://capistranorb.com/documentation/getting-started/tasks/).
 
 If you're interested in checking out `tj`'s predefined tasks, head over [here](https://github.com/ezekg/theme-juice-cli/tree/master/lib/theme-juice/tasks/capistrano). You may override any task with custom functionality by using the same namespace/task name as outlined below,
 
