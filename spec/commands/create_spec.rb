@@ -94,5 +94,21 @@ describe ThemeJuice::Commands::Create do
         expect(@double.send(:location)).to match "/absolute-project-path"
       end
     end
+
+    context "when given a dot for location path" do
+
+      before do
+        allow(Dir).to receive(:pwd).and_return "/the/current/directory"
+      end
+
+      it "should use the current directory" do
+        allow(stdout).to receive :print
+
+        expect(thor_stdin).to receive(:readline).with(kind_of(String),
+          kind_of(Hash)).and_return "."
+
+        expect(@double.send(:location)).to match "/the/current/directory"
+      end
+    end
   end
 end

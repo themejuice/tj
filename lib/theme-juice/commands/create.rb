@@ -64,6 +64,7 @@ module ThemeJuice
         @project.no_env           = @opts.fetch("no_env")           { @project.wp_config_modify }
         @project.name             = @opts.fetch("name")             { name }
         @project.location         = @opts.fetch("location")         { location }
+        @project.location         = "#{Dir.pwd}" if @project.location == "."
         @project.url              = @opts.fetch("url")              { url }
         @project.xip_url          = @opts.fetch("xip_url")          { xip_url }
         @project.template         = @opts.fetch("template")         { template }
