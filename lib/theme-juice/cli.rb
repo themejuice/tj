@@ -121,6 +121,7 @@ module ThemeJuice
     end
 
     desc "init", "Initialize the VM"
+    method_option :no_provision, :type => :boolean, :aliases => %w[--no-restart], :desc => ""
     def init
       @io.say "Initializing the VM...", {
         :color => [:black, :on_green, :bold],

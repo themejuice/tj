@@ -7,6 +7,8 @@ module ThemeJuice
       def initialize(opts = {})
         super
 
+        init_project
+
         runner do |tasks|
           tasks << Tasks::InitConfirm.new
           tasks << Tasks::VMBox.new
@@ -17,6 +19,10 @@ module ThemeJuice
           tasks << Tasks::VMProvision.new
           tasks << Tasks::InitSuccess.new
         end
+      end
+
+      def init_project
+        @project.no_provision = @opts.fetch("no_provision") { false }
       end
     end
   end
