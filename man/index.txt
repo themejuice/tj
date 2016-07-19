@@ -7,7 +7,7 @@ vvv-apache(7)          https://github.com/ezekg/theme-juice-vvv
 wordpress(7)           https://wordpress.org/
 Juicefile(5)           /index
 tj(1)                  /index
-init(1)                /index
+init(1)                /init
 create(1)              /create
 setup(1)               /setup
 delete(1)              /delete

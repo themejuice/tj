@@ -45,6 +45,7 @@ begin
     task :copy do
       cp "docs/templates/src/CNAME", "docs/build"
       cp "docs/templates/src/favicon.ico", "docs/build"
+      cp "docs/templates/src/laboratory.svg", "docs/build"
     end
 
     task :clean do

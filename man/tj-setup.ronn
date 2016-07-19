@@ -49,9 +49,6 @@ essentially an alias for `tj create --bare`.
   * `--no-env`:
     Project does not need a `.env` file
 
-  * `--no-provision`, `--no-restart`:
-    Do not provision VM after setup(1)
-
   * `--no-config`, `--no-juicefile`:
     Project does not have a Juicefile(5) config
 

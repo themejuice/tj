@@ -27,6 +27,8 @@
               %span CLI
 
         %nav.navigation
+          %a.navigation__item(href="/init" title="Initialize the virtual machine")
+            Init
           %a.navigation__item(href="/create" title="Create a new project")
             Create
           %a.navigation__item(href="/setup" title="Setup an existing project")
@@ -47,9 +49,9 @@
             %p
               %strong
                 <code>tj</code> is a command line utility that generates, manages and deploys WordPress development sites.
-            %a(class="button" href="#" alt="Watch the introduction video")
-              %i.fa.fa-play-circle
-              Watch Intro Video
+            %a(class="button" href="https://www.themejuice.it" alt="Download the desktop app")
+              %i.fa.fa-download
+              Get Desktop App
 
     %main.main__wrapper
       .main
@@ -116,29 +118,7 @@
     %a.scroll-to-top(href="#top" title="Scroll to top")
       %i.fa.fa-level-up
 
-    %script(type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/trianglify/0.4.0/trianglify.min.js")
     :coffee
-
-      #
-      # Generate hero background
-      #
-      hero = document.getElementsByClassName("hero__wrapper")[0]
-      pattern = Trianglify {
-        width: window.innerWidth
-        height: window.innerHeight
-        x_colors: [
-          "#1C2227"
-          "#1C2227"
-          "#214937"
-          "#33CC33"
-        ]
-        y_colors: [
-          "#1C2227"
-          "#214937"
-        ]
-      }
-
-      hero.setAttribute "style", "background-image: url(" + pattern.png() + ")"
 
       #
       # Sticky sidebar

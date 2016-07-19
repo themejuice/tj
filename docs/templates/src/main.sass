@@ -16,11 +16,11 @@ $serif: "Montserrat", "Helvetica Neue", "Helvetica", "Arial", sans-serif
 /**
  * Colors
  */
-$foreground: #E6F5FA
-$background: #1C2227
-$primary: #339933
-$secondary: #E68A00
-$tertiary: #33CC33
+$foreground: #e2e5e6
+$background: #253b3e
+$primary: #a0cf67
+$secondary: #ff9a2f
+$tertiary: #a9d771
 
 /**
  * Override compass' clearfix mixin
@@ -285,13 +285,19 @@ dl
   +_(container, clear)
   +align(middle, 100%)
   position: relative
+  z-index: 1
 
   &__wrapper
     +background-size(cover)
+    position: relative
     width: 100%
     height: 20rem
     margin:
       bottom: 1rem
+    background:
+      image: url("laboratory.svg")
+      position: center
+      repeat: no-repeat
     border:
       top: 1px solid $secondary
       bottom: 1px solid $secondary
@@ -300,6 +306,16 @@ dl
       height: 40rem
       margin:
         bottom: 2rem
+
+    &:after
+      content: ""
+      position: absolute
+      top: 0
+      left: 0
+      width: 100%
+      height: 100%
+      background:
+        color: rgba($background, 0.8)
 
   &__content
     width: 100%
@@ -327,9 +343,6 @@ dl
 
       +_(greater than small)
         padding: 0 1rem
-
-    .button
-      display: none
 
 /**
  * Sidebar
