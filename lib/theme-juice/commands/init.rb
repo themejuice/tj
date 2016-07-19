@@ -22,7 +22,7 @@ module ThemeJuice
       end
 
       def init_project
-        @project.no_provision = @opts.fetch("no_provision") { false }
+        @project.provision = @opts.fetch("provision") { false }
       end
     end
   end

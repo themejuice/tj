@@ -28,10 +28,10 @@ module ThemeJuice
     attr_accessor :no_wp_cli
     attr_accessor :no_db
     attr_accessor :no_env
-    attr_accessor :no_provision
     attr_accessor :no_ssl
     attr_accessor :no_config
     attr_accessor :wp_config_modify
+    attr_accessor :provision
 
     def vm_root
       @vm_root ||= File.expand_path("#{Env.vm_path}/www")

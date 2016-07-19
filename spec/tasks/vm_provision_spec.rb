@@ -21,36 +21,16 @@ describe ThemeJuice::Tasks::VMProvision do
 
   describe "#execute" do
 
-    it "should provision vagrant when 'Y' is passed" do
-      expect(thor_stdin).to receive(:readline).with(kind_of(String),
-        kind_of(Hash)).once.and_return "Y"
-
-      output = capture(:stdout) { @task.execute }
-
-      expect(output).to match /vagrant up --provision/
-    end
-
-    it "should not provision vagrant when 'n' is passed" do
-      expect(thor_stdin).to receive(:readline).with(kind_of(String),
-        kind_of(Hash)).once.and_return "n"
-
-      output = capture(:stdout) { @task.execute }
-
-      expect(output).to_not match /vagrant up --provision/
-    end
-
     context "when the vagrant box is currently running" do
 
       before do
+        allow(@project).to receive(:provision).and_return true
         allow_any_instance_of(ThemeJuice::Util).to receive(:run)
           .with("vagrant status --machine-readable", kind_of(Hash))
           .and_return "running..."
       end
 
       it "should halt vagrant before provisioning" do
-        expect(thor_stdin).to receive(:readline).with(kind_of(String),
-          kind_of(Hash)).once.and_return "Y"
-
         output = capture(:stdout) { @task.execute }
 
         expect(output).to match /vagrant halt/
@@ -58,36 +38,35 @@ describe ThemeJuice::Tasks::VMProvision do
     end
 
     context "when the vagrant box is not currently running" do
-      it "should not halt vagrant before provisioning" do
-        expect(thor_stdin).to receive(:readline).with(kind_of(String),
-          kind_of(Hash)).once.and_return "Y"
 
+      before do
+        allow(@project).to receive(:provision).and_return true
+      end
+
+      it "should not halt vagrant before provisioning" do
         output = capture(:stdout) { @task.execute }
 
         expect(output).to_not match /vagrant halt/
       end
     end
 
-    context "when Project.no_provision is set to false" do
+    context "when Project.provision is set to true" do
 
       before do
-        allow(@project).to receive(:no_provision).and_return false
+        allow(@project).to receive(:provision).and_return true
       end
 
       it "should restart vagrant" do
-        expect(thor_stdin).to receive(:readline).with(kind_of(String),
-          kind_of(Hash)).once.and_return "Y"
-
         output = capture(:stdout) { @task.execute }
 
         expect(output).to match /vagrant up --provision/
       end
     end
 
-    context "when Project.no_provision is set to true" do
+    context "when Project.provision is set to false" do
 
       before do
-        allow(@project).to receive(:no_provision).and_return true
+        allow(@project).to receive(:provision).and_return false
       end
 
       it "should not restart vagrant" do
@@ -99,7 +78,7 @@ describe ThemeJuice::Tasks::VMProvision do
   end
 
   describe "#unexecute" do
-    it "should provision vagrant without prompt" do
+    it "should provision vagrant" do
       output = capture(:stdout) { @task.unexecute }
 
       expect(output).to match /vagrant up --provision/
