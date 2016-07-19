@@ -56,7 +56,7 @@ describe ThemeJuice::Tasks::VMProvision do
         allow(@project).to receive(:provision).and_return true
       end
 
-      it "should restart vagrant" do
+      it "should provision vagrant" do
         output = capture(:stdout) { @task.execute }
 
         expect(output).to match /vagrant up --provision/
@@ -69,10 +69,16 @@ describe ThemeJuice::Tasks::VMProvision do
         allow(@project).to receive(:provision).and_return false
       end
 
-      it "should not restart vagrant" do
+      it "should not provision vagrant" do
         output = capture(:stdout) { @task.execute }
 
         expect(output).to_not match /vagrant up --provision/
+      end
+
+      it "should restart vagrant" do
+        output = capture(:stdout) { @task.execute }
+
+        expect(output).to match /vagrant up --no-provision/
       end
     end
   end
