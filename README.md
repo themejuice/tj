@@ -8,7 +8,7 @@
 ![Theme Juice CLI](demo.gif)
 
 ## What is it?
-The [Theme Juice CLI](http://themejuice.it), also known as `tj`, helps you create new local WordPress development sites, manage existing sites, and deploy them, all from the command line. It utilizes an [Apache fork](https://github.com/ezekg/theme-juice-vvv) of [VVV](https://github.com/Varying-Vagrant-Vagrants/VVV) for the virtual machine to spin up new development sites in seconds.
+The [Theme Juice CLI](http://themejuice.it), also known as `tj`, helps you create new local WordPress development sites, manage existing sites, and deploy them, all from the command line. It utilizes our [Graft VM](https://github.com/ezekg/theme-juice-vm) for the virtual machine to spin up new development sites in seconds.
 
 Check out [our getting started guide over at SitePoint](http://www.sitepoint.com/introducing-theme-juice-for-local-wordpress-development/), or [view the documentation site](http://themejuice.it).
 
@@ -16,7 +16,7 @@ Check out [our getting started guide over at SitePoint](http://www.sitepoint.com
 To get the most out of `tj`, it is recommended that you use our [starter template](https://github.com/ezekg/theme-juice-starter). Why? Keep on reading and we'll tell you. `tj` is built on top of tried and true open source libraries such as [Capistrano](http://capistranorb.com/) for deployment, [Vagrant](https://www.vagrantup.com/) for local development, and even a little bit of [WP-CLI](http://wp-cli.org) for database migration. Some of the main pain points `tj` helps solve are:
 
 ### 1. Local development
-Say goodbye to MAMP! With one command, `tj create`, you can have a new local development site up and running in under a minute. It uses a streamlined fork of VVV (listed above) to create a Vagrant development environment, and lets you create and manage multiple projects within a single virtual machine. It also handles deployments over SSH using Capistrano if you want to move away from FTP (more about that below).
+Say goodbye to MAMP! With one command, `tj create`, you can have a new local development site up and running in under a minute. It uses Vagrant to create a robust development environment, and lets you create and manage multiple projects within a single virtual machine. It also handles deployments over SSH using Capistrano if you want to move away from FTP (more about that below).
 
 ### 2. Multi-environment projects
 Oh, multi-environment development! Usually, you would have to ignore your entire `wp-config.php` file and create one for every single stage. These can get out of sync fast. Even worse, the config file actually gets checked into the project repo and so the credentials fluctuate from `dev` to `staging` to `production`. Not good. Not good at all.
@@ -109,7 +109,7 @@ Or, you can also check out [themejuice.it](http://themejuice.it) for a pretty we
 ## FAQ
 
 1. [Is Windows supported?](#is-windows-supported)
-1. [Can I use the original VVV instead of VVV-Apache?](#can-i-use-the-original-vvv-instead-of-vvv-apache)
+1. [Can I use another VM instead of Graft?](#can-i-use-another-vm-instead-of-graft)
 1. [So, does that mean I can use any Vagrant box?](#so-does-that-mean-i-can-use-any-vagrant-box)
 1. [What is a `Customfile`?](#what-is-a-customfile)
 1. [What is a `Juicefile`?](#what-is-a-juicefile)
@@ -137,8 +137,8 @@ In addition to that, `tj` uses the [OS gem](https://github.com/rdp/os) to sniff 
 
 _I don't regularly develop on Windows, so if you encounter any bugs, please let me know through a **well-documented** issue and I'll try my best to get it resolved._
 
-### Can I use the original VVV instead of VVV-Apache?
-Definitely. If you want to use `tj` with Nginx and the [original VVV](https://github.com/Varying-Vagrant-Vagrants/VVV), it's as simple as running `tj` with a few flags:
+### Can I use another VM instead of Graft?
+Definitely. If you want to use `tj` with Nginx and say, [VVV](https://github.com/Varying-Vagrant-Vagrants/VVV), it's as simple as running `tj` with a few flags:
 
 ```bash
 tj new --vm-box git@github.com:Varying-Vagrant-Vagrants/VVV.git --nginx
@@ -149,7 +149,7 @@ To use these permanently, set the appropriate `ENV` variables through your `.bas
 _Note: Before running this, you might want to either choose a new `vm-path`, or destroy any existing VMs inside of your `~/tj-vagrant` directory. If `tj` detects that a VM already installed, it will skip installing the new box._
 
 ### So, does that mean I can use any Vagrant box?
-Yes and no; in order for `tj` to properly create a project, the Vagrant box needs to follow the same directory structure as VVV, and include a `Customfile`. Here is the required structure that `tj` needs in order to be able to create new projects:
+Yes and no; in order for `tj` to properly create a project, the Vagrant box needs to follow the same directory structure as [Graft](https://github.com/ezekg/theme-juice-vm), and include logic for a `Customfile`. Here is the required structure that `tj` needs in order to be able to create new projects:
 
 ```
 ├── config/
@@ -179,11 +179,12 @@ Yes and no; in order for `tj` to properly create a project, the Vagrant box need
 |  |  ..
 |  ..
 ├── Customfile
+├── Vagrantfile
 ...
 ```
 
 ### What is a `Customfile`?
-[It's a file that contains custom rules to add into the main `Vagrantfile`, without actually having to modify it](https://github.com/Varying-Vagrant-Vagrants/VVV/blob/develop/Vagrantfile#L208-L218). This allows us to easily modify the Vagrant box without causing merge conflicts if you were to update the VM source via `git pull`. Every file that `tj` modifies is _meant to be modified_, so at any time you may update your installation of VVV with a simple `git pull` without getting merge conflicts out the wazoo.
+[It's a file that contains custom rules to add into the main `Vagrantfile`, without actually having to modify it](https://github.com/ezekg/theme-juice-vm/blob/master/Vagrantfile?ts=2#L96-L98). This allows us to easily modify the Vagrant box without causing merge conflicts if you were to update the VM source via `git pull`. Every file that `tj` modifies is _meant to be modified_, so at any time you may update your installation of Graft with a simple `git pull` without getting merge conflicts out the wazoo.
 
 ### What is a `Juicefile`?
 A YAML configuration file called `Juicefile` can be used to store commonly-used build scripts, similar to [npm scripts](https://docs.npmjs.com/misc/scripts). Each command block sequence can be mapped to an individual project's build script, allowing a streamlined set of commands to be used across multiple projects that utilize different tools. If you plan to deploy using `tj`, this file will also house your [deployment configuration](http://themejuice.it/deploy).
@@ -230,7 +231,7 @@ commands:
     - tar -zcvf dist.tar.gz .
 ```
 
-Each command sequence is run within a single execution, with all `%args%`/`%argN%` being replaced by the passed command. Here's a few example scenarios:
+Each list of commands is run within a single execution, with all `%args%`/`%argN%` being replaced with the corresponding argument index, when available. Here's a few example scenarios:
 ```bash
 # Will contain all arguments stitched together by a space
 cmd1 %args%
@@ -278,7 +279,7 @@ deployment:
 Check out [capistrano-slackify](https://github.com/onthebeach/capistrano-slackify) for more information.
 
 ### Can I use a self-signed SSL cert?
-Yes, unless you used the `--no-ssl` flag, `tj` will set up each new site to support SSL, [and the VM will generate a new self-signed certificate](https://github.com/ezekg/theme-juice-vvv#automatically-generated-self-signed-ssl-certs). In order to take advantage of it, [you'll need to accept the self-signed certificate on your host machine](https://github.com/ezekg/theme-juice-vvv#accepting-a-self-signed-ssl-cert).
+Yes, unless you used the `--no-ssl` flag, `tj` will set up each new site to support SSL, [and the VM will generate a new self-signed certificate](https://github.com/ezekg/theme-juice-vm#automatically-generated-self-signed-ssl-certs). In order to take advantage of it, [you'll need to accept the self-signed certificate on your host machine](https://github.com/ezekg/theme-juice-vm#accepting-a-self-signed-ssl-cert).
 
 ### Can I define my own Capistrano tasks?
 Yes. Any file within a directory called `deploy/` in your project with extensions `.rb`, `.cap` or `.rake` will be automatically loaded by Capistrano.
