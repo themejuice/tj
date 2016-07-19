@@ -41,7 +41,7 @@ module ThemeJuice
           tasks << Tasks::DNS.new
           tasks << Tasks::WPCLI.new
           tasks << Tasks::Repo.new
-          tasks << Tasks::VMProvision.new
+          tasks << Tasks::VMRestart.new
           tasks << Tasks::ImportDatabase.new
           tasks << Tasks::CreateSuccess.new
         end
