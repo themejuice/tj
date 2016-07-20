@@ -5,7 +5,7 @@ module ThemeJuice
     class Create < Command
 
       TEMPLATES = {
-        "theme-juice/trellis" => "git@github.com:ezekg/theme-juice-starter.git",
+        "themejuice/sprout"   => "git@github.com:ezekg/theme-juice-starter.git",
         "wordpress/wordpress" => "git@github.com:WordPress/WordPress.git",
         "other (specify)"     => nil,
         "none"                => false
@@ -146,12 +146,12 @@ module ThemeJuice
         return false if @project.bare
 
         if @project.use_defaults
-          template = TEMPLATES["theme-juice/trellis"]
+          template = TEMPLATES["themejuice/sprout"]
         else
           choice = @io.choose "Which starter template would you like to use?", :blue, TEMPLATES.keys
 
           case choice
-          when /(theme-juice)/
+          when /(themejuice)/
             @io.say "Awesome choice!", :color => :green, :icon => :success
           when /(wordpress)/
             @project.wp_config_modify = true
