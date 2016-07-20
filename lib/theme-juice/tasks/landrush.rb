@@ -22,7 +22,7 @@ module ThemeJuice
         create_entry do
 %Q{config.landrush.enabled = true
 config.landrush.tld = 'dev'
-config.landrush.host 'vvv.dev', '#{@env.vm_ip}'}
+config.landrush.host 'graft.dev', '#{@env.vm_ip}'}
         end
       end
 

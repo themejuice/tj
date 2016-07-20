@@ -22,7 +22,7 @@ describe ThemeJuice::Tasks::Landrush do
 
       expect(File.binread(@file)).to match /config\.landrush\.enabled = true/
       expect(File.binread(@file)).to match /config\.landrush\.tld = 'dev'/
-      expect(File.binread(@file)).to match /config\.landrush\.host 'vvv.dev', '192.168.50.4'/
+      expect(File.binread(@file)).to match /config\.landrush\.host 'graft.dev', '192.168.50.4'/
     end
   end
 
@@ -32,7 +32,7 @@ describe ThemeJuice::Tasks::Landrush do
 
       expect(File.binread(@file)).not_to match /config\.landrush\.enabled = true/
       expect(File.binread(@file)).not_to match /config\.landrush\.tld = 'dev'/
-      expect(File.binread(@file)).not_to match /config\.landrush\.host 'vvv.dev', '192.168.50.4'/
+      expect(File.binread(@file)).not_to match /config\.landrush\.host 'graft.dev', '192.168.50.4'/
 
       expect(output).to match /gsub/
     end
