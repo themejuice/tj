@@ -97,7 +97,7 @@ module ThemeJuice
           @io.error "Project name '#{name}' looks like it's empty. Aborting mission."
         end
 
-        "#{name}".match /[^0-9A-Za-z.\-]/ do |char|
+        "#{name}".match /[^0-9a-z\.\-]/ do |char|
           @io.error "Project name contains an invalid character '#{char}'. This name is used internally for a ton of stuff, so that's not gonna work. Aborting mission."
         end
 
@@ -136,6 +136,10 @@ module ThemeJuice
       def valid_url?(url)
         unless "#{url}".match /\.dev$/
           @io.error "Your development url '#{url}' doesn't end with '.dev'. This is used internally by Landrush, so that's not gonna work. Aborting mission."
+        end
+
+        "#{url}".match /[^0-9a-z\.\-]/ do |char|
+          @io.error "Your development url contains an invalid character '#{char}'. Aborting mission."
         end
 
         true

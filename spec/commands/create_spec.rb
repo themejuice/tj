@@ -45,7 +45,7 @@ describe ThemeJuice::Commands::Create do
       expect(@create.new).to be
     end
 
-    it "should raise error for invalid project name" do
+    it "should raise error for project name containing special characters" do
       expect(stdout).to receive(:print).at_least(:once)
 
       expect(thor_stdin).to receive(:readline).with(kind_of(String),
@@ -54,13 +54,68 @@ describe ThemeJuice::Commands::Create do
       expect { @double.send(:name) }.to raise_error SystemExit
     end
 
-    it "should raise error for invalid project url" do
+    it "should raise error for project name containing capital letters" do
+      expect(stdout).to receive(:print).at_least(:once)
+
+      expect(thor_stdin).to receive(:readline).with(kind_of(String),
+        kind_of(Hash)).and_return "Test-Project"
+
+      expect { @double.send(:name) }.to raise_error SystemExit
+    end
+
+    it "should raise error for project name containing underscores" do
+      expect(stdout).to receive(:print).at_least(:once)
+
+      expect(thor_stdin).to receive(:readline).with(kind_of(String),
+        kind_of(Hash)).and_return "test_project"
+
+      expect { @double.send(:name) }.to raise_error SystemExit
+    end
+
+    it "should raise error for an invalid project url TLD" do
       expect(stdout).to receive(:print).at_least(:once)
 
       expect(thor_stdin).to receive(:readline).with(kind_of(String),
         kind_of(Hash)).and_return "project.invalid"
 
       expect { @double.send(:url) }.to raise_error SystemExit
+    end
+
+    it "should raise error for project url containing capital letters" do
+      expect(stdout).to receive(:print).at_least(:once)
+
+      expect(thor_stdin).to receive(:readline).with(kind_of(String),
+        kind_of(Hash)).and_return "Test-Project.dev"
+
+      expect { @double.send(:url) }.to raise_error SystemExit
+    end
+
+    it "should raise error for project url containing underscores" do
+      expect(stdout).to receive(:print).at_least(:once)
+
+      expect(thor_stdin).to receive(:readline).with(kind_of(String),
+        kind_of(Hash)).and_return "test_project.dev"
+
+      expect { @double.send(:url) }.to raise_error SystemExit
+    end
+
+    context "when given a location path containing a tilde" do
+
+      before do
+        allow(Dir).to receive(:home).and_return "/current/directory"
+        allow(Dir).to receive(:pwd).and_return "/current/directory"
+      end
+
+      it "should correctly expand the tilde path" do
+        pending "Not implemented"
+
+        allow(stdout).to receive :print
+
+        expect(thor_stdin).to receive(:readline).with(kind_of(String),
+          kind_of(Hash)).and_return "~/tilde-project-path"
+
+        expect(@double.send(:location)).to match "#{Dir.home}/tilde-project-path"
+      end
     end
 
     context "when given a relative location path" do
