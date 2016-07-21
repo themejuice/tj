@@ -58,3 +58,6 @@ essentially an alias for `tj create --bare`.
 
   * `--no-ssl`, `--no-https`:
     Project does not need SSL support
+
+  * `--provision`:
+    Run provisioners after setting up project

@@ -41,7 +41,11 @@ module ThemeJuice
           tasks << Tasks::DNS.new
           tasks << Tasks::WPCLI.new
           tasks << Tasks::Repo.new
-          tasks << Tasks::VMRestart.new
+          if @project.provision
+            tasks << Tasks::VMProvision.new
+          else
+            tasks << Tasks::VMRestart.new
+          end
           tasks << Tasks::ImportDatabase.new
           tasks << Tasks::CreateSuccess.new
         end
@@ -60,6 +64,7 @@ module ThemeJuice
         @project.wp_config_modify = @opts.fetch("wp_config_modify") { false }
         @project.no_config        = @opts.fetch("no_config")        { false }
         @project.no_ssl           = @opts.fetch("no_ssl")           { false }
+        @project.provision        = @opts.fetch("provision")        { false }
         @project.no_env           = @opts.fetch("no_env")           { @project.wp_config_modify }
         @project.name             = @opts.fetch("name")             { name }
         @project.location         = @opts.fetch("location")         { location }

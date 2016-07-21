@@ -121,7 +121,7 @@ module ThemeJuice
     end
 
     desc "init", "Initialize the VM"
-    method_option :provision, :type => :boolean, :aliases => %w[--restart], :desc => ""
+    method_option :provision, :type => :boolean, :desc => ""
     def init
       @io.say "Initializing the VM...", {
         :color => [:black, :on_green, :bold],
@@ -148,6 +148,7 @@ module ThemeJuice
     method_option :no_config,        :type => :boolean, :aliases => %w[--no-juicefile],     :desc => ""
     method_option :wp_config_modify, :type => :boolean, :aliases => %w[--modify-wp-config], :desc => ""
     method_option :no_ssl,           :type => :boolean, :aliases => %w[--no-https],         :desc => ""
+    method_option :provision,        :type => :boolean,                                     :desc => ""
     def create
       @io.hello
       @create.new(options).execute
@@ -169,6 +170,7 @@ module ThemeJuice
     method_option :no_config,        :type => :boolean, :aliases => %w[--no-juicefile],     :desc => ""
     method_option :wp_config_modify, :type => :boolean, :aliases => %w[--modify-wp-config], :desc => ""
     method_option :no_ssl,           :type => :boolean, :aliases => %w[--no-https],         :desc => ""
+    method_option :provision,        :type => :boolean,                                     :desc => ""
     def setup
       @io.hello
       @create.new(options.dup.merge(:bare => true)).execute

@@ -9,11 +9,7 @@ module ThemeJuice
       end
 
       def execute
-        if @project.provision
-          provision
-        else
-          restart
-        end
+        provision
       end
 
       def unexecute
@@ -39,16 +35,6 @@ module ThemeJuice
           @util.run [] do |cmds|
             cmds << "vagrant halt" if vm_is_up?
             cmds << "vagrant up --provision"
-          end
-        end
-      end
-
-      def restart
-        @io.log "Restarting VM"
-        @util.inside @env.vm_path do
-          @util.run [] do |cmds|
-            cmds << "vagrant halt" if vm_is_up?
-            cmds << "vagrant up --no-provision"
           end
         end
       end

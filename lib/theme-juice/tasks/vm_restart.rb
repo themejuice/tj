@@ -13,18 +13,29 @@ module ThemeJuice
       end
 
       def unexecute
-        if @project.vm_restart
-          restart
-        end
+        restart if @project.vm_restart
       end
 
       private
 
+      def vm_is_up?
+        res = false
+
+        @util.inside @env.vm_path do
+          res = @util.run("vagrant status --machine-readable", {
+            :verbose => @env.verbose, :capture => true }).include? "running"
+        end
+
+        res
+      end
+
       def restart
         @io.log "Restarting VM"
         @util.inside @env.vm_path do
-          @util.run "vagrant reload", { :verbose => @env.verbose,
-            :capture => @env.quiet }
+          @util.run [] do |cmds|
+            cmds << "vagrant halt" if vm_is_up?
+            cmds << "vagrant up"
+          end
         end
       end
     end
