@@ -19,9 +19,9 @@ module ThemeJuice
         create_entry_file
         create_entry do
 %Q{case
-when defined?(VagrantPlugins::Landrush), defined?(Landrush)
+when Vagrant.has_plugin? "landrush"
   config.landrush.host '#{@project.url}', '#{@env.vm_ip}'
-when defined?(VagrantPlugins::HostsUpdater)
+when Vagrant.has_plugin? "vagrant-hostsupdater"
   config.hostsupdater.aliases << '#{@project.url}'
 end}
         end
