@@ -22,7 +22,7 @@ describe ThemeJuice::Tasks::VMProvision do
   describe "#execute" do
 
     before do
-      allow(@project).to receive(:provision).and_return true
+      allow(@project).to receive(:vm_provision).and_return true
     end
 
     it "should provision vagrant" do

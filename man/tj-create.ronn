@@ -79,6 +79,3 @@ access your new project at the specified url. It's that easy!
 
   * `--no-ssl`, `--no-https`:
     Project does not need SSL support
-
-  * `--provision`:
-    Run provisioners after creating project

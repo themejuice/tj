@@ -16,13 +16,13 @@ module ThemeJuice
           tasks << Tasks::VMCustomfile.new
           tasks << Tasks::Landrush.new
           tasks << Tasks::ForwardPorts.new
-          tasks << Tasks::VMProvision.new
+          tasks << Tasks::VMProvision.new if @project.vm_provision
           tasks << Tasks::InitSuccess.new
         end
       end
 
       def init_project
-        @project.provision = @opts.fetch("provision") { false }
+        @project.vm_provision = @opts.fetch("vm_provision") { false }
       end
     end
   end

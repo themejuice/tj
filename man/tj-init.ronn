@@ -11,5 +11,5 @@ Initializes the virtual machine.
 
 ## GLOBAL OPTIONS
 
-  * `--provision`:
+  * `--vm-provision`, `--provision-vm`, `--provision`:
     Run provisioners after initializing the virtual machine

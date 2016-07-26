@@ -13,6 +13,7 @@ describe ThemeJuice::Project do
   it { is_expected.to respond_to :vm_location }
   it { is_expected.to respond_to :vm_srv }
   it { is_expected.to respond_to :vm_restart }
+  it { is_expected.to respond_to :vm_provision }
   it { is_expected.to respond_to :repository }
   it { is_expected.to respond_to :db_host }
   it { is_expected.to respond_to :db_name }
@@ -30,7 +31,6 @@ describe ThemeJuice::Project do
   it { is_expected.to respond_to :no_env }
   it { is_expected.to respond_to :no_config }
   it { is_expected.to respond_to :wp_config_modify }
-  it { is_expected.to respond_to :provision }
 
   describe ".inspect" do
     it "should return an array of all instance variables" do
