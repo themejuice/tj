@@ -19,8 +19,8 @@ describe ThemeJuice::Tasks::VMPlugins do
     it "should install all specified vagrant plugins" do
       output = capture(:stdout) { @task.execute }
 
+      expect(output).to match /vagrant-berkshelf/
       expect(output).to match /vagrant-triggers/
-      expect(output).to match /vagrant-hostsupdater/
       expect(output).to match /landrush/
     end
 
@@ -33,8 +33,8 @@ describe ThemeJuice::Tasks::VMPlugins do
       it "should not install the landrush vagrant plugin" do
         output = capture(:stdout) { @task.execute }
 
+        expect(output).to match /vagrant-berkshelf/
         expect(output).to match /vagrant-triggers/
-        expect(output).to match /vagrant-hostsupdater/
         expect(output).not_to match /landrush/
       end
     end
