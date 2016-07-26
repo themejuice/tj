@@ -18,9 +18,10 @@ module ThemeJuice
       def execute
         create_entry_file
         create_entry do
-%Q{if defined? Landrush
+%Q{case
+when defined?(VagrantPlugins::Landrush), defined?(Landrush)
   config.landrush.host '#{@project.url}', '#{@env.vm_ip}'
-elsif defined? VagrantPlugins::HostsUpdater
+when defined?(VagrantPlugins::HostsUpdater)
   config.hostsupdater.aliases << '#{@project.url}'
 end}
         end
@@ -35,7 +36,7 @@ end}
 
       def remove_landrush_entry
         return if @env.no_landrush
-        
+
         @io.log "Removing URL from Landrush"
         @util.run "vagrant landrush rm #{@project.url}", { :verbose => @env.verbose,
           :capture => @env.quiet }
