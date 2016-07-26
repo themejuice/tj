@@ -38,7 +38,7 @@ module ThemeJuice
     end
 
     def vm_ip=(val)
-      @vm_ip = val || ENV.fetch("TJ_VM_IP") { "192.168.50.4" }
+      @vm_ip = val || ENV.fetch("TJ_VM_IP") { "192.168.13.37" }
     end
 
     def vm_prefix=(val)

@@ -141,7 +141,7 @@ _I don't regularly develop on Windows, so if you encounter any bugs, please let 
 Definitely. If you want to use `tj` with Nginx and say, [VVV](https://github.com/Varying-Vagrant-Vagrants/VVV), it's as simple as running `tj` with a few flags:
 
 ```bash
-tj new --vm-box git@github.com:Varying-Vagrant-Vagrants/VVV.git --nginx
+tj new --vm-box git@github.com:Varying-Vagrant-Vagrants/VVV.git --vm-ip 192.168.50.4 --nginx
 ```
 
 To use these permanently, set the appropriate `ENV` variables through your `.bashrc` or similar, i.e. `export TJ_VM_BOX=git@github.com:Varying-Vagrant-Vagrants/VVV.git` and `export TJ_NGINX=true`.
