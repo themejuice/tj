@@ -101,14 +101,7 @@ describe ThemeJuice::Commands::Create do
 
     context "when given a location path containing a tilde" do
 
-      before do
-        allow(Dir).to receive(:home).and_return "/current/directory"
-        allow(Dir).to receive(:pwd).and_return "/current/directory"
-      end
-
       it "should correctly expand the tilde path" do
-        pending "Not implemented"
-
         allow(stdout).to receive :print
 
         expect(thor_stdin).to receive(:readline).with(kind_of(String),

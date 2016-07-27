@@ -63,7 +63,6 @@ module ThemeJuice
         @project.no_env           = @opts.fetch("no_env")           { @project.wp_config_modify }
         @project.name             = @opts.fetch("name")             { name }
         @project.location         = @opts.fetch("location")         { location }
-        @project.location         = "#{Dir.pwd}" if @project.location == "."
         @project.url              = @opts.fetch("url")              { url }
         @project.xip_url          = @opts.fetch("xip_url")          { xip_url }
         @project.template         = @opts.fetch("template")         { template }
@@ -73,6 +72,16 @@ module ThemeJuice
         @project.db_user          = @opts.fetch("db_user")          { db_user }
         @project.db_pass          = @opts.fetch("db_pass")          { db_pass }
         @project.db_import        = @opts.fetch("db_import")        { db_import }
+
+        # TODO: Think up a nicer way of implementing additional logic
+
+        # Special cases for location paths
+        case @project.location
+        when "."
+          @project.location = "#{Dir.pwd}"
+        when /^~/
+          @project.location = File.expand_path @project.location
+        end
       end
 
       def name
@@ -109,7 +118,7 @@ module ThemeJuice
         if @project.use_defaults
           location = File.absolute_path @project.name, path
         else
-          location = File.absolute_path @io.ask("Where do you want to setup the project?",
+          location = File.expand_path @io.ask("Where do you want to setup the project?",
             :default => path, :path => true), path
         end
 
