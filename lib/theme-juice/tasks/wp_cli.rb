@@ -32,14 +32,8 @@ module ThemeJuice
         @io.log "Creating WP-CLI file"
         @util.create_file wp_cli_file, { :verbose => @env.verbose,
           :capture => @env.quiet } do
-%Q{require:
-  - vendor/autoload.php
-ssh:
-  vagrant:
-    url: #{@project.url}
-    path: #{@project.vm_srv}
-    cmd: cd #{@env.vm_path} && vagrant ssh-config > /tmp/vagrant_ssh_config && ssh -q %pseudotty% -F /tmp/vagrant_ssh_config default %cmd%
-
+%Q{@development:
+  ssh: vagrant@#{@env.vm_ip}:#{@project.vm_srv}
 }
         end
       end

@@ -13,6 +13,9 @@ require "lib/theme-juice"
 $0 = "tj"
 ARGV.clear
 
+# Fix issue where ENV variables set would cause tests to fail
+ENV.keys.each { |k| ENV.delete(k) if /^tj_/i =~ k }
+
 RSpec.configure do |config|
   config.include FakeFS::SpecHelpers
 

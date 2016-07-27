@@ -5,6 +5,7 @@ describe ThemeJuice::Tasks::WPCLI do
     @project = ThemeJuice::Project
 
     allow(@env).to receive(:vm_path).and_return File.expand_path("~/tj-vagrant-test")
+    allow(@env).to receive(:vm_ip).and_return "192.168.13.37"
     allow(@env).to receive(:verbose).and_return true
     allow(@project).to receive(:name).and_return "wp-cli-test"
     allow(@project).to receive(:url).and_return "wp-cli-test.dev"
@@ -30,9 +31,9 @@ describe ThemeJuice::Tasks::WPCLI do
       it "should create wp-cli local file" do
         output = capture(:stdout) { @task.execute }
 
-        expect(File.binread(@file)).to match /wp-cli-test\.dev/
+        expect(File.binread(@file)).to match /@development/
         expect(File.binread(@file)).to match /\/srv\/www\/wp-cli-test\//
-        expect(File.binread(@file)).to match /\/tj-vagrant-test/
+        expect(File.binread(@file)).to match /192\.168\.13\.37/
 
         expect(output).to match /create/
       end
@@ -47,9 +48,9 @@ describe ThemeJuice::Tasks::WPCLI do
       it "should create wp-cli local file" do
         output = capture(:stdout) { @task.execute }
 
-        expect(File.binread(@file)).to match /wp-cli-test\.dev/
+        expect(File.binread(@file)).to match /@development/
         expect(File.binread(@file)).to match /\/srv\/www\/wp-cli-test\//
-        expect(File.binread(@file)).to match /\/tj-vagrant-test/
+        expect(File.binread(@file)).to match /192\.168\.13\.37/
 
         expect(output).to match /create/
       end
