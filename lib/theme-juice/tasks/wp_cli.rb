@@ -33,7 +33,7 @@ module ThemeJuice
         @util.create_file wp_cli_file, { :verbose => @env.verbose,
           :capture => @env.quiet } do
 %Q{@development:
-  ssh: vagrant@#{@env.vm_ip}:#{@project.vm_srv}
+  ssh: vagrant@#{@env.vm_ip}#{@project.vm_srv}
 }
         end
       end
