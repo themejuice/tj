@@ -82,6 +82,13 @@ module ThemeJuice
         when /^~/
           @project.location = File.expand_path @project.location
         end
+
+        # Assume bare if the project path isn't empty (template install will fail)
+        unless Dir["#{@project.location}/*"].empty?
+          @project.bare = true
+          @io.say "Project location is not empty. Assuming you meant to run a setup...", {
+            :color => :yellow, :icon => :notice }
+        end
       end
 
       def name
