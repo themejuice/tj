@@ -124,7 +124,8 @@ capistrano(1) to invoke a deployment.
     Deployment stages
 
   * `deployment.stages.<stage>.server`:
-    Domain or IP address of the server
+    Domain or IP address of the server (can include an optional port number in
+    the form of `IP_OR_DOMAIN:PORT`)
 
   * `deployment.stages.<stage>.path`:
     Root path to the deployment directory
