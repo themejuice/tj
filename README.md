@@ -243,10 +243,10 @@ commands:
 You can specify an unlimited number of commands with an unlimited number of arguments; however, you should be careful with how this is used. Don't go including `sudo rm -rf %arg1%` in a command, while passing `/` as an argument. Keep it simple. These are meant to make your life easier by helping you manage build tools, not to do fancy scripting.
 
 ### Does `tj` support subdomain multi-sites?
-If you're able to use [Landrush](https://github.com/phinze/landrush) for your DNS, then yes. All subdomains will resolve to their parent domain. Landrush comes pre-installed when you create your first project with `tj`. Having said that, unfortunately, if you're on Windows you'll might have to manually add the subdomains due to Landrush not being fully supported yet. If you have the Windows chops, head over there and contribute to Landrush by squashing that bug. I'm sure he would appreciate it!
+If you're able to use [Landrush](https://github.com/phinze/landrush) for your DNS, then yes. All subdomains will resolve to their parent domain. Landrush comes pre-installed when you create your first project with `tj`. Having said that, unfortunately, if you're on Windows you'll might have to manually add the subdomains to your `/etc/hosts` file due to Landrush not being fully supported yet. If you have the Windows chops, head over there and contribute to Landrush by squashing that bug. I'm sure he would appreciate it!
 
 ### Can I access a project from another device (i.e. mobile)?
-Yes! Every project created with `tj` will automatically be set up to support using [xip.io](http://xip.io/). If you're using OSX, then everything should work out of the box. If you're not using OSX, then you'll need to point port `80` on your host machine to `8080`; Vagrant cannot do this by default for security reasons.
+Yes! Every project created with `tj` will automatically be set up to support using [xip.io](http://xip.io/). If you're using OSX, then everything should work out of the box. If you're not using OSX, then you'll need to point port `80` on your host machine to `8080`; Vagrant cannot do this by default for security reasons. You can also use a service like [ngrok](https://ngrok.com/), if you prefer.
 
 Once everything is good to go, you can access a project from another device on the same network by going to `<project-name>.<your-hosts-ip-address>.xip.io` e.g. `themejuice.192.168.1.1.xip.io`.
 
