@@ -109,88 +109,84 @@ Run `tj help` [<command>] to view an individual command's man page.
     Manage development environment via vagrant(1). Commands are proxied to
     your Vagrant installation so that they can be run from any directory.
 
-## CONFIG COMMANDS
-
-These run the corresponding command from your project's config file. They
-accept any number of arguments, since the behavior and handling of input is
-defined within the config file itself. Below are the commands defined within
-the _Theme Juice starter template_.
-
-  * `install`=[<arg>[,<arg>]...]:
-    Run installation for project
-
-  * `watch`=[<arg>[,<arg>]...]:
-    Manage and run development build tools
-
-  * `assets`=[<arg>[,<arg>]...]:
-    Manage front-end dependencies for project
-
-  * `vendor`=[<arg>[,<arg>]...]:
-    Manage back-end dependencies for project
-
-  * `dist`=[<arg>[,<arg>]...]:
-    Package project for distribution
-
-  * `wp`=[<arg>[,<arg>]...]:
-    Manage project's wordpress(7) installation with wp-cli(1)
-
-  * `backup`=[<arg>[,<arg>]...]:
-    Backup project
-
-  * `test`=[<arg>[,<arg>]...]:
-    Manage and run project tests
-
 ## CONFIG FILE
 
-A YAML Juicefile(5) configuration can be used to store commonly-used build
-scripts (and deploy(1) info), similar to npm(1) scripts. Each command block
-sequence can be mapped to an individual project's build tool, allowing a
-streamlined set of commands to be used across multiple projects that
-utilize different tools. Below are descriptions for the default commands
-within the _Theme Juice starter template's_ `Juicefile`.
+A YAML configuration file called a Juicefile(5) can be used to store commonly
+used build scripts, similar to npm(1) scripts. Each command can be mapped to
+any build script you like, allowing you to define a set of commands that can
+be used across all of your projects. If you plan to deploy using `tj`,
+this file will also house your deploy(1) configuration.
 
-  * `commands`:
-    Collection of various command block sequences
+For reference, below is an example config:
 
-  * `commands.install`:
-    Command sequence used to properly install and build project
+  ```
+  # Manage command aliases for the current project
+  commands:
 
-  * `commands.watch`:
-    Command used to manage development build tools
+    # Run project install scripts
+    install:
+      - npm install
+      - grunt build
 
-  * `commands.assets`:
-    Command used to manage front-end dependencies
+    # Manage build tools
+    dev:
+      - grunt %args%
 
-  * `commands.vendor`:
-    Command used to manage back-end dependencies
+    # Manage front-end dependencies
+    assets:
+      - npm %args%
 
-  * `commands.wp`:
-    Command used to manage WordPress installation
+    # Manage back-end dependencies
+    vendor:
+      - composer %args%
 
-  * `commands.dist`:
-    Commands used to package project for distribution
+    # Create a backup of the current database with a nice timestamp
+    backup:
+      - mkdir -p backup
+      - wp @dev db export backup/$(date +'%Y-%m-%d-%H-%M-%S').sql
 
-  * `commands.backup`:
-    Commands used to backup project
+  # Manage deployment settings for the current project
+  deployment:
 
-  * `commands.test`:
-    Command used to manage and run project tests
+    application:
+      name: "example"
 
-Placeholder arguments can be used within any command block sequence to
-allow splat or indexed arguments to be passed to the corresponding
-command when executed.
+    # ...
+  ```
 
-  * `%args%`, `%arguments%`:
-    Splat argument placeholder e.g. `cmd %args%`
+## CONFIG COMMANDS
 
-  * `%argN%`, `%argumentN%`:
-    Where `n` is the argument index e.g. `cmd %arg1% | cmd %arg2%`
+The commands within the `commands` block can be run from the command line via
+`tj <command>`. For example, we can run the `dev` command by running `tj dev`,
+which will in turn run the command `grunt`.
 
-When naming your configuration file, use the recommended `Juicefile`, or
-`.tj.yaml` naming convention. The raw filename regex matcher is below if
-you want to be a little different.
+If you noticed in the example above, there are a few commands that contain
+`%args%`; each command list is run within a single execution via joining:
+`cmd1 && cmd2 [&& cmd3...]`, with all `%args%`/`%argN%` being replaced with
+the corresponding argument index, when available.
 
-  `/^(((\.)?(tj)|((J|j)uicefile))(\.y(a)?ml)?$)/`
+Here's a few example commands using placeholders:
+
+  ```
+  example-command:
+    # Will contain all arguments joined by a space
+    - cmd1 %args%
+    # Will contain each argument mapped to its respective index
+    - cmd2 '%arg1% %arg2% %arg3%'
+    # Will only map argument 4, while ignoring 1-3
+    - cmd3 "%arg4%"
+  ```
+
+To clarify a little bit more, we could run `tj dev build`, and since our `dev`
+command contains `%args%`, that will in turn run the command `grunt build`; if
+we run `tj dev some:other task`, that would be interpreted and run as
+`grunt some:other task`.
+
+You can specify an unlimited number of commands with an unlimited number of
+arguments within your `Juicefile`; however, you should be careful with how
+this is used. Don't go including `sudo rm -rf %arg1%` in a command, while
+passing `/` as an argument. Keep it simple. These are meant to make your
+life easier by helping you manage build tools, not to do fancy scripting.
 
 ## ENVIRONMENT
 

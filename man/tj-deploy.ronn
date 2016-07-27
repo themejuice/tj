@@ -20,7 +20,7 @@ order for tj(1) to be able to handle database migration.
 Follow these steps to quickly get up and running:
 
   1. Create a `deploy` user on the `stage` server
-  1. Set up SSH keys for the new `deploy` user to SSH in without a password
+  1. Set up SSH keys for the new `deploy` user for password-less SSH access
   1. Confirm the `deploy` user owns the deploy path
   1. Run `tj deploy <stage> setup` to setup the required directories
   1. Deploy!
@@ -96,9 +96,8 @@ If no command is passed, the default task to be executed is `deploy`
 ## CONFIG FILE
 
 The YAML Juicefile(5) configuration may be used to store deployment-related
-settings. Below you will find the various block sequences you may use to define
-your project's deployment settings. All of these will be passed to
-capistrano(1) to invoke a deployment.
+settings. Below you will find the various options you can use to define your
+project's deployment setup.
 
   * `deployment`:
     Deployment configuration
@@ -113,19 +112,19 @@ capistrano(1) to invoke a deployment.
     Repository settings passed directly to capistrano(1)
 
   * `deployment.rsync`:
-    Optional settings passed to capistrano-rsync(1);
-    mapped as `rsync_<setting>` during the deployment initialization
+    Optional settings passed to capistrano-rsync(1); mapped as `rsync_<setting>`
+    during the deployment initialization
 
   * `deployment.slack`:
-    Optional settings passed to capistrano-slackify(1);
-    mapped as `slack_<setting>` during the deployment initialization
+    Optional settings passed to capistrano-slackify(1); mapped as
+    `slack_<setting>` during the deployment initialization
 
   * `deployment.stages`:
     Deployment stages
 
   * `deployment.stages.<stage>.server`:
-    Domain or IP address of the server (can include an optional port number in
-    the form of `IP_OR_DOMAIN:PORT`)
+    Domain or IP address of the server; can include an optional port number in
+    the form of `<ip_or_domain>:<port>`
 
   * `deployment.stages.<stage>.path`:
     Root path to the deployment directory
@@ -180,3 +179,128 @@ capistrano(1) to invoke a deployment.
 
   * `deployment.stages.vagrant.roles`:
     Sequence of roles for the development environment
+
+Below is an example deployment configuration:
+
+  ```
+  # Manage deployment for the current application
+  deployment:
+
+    # Application settings
+    application:
+      name: example-app
+
+    # Repository settings
+    repository:
+      repo_url: git@github.com:example/example-app.git
+      branch: :master
+      scm: :rsync
+
+    # Other settings that will be passed directly to Capistrano
+    # @see http://capistranorb.com/
+    settings:
+      keep_releases: 5
+      format: :pretty
+      log_level: :verbose
+      use_sudo: false
+      ssh_options:
+        keys: ~/.ssh/id_rsa
+        forward_agent: true
+        paranoid: true
+      # Add additional directories to $PATH. This is useful if you're
+      #  on a shared hosting environment (i.e. GoDaddy) and you need
+      #  to use an executable such as wp-cli for database migration.
+      default_env:
+        path: /opt/wp-cli/bin:$PATH
+
+    # Capistrano rsync options and install procedure
+    # @see https://github.com/Bladrak/capistrano-rsync
+    rsync:
+      stage: tmp/deploy
+      cache: shared/deploy
+      scm: :git
+      depth: 1
+      # Options to pass to the rsync command
+      # @see http://linux.die.net/man/1/rsync
+      options:
+        - --recursive
+        - --delete
+        - --delete-excluded
+        - --include="vendor/**/*" # Overrides any excluded patterns
+        - --exclude="node_modules/"
+        - --exclude=".env.sample"
+        - --exclude=".git*"
+        - --exclude="Juicefile*"
+        - --exclude="composer.*"
+        - --exclude="package.json"
+        - --exclude="README.*"
+      # Run application install scripts
+      install:
+        - composer install --no-dev
+        - bundle install
+        - npm install
+        - bower install
+        - grunt build
+      # Run scripts before the deployment starts
+      pre_scripts:
+        - touch .maintenance
+      # Run scripts before the deployment finishes
+      post_scripts:
+        - rm .maintenance
+        - sudo service apache2 restart
+
+    # Slack integration
+    # @see https://github.com/onthebeach/capistrano-slackify
+    slack:
+      url: https://hooks.slack.com/services/your-token
+      username: Deploybot
+      channel: "#devops"
+      emoji: ":rocket:"
+
+    # Deployment stages
+    stages:
+
+      production:
+        server: 192.168.13.37:1234
+        path: /var/www/production
+        user: deploy
+        url: example.com
+        uploads: app/uploads
+        tmp: tmp
+        shared:
+          - .env.production
+        ignore:
+          - robots.txt
+        roles:
+          - :web
+          - :app
+          - :db
+
+      staging:
+        server: 192.168.13.37
+        path: /var/www/staging
+        user: deploy
+        url: staging.example.com
+        uploads: app/uploads
+        tmp: tmp
+        shared:
+          - .env.staging
+        roles:
+          - :web
+          - :app
+          - :db
+
+      # This is your development environment used to push/pull database files,
+      #  uploads, the .env file, etc.
+      vagrant:
+        server: example.dev
+        path: /srv/www/tj-example
+        user: vagrant
+        pass: vagrant
+        url: example.dev
+        uploads: app/uploads
+        backup: backup
+        tmp: tmp
+        roles:
+          - :dev
+  ```

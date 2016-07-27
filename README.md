@@ -187,7 +187,7 @@ Yes and no; in order for `tj` to properly create a project, the Vagrant box need
 [It's a file that contains custom rules to add into the main `Vagrantfile`, without actually having to modify it](https://github.com/ezekg/theme-juice-vm/blob/master/Vagrantfile?ts=2#L96-L98). This allows us to easily modify the Vagrant box without causing merge conflicts if you were to update the VM source via `git pull`. Every file that `tj` modifies is _meant to be modified_, so at any time you may update your installation of Graft with a simple `git pull` without getting merge conflicts out the wazoo.
 
 ### What is a `Juicefile`?
-A YAML configuration file called `Juicefile` can be used to store commonly-used build scripts, similar to [npm scripts](https://docs.npmjs.com/misc/scripts). Each command can be mapped to any build script you like, allowing you to define a set of commands that can be used across all of your projects. If you plan to deploy using `tj`, this file will also house your [deployment configuration](http://themejuice.it/deploy).
+A YAML configuration file called a `Juicefile` can be used to store commonly-used build scripts, similar to [npm scripts](https://docs.npmjs.com/misc/scripts). Each command can be mapped to any build script you like, allowing you to define a set of commands that can be used across all of your projects. If you plan to deploy using `tj`, this file will also house your [deployment configuration](http://themejuice.it/deploy).
 
 For reference, below is an example config: (see the config for our starter template, [Sprout](https://github.com/ezekg/theme-juice-starter))
 
@@ -226,13 +226,14 @@ deployment:
   # ...
 ```
 
-#### Argument placeholders
-As you can see in the example above, there's a few commands that contain `%args%`; each command list is run within a single execution via joining: `cmd1 && cmd2 [&& cmd3...]`, with all `%args%`/`%argN%` being replaced with the corresponding argument index, when available. Here's a few example scenarios:
+The commands within the `commands` block can be run from the command line via `tj <command>`. For example, we can run the `dev` command by running `tj dev`, which will in turn run the command `grunt`.
+
+If you noticed in the example above, there are a few commands that contain `%args%`; each command list is run within a single execution via joining: `cmd1 && cmd2 [&& cmd3...]`, with all `%args%`/`%argN%` being replaced with the corresponding argument index, when available. Here's a few example scenarios:
 
 ```yml
 commands:
   example-command:
-    # Will contain all arguments stitched together by a space
+    # Will contain all arguments joined by a space
     - cmd1 %args%
     # Will contain each argument mapped to its respective index
     - cmd2 '%arg1% %arg2% %arg3%'
@@ -240,7 +241,9 @@ commands:
     - cmd3 "%arg4%"
 ```
 
-You can specify an unlimited number of commands with an unlimited number of arguments; however, you should be careful with how this is used. Don't go including `sudo rm -rf %arg1%` in a command, while passing `/` as an argument. Keep it simple. These are meant to make your life easier by helping you manage build tools, not to do fancy scripting.
+To clarify a little bit more, we could run `tj dev build`, and since our `dev` command contains `%args%`, that will in turn run the command `grunt build`; if we can `tj dev some other task`, that would be interpreted and run as `grunt some other task`.
+
+You can specify an unlimited number of commands with an unlimited number of arguments within your `Juicefile`; however, you should be careful with how this is used. Don't go including `sudo rm -rf %arg1%` in a command, while passing `/` as an argument. Keep it simple. These are meant to make your life easier by helping you manage build tools, not to do fancy scripting.
 
 ### Does `tj` support subdomain multi-sites?
 If you're able to use [Landrush](https://github.com/phinze/landrush) for your DNS, then yes. All subdomains will resolve to their parent domain. Landrush comes pre-installed when you create your first project with `tj`. Having said that, unfortunately, if you're on Windows you'll might have to manually add the subdomains to your `/etc/hosts` file due to Landrush not being fully supported yet. If you have the Windows chops, head over there and contribute to Landrush by squashing that bug. I'm sure he would appreciate it!
