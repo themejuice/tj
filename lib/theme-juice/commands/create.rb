@@ -95,7 +95,7 @@ module ThemeJuice
         if @env.yolo
           name = Faker::Internet.domain_word
         else
-          name = @io.ask "What's the project name? (letters, numbers and dashes only)"
+          name = @io.ask "What's the project name? (lowercase letters, numbers and dashes only)"
         end
 
         valid_name? name
