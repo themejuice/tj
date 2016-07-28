@@ -119,6 +119,7 @@ Or, you can also check out [themejuice.it](http://themejuice.it) for a pretty we
 1. [Can I integrate my deployments with Slack?](#can-i-integrate-my-deployments-with-slack)
 1. [Can I use a self-signed SSL cert?](#can-i-use-a-self-signed-ssl-cert)
 1. [Can I define my own Capistrano tasks?](#can-i-define-my-own-capistrano-tasks)
+1. [Can I run `wp-cli` commands on my deployment stages?](#can-i-run-wp-cli-commands-on-my-deployment-stages)
 1. [Troubleshooting](#troubleshooting)
 
 ### Is Windows supported?
@@ -305,6 +306,22 @@ namespace :db do
   end
 end
 ```
+
+### Can I run `wp-cli` commands on my deployment stages?
+Sure can, and without the help of `tj`! As of version `0.24`, `wp-cli` does this out of the box. Whenever you create a new site, `tj` will add a file to your project's root directory called `wp-cli.local.yml` that contains something along the lines of:
+
+```yml
+@development:
+  ssh: vagrant@example.dev/srv/www/tj-example
+```
+
+You can then run `wp` commands like this,
+
+```bash
+wp @development plugin list
+```
+
+Feel free to add your other stages into that file as well!
 
 ## Troubleshooting
 
