@@ -30,11 +30,11 @@ module ThemeJuice
     attr_accessor :branch
 
     def vm_box=(val)
-      @vm_box = val || ENV.fetch("TJ_VM_BOX") { "git@github.com:ezekg/theme-juice-vvv.git" }
+      @vm_box = val || ENV.fetch("TJ_VM_BOX") { "git@github.com:ezekg/graft.git" }
     end
 
     def vm_path=(val)
-      @vm_path = val || ENV.fetch("TJ_VM_PATH") { File.expand_path("~/tj-vagrant") }
+      @vm_path = val || ENV.fetch("TJ_VM_PATH") { File.expand_path("~/graft") }
     end
 
     def vm_ip=(val)
