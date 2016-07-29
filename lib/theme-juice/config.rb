@@ -8,6 +8,8 @@ module ThemeJuice
     @util    = Util.new
     @config  = nil
 
+    attr_accessor :path
+
     def command(cmd, *args)
       return if @project.no_config
 
@@ -20,6 +22,12 @@ module ThemeJuice
           @env.inside_vm ? run_inside_vm(cmds) : run(cmds) }
     rescue NoMethodError
       @io.say "Skipping...", :color => :yellow, :icon => :notice
+    end
+
+    def project
+      config.project
+    rescue NoMethodError
+      {}
     end
 
     def commands
@@ -36,6 +44,10 @@ module ThemeJuice
 
     def exist?
       !capture { config }.nil?
+    end
+
+    def refresh!
+      @config = read
     end
 
     private
@@ -69,17 +81,18 @@ module ThemeJuice
     end
 
     def config
-      @config = read_config if @config.nil?
-      @config
+      @config ||= read
     end
 
-    def read_config
+    def read
       @project.location ||= @env.from_path || Dir.pwd
       @project.name ||= File.basename @project.location
 
-      YAML.load_file Dir["#{@project.location}/*"].select { |f|
-        config_regex =~ File.basename(f) }.last ||
-        @io.error("Config file not found in '#{@project.location}'", LoadError)
+      @path = Dir["#{@project.location}/*"].select { |f|
+        config_regex =~ File.basename(f)
+      }.last || @io.error("Config file not found in '#{@project.location}'", LoadError)
+
+      YAML.load File.read(@path)
     rescue ::Psych::SyntaxError => err
       @io.error "Config file contains invalid YAML", SyntaxError do
         puts err
@@ -88,20 +101,30 @@ module ThemeJuice
       nil
     end
 
+    # Allowed:
+    # - Juicefile
+    # - Juicefile.yml
+    # - Juicefile.yaml
+    # - juicefile
+    # - juicefile.yml
+    # - juicefile.yaml
+    # - .tj
+    # - .tj.yml
+    # - .tj.yaml
     def config_regex
-      %r{^(((\.)?(tj)|((J|j)uicefile))(\.y(a)?ml)?$)}
+      %r{^(\.?(tj)|((J|j)uicefile))(\.ya?ml)?$}
     end
 
     def any_arg_regex
-      %r{(%arg(\w+)?%)|(%argument(\w+)?%)}
+      %r{%arg(?:ument)?[s\d]+%}
     end
 
     def multi_arg_regex
-      %r{(%args%)|(%arguments%)}
+      %r{%arg(?:ument)?s%}
     end
 
     def single_arg_regex(i)
-      %r{(%arg#{i}%)|(%argument#{i}%)}
+      %r{%arg(?:ument)?#{i}%}
     end
 
     def capture

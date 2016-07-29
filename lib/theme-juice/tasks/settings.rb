@@ -24,7 +24,12 @@ module ThemeJuice
 
       # Required global settings
       def configure_required_settings
-        set :application,  @config.deployment.application.name
+        if @config.deployment.application.name
+          @io.notice "Deprecation Notice: 'config.deployment.application.name' has been deprecated! Please use 'config.project.name' instead."
+          set :application, @config.deployment.application.name
+        else
+          set :application, @config.project.name
+        end
         set :archive,      @env.archive
 
         set :linked_files, fetch(:linked_files, []).concat(fetch(:shared_files, []))

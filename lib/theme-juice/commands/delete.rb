@@ -32,6 +32,9 @@ module ThemeJuice
         @project.url        = @opts.fetch("url")        { url }
         @project.db_drop    = @opts.fetch("db_drop")    { false }
         @project.vm_restart = @opts.fetch("vm_restart") { false }
+        @project.vm_root
+        @project.vm_location
+        @project.vm_srv
       end
 
       def name
@@ -46,7 +49,7 @@ module ThemeJuice
 
       def url
         return "#{@project.name}.dev" if @env.no_landrush
-        
+
         url = @io.ask "What is the project's development url?", :default => "#{@project.name}.dev"
 
         unless @list.urls.include? url

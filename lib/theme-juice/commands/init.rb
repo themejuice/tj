@@ -23,6 +23,9 @@ module ThemeJuice
 
       def init_project
         @project.vm_provision = @opts.fetch("vm_provision") { false }
+        @project.vm_root
+        @project.vm_location
+        @project.vm_srv
       end
     end
   end

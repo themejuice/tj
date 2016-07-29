@@ -72,6 +72,9 @@ module ThemeJuice
         @project.db_user          = @opts.fetch("db_user")          { db_user }
         @project.db_pass          = @opts.fetch("db_pass")          { db_pass }
         @project.db_import        = @opts.fetch("db_import")        { db_import }
+        @project.vm_root
+        @project.vm_location
+        @project.vm_srv
 
         # TODO: Think up a nicer way of implementing additional logic
 
@@ -93,11 +96,17 @@ module ThemeJuice
       end
 
       def name
-        if @env.yolo
-          name = Faker::Internet.domain_word
-        else
-          name = @io.ask "What's the project name? (lowercase letters, numbers and dashes only)"
-        end
+        name =
+          case
+          when @config.exist? && @config.project.name
+            @io.say "Inferred project name '#{@config.project.name}' from existing config...", {
+              :color => :yellow, :icon => :notice }
+            @config.project.name
+          when @env.yolo
+            Faker::Internet.domain_word
+          else
+            @io.ask "What's the project name? (lowercase letters, numbers and dashes only)"
+          end
 
         valid_name? name
 
@@ -134,11 +143,17 @@ module ThemeJuice
       end
 
       def url
-        if @project.use_defaults
-          url = "#{@project.name}.dev"
-        else
-          url = @io.ask "What do you want the development url to be? (this should end in '.dev')", :default => "#{@project.name}.dev"
-        end
+        url =
+          case
+          when @config.exist? && @config.project.url
+            @io.say "Inferred project url '#{@config.project.url}' from existing config...", {
+              :color => :yellow, :icon => :notice }
+            @config.project.url
+          when @project.use_defaults
+            "#{@project.name}.dev"
+          else
+            @io.ask "What do you want the development url to be? (this should end in '.dev')", :default => "#{@project.name}.dev"
+          end
 
         valid_url? url
 

@@ -8,6 +8,7 @@ describe ThemeJuice::Commands::Create do
       @env     = ThemeJuice::Env
       @io      = ThemeJuice::IO
       @project = ThemeJuice::Project
+      @config  = ThemeJuice::Config
     end
   end
 

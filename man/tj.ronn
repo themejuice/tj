@@ -188,6 +188,86 @@ this is used. Don't go including `sudo rm -rf %arg1%` in a command, while
 passing `/` as an argument. Keep it simple. These are meant to make your
 life easier by helping you manage build tools, not to do fancy scripting.
 
+## CONFIG TEMPLATE STRINGS
+
+You may define ERB template strings within a project starter template's
+Juicefile(5). These will be replaced upon running create(1).
+
+For example,
+
+  ```
+  # Project configuration
+  project:
+    name: <%= name %>
+    url: <%= url %>
+  ```
+
+will be replaced with,
+
+  ```
+  # Project configuration
+  project:
+    name: example-project
+    url: example-project.dev
+  ```
+
+if those were the options chosen during a creation. The following variables are
+available for use:
+
+* `name`:
+  Project name
+
+* `location`:
+  Project location
+
+* `url`:
+  Project URL
+
+* `xip_url`:
+  Project xip.io URL
+
+* `template`:
+  Project template repository URL
+
+* `repository`:
+  Initialized repository URL, if available
+
+* `db_host`:
+  Project database host
+
+* `db_name`:
+  Project database name
+
+* `db_user`:
+  Project database user
+
+* `db_pass`:
+  Project database password
+
+* `db_import`:
+  Path to imported database file
+
+* `vm_box`:
+  Virtual machine box URL
+
+* `vm_ip`:
+  Virtual machine IP address
+
+* `vm_path`:
+  Virtual machine location on the host machine
+
+* `vm_root`:
+  Web root of the VM on the host machine
+
+* `vm_location`:
+  Project location within the VM on the host machine
+
+* `vm_srv`:
+  Project location within the VM on the guest machine
+
+* `vm_prefix`:
+  Virtual machine project location prefix
+
 ## ENVIRONMENT
 
 All of the global options have a corresponding `ENV` variable that can be set

@@ -2,6 +2,7 @@ describe ThemeJuice::Config do
 
   before :each do
     @env = ThemeJuice::Env
+    @project = ThemeJuice::Project
     @config = ThemeJuice::Config
   end
 
@@ -21,6 +22,55 @@ describe ThemeJuice::Config do
       it "should not raise error if Env.trace is true" do
         allow(ThemeJuice::Env).to receive(:trace).and_return true
         expect { @config.config }.not_to raise_error
+      end
+    end
+
+    describe ".project" do
+
+      context "when project info exists in config" do
+
+        before :each do
+          expect_any_instance_of(@config).to receive(:config)
+            .once.and_return YAML.load %Q{
+project:
+  name: example
+  url: example.dev
+}
+        end
+
+        it "should not raise error" do
+          allow(stdout).to receive :print
+          expect { @config.project }.not_to raise_error
+        end
+
+        it "should raise error if Env.trace is true" do
+          allow(ThemeJuice::Env).to receive(:trace).and_return true
+          allow(stdout).to receive :print
+          expect { @config.project }.not_to raise_error
+        end
+      end
+
+      context "when project info does not exist in config" do
+
+        before :each do
+          expect_any_instance_of(@config).to receive(:config)
+            .once.and_return YAML.load %Q{
+commands:
+  install:
+    - "%args%"
+}
+        end
+
+        it "should not exit when project info is missing" do
+          allow(stdout).to receive :print
+          expect { @config.project }.not_to raise_error
+        end
+
+        it "should not raise error for missing project info when Env.trace is true" do
+          allow(ThemeJuice::Env).to receive(:trace).and_return true
+          allow(stdout).to receive :print
+          expect { @config.project }.not_to raise_error
+        end
       end
     end
 

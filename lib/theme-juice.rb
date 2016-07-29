@@ -4,6 +4,7 @@ require "thor"
 require "faker"
 require "os"
 require "yaml"
+require "erb"
 require "shellwords"
 require "capistrano/all"
 

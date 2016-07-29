@@ -10,8 +10,9 @@ module ThemeJuice
 
       def execute
         return unless @project.template
-        
+
         clone_template
+        render_template_config_erb if @config.exist?
         install_template
       end
 
@@ -23,6 +24,19 @@ module ThemeJuice
           @util.run "git clone --depth 1 #{@project.template} .", {
             :verbose => @env.verbose, :capture => @env.quiet }
         end
+      end
+
+      def render_template_config_erb
+        @io.log "Rendering template config ERB"
+        save_template_config ERB.new(File.read(@config.path)).result(
+          @project.to_h.merge(@env.to_h).to_ostruct.instance_eval { binding }
+        )
+      end
+
+      def save_template_config(contents)
+        @io.log "Saving rendered template config"
+        File.open(@config.path, "w+") { |f| f << contents }
+        @config.refresh!
       end
 
       def install_template

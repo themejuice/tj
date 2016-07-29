@@ -11,19 +11,45 @@ describe ThemeJuice::Tasks::Template do
     allow(@project).to receive(:name).and_return "synced-folder-test"
     allow(@project).to receive(:location).and_return Dir.pwd
     allow(@project).to receive(:template).and_return "git@github.com:some/unknown/repo.git"
-    expect_any_instance_of(@config).to receive(:config)
-      .at_least(:once).and_return YAML.load %Q{
+    # expect_any_instance_of(@config).to receive(:config)
+    #   .at_least(:once).and_return YAML.load %Q{
+    File.open "#{@project.location}/Juicefile", "w+" do |f|
+      f << %Q{
+project:
+  name: <%= name %>
+  url: <%= url %>
 commands:
   install:
     - "Installing template..."
     - "Done!"
+deployment:
+  stages:
+    vagrant:
+      server: <%= vm_ip %>
+      path: <%= vm_srv %>
+      domain: <%= url %>
 }
+    end
+    expect_any_instance_of(@project).to receive(:to_h)
+      .at_least(1).times.and_return({
+        name: "parse-test",
+        url: "parse-test.dev",
+        vm_srv: "/srv/www/tj-parse-test"
+      })
+    expect_any_instance_of(@env).to receive(:to_h)
+      .at_least(1).times.and_return({
+        vm_ip: "192.168.13.37"
+      })
 
     FileUtils.mkdir_p "#{@env.vm_path}"
   end
 
   before :each do
     @task = ThemeJuice::Tasks::Template.new
+  end
+
+  after :each do
+    @config.instance_variable_set "@config", nil # ¯\_(ツ)_/¯
   end
 
   describe "#execute" do
@@ -40,6 +66,42 @@ commands:
 
       expect(output).to match /Installing template\.\.\./
       expect(output).to match /Done\!/
+    end
+
+    it "should parse ERB template strings within the config" do
+      capture(:stdout) { @task.execute }
+      expect(@config.project).to eq({
+        "name" => "parse-test",
+        "url" => "parse-test.dev"
+      })
+      expect(@config.deployment).to eq({
+        "stages" => {
+          "vagrant" => {
+            "server" => "192.168.13.37",
+            "path" => "/srv/www/tj-parse-test",
+            "domain" => "parse-test.dev"
+          }
+        }
+      })
+    end
+
+    it "should replace current config with parsed config" do
+      capture(:stdout) { @task.execute }
+      expect(File.binread("#{@project.location}/Juicefile")).to eq %Q{
+project:
+  name: parse-test
+  url: parse-test.dev
+commands:
+  install:
+    - "Installing template..."
+    - "Done!"
+deployment:
+  stages:
+    vagrant:
+      server: 192.168.13.37
+      path: /srv/www/tj-parse-test
+      domain: parse-test.dev
+}
     end
   end
 end
