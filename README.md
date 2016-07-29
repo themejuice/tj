@@ -8,7 +8,7 @@
 ![Theme Juice CLI](demo.gif)
 
 ## What is it?
-The [Theme Juice CLI](http://themejuice.it), also known as `tj`, helps you create new local WordPress development sites, manage existing sites, and deploy them, all from the command line. It utilizes our [Graft VM](https://github.com/ezekg/theme-juice-vm) for the virtual machine to spin up new development sites in seconds.
+The [Theme Juice CLI](http://themejuice.it), also known as `tj`, helps you create new local WordPress development sites, manage existing sites, and deploy them, all from the command line. It utilizes our [Graft VM](https://github.com/ezekg/graft) for the virtual machine to spin up new development sites in seconds.
 
 Check out [our getting started guide over at SitePoint](http://www.sitepoint.com/introducing-theme-juice-for-local-wordpress-development/), or [view the documentation site](http://themejuice.it).
 
@@ -150,7 +150,7 @@ To use these permanently, set the appropriate `ENV` variables through your `.bas
 _Note: Before running this, you might want to either choose a new `vm-path`, or destroy and remove any existing VMs inside of your `~/tj-vagrant` directory. If `tj` detects that a VM already installed, it will skip installing the new box._
 
 ### So, does that mean I can use any Vagrant box?
-Yes and no; in order for `tj` to properly create a project, the Vagrant box needs to follow the same directory structure as [Graft](https://github.com/ezekg/theme-juice-vm), and include logic for a `Customfile`. Here is the required structure that `tj` needs in order to be able to create new projects:
+Yes and no; in order for `tj` to properly create a project, the Vagrant box needs to follow the same directory structure as [Graft](https://github.com/ezekg/graft), and include logic for a `Customfile`. Here is the required structure that `tj` needs in order to be able to create new projects:
 
 ```
 ├── config/
@@ -185,7 +185,7 @@ Yes and no; in order for `tj` to properly create a project, the Vagrant box need
 ```
 
 ### What is a `Customfile`?
-[It's a file that contains custom rules to add into the main `Vagrantfile`, without actually having to modify it](https://github.com/ezekg/theme-juice-vm/blob/master/Vagrantfile?ts=2#L96-L98). This allows us to easily modify the Vagrant box without causing merge conflicts if you were to update the VM source via `git pull`. Every file that `tj` modifies is _meant to be modified_, so at any time you may update your installation of Graft with a simple `git pull` without getting merge conflicts out the wazoo.
+[It's a file that contains custom rules to add into the main `Vagrantfile`, without actually having to modify it](https://github.com/ezekg/graft/blob/master/Vagrantfile?ts=2). This allows us to easily modify the Vagrant box without causing merge conflicts if you were to update the VM source via `git pull`. Every file that `tj` modifies is _meant to be modified_, so at any time you may update your installation of Graft with a simple `git pull` without getting merge conflicts out the wazoo.
 
 ### What is a `Juicefile`?
 A YAML configuration file called a `Juicefile` can be used to store commonly-used build scripts, similar to [npm scripts](https://docs.npmjs.com/misc/scripts). Each command can be mapped to any build script you like, allowing you to define a set of commands that can be used across all of your projects. If you plan to deploy using `tj`, this file will also house your [deployment configuration](http://themejuice.it/deploy).
@@ -282,7 +282,7 @@ deployment:
 Check out [capistrano-slackify](https://github.com/onthebeach/capistrano-slackify) for more information.
 
 ### Can I use a self-signed SSL cert?
-Yes, unless you used the `--no-ssl` flag, `tj` will set up each new site to support SSL, [and the VM will generate a new self-signed certificate](https://github.com/ezekg/theme-juice-vm#automatically-generated-self-signed-ssl-certs). In order to take advantage of it, [you'll need to accept the self-signed certificate on your host machine](https://github.com/ezekg/theme-juice-vm#accepting-a-self-signed-ssl-cert).
+Yes, unless you used the `--no-ssl` flag, `tj` will set up each new site to support SSL, [and the VM will generate a new self-signed certificate](https://github.com/ezekg/graft#automatically-generated-self-signed-ssl-certs). In order to take advantage of it, [you'll need to accept the self-signed certificate on your host machine](https://github.com/ezekg/graft#accepting-a-self-signed-ssl-cert).
 
 ### Can I define my own Capistrano tasks?
 Yes. Any file within a directory called `deploy/` in your project with extensions `.rb`, `.cap` or `.rake` will be automatically loaded by Capistrano.
