@@ -24,11 +24,11 @@ module ThemeJuice
 
       # Required global settings
       def configure_required_settings
-        if @config.deployment.application.name
+        begin
+          set :application, @config.project.name
+        rescue NoMethodError => err
           @io.notice "Deprecation Notice: 'config.deployment.application.name' has been deprecated! Please use 'config.project.name' instead."
           set :application, @config.deployment.application.name
-        else
-          set :application, @config.project.name
         end
         set :archive, @env.archive
 
