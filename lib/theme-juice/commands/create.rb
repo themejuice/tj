@@ -97,15 +97,16 @@ module ThemeJuice
 
       def name
         name =
-          case
-          when @config.exist? && @config.project.name
+          begin
             @io.say "Inferred project name '#{@config.project.name}' from existing config...", {
               :color => :yellow, :icon => :notice }
             @config.project.name
-          when @env.yolo
-            Faker::Internet.domain_word
-          else
-            @io.ask "What's the project name? (lowercase letters, numbers and dashes only)"
+          rescue NoMethodError
+            if @env.yolo
+              Faker::Internet.domain_word
+            else
+              @io.ask "What's the project name? (lowercase letters, numbers and dashes only)"
+            end
           end
 
         valid_name? name
@@ -144,15 +145,16 @@ module ThemeJuice
 
       def url
         url =
-          case
-          when @config.exist? && @config.project.url
+          begin
             @io.say "Inferred project url '#{@config.project.url}' from existing config...", {
               :color => :yellow, :icon => :notice }
             @config.project.url
-          when @project.use_defaults
-            "#{@project.name}.dev"
-          else
-            @io.ask "What do you want the development url to be? (this should end in '.dev')", :default => "#{@project.name}.dev"
+          rescue NoMethodError
+            if @project.use_defaults
+              "#{@project.name}.dev"
+            else
+              @io.ask "What do you want the development url to be? (this should end in '.dev')", :default => "#{@project.name}.dev"
+            end
           end
 
         valid_url? url

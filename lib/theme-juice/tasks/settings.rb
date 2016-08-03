@@ -26,7 +26,7 @@ module ThemeJuice
       def configure_required_settings
         begin
           set :application, @config.project.name
-        rescue NoMethodError => err
+        rescue NoMethodError
           @io.notice "Deprecation Notice: 'config.deployment.application.name' has been deprecated! Please use 'config.project.name' instead."
           set :application, @config.deployment.application.name
         end
