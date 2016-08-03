@@ -50,14 +50,6 @@ module ThemeJuice
       private
 
       def init_project
-
-        # Assume bare if the project path isn't empty (template install will fail)
-        unless @opts[:bare] || Dir["#{@project.location}/*"].empty?
-          @opts[:template] = false
-          @opts[:bare]     = true
-          @io.notice "Project location is not empty. Assuming you meant to run a setup..."
-        end
-
         @project.use_defaults     = @opts.fetch("use_defaults")     { false }
         @project.bare             = @opts.fetch("bare")             { false }
         @project.skip_repo        = @opts.fetch("skip_repo")        { false }
@@ -71,6 +63,14 @@ module ThemeJuice
         @project.no_env           = @opts.fetch("no_env")           { @project.wp_config_modify }
         @project.name             = @opts.fetch("name")             { name }
         @project.location         = @opts.fetch("location")         { location }
+
+        # Assume bare if the project path isn't empty (template install will fail)
+        unless @project.bare || Dir["#{@project.location}/*"].empty?
+          @project.template = false
+          @project.bare     = true
+          @io.notice "Project location is not empty. Assuming you meant to run a setup..."
+        end
+
         @project.url              = @opts.fetch("url")              { url }
         @project.xip_url          = @opts.fetch("xip_url")          { xip_url }
         @project.template         = @opts.fetch("template")         { template }
@@ -98,6 +98,7 @@ module ThemeJuice
       def name
         name =
           begin
+            raise NoMethodError unless @config.exist?
             @io.say "Inferred project name '#{@config.project.name}' from existing config...", {
               :color => :yellow, :icon => :notice }
             @config.project.name
@@ -146,6 +147,7 @@ module ThemeJuice
       def url
         url =
           begin
+            raise NoMethodError unless @config.exist?
             @io.say "Inferred project url '#{@config.project.url}' from existing config...", {
               :color => :yellow, :icon => :notice }
             @config.project.url
