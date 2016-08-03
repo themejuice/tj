@@ -88,7 +88,7 @@ module ThemeJuice
         if File.exist? man_path
           shell_escaped_man_path = man_path.shellescape
           if OS.windows?
-            @io.say File.read "#{shell_escaped_man_path}.txt", :color => :white
+            @io.say File.read("#{shell_escaped_man_path}.txt"), :color => :white
           else
             @util.run "man #{shell_escaped_man_path}", :verbose => @env.verbose
           end
