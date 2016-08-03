@@ -183,12 +183,12 @@ project's deployment setup.
 Below is an example deployment configuration:
 
   ```
-  # Manage deployment for the current application
-  deployment:
+  # Project configuration
+  project:
+    name: example
 
-    # Application settings
-    application:
-      name: example-app
+  # Deployment configuration
+  deployment:
 
     # Repository settings
     repository:
