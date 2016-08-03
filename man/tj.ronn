@@ -120,6 +120,11 @@ this file will also house your deploy(1) configuration.
 For reference, below is an example config:
 
   ```
+  # Project configuration
+  project:
+    name: example
+    url: example.dev
+
   # Manage command aliases for the current project
   commands:
 
@@ -147,11 +152,10 @@ For reference, below is an example config:
 
   # Manage deployment settings for the current project
   deployment:
-
-    application:
-      name: "example"
-
     # ...
+
+    stages:
+      # ...
   ```
 
 ## CONFIG COMMANDS
