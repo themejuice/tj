@@ -50,6 +50,14 @@ module ThemeJuice
       private
 
       def init_project
+
+        # Assume bare if the project path isn't empty (template install will fail)
+        unless Dir["#{@project.location}/*"].empty?
+          @opts[:template] = false
+          @opts[:bare]     = true
+          @io.notice "Project location is not empty. Assuming you meant to run a setup..."
+        end
+
         @project.use_defaults     = @opts.fetch("use_defaults")     { false }
         @project.bare             = @opts.fetch("bare")             { false }
         @project.skip_repo        = @opts.fetch("skip_repo")        { false }
@@ -84,14 +92,6 @@ module ThemeJuice
           @project.location = "#{Dir.pwd}"
         when /^~/
           @project.location = File.expand_path @project.location
-        end
-
-        # Assume bare if the project path isn't empty (template install will fail)
-        unless Dir["#{@project.location}/*"].empty?
-          @project.template = false
-          @project.bare     = true
-          @io.say "Project location is not empty. Assuming you meant to run a setup...", {
-            :color => :yellow, :icon => :notice }
         end
       end
 
