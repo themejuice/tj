@@ -52,7 +52,7 @@ module ThemeJuice
       def init_project
 
         # Assume bare if the project path isn't empty (template install will fail)
-        unless Dir["#{@project.location}/*"].empty?
+        unless @opts[:bare] || Dir["#{@project.location}/*"].empty?
           @opts[:template] = false
           @opts[:bare]     = true
           @io.notice "Project location is not empty. Assuming you meant to run a setup..."
