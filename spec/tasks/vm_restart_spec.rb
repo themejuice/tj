@@ -55,31 +55,10 @@ describe ThemeJuice::Tasks::VMRestart do
   end
 
   describe "#unexecute" do
+    it "should restart vagrant" do
+      output = capture(:stdout) { @task.unexecute }
 
-    context "when Project.vm_restart is true" do
-
-      before do
-        allow(@project).to receive(:vm_restart).and_return true
-      end
-
-      it "should restart vagrant" do
-        output = capture(:stdout) { @task.unexecute }
-
-        expect(output).to match /vagrant up/
-      end
-    end
-
-    context "when Project.vm_restart is false" do
-
-      before do
-        allow(@project).to receive(:vm_restart).and_return false
-      end
-
-      it "should not restart vagrant" do
-        output = capture(:stdout) { @task.unexecute }
-
-        expect(output).to_not match /vagrant up/
-      end
+      expect(output).to match /vagrant up/
     end
   end
 end

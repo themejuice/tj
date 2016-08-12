@@ -13,7 +13,7 @@ module ThemeJuice
       end
 
       def unexecute
-        restart if @project.vm_restart
+        restart
       end
 
       private
