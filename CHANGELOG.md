@@ -1,5 +1,11 @@
 # Releases
 
+## `v0.28.0`
+- Update `delete` command to provision virtual machine by default
+- Add `update` command to keep virtual machine up to date
+- Add `--template-revision` flag (with alias `--template-branch`)
+- Add `--vm-revision` flag
+
 ## `v0.27.0`
 - Change default VM box to [Graft](https://github.com/ezekg/graft)
 - Change default VM IP address from `192.168.50.4` to `192.168.13.37`
