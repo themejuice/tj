@@ -46,6 +46,10 @@ module ThemeJuice
       @vm_prefix = val || ENV.fetch("TJ_VM_PREFIX") { "tj-" }
     end
 
+    def vm_revision=(val)
+      @vm_revision = val || ENV.fetch("TJ_VM_REVISION") { nil }
+    end
+
     def from_path=(val)
       @from_path = val || ENV.fetch("TJ_FROM_PATH") { nil }
     end

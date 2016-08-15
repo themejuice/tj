@@ -37,6 +37,9 @@ access your new project at the specified url. It's that easy!
   * `-t`, `--template`=<repository>:
     Starter template to install
 
+  * `--template-revision`, `--template-branch`:
+    Revision hash or branch to checkout for starter template (default is master)
+
   * `-u`, `--url`=<url>:
     Development URL for the project
 

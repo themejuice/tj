@@ -33,7 +33,7 @@ describe ThemeJuice::Tasks::VMBox do
         allow(@env).to receive(:vm_revision).and_return nil
       end
 
-      it "should clone the master branch of the template repository" do
+      it "should clone the master branch of the vm box repository" do
         output = capture(:stdout) { @task.execute }
 
         expect(output).to match /git clone/
@@ -48,7 +48,7 @@ describe ThemeJuice::Tasks::VMBox do
         allow(@env).to receive(:vm_revision).and_return "sha1-rev"
       end
 
-      it "should clone the master branch of the template repository" do
+      it "should clone the master branch of the vm box repository" do
         output = capture(:stdout) { @task.execute }
 
         expect(output).to match /git clone/
