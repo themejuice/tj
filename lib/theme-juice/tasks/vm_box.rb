@@ -23,8 +23,13 @@ module ThemeJuice
 
         @io.log "Installing Vagrant box"
         @util.inside @env.vm_path do
-          @util.run "git clone #{@env.vm_box} . --depth 1", {
-            :verbose => @env.verbose, :capture => @env.quiet }
+          @util.run [], { :verbose => @env.verbose,
+            :capture => @env.quiet } do |cmds|
+            cmds << "git clone #{@env.vm_box} ."
+            if @env.vm_revision
+              cmds << "git checkout #{@env.vm_revision}"
+            end
+          end
         end
       end
     end

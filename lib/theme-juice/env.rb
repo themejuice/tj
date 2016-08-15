@@ -8,6 +8,7 @@ module ThemeJuice
     attr_accessor :vm_path
     attr_accessor :vm_ip
     attr_accessor :vm_prefix
+    attr_accessor :vm_revision
     attr_accessor :from_path
     attr_accessor :from_srv
     attr_accessor :inside_vm

@@ -27,6 +27,7 @@ module ThemeJuice
         @env.vm_path         = options[:vm_path]
         @env.vm_ip           = options[:vm_ip]
         @env.vm_prefix       = options[:vm_prefix]
+        @env.vm_revision     = options[:vm_revision]
         @env.from_path       = options[:from_path]
         @env.from_srv        = options[:from_srv]
         @env.inside_vm       = options[:inside_vm]
@@ -62,6 +63,7 @@ module ThemeJuice
     class_option :vm_path,         :type => :string,                           :default => nil, :desc => ""
     class_option :vm_ip,           :type => :string,                           :default => nil, :desc => ""
     class_option :vm_prefix,       :type => :string,                           :default => nil, :desc => ""
+    class_option :vm_revision,     :type => :string,                           :default => nil, :desc => ""
     class_option :from_path,       :type => :string,  :aliases => "--in-path", :default => nil, :desc => ""
     class_option :from_srv,        :type => :string,  :aliases => "--in-srv",  :default => nil, :desc => ""
     class_option :inside_vm,       :type => :boolean, :aliases => "--in-vm",                    :desc => ""
