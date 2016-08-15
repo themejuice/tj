@@ -19,7 +19,7 @@ tj(1) -- WordPress development made easy
   * `--vm-prefix`=<string>:
     Force directory prefix for project in VM*
 
-  * `--vm-revision`:
+  * `--vm-revision`=<revision>:
     Revision hash or branch to checkout for VM (default is master)
 
   * `--from-path`, `--in-path`=<path>:
