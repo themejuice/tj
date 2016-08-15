@@ -17,6 +17,7 @@ module ThemeJuice
       @create  = Commands::Create
       @delete  = Commands::Delete
       @deploy  = Commands::Deploy
+      @update  = Commands::Update
 
       init_env
     end
@@ -200,7 +201,7 @@ module ThemeJuice
 
     desc "update", "Update tj and its dependencies"
     def update(*args)
-      @io.error "Not implemented"
+      @update.new(options).execute
     end
 
     desc "vm [ARGS]", "Manage development environment"
