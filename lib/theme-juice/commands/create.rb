@@ -71,15 +71,16 @@ module ThemeJuice
           @io.notice "Project location is not empty. Assuming you meant to run a setup..."
         end
 
-        @project.url              = @opts.fetch("url")              { url }
-        @project.xip_url          = @opts.fetch("xip_url")          { xip_url }
-        @project.template         = @opts.fetch("template")         { template }
-        @project.repository       = @opts.fetch("repository")       { repository }
-        @project.db_host          = @opts.fetch("db_host")          { db_host }
-        @project.db_name          = @opts.fetch("db_name")          { db_name }
-        @project.db_user          = @opts.fetch("db_user")          { db_user }
-        @project.db_pass          = @opts.fetch("db_pass")          { db_pass }
-        @project.db_import        = @opts.fetch("db_import")        { db_import }
+        @project.url               = @opts.fetch("url")               { url }
+        @project.xip_url           = @opts.fetch("xip_url")           { xip_url }
+        @project.template          = @opts.fetch("template")          { template }
+        @project.template_revision = @opts.fetch("template_revision") { nil }
+        @project.repository        = @opts.fetch("repository")        { repository }
+        @project.db_host           = @opts.fetch("db_host")           { db_host }
+        @project.db_name           = @opts.fetch("db_name")           { db_name }
+        @project.db_user           = @opts.fetch("db_user")           { db_user }
+        @project.db_pass           = @opts.fetch("db_pass")           { db_pass }
+        @project.db_import         = @opts.fetch("db_import")         { db_import }
         @project.vm_root
         @project.vm_location
         @project.vm_srv

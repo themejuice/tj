@@ -21,8 +21,13 @@ module ThemeJuice
       def clone_template
         @io.log "Cloning template"
         @util.inside @project.location do
-          @util.run "git clone --depth 1 #{@project.template} .", {
-            :verbose => @env.verbose, :capture => @env.quiet }
+          @util.run [], { :verbose => @env.verbose,
+            :capture => @env.quiet } do |cmds|
+            cmds << "git clone --depth 1 #{@project.template} ."
+            if @project.template_revision
+              cmds << "git checkout #{@project.template_revision}"
+            end
+          end
         end
       end
 
