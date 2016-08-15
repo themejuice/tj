@@ -23,7 +23,7 @@ module ThemeJuice
         @util.inside @project.location do
           @util.run [], { :verbose => @env.verbose,
             :capture => @env.quiet } do |cmds|
-            cmds << "git clone --depth 1 #{@project.template} ."
+            cmds << "git clone #{@project.template} ."
             if @project.template_revision
               cmds << "git checkout #{@project.template_revision}"
             end
