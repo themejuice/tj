@@ -97,6 +97,9 @@ Run `tj help` [<command>] to view an individual command's man page.
   * deploy(1), `server`, `remote`:
     Deploy and manage a project
 
+  * `update`:
+    Update virtual machine and dependencies
+
 ## SECONDARY COMMANDS
 
   * `version`, `--version`, `-v`:
