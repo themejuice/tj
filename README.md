@@ -8,9 +8,9 @@
 ![Theme Juice CLI](demo.gif)
 
 ## What is it?
-The [Theme Juice CLI](http://themejuice.it), also known as `tj`, helps you create new local WordPress development sites, manage existing sites, and deploy them, all from the command line. It utilizes our [Graft VM](https://github.com/ezekg/graft) for the virtual machine to spin up new development sites in seconds.
+The [Theme Juice CLI](http://cli.themejuice.it), also known as `tj`, helps you create new local WordPress development sites, manage existing sites, and deploy them, all from the command line. It utilizes our [Graft VM](https://github.com/ezekg/graft) for the virtual machine to spin up new development sites in seconds.
 
-Check out [our getting started guide over at SitePoint](http://www.sitepoint.com/introducing-theme-juice-for-local-wordpress-development/), or [view the documentation site](http://themejuice.it).
+Check out [our getting started guide over at SitePoint](http://www.sitepoint.com/introducing-theme-juice-for-local-wordpress-development/), or [view the documentation site](http://cli.themejuice.it).
 
 ## What problems does `tj` help solve?
 To get the most out of `tj`, it is recommended that you use our [starter template](https://github.com/ezekg/theme-juice-starter). Why? Keep on reading and we'll tell you. `tj` is built on top of tried and true open source libraries such as [Capistrano](http://capistranorb.com/) for deployment, [Vagrant](https://www.vagrantup.com/) for local development, and even a little bit of [WP-CLI](http://wp-cli.org) for database migration. Some of the main pain points `tj` helps solve are:
@@ -91,7 +91,7 @@ tj delete
 ```
 
 ### Deploy a project
-After configuring your `Juicefile` and setting up SSH keys for yourself, this will deploy a project to the passed `<stage>` using [Capistrano](http://capistranorb.com/). Head over to the [docs](http://themejuice.it/deploy) to see all of the available commands. There's a quick getting started section there too for your first deployment!
+After configuring your `Juicefile` and setting up SSH keys for yourself, this will deploy a project to the passed `<stage>` using [Capistrano](http://capistranorb.com/). Head over to the [docs](http://cli.themejuice.it/deploy) to see all of the available commands. There's a quick getting started section there too for your first deployment!
 
 ```
 tj deploy <stage>
@@ -104,7 +104,7 @@ Want to check out all of the various flags and features `tj` offers? Just ask `t
 tj help
 ```
 
-Or, you can also check out [themejuice.it](http://themejuice.it) for a pretty website chock-full of the same documentation provided by `tj help`.
+Or, you can also check out [cli.themejuice.it](http://cli.themejuice.it) for a pretty website chock-full of the same documentation provided by `tj help`.
 
 ## FAQ
 
@@ -188,7 +188,7 @@ Yes and no; in order for `tj` to properly create a project, the Vagrant box need
 [It's a file that contains custom rules to add into the main `Vagrantfile`, without actually having to modify it](https://github.com/ezekg/graft/blob/master/Vagrantfile?ts=2). This allows us to easily modify the Vagrant box without causing merge conflicts if you were to update the VM source via `git pull`. Every file that `tj` modifies is _meant to be modified_, so at any time you may update your installation of Graft with a simple `git pull` without getting merge conflicts out the wazoo.
 
 ### What is a `Juicefile`?
-A YAML configuration file called a `Juicefile` can be used to store commonly-used build scripts, similar to [npm scripts](https://docs.npmjs.com/misc/scripts). Each command can be mapped to any build script you like, allowing you to define a set of commands that can be used across all of your projects. If you plan to deploy using `tj`, this file will also house your [deployment configuration](http://themejuice.it/deploy).
+A YAML configuration file called a `Juicefile` can be used to store commonly-used build scripts, similar to [npm scripts](https://docs.npmjs.com/misc/scripts). Each command can be mapped to any build script you like, allowing you to define a set of commands that can be used across all of your projects. If you plan to deploy using `tj`, this file will also house your [deployment configuration](http://cli.themejuice.it/deploy).
 
 For reference, below is an example config: (see the config for our starter template, [Sprout](https://github.com/ezekg/theme-juice-starter))
 
