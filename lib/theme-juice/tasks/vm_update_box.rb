@@ -31,6 +31,7 @@ module ThemeJuice
             else
               cmds << "git checkout master"
             end
+            cmds << "git pull"
           end
         end
       end
