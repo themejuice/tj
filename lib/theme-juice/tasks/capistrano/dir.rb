@@ -51,7 +51,7 @@ namespace :dir do
       end
     else
       on roles(:app) do
-        upload! args[:dir], release_path.join(Pathname.new(args[:dir]).parent), {
+        upload! args[:dir], release_path.join(Pathname.new(args[:dir]).parent.to_s), {
           recursive: true
         }
       end
@@ -84,7 +84,7 @@ namespace :dir do
       end
     else
       on roles(:app) do
-        download! release_path.join(args[:dir]), Pathname.new(args[:dir]).parent, {
+        download! release_path.join(args[:dir]), Pathname.new(args[:dir]).parent.to_s, {
           recursive: true
         }
       end
