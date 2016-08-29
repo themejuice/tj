@@ -28,7 +28,7 @@ tj(1) -- WordPress development made easy
 
   * `--from-srv`, `--in-srv`=<path>:
     Run Juicefile(5) commands from the passed srv path instead of from the
-    current host directory path when using the `--inside-vm` flag.
+    current host directory.
 
   * `--inside-vm`, `--in-vm`:
     Run Juicefile(5) commands from inside of the virtual machine instead of
@@ -263,6 +263,9 @@ available for use:
 * `vm_ip`:
   Virtual machine IP address
 
+* `vm_revision`
+  Revision hash or branch to checkout for VM
+
 * `vm_path`:
   Virtual machine location on the host machine
 
@@ -288,14 +291,29 @@ features due to limited support i.e. on Windows.
   * `TJ_VM_BOX`=<repository>:
     Force vagrant(1) box for use as VM
 
-  * `TJ_PATH`=<path>:
+  * `TJ_VM_PATH`=<path>:
     Force path to VM
 
-  * `TJ_IP`=<ip>:
+  * `TJ_VM_IP`=<ip>:
     Force IP address of VM
 
-  * `TJ_PREFIX`=<string>:
+  * `TJ_VM_REVISION`=<revision>:
+    Revision hash or branch to checkout for VM (default is master)
+
+  * `TJ_VM_PREFIX`=<string>:
     Force directory prefix for project in VM
+
+  * `TJ_FROM_PATH`=<path>:
+    Run Juicefile(5) commands from the passed path instead of from the
+    current directory.
+
+  * `TJ_FROM_SRV`=<path>:
+    Run Juicefile(5) commands from the passed srv path instead of from the
+    current host directory path.
+
+  * `TJ_INSIDE_VM`=<bool>:
+    Run Juicefile(5) commands from inside of the virtual machine instead of
+    your host machine.
 
   * `TJ_YOLO`=<bool>:
     Say yes to anything and everything, and maybe even get a few surprises
