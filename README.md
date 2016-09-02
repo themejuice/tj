@@ -1,6 +1,6 @@
 # Theme Juice CLI
 [![Gem Version](http://img.shields.io/gem/v/theme-juice.svg?style=flat-square)](https://rubygems.org/gems/theme-juice)
-[![Travis](https://img.shields.io/travis/ezekg/theme-juice-cli.svg?style=flat-square)](https://travis-ci.org/ezekg/theme-juice-cli)
+[![Travis](https://img.shields.io/travis/ezekg/tj.svg?style=flat-square)](https://travis-ci.org/ezekg/tj)
 [![Code Climate](https://img.shields.io/codeclimate/github/ezekg/theme-juice-cli.svg?style=flat-square)](https://codeclimate.com/github/ezekg/theme-juice-cli)
 [![Code Climate](https://img.shields.io/codeclimate/coverage/github/ezekg/theme-juice-cli.svg?style=flat-square)](https://codeclimate.com/github/ezekg/theme-juice-cli)
 [![Gitter](https://img.shields.io/gitter/room/ezekg/theme-juice-cli.svg?style=flat-square)](https://gitter.im/ezekg/theme-juice-cli)
