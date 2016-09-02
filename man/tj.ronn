@@ -303,13 +303,13 @@ features due to limited support i.e. on Windows.
   * `TJ_VM_PREFIX`=<string>:
     Force directory prefix for project in VM
 
-  * `--from-path`, `--in-path`=<path>:
+  * `TJ_FROM_PATH`<=path>:
     Run Juicefile(5) commands from the passed path instead of from the
     current directory.
 
-  * `--from-srv`, `--in-srv`=<path>:
+  * `TJ_FROM_SRV`<=path>:
     Run Juicefile(5) commands from the passed srv path instead of from the
-    current host directory path when using the `--inside-vm` flag.
+    current host directory path when `TJ_INSIDE_VM` is enabled.
 
   * `TJ_INSIDE_VM`=<bool>:
     Run Juicefile(5) commands from inside of the virtual machine instead of
