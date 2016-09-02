@@ -23,6 +23,11 @@ $secondary: #ff9f3a
 $tertiary: #a9d771
 
 /**
+ * Syntax highlighting
+ */
+@import "vendor/highlight"
+
+/**
  * Override compass' clearfix mixin
  */
 @mixin clearfix
@@ -73,10 +78,6 @@ body
   background:
     color: $background
 
-  &:not(.tj)
-    .index-only
-      display: none
-
 /**
  * Typography
  */
@@ -87,6 +88,10 @@ body
   +_(greater than small)
     font:
       size: 16px
+
+  &:not(.tj)
+    .index-only
+      display: none
 
 h1,
 h2,
@@ -148,6 +153,17 @@ dt,
   padding: 0 1rem
   background:
     color: mix($foreground, $background, 5%)
+
+pre
+  +border-radius(0.25rem)
+  margin:
+    top: 0.75rem
+  padding: 0.5rem 1rem 0.5rem 0
+  background:
+    color: mix($foreground, $background, 5%)
+
+  code
+    background: none !important
 
 #INSTALLATION + p > code:before,
 #SYNOPSIS + p > code:before,
@@ -274,7 +290,7 @@ dl
     +inline-block
     position: relative
     padding:
-      top: 0.625rem
+      top: 0.75rem
     border:
       bottom: none
 

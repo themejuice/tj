@@ -43,9 +43,10 @@ begin
     end
 
     task :copy do
+      mkdir "docs/build/vendor"
       cp "docs/templates/src/CNAME", "docs/build"
       cp "docs/templates/src/favicon.ico", "docs/build"
-      cp "docs/templates/src/laboratory.svg", "docs/build"
+      cp "docs/templates/src/vendor/highlight.min.js", "docs/build/vendor"
     end
 
     task :clean do

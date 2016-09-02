@@ -40,19 +40,6 @@
           %a.navigation__item(href="https://github.com/ezekg/theme-juice-cli" target="_blank" title="View project on GitHub")
             %i.fa.fa-github
 
-    .index-only
-      %section.hero__wrapper
-        .hero
-
-          .hero__content
-            %h1 WordPress development made easy
-            %p
-              %strong
-                <code>tj</code> is a command line utility that generates, manages and deploys WordPress development sites.
-            %a(class="button" href="https://www.themejuice.it" alt="Download the desktop app")
-              %i.fa.fa-download
-              Get Desktop App
-
     %main.main__wrapper
       .main
 
@@ -118,92 +105,19 @@
     %a.scroll-to-top(href="#top" title="Scroll to top")
       %i.fa.fa-level-up
 
+    %script(src="vendor/highlight.min.js")
     :coffee
 
       #
-      # Sticky sidebar
-      #
-      main = document.getElementsByTagName("main")[0]
-      sidebar = document.getElementsByTagName("aside")[0]
-      threshold = main.offsetTop - 25
-
-      getScrollPosition = () ->
-        d = document.documentElement or document.body.parentNode or document.body
-        vect = {}
-        vect.x = if window.pageXOffset?
-            window.pageXOffset
-          else
-            d.scrollLeft
-        vect.y = if window.pageYOffset?
-            window.pageYOffset
-          else
-            d.scrollTop
-
-        vect
-
-      setElementTransform = (element, transform) ->
-        element.style["-webkit-transform"] =
-        element.style["-moz-transform"] =
-        element.style["transform"] = transform
-
-      window.addEventListener "scroll", () ->
-        pos = getScrollPosition()
-
-        if window.innerWidth < 1120 or pos.y < threshold
-          setElementTransform sidebar, "translateY(0)"
-          return
-
-        setElementTransform sidebar, "translateY(" + (pos.y - threshold) + "px)"
-
-      #
-      # Scroll to heading when link in sidebar is clicked
-      #
-      links = document.getElementsByTagName "a"
-      target = getScrollPosition()
-      offset = 250
-
-      for link in links
-        link.onclick = (e) ->
-          return unless e.currentTarget?.hash
-
-          e.preventDefault()
-
-          hash = @.getAttribute "href"
-          node = document.getElementById hash[1...]
-
-          if hash is "#top"
-            target = node.offsetTop
-          else
-            target = node.offsetTop + threshold
-
-          scrollTo document.body, target, 500
-          removeClasses links, "active"
-
-          unless node is document.body
-            addClass node, "active"
-            addClass @, "active"
-
-      # Remove any active classes if scrolled past threshold
-      window.addEventListener "scroll", () ->
-        pos = getScrollPosition()
-
-        if pos.y > target + offset or pos.y < target - offset
-
-          # @NOTE Check if the scroll position is different in 50ms, and if
-          #  it is, assume we're in the middle of an animation and don't
-          #  remove the classes until we've stopped moving
-          setTimeout () ->
-            removeClasses links, "active" if getScrollPosition().y is pos.y
-          , 50
-
       # Helpers
+      #
       scrollTo = (node, target, vel) ->
         y = node.scrollTop
         dy = target - y
         dt = 0
         i = 20
 
-        animateScroll = () ->
+        animateScroll = ->
           dt += i
 
           easeInOutQuad = (dt, y, dy, vel) ->
@@ -225,7 +139,53 @@
         return if klass in node.className.split " "
         node.className = [node.className, klass].filter((s) -> s isnt "").join " "
 
-      removeClasses = (links, klass) ->
+      removeClass = (node, klass) ->
+        return unless node?.className? and klass in node.className.split " "
+        node.className = node.className.split(" ").filter((s) -> s isnt klass).join " "
+
+      #
+      # Sticky sidebar
+      #
+      main = document.getElementsByTagName("main")[0]
+      sidebar = document.getElementsByTagName("aside")[0]
+      threshold = main.offsetTop - 25
+
+      getScrollPosition = ->
+        d = document.documentElement or document.body.parentNode or document.body
+        vect = {}
+        vect.x = if window.pageXOffset?
+            window.pageXOffset
+          else
+            d.scrollLeft
+        vect.y = if window.pageYOffset?
+            window.pageYOffset
+          else
+            d.scrollTop
+
+        vect
+
+      setElementTransform = (element, transform) ->
+        element.style["-webkit-transform"] =
+        element.style["-moz-transform"] =
+        element.style["transform"] = transform
+
+      window.addEventListener "scroll", ->
+        pos = getScrollPosition()
+
+        if window.innerWidth < 1120 or pos.y < threshold
+          setElementTransform sidebar, "translateY(0)"
+          return
+
+        setElementTransform sidebar, "translateY(" + (pos.y - threshold) + "px)"
+
+      #
+      # Scroll to heading when link in sidebar is clicked
+      #
+      links = document.getElementsByTagName "a"
+      target = getScrollPosition()
+      offset = 250
+
+      removeClassFromLinks = (links, klass) ->
         for link in links
           hash = link.getAttribute "href"
 
@@ -235,5 +195,47 @@
           node = document.getElementById hash[1...]
 
           for el in [link, node]
-            if el?.className? and klass in el.className.split " "
-              el.className = el.className.replace klass, ""
+            removeClass el, klass
+
+      for link in links
+        link.onclick = (e) ->
+          return unless e.currentTarget?.hash
+
+          e.preventDefault()
+
+          hash = @.getAttribute "href"
+          node = document.getElementById hash[1...]
+
+          if hash is "#top"
+            target = node.offsetTop
+          else
+            target = node.offsetTop + threshold
+
+          scrollTo document.body, target, 500
+          removeClassFromLinks links, "active"
+
+          unless node is document.body
+            addClass node, "active"
+            addClass @, "active"
+
+      # Remove any active classes if scrolled past threshold
+      window.addEventListener "scroll", () ->
+        pos = getScrollPosition()
+
+        if pos.y > target + offset or pos.y < target - offset
+
+          # @NOTE Check if the scroll position is different in 50ms, and if
+          #  it is, assume we're in the middle of an animation and don't
+          #  remove the classes until we've stopped moving
+          setTimeout ->
+            removeClassFromLinks links, "active" if getScrollPosition().y is pos.y
+          , 50
+
+      #
+      # Syntax highlighting
+      #
+      codeBlocks = document.getElementsByTagName("code")
+
+      for codeBlock in codeBlocks when "``" in codeBlock.className.split " "
+        codeBlock.className = [codeBlock.className.split(" ")..., "yaml", "erb"].filter((s) -> s isnt "``").join " "
+        hljs?.highlightBlock codeBlock

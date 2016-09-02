@@ -28,7 +28,7 @@ tj(1) -- WordPress development made easy
 
   * `--from-srv`, `--in-srv`=<path>:
     Run Juicefile(5) commands from the passed srv path instead of from the
-    current host directory.
+    current host directory path when using the `--inside-vm` flag.
 
   * `--inside-vm`, `--in-vm`:
     Run Juicefile(5) commands from inside of the virtual machine instead of
@@ -224,62 +224,62 @@ will be replaced with,
 if those were the options chosen during a creation. The following variables are
 available for use:
 
-* `name`:
-  Project name
+  * `name`:
+    Project name
 
-* `location`:
-  Project location
+  * `location`:
+    Project location
 
-* `url`:
-  Project URL
+  * `url`:
+    Project URL
 
-* `xip_url`:
-  Project xip.io URL
+  * `xip_url`:
+    Project xip.io URL
 
-* `template`:
-  Project template repository URL
+  * `template`:
+    Project template repository URL
 
-* `repository`:
-  Initialized repository URL, if available
+  * `repository`:
+    Initialized repository URL, if available
 
-* `db_host`:
-  Project database host
+  * `db_host`:
+    Project database host
 
-* `db_name`:
-  Project database name
+  * `db_name`:
+    Project database name
 
-* `db_user`:
-  Project database user
+  * `db_user`:
+    Project database user
 
-* `db_pass`:
-  Project database password
+  * `db_pass`:
+    Project database password
 
-* `db_import`:
-  Path to imported database file
+  * `db_import`:
+    Path to imported database file
 
-* `vm_box`:
-  Virtual machine box URL
+  * `vm_box`:
+    Virtual machine box URL
 
-* `vm_ip`:
-  Virtual machine IP address
+  * `vm_ip`:
+    Virtual machine IP address
 
-* `vm_revision`
-  Revision hash or branch to checkout for VM
+  * `vm_revision`
+    Revision hash or branch of VM
 
-* `vm_path`:
-  Virtual machine location on the host machine
+  * `vm_path`:
+    Virtual machine location on the host machine
 
-* `vm_root`:
-  Web root of the VM on the host machine
+  * `vm_root`:
+    Web root of the VM on the host machine
 
-* `vm_location`:
-  Project location within the VM on the host machine
+  * `vm_location`:
+    Project location within the VM on the host machine
 
-* `vm_srv`:
-  Project location within the VM on the guest machine
+  * `vm_srv`:
+    Project location within the VM on the guest machine
 
-* `vm_prefix`:
-  Virtual machine project location prefix
+  * `vm_prefix`:
+    Virtual machine project location prefix
 
 ## ENVIRONMENT
 
@@ -303,13 +303,13 @@ features due to limited support i.e. on Windows.
   * `TJ_VM_PREFIX`=<string>:
     Force directory prefix for project in VM
 
-  * `TJ_FROM_PATH`=<path>:
+  * `--from-path`, `--in-path`=<path>:
     Run Juicefile(5) commands from the passed path instead of from the
     current directory.
 
-  * `TJ_FROM_SRV`=<path>:
+  * `--from-srv`, `--in-srv`=<path>:
     Run Juicefile(5) commands from the passed srv path instead of from the
-    current host directory path.
+    current host directory path when using the `--inside-vm` flag.
 
   * `TJ_INSIDE_VM`=<bool>:
     Run Juicefile(5) commands from inside of the virtual machine instead of
