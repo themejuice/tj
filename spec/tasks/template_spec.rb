@@ -114,7 +114,7 @@ deployment:
         output = capture(:stdout) { @task.execute }
 
         expect(output).to match /git clone/
-        expect(output).to_not match /git checkout/
+        expect(output).to_not match /--branch 'sha1-rev'/
         expect(output).to match /#{@project.template}/
       end
     end
@@ -129,7 +129,7 @@ deployment:
         output = capture(:stdout) { @task.execute }
 
         expect(output).to match /git clone/
-        expect(output).to match /git checkout sha1-rev/
+        expect(output).to match /--branch 'sha1-rev'/
         expect(output).to match /#{@project.template}/
       end
     end

@@ -56,7 +56,7 @@ describe ThemeJuice::Tasks::VMUpdateBox do
           output = capture(:stdout) { @task.execute }
 
           expect(output).to match /git fetch/
-          expect(output).to match /git checkout sha1-rev/
+          expect(output).to match /git checkout 'sha1-rev'/
         end
       end
     end
