@@ -1,9 +1,18 @@
 # Releases
 
+## `v0.28.2`
+
+- Update `create` command to prompt for WordPress version when using the
+  `wordpress/wordpress` template
+- Update `update` command to perform a hard reset instead of a pull
+- Only run template install command if a `Juicefile` exists
+- Update `git clone` handling to use `--depth 1` to speed up template clones
+
 ## `v0.28.1`
 
 - Update `update` command to perform a `git pull`, properly updating the repo
-- Ensure that paths passed to Net-SSH are strings, fixing an issue where the `uploads:pull` and `uploads:push` tasks would fail
+- Ensure that paths passed to Net-SSH are strings, fixing an issue where the
+  `uploads:pull` and `uploads:push` tasks would fail
 
 ## `v0.28.0`
 
