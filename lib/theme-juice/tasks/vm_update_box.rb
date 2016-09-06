@@ -27,11 +27,11 @@ module ThemeJuice
             :capture => @env.quiet } do |cmds|
             cmds << "git fetch"
             if @env.vm_revision
-              cmds << "git checkout #{@env.vm_revision}"
+              cmds << "git checkout '#{@env.vm_revision}'"
             else
               cmds << "git checkout master"
             end
-            cmds << "git pull"
+            cmds << "git reset --hard"
           end
         end
       end
