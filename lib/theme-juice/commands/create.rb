@@ -74,7 +74,7 @@ module ThemeJuice
         @project.url               = @opts.fetch("url")               { url }
         @project.xip_url           = @opts.fetch("xip_url")           { xip_url }
         @project.template          = @opts.fetch("template")          { template }
-        @project.template_revision = @opts.fetch("template_revision") { nil }
+        @project.template_revision = @opts.fetch("template_revision") { template_revision }
         @project.repository        = @opts.fetch("repository")        { repository }
         @project.db_host           = @opts.fetch("db_host")           { db_host }
         @project.db_name           = @opts.fetch("db_name")           { db_name }
@@ -192,18 +192,18 @@ module ThemeJuice
           choice = @io.choose "Which starter template would you like to use?", :blue, TEMPLATES.keys
 
           case choice
-          when /(themejuice)/
+          when /themejuice/i
             @io.say "Awesome choice!", :color => :green, :icon => :success
-          when /(wordpress)/
-            @project.wp_config_modify = true
-            @project.no_config        = true
-            @project.no_wp_cli        = true
-            @project.no_env           = true
+          when /wordpress/i
+            @project.wp_config_modify  = true
+            @project.no_config         = true
+            @project.no_wp_cli         = true
+            @project.no_env            = true
             @io.say "This is a stock WordPress install, so I'll go ahead and modify the 'wp-config' file for you.", {
               :color => :yellow, :icon => :notice }
-          when /(other)/
+          when /other/i
             TEMPLATES[choice] = @io.ask "What is the repository URL of the starter template that you would like to clone?"
-          when /(none)/
+          when /none/i
             @project.bare = true
             @io.say "Next time you need to create a project without a starter template, you can just run the 'setup' command instead.", {
               :color => :yellow, :icon => :notice }
@@ -213,6 +213,20 @@ module ThemeJuice
         end
 
         template
+      end
+
+      def template_revision
+        return nil if @project.bare
+
+        revision = nil
+
+        case @project.template
+        when /wordpress/i
+          revision = @io.ask "Which version of WordPress would you like to use?", {
+            :default => "master" }
+        end
+
+        revision
       end
 
       def repository
