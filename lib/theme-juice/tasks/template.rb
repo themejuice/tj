@@ -12,8 +12,11 @@ module ThemeJuice
         return unless @project.template
 
         clone_template
-        render_template_config_erb if @config.exist?
-        install_template
+
+        if @config.exist?
+          render_template_config_erb
+          install_template
+        end
       end
 
       private
