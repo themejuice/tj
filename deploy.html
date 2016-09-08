@@ -1,0 +1,610 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv='content-type' value='text/html;charset=utf8'>
+<meta content='width=device-width, initial-scale=1' name='viewport'>
+<meta name='generator' value='Ronn/v0.7.3 (http://github.com/rtomayko/ronn/tree/0.7.3)'>
+<meta href='favicon.ico' rel='icon' type='image/x-icon'>
+<title>Theme Juice CLI - WordPress development made easy</title>
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+  ga('create', 'UA-53644528-2', 'auto');
+  ga('send', 'pageview');
+</script>
+<style type='text/css' media='all'>
+  /* style: man */
+  body#manpage {margin:0}
+  .mp {max-width:100ex;padding:0 9ex 1ex 4ex}
+  .mp p,.mp pre,.mp ul,.mp ol,.mp dl {margin:0 0 20px 0}
+  .mp h2 {margin:10px 0 0 0}
+  .mp > p,.mp > pre,.mp > ul,.mp > ol,.mp > dl {margin-left:8ex}
+  .mp h3 {margin:0 0 0 4ex}
+  .mp dt {margin:0;clear:left}
+  .mp dt.flush {float:left;width:8ex}
+  .mp dd {margin:0 0 0 9ex}
+  .mp h1,.mp h2,.mp h3,.mp h4 {clear:left}
+  .mp pre {margin-bottom:20px}
+  .mp pre+h2,.mp pre+h3 {margin-top:22px}
+  .mp h2+pre,.mp h3+pre {margin-top:5px}
+  .mp img {display:block;margin:auto}
+  .mp h1.man-title {display:none}
+  .mp,.mp code,.mp pre,.mp tt,.mp kbd,.mp samp,.mp h3,.mp h4 {font-family:monospace;font-size:14px;line-height:1.42857142857143}
+  .mp h2 {font-size:16px;line-height:1.25}
+  .mp h1 {font-size:20px;line-height:2}
+  .mp {text-align:justify;background:#fff}
+  .mp,.mp code,.mp pre,.mp pre code,.mp tt,.mp kbd,.mp samp {color:#131211}
+  .mp h1,.mp h2,.mp h3,.mp h4 {color:#030201}
+  .mp u {text-decoration:underline}
+  .mp code,.mp strong,.mp b {font-weight:bold;color:#131211}
+  .mp em,.mp var {font-style:italic;color:#232221;text-decoration:none}
+  .mp a,.mp a:link,.mp a:hover,.mp a code,.mp a pre,.mp a tt,.mp a kbd,.mp a samp {color:#0000ff}
+  .mp b.man-ref {font-weight:normal;color:#434241}
+  .mp pre {padding:0 4ex}
+  .mp pre code {font-weight:normal;color:#434241}
+  .mp h2+pre,h3+pre {padding-left:0}
+  ol.man-decor,ol.man-decor li {margin:3px 0 10px 0;padding:0;float:left;width:33%;list-style-type:none;text-transform:uppercase;color:#999;letter-spacing:1px}
+  ol.man-decor {width:100%}
+  ol.man-decor li.tl {text-align:left}
+  ol.man-decor li.tc {text-align:center;letter-spacing:4px}
+  ol.man-decor li.tr {text-align:right;float:right}
+  </style>
+  <style type='text/css' media='all'>
+  /* style: toc */
+  .man-navigation {display:block !important;position:fixed;top:0;left:113ex;height:100%;width:100%;padding:48px 0 0 0;border-left:1px solid #dbdbdb;background:#eee}
+  .man-navigation a,.man-navigation a:hover,.man-navigation a:link,.man-navigation a:visited {display:block;margin:0;padding:5px 2px 5px 30px;color:#999;text-decoration:none}
+  .man-navigation a:hover {color:#111;text-decoration:underline}
+  </style>
+  <style type='text/css' media='all'>
+  /* style: main */
+  @import url("http://fonts.googleapis.com/css?family=Ubuntu Mono:400,700");@import url("http://fonts.googleapis.com/css?family=Ubuntu:400,700");html{font-size:100%;line-height:1.5em}html{font-family:sans-serif;-ms-text-size-adjust:100%;-webkit-text-size-adjust:100%}body{margin:0}article,aside,details,figcaption,figure,footer,header,hgroup,main,menu,nav,section,summary{display:block}audio,canvas,progress,video{display:inline-block;*display:inline;*zoom:1;vertical-align:baseline}audio:not([controls]){display:none;height:0}[hidden]{display:none}template{display:none}a{background-color:transparent}a:active,a:hover{outline:0}abbr[title]{border-bottom:1px dotted}b,strong{font-weight:bold}blockquote{margin:1.5em 40px}dfn{font-style:italic}h1{font-size:2em;line-height:1.5em;margin-top:.75em;margin-bottom:.75em}h2{font-size:1.5em;line-height:2em;margin-top:1em;margin-bottom:1em}h3{font-size:1.17em;line-height:1.28205em;margin-top:1.28205em;margin-bottom:1.28205em}h4{font-size:1em;line-height:1.5em;margin-top:1.5em;margin-bottom:1.5em}h5{font-size:.83em;line-height:1.80723em;margin-top:1.80723em;margin-bottom:1.80723em}h6{font-size:.67em;line-height:2.23881em;margin-top:2.23881em;margin-bottom:2.23881em}mark{background:#ff0;color:#000}p,pre{margin:1.5em 0}small{font-size:80%}sub,sup{font-size:75%;line-height:0;position:relative;vertical-align:baseline}sup{top:-0.5em}sub{bottom:-0.25em}dl,menu,ol,ul{margin:1.5em 0}dd{margin:0 0 0 40px}menu,ol,ul{padding:0 0 0 40px}nav ul,nav ol{list-style:none;list-style-image:none}img{border:0;-ms-interpolation-mode:bicubic}svg:not(:root){overflow:hidden}figure{margin:1.5em 40px}hr{-moz-box-sizing:content-box;-webkit-box-sizing:content-box;box-sizing:content-box;height:0}pre{overflow:auto}code,kbd,pre,samp{font-family:monospace,monospace;font-size:1em}form{margin:0}button,input,optgroup,select,textarea{color:inherit;font:inherit;margin:0;*font-family:sans-serif;*vertical-align:middle}button{overflow:visible}button,select{text-transform:none}button,html input[type="button"],input[type="reset"],input[type="submit"]{-webkit-appearance:button;cursor:pointer;*overflow:visible}button[disabled],html input[disabled]{cursor:default}button::-moz-focus-inner,input::-moz-focus-inner{border:0;padding:0}input{line-height:normal}input[type="checkbox"],input[type="radio"]{-moz-box-sizing:border-box;-webkit-box-sizing:border-box;box-sizing:border-box;padding:0;*height:13px;*width:13px}input[type="number"]::-webkit-inner-spin-button,input[type="number"]::-webkit-outer-spin-button{height:auto}input[type="search"]{-webkit-appearance:textfield;-moz-box-sizing:content-box;-webkit-box-sizing:content-box;box-sizing:content-box}input[type="search"]::-webkit-search-cancel-button,input[type="search"]::-webkit-search-decoration{-webkit-appearance:none}fieldset{margin:0 2px;border-color:#c0c0c0;border-top-width:.0625em;border-top-style:solid;padding-top:.4625em;border-bottom-width:.0625em;border-bottom-style:solid;padding-bottom:.9125em;border-left-width:.0625em;border-left-style:solid;padding-left:.875em;border-right-width:.0625em;border-right-style:solid;padding-right:.875em}legend{border:0;padding:0;*margin-left:-7px}textarea{overflow:auto}optgroup{font-weight:bold}table{border-collapse:collapse;border-spacing:0}td,th{padding:0}.hljs{display:block;overflow-x:auto;padding:0.5em;color:#a0cf67;background:#34494d}.hljs-comment,.hljs-quote{color:#4d666a;font-style:italic}.hljs-doctag,.hljs-keyword,.hljs-formula{color:#a0cf67}.hljs-section,.hljs-name,.hljs-selector-tag,.hljs-deletion,.hljs-literal,.hljs-subst{color:#a0cf67}.hljs-string,.hljs-regexp,.hljs-addition,.hljs-attribute,.hljs-meta-string{color:#a0cf67}.hljs-built_in,.hljs-class .hljs-title{color:#ff9f3a}.hljs-variable,.hljs-template-variable,.hljs-type,.hljs-selector-class,.hljs-selector-attr,.hljs-selector-pseudo,.hljs-number{color:#a0cf67}.hljs-symbol,.hljs-bullet,.hljs-link,.hljs-meta,.hljs-selector-id,.hljs-title{color:#ff9f3a}.hljs-emphasis{font-style:italic}.hljs-strong{font-weight:bold}.hljs-link{text-decoration:underline}.hljs .ruby{color:#ff9f3a}@-moz-keyframes blink{to{visibility:hidden}}@-webkit-keyframes blink{to{visibility:hidden}}@keyframes blink{to{visibility:hidden}}body{overflow-x:hidden;background-color:#1d2e31}body{color:#a0cf67;font:400 14px/1.875 "Ubuntu Mono","Consolas","Courier New","Courier",monospace}*,*:before,*:after{-moz-box-sizing:border-box;-webkit-box-sizing:border-box;box-sizing:border-box}@media (min-width: 25.0625em){body{font-size:16px}}body:not(.tj) .index-only{display:none}h1,h2,h3,h4,h5,h6{-moz-transition:350ms;-o-transition:350ms;-webkit-transition:350ms;transition:350ms;color:#ff9f3a;font-size:1rem;font-family:"Ubuntu Mono","Consolas","Courier New","Courier",monospace;font-weight:700;margin-top:1.5rem;margin-bottom:0;border-bottom:2px solid transparent}h1.active,h2.active,h3.active,h4.active,h5.active,h6.active{border-color:#ff9f3a}p{text-align:justify;margin-top:.25rem;margin-bottom:1rem}a{color:#a9d771;font-weight:700;text-decoration:none;border-bottom:1px solid currentColor}ul,ol{margin:1.5rem 0}li ul,li ol{margin:0}p a,dt a{font-weight:700}dt,#INSTALLATION+p,#SYNOPSIS+p{-moz-border-radius:.25rem;-webkit-border-radius:.25rem;border-radius:.25rem;margin-top:.75rem;padding:0 1rem;background-color:#27373a}pre{-moz-border-radius:.25rem;-webkit-border-radius:.25rem;border-radius:.25rem;margin-top:.75rem;padding:.5rem 1rem .5rem 0;background-color:#27373a}pre code{background:none !important}#INSTALLATION+p>code:before,#SYNOPSIS+p>code:before{content:"$ "}#INTRODUCTION{margin-top:0}var,code{color:#a9d771;font-weight:700}dl{margin:0}.index-only{margin-top:1.5rem}.button{display:inline-block;vertical-align:middle;*vertical-align:auto;*zoom:1;*display:inline;color:#ff9f3a;font-family:"Ubuntu","Helvetica Neue","Helvetica","Arial",sans-serif;padding:.5rem 1rem;border:2px solid #ff9f3a;border-radius:1.5em}.button i{margin-right:.25rem}.header{zoom:1;float:none;max-width:40em;margin-right:auto;margin-left:auto;position:relative;margin-top:1rem}.header:before,.header:after{content:" ";display:block;height:0;overflow:hidden}.header:after{clear:both}.header__wrapper{width:100%}.logo{float:left;width:92%;margin-right:4%;margin-left:4%}@media (min-width: 25.0625em){.logo{width:32.5%;margin-right:2.5%;margin-left:2.5%}}.logo a{border-bottom:none}.logo__type{display:inline-block;vertical-align:middle;*vertical-align:auto;*zoom:1;*display:inline;position:relative;color:#ff9f3a;font-family:"Ubuntu","Helvetica Neue","Helvetica","Arial",sans-serif;font-size:1.5rem;text-transform:lowercase;margin:0}@media (min-width: 0) and (max-width: 25em){.logo__type{text-align:center}}@media (min-width: 25.0625em){.logo__type{font-size:1.25rem;margin-top:.5em}}@media (min-width: 35em){.logo__type{font-size:1.875rem;margin:0}}@media (min-width: 40em){.logo__type{font-size:2rem}}.logo__type span{font-family:"Ubuntu Mono","Consolas","Courier New","Courier",monospace;font-size:.875rem;font-weight:400;text-transform:uppercase}.logo__type span:after{-moz-animation:blink 1500ms steps(2,start) infinite;-webkit-animation:blink 1500ms steps(2,start) infinite;animation:blink 1500ms steps(2,start) infinite;content:"_"}@media (min-width: 35em){.logo__type span{position:absolute;bottom:-1.625rem;right:0}}.logo a{text-decoration:none}.navigation{float:left;width:92%;margin-right:4%;margin-left:4%;list-style:none;text-align:justify;text-transform:uppercase;padding:0}@media (min-width: 25.0625em){.navigation{width:57.5%;margin-right:2.5%;margin-left:2.5%}}.navigation:after{display:inline-block;vertical-align:middle;*vertical-align:auto;*zoom:1;*display:inline;content:" ";width:100%}.navigation__item{display:inline-block;vertical-align:middle;*vertical-align:auto;*zoom:1;*display:inline;position:relative;padding-top:.75rem;border-bottom:none}.hero{zoom:1;float:none;max-width:40em;margin-right:auto;margin-left:auto;display:table;height:100%;position:relative;z-index:1}.hero:before,.hero:after{content:" ";display:block;height:0;overflow:hidden}.hero:after{clear:both}.hero>*{display:table-cell;vertical-align:middle}.hero__wrapper{-moz-background-size:cover;-o-background-size:cover;-webkit-background-size:cover;background-size:cover;position:relative;width:100%;height:20rem;margin-bottom:1rem;background-image:url("laboratory.svg");background-position:center;background-repeat:no-repeat;border-top:1px solid #ff9f3a;border-bottom:1px solid #ff9f3a}@media (min-width: 25.0625em){.hero__wrapper{height:40rem;margin-bottom:2rem}}.hero__wrapper:after{content:"";position:absolute;top:0;left:0;width:100%;height:100%;background-color:rgba(29,46,49,0.625)}.hero__content{width:100%;text-align:center;padding:0 1rem}.hero__content h1{color:#ff9f3a;font-family:"Ubuntu","Helvetica Neue","Helvetica","Arial",sans-serif;font-size:1.5rem}@media (min-width: 25.0625em){.hero__content h1{font-size:2rem}}.hero__content p{color:#a9d771;text-align:center;margin-bottom:1.5rem}@media (min-width: 25.0625em){.hero__content p{padding:0 1rem}}.sidebar{float:left;width:92%;margin-right:4%;margin-left:4%}@media (min-width: 25.0625em){.sidebar{width:95%;margin-right:2.5%;margin-left:2.5%}}@media (min-width: 70em){.sidebar{position:absolute;left:100%;top:0}}.sidebar__navigation{list-style:none;margin:0 auto}@media (min-width: 70em){.sidebar__navigation{padding:0 1rem}}.sidebar__navigation__item{display:block;color:#ff9f3a;text-transform:uppercase;border-bottom:none}.sidebar__navigation__item.active:before{-moz-animation:blink 1500ms steps(2,start) infinite;-webkit-animation:blink 1500ms steps(2,start) infinite;animation:blink 1500ms steps(2,start) infinite;content:">"}.main{zoom:1;float:none;max-width:40em;margin-right:auto;margin-left:auto;position:relative}.main:before,.main:after{content:" ";display:block;height:0;overflow:hidden}.main:after{clear:both}.main__wrapper{width:100%}.main__content{float:left;width:92%;margin-right:4%;margin-left:4%}@media (min-width: 25.0625em){.main__content{width:95%;margin-right:2.5%;margin-left:2.5%}}.main__content h2{text-transform:uppercase}.footer{zoom:1;float:none;max-width:40em;margin-right:auto;margin-left:auto;margin-top:2rem;margin-bottom:2rem;padding:0 1rem}.footer:before,.footer:after{content:" ";display:block;height:0;overflow:hidden}.footer:after{clear:both}.footer__wrapper{width:100%}.footer__humans,.footer__date,.footer__source{text-align:center}.footer__humans,.footer__date{margin-bottom:1rem}.footer__date,.footer__source{font-size:.75rem}.footer__humans{font-weight:700}.footer__humans .fa-heart{-moz-animation:heartbeat 2000ms infinite;-webkit-animation:heartbeat 2000ms infinite;animation:heartbeat 2000ms infinite;color:#ff9f3a}@-moz-keyframes heartbeat{0%,40%,60%,80%{-moz-transform:scale(1,1);transform:scale(1,1)}50%,70%{-moz-transform:scale(1.25,1.25);transform:scale(1.25,1.25)}}@-webkit-keyframes heartbeat{0%,40%,60%,80%{-webkit-transform:scale(1,1);transform:scale(1,1)}50%,70%{-webkit-transform:scale(1.25,1.25);transform:scale(1.25,1.25)}}@keyframes heartbeat{0%,40%,60%,80%{-moz-transform:scale(1,1);-ms-transform:scale(1,1);-webkit-transform:scale(1,1);transform:scale(1,1)}50%,70%{-moz-transform:scale(1.25,1.25);-ms-transform:scale(1.25,1.25);-webkit-transform:scale(1.25,1.25);transform:scale(1.25,1.25)}}.footer__source{color:#808a8c}.scroll-to-top{position:fixed;bottom:1rem;right:1rem;font-size:1.25rem;text-decoration:none;border-bottom:none}@media (min-width: 25.0625em){.scroll-to-top{right:2rem}}.scroll-to-top i{color:#ff9f3a}.scroll-to-top i:hover{color:#f8b165}
+  </style>
+<link href='http://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css' rel='stylesheet'>
+</head>
+<body class='tj-deploy' id='top'>
+<header class='header__wrapper'>
+<div class='header'>
+<div class='logo'>
+<a href='/' title='Theme Juice Command Line Interface'>
+<h4 class='logo__type'>
+Theme Juice
+<span>CLI</span>
+</h4>
+</a>
+</div>
+<nav class='navigation'>
+<a class='navigation__item' href='/init' title='Initialize the virtual machine'>
+Init
+</a>
+<a class='navigation__item' href='/create' title='Create a new project'>
+Create
+</a>
+<a class='navigation__item' href='/setup' title='Setup an existing project'>
+Setup
+</a>
+<a class='navigation__item' href='/delete' title='Delete a project'>
+Delete
+</a>
+<a class='navigation__item' href='/deploy' title='Deploy a project'>
+Deploy
+</a>
+<a class='navigation__item' href='https://github.com/ezekg/theme-juice-cli' target='_blank' title='View project on GitHub'>
+<i class='fa fa-github'></i>
+</a>
+</nav>
+</div>
+</header>
+<main class='main__wrapper'>
+<div class='main'>
+<aside class='sidebar'>
+<nav class='sidebar__navigation'>
+<div class='index-only'>
+<a class='sidebar__navigation__item' href='#INTRODUCTION' title='Introduction'>
+Introduction
+</a>
+<a class='sidebar__navigation__item' href='#REQUIREMENTS' title='Requirements'>
+Requirements
+</a>
+<a class='sidebar__navigation__item' href='#INSTALLATION' title='Installation'>
+Installation
+</a>
+</div>
+<a class='sidebar__navigation__item' href='#NAME' title='NAME'>
+NAME
+</a>
+<a class='sidebar__navigation__item' href='#SYNOPSIS' title='SYNOPSIS'>
+SYNOPSIS
+</a>
+<a class='sidebar__navigation__item' href='#DESCRIPTION' title='DESCRIPTION'>
+DESCRIPTION
+</a>
+<a class='sidebar__navigation__item' href='#REQUIREMENTS' title='REQUIREMENTS'>
+REQUIREMENTS
+</a>
+<a class='sidebar__navigation__item' href='#SETUP' title='SETUP'>
+SETUP
+</a>
+<a class='sidebar__navigation__item' href='#GLOBAL-OPTIONS' title='GLOBAL OPTIONS'>
+GLOBAL OPTIONS
+</a>
+<a class='sidebar__navigation__item' href='#PRIMARY-COMMANDS' title='PRIMARY COMMANDS'>
+PRIMARY COMMANDS
+</a>
+<a class='sidebar__navigation__item' href='#SECONDARY-COMMANDS' title='SECONDARY COMMANDS'>
+SECONDARY COMMANDS
+</a>
+<a class='sidebar__navigation__item' href='#CONFIG-FILE' title='CONFIG FILE'>
+CONFIG FILE
+</a>
+</nav>
+</aside>
+<article class='main__content'>
+<div class='index-only'>
+<h2 id='INTRODUCTION'>
+Introduction
+</h2>
+<p>
+<strong>
+Meet <code>tj</code>, a tool that helps you create new local WordPress development sites, manage existing sites, and deploy them, all from the command line.
+</strong>
+</p>
+<p>
+<code>tj</code> handles all of the hard stuff: creation of a local development environment, managing local and remote WordPress sites, and the most annoying part of all, <em>actually deploying those sites</em>. Say goodbye to MAMP!
+</p>
+<p>
+<code>tj</code> is built on top of tried and true open source libraries such as <a href="http://capistranorb.com/">Capistrano</a> for deployment, <a href="http://vagrantup.com/">Vagrant</a> for local development, and even a little bit of <a href="http://wp-cli.org/">WP-CLI</a> for database migration.
+</p>
+<h2 id='REQUIREMENTS'>
+Requirements
+</h2>
+<p>
+<strong>
+<code>tj</code> requires <a href="http://vagrantup.com/">Vagrant</a> and <a href="https://www.virtualbox.org/">VirtualBox</a> to be able to create virtual machines for local development. Please download and install both of these before getting started.
+</strong>
+If you plan on using <code>tj</code> for deployments, you should also ensure that your <code>remote</code> servers have <a href="http://wp-cli.org/">WP-CLI</a> installed in order for <code>tj</code> to be able to handle database migration.
+</p>
+<p>
+I recommend one of the latest versions of Ruby MRI (2.2, 2.1, 2.0). <code>tj</code> requires at least MRI 1.9.3. For the full report, check out the <a href="https://travis-ci.org/ezekg/tj">Travis CI build status</a>, where I test against an array of Ruby interpreters.
+</p>
+<p>
+I also recommend you set up <a href="https://help.github.com/articles/generating-ssh-keys/">SSH-keys for GitHub</a>. Internally, <code>tj</code> uses <code>git clone</code> with SSH URLs, so things might break if you don't have your keys set up properly.
+</p>
+<h2 id='INSTALLATION'>
+Installation
+</h2>
+<p>
+<code>gem install theme-juice</code>
+</p>
+</div>
+<h2 id="NAME">NAME</h2>
+<p class="man-name">
+  <code>tj-deploy</code> - <span class="man-whatis">Deploy a project</span>
+</p>
+
+<h2 id="SYNOPSIS">SYNOPSIS</h2>
+
+<p><code>tj deploy</code> <var>stage</var> [<var>command</var>] [--flag=<var>arg</var>] [--flag]</p>
+
+<h2 id="DESCRIPTION">DESCRIPTION</h2>
+
+<p>Deploys a project to the passed <code>stage</code>. All commands are transformed and then
+piped directly to <a class="man-ref" href="http://capistranorb.com/">capistrano<span class="s">(1)</span></a> to handle deployment.</p>
+
+<h2 id="REQUIREMENTS">REQUIREMENTS</h2>
+
+<p>The <code>remote</code> that is being deployed to needs to have <a class="man-ref" href="http://wp-cli.org/">wp-cli<span class="s">(1)</span></a> installed in
+order for <a class="man-ref" href="/index.html">tj<span class="s">(1)</span></a> to be able to handle database migration.</p>
+
+<h2 id="SETUP">SETUP</h2>
+
+<p>Follow these steps to quickly get up and running:</p>
+
+<ol>
+<li>Create a <code>deploy</code> user on the <code>stage</code> server</li>
+<li>Set up SSH keys for the new <code>deploy</code> user for password-less SSH access</li>
+<li>Confirm the <code>deploy</code> user owns the deploy path</li>
+<li>Run <code>tj deploy &lt;stage> setup</code> to setup the required directories</li>
+<li>Deploy!</li>
+</ol>
+
+
+<h2 id="GLOBAL-OPTIONS">GLOBAL OPTIONS</h2>
+
+<dl>
+<dt><code>-b</code>, <code>--branch</code>=<var>branch</var></dt><dd><p>Use an alternate <a class="man-ref" href="https://git-scm.com/">git<span class="s">(1)</span></a> branch for current deployment</p></dd>
+<dt><code>--archive</code>, <code>--tar</code>, <code>--gzip</code>, <code>--zip</code></dt><dd><p>Archive directories with <a class="man-ref" href="http://linux.die.net/man/1/tar">tar<span class="s">(1)</span></a> when performing file transfers</p></dd>
+</dl>
+
+
+<h2 id="PRIMARY-COMMANDS">PRIMARY COMMANDS</h2>
+
+<p>If no command is passed, the default task to be executed is <code>deploy</code></p>
+
+<dl>
+<dt class="flush"><code>deploy</code></dt><dd><p>Deploy a project</p></dd>
+<dt><code>rollback</code></dt><dd><p>Rollback a previous deployment</p></dd>
+<dt><code>setup</code>, <code>check</code></dt><dd><p>Run a preliminary deployment check, making sure that all necessary folders
+are created and accessible on the passed <code>stage</code></p></dd>
+</dl>
+
+
+<h2 id="SECONDARY-COMMANDS">SECONDARY COMMANDS</h2>
+
+<dl>
+<dt><code>db:backup</code></dt><dd><p>Back up the database on the passed <code>stage</code> and store it locally in the
+<code>deployment.stages.vagrant.backup</code> directory</p></dd>
+<dt class="flush"><code>db:pull</code></dt><dd><p>Pull the database from the passed <code>stage</code> and import it into the development
+environment</p></dd>
+<dt class="flush"><code>db:push</code></dt><dd><p>Push the database from the development environment and import it into
+the passed <code>stage</code></p></dd>
+<dt><code>env:pull</code></dt><dd><p>Pull the current <code>.env.&lt;stage></code> file from the passed <code>stage</code> to the
+development environment</p></dd>
+<dt><code>env:push</code></dt><dd><p>Push the current <code>.env.&lt;stage></code> file from the development environment
+to the passed <code>stage</code></p></dd>
+<dt><code>uploads:pull</code></dt><dd><p>Pull the current <code>stage</code>'s uploads folder from the passed <code>stage</code> to the
+development environment</p></dd>
+<dt><code>uploads:push</code></dt><dd><p>Push the uploads folder from the development environment to the passed
+<code>stage</code>'s uploads folder</p></dd>
+<dt><code>file:pull</code>=<var>path</var></dt><dd><p>Pull a relative file from the passed <code>stage</code> to the development
+environment.</p></dd>
+<dt><code>file:push</code>=<var>path</var></dt><dd><p>Push a relative file from the development environment to the passed
+<code>stage</code>.</p></dd>
+<dt><code>dir:pull</code>=<var>path</var></dt><dd><p>Recursively pull a relative directory from the passed <code>stage</code> to the
+development environment.</p></dd>
+<dt><code>dir:push</code>=<var>path</var></dt><dd><p>Recursively push a relative directory from the development environment to
+the passed <code>stage</code>.</p></dd>
+</dl>
+
+
+<h2 id="CONFIG-FILE">CONFIG FILE</h2>
+
+<p>The YAML <a class="man-ref" href="/index.html">Juicefile<span class="s">(5)</span></a> configuration may be used to store deployment-related
+settings. Below you will find the various options you can use to define your
+project's deployment setup.</p>
+
+<dl>
+<dt><code>deployment</code></dt><dd><p>Deployment configuration</p></dd>
+<dt><code>deployment.application</code></dt><dd><p>Application settings passed directly to <a class="man-ref" href="http://capistranorb.com/">capistrano<span class="s">(1)</span></a></p></dd>
+<dt><code>deployment.settings</code></dt><dd><p>Deployment settings passed directly to <a class="man-ref" href="http://capistranorb.com/">capistrano<span class="s">(1)</span></a></p></dd>
+<dt><code>deployment.repository</code></dt><dd><p>Repository settings passed directly to <a class="man-ref" href="http://capistranorb.com/">capistrano<span class="s">(1)</span></a></p></dd>
+<dt><code>deployment.rsync</code></dt><dd><p>Optional settings passed to <a class="man-ref" href="https://github.com/Bladrak/capistrano-rsync">capistrano-rsync<span class="s">(1)</span></a>; mapped as <code>rsync_&lt;setting></code>
+during the deployment initialization</p></dd>
+<dt><code>deployment.slack</code></dt><dd><p>Optional settings passed to <a class="man-ref" href="https://github.com/onthebeach/capistrano-slackify">capistrano-slackify<span class="s">(1)</span></a>; mapped as
+<code>slack_&lt;setting></code> during the deployment initialization</p></dd>
+<dt><code>deployment.stages</code></dt><dd><p>Deployment stages</p></dd>
+<dt><code>deployment.stages.&lt;stage>.server</code></dt><dd><p>Domain or IP address of the server; can include an optional port number in
+the form of <code>&lt;ip_or_domain>:&lt;port></code></p></dd>
+<dt><code>deployment.stages.&lt;stage>.path</code></dt><dd><p>Root path to the deployment directory</p></dd>
+<dt><code>deployment.stages.&lt;stage>.user</code></dt><dd><p>User account to deploy as (it is recommended <em>not</em> to use <code>root</code>)</p></dd>
+<dt><code>deployment.stages.&lt;stage>.url</code></dt><dd><p>URL of the stage</p></dd>
+<dt><code>deployment.stages.&lt;stage>.uploads</code></dt><dd><p>Relative path from deploy path to the uploads folder</p></dd>
+<dt><code>deployment.stages.&lt;stage>.tmp</code></dt><dd><p>Relative path from deploy path to the tmp folder</p></dd>
+<dt><code>deployment.stages.&lt;stage>.shared</code></dt><dd><p>Sequence of relative files from application root to place inside of
+the shared folder. Files that end with a trailing forward slash are
+assumed to be a directory.</p></dd>
+<dt><code>deployment.stages.&lt;stage>.roles</code></dt><dd><p>Sequence of deployment roles for the stage</p></dd>
+<dt><code>deployment.stages.vagrant</code></dt><dd><p>Required development environment settings; these are used for database
+and file migration</p></dd>
+<dt><code>deployment.stages.vagrant.server</code></dt><dd><p>Domain or IP address of the development environment</p></dd>
+<dt><code>deployment.stages.vagrant.path</code></dt><dd><p>Root path to the application directory within the VM</p></dd>
+<dt><code>deployment.stages.vagrant.user</code></dt><dd><p>User account to deploy as (usually <code>vagrant</code>)</p></dd>
+<dt><code>deployment.stages.vagrant.pass</code></dt><dd><p>Password for the user (usually <code>vagrant</code>)</p></dd>
+<dt><code>deployment.stages.vagrant.url</code></dt><dd><p>URL of the project</p></dd>
+<dt><code>deployment.stages.vagrant.uploads</code></dt><dd><p>Relative path from application root to the uploads folder</p></dd>
+<dt><code>deployment.stages.vagrant.backup</code></dt><dd><p>Relative path from application root to the backup folder</p></dd>
+<dt><code>deployment.stages.vagrant.tmp</code></dt><dd><p>Relative path from application root to the tmp folder</p></dd>
+<dt><code>deployment.stages.vagrant.roles</code></dt><dd><p>Sequence of roles for the development environment</p></dd>
+</dl>
+
+
+<p>Below is an example deployment configuration:</p>
+
+<pre><code class="``">  # Project configuration
+  project:
+    name: example
+
+  # Deployment configuration
+  deployment:
+
+    # Repository settings
+    repository:
+      repo_url: git@github.com:example/example-app.git
+      branch: :master
+      scm: :rsync
+
+    # Other settings that will be passed directly to Capistrano
+    # @see http://capistranorb.com/
+    settings:
+      keep_releases: 5
+      format: :pretty
+      log_level: :verbose
+      use_sudo: false
+      ssh_options:
+        keys: ~/.ssh/id_rsa
+        forward_agent: true
+        paranoid: true
+      # Add additional directories to $PATH. This is useful if you're
+      #  on a shared hosting environment (i.e. GoDaddy) and you need
+      #  to use an executable such as wp-cli for database migration.
+      default_env:
+        path: /opt/wp-cli/bin:$PATH
+
+    # Capistrano rsync options and install procedure
+    # @see https://github.com/Bladrak/capistrano-rsync
+    rsync:
+      stage: tmp/deploy
+      cache: shared/deploy
+      scm: :git
+      depth: 1
+      # Options to pass to the rsync command
+      # @see http://linux.die.net/man/1/rsync
+      options:
+        - --recursive
+        - --delete
+        - --delete-excluded
+        - --include="vendor/**/*" # Overrides any excluded patterns
+        - --exclude="node_modules/"
+        - --exclude=".env.sample"
+        - --exclude=".git*"
+        - --exclude="Juicefile*"
+        - --exclude="composer.*"
+        - --exclude="package.json"
+        - --exclude="README.*"
+      # Run application install scripts
+      install:
+        - composer install --no-dev
+        - bundle install
+        - npm install
+        - bower install
+        - grunt build
+      # Run scripts before the deployment starts
+      pre_scripts:
+        - touch .maintenance
+      # Run scripts before the deployment finishes
+      post_scripts:
+        - rm .maintenance
+        - sudo service apache2 restart
+
+    # Slack integration
+    # @see https://github.com/onthebeach/capistrano-slackify
+    slack:
+      url: https://hooks.slack.com/services/your-token
+      username: Deploybot
+      channel: "#devops"
+      emoji: ":rocket:"
+
+    # Deployment stages
+    stages:
+
+      production:
+        server: 192.168.13.37:1234
+        path: /var/www/production
+        user: deploy
+        url: example.com
+        uploads: app/uploads
+        tmp: tmp
+        shared:
+          - .env.production
+        ignore:
+          - robots.txt
+        roles:
+          - :web
+          - :app
+          - :db
+
+      staging:
+        server: 192.168.13.37
+        path: /var/www/staging
+        user: deploy
+        url: staging.example.com
+        uploads: app/uploads
+        tmp: tmp
+        shared:
+          - .env.staging
+        roles:
+          - :web
+          - :app
+          - :db
+
+      # This is your development environment used to push/pull database files,
+      #  uploads, the .env file, etc.
+      vagrant:
+        server: example.dev
+        path: /srv/www/tj-example
+        user: vagrant
+        pass: vagrant
+        url: example.dev
+        uploads: app/uploads
+        backup: backup
+        tmp: tmp
+        roles:
+          - :dev
+</code></pre>
+
+</article>
+</div>
+</main>
+<footer class='footer__wrapper'>
+<div class='footer'>
+<div class='footer__humans'>
+<i class="fa fa-code"></i> with <i class="fa fa-heart"></i> by <a href="http://produceresults.com" target="_blank">Produce Results</a>
+</div>
+<div class='footer__date'>
+Documentation was last generated on September 2016 using <a href="https://github.com/rtomayko/ronn" target="_blank">Ronn</a>
+</div>
+<div class='footer__source'>
+<a href='https://github.com/ezekg/theme-juice-cli/tree/master/docs' target='_blank' title='View website source code'>
+View Source
+</a>
+</div>
+</div>
+</footer>
+<a class='scroll-to-top' href='#top' title='Scroll to top'>
+<i class='fa fa-level-up'></i>
+</a>
+<script src='vendor/highlight.min.js'></script>
+<script>
+  (function() {
+    var addClass, codeBlock, codeBlocks, getScrollPosition, j, k, len, len1, link, links, main, offset, removeClass, removeClassFromLinks, scrollTo, setElementTransform, sidebar, target, threshold,
+      indexOf = [].indexOf || function(item) { for (var i = 0, l = this.length; i < l; i++) { if (i in this && this[i] === item) return i; } return -1; },
+      slice = [].slice;
+  
+    scrollTo = function(node, target, vel) {
+      var animateScroll, dt, dy, i, y;
+      y = node.scrollTop;
+      dy = target - y;
+      dt = 0;
+      i = 20;
+      animateScroll = function() {
+        var easeInOutQuad;
+        dt += i;
+        easeInOutQuad = function(dt, y, dy, vel) {
+          dt /= vel / 2;
+          if (dt < 1) {
+            return dy / 2 * (dt * dt) + y;
+          }
+          dt--;
+          return -dy / 2 * (dt * (dt - 2) - 1) + y;
+        };
+        node.scrollTop = easeInOutQuad(dt, y, dy, vel);
+        if (dt < vel) {
+          setTimeout(animateScroll, i);
+        }
+      };
+      animateScroll();
+    };
+  
+    addClass = function(node, klass) {
+      if (indexOf.call(node.className.split(" "), klass) >= 0) {
+        return;
+      }
+      return node.className = [node.className, klass].filter(function(s) {
+        return s !== "";
+      }).join(" ");
+    };
+  
+    removeClass = function(node, klass) {
+      if (!(((node != null ? node.className : void 0) != null) && indexOf.call(node.className.split(" "), klass) >= 0)) {
+        return;
+      }
+      return node.className = node.className.split(" ").filter(function(s) {
+        return s !== klass;
+      }).join(" ");
+    };
+  
+    main = document.getElementsByTagName("main")[0];
+  
+    sidebar = document.getElementsByTagName("aside")[0];
+  
+    threshold = main.offsetTop - 25;
+  
+    getScrollPosition = function() {
+      var d, vect;
+      d = document.documentElement || document.body.parentNode || document.body;
+      vect = {};
+      vect.x = window.pageXOffset != null ? window.pageXOffset : d.scrollLeft;
+      vect.y = window.pageYOffset != null ? window.pageYOffset : d.scrollTop;
+      return vect;
+    };
+  
+    setElementTransform = function(element, transform) {
+      return element.style["-webkit-transform"] = element.style["-moz-transform"] = element.style["transform"] = transform;
+    };
+  
+    window.addEventListener("scroll", function() {
+      var pos;
+      pos = getScrollPosition();
+      if (window.innerWidth < 1120 || pos.y < threshold) {
+        setElementTransform(sidebar, "translateY(0)");
+        return;
+      }
+      return setElementTransform(sidebar, "translateY(" + (pos.y - threshold) + "px)");
+    });
+  
+    links = document.getElementsByTagName("a");
+  
+    target = getScrollPosition();
+  
+    offset = 250;
+  
+    removeClassFromLinks = function(links, klass) {
+      var el, hash, j, len, link, node, results;
+      results = [];
+      for (j = 0, len = links.length; j < len; j++) {
+        link = links[j];
+        hash = link.getAttribute("href");
+        if (hash[0] !== "#") {
+          continue;
+        }
+        node = document.getElementById(hash.slice(1));
+        results.push((function() {
+          var k, len1, ref, results1;
+          ref = [link, node];
+          results1 = [];
+          for (k = 0, len1 = ref.length; k < len1; k++) {
+            el = ref[k];
+            results1.push(removeClass(el, klass));
+          }
+          return results1;
+        })());
+      }
+      return results;
+    };
+  
+    for (j = 0, len = links.length; j < len; j++) {
+      link = links[j];
+      link.onclick = function(e) {
+        var hash, node, ref;
+        if (!((ref = e.currentTarget) != null ? ref.hash : void 0)) {
+          return;
+        }
+        e.preventDefault();
+        hash = this.getAttribute("href");
+        node = document.getElementById(hash.slice(1));
+        if (hash === "#top") {
+          target = node.offsetTop;
+        } else {
+          target = node.offsetTop + threshold;
+        }
+        scrollTo(document.body, target, 500);
+        removeClassFromLinks(links, "active");
+        if (node !== document.body) {
+          addClass(node, "active");
+          return addClass(this, "active");
+        }
+      };
+    }
+  
+    window.addEventListener("scroll", function() {
+      var pos;
+      pos = getScrollPosition();
+      if (pos.y > target + offset || pos.y < target - offset) {
+        return setTimeout(function() {
+          if (getScrollPosition().y === pos.y) {
+            return removeClassFromLinks(links, "active");
+          }
+        }, 50);
+      }
+    });
+  
+    codeBlocks = document.getElementsByTagName("code");
+  
+    for (k = 0, len1 = codeBlocks.length; k < len1; k++) {
+      codeBlock = codeBlocks[k];
+      if (!(indexOf.call(codeBlock.className.split(" "), "``") >= 0)) {
+        continue;
+      }
+      codeBlock.className = slice.call(codeBlock.className.split(" ")).concat(["yaml"], ["erb"]).filter(function(s) {
+        return s !== "``";
+      }).join(" ");
+      if (typeof hljs !== "undefined" && hljs !== null) {
+        hljs.highlightBlock(codeBlock);
+      }
+    }
+  
+  }).call(this);
+</script>
+</body>
+</html>
