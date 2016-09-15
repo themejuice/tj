@@ -3,7 +3,7 @@
 [![Gem Version](http://img.shields.io/gem/v/theme-juice.svg?style=flat-square)](https://rubygems.org/gems/theme-juice)
 [![Travis](https://img.shields.io/travis/themejuice/tj.svg?style=flat-square)](https://travis-ci.org/themejuice/tj)
 [![Code Climate](https://img.shields.io/codeclimate/github/themejuice/tj.svg?style=flat-square)](https://codeclimate.com/github/themejuice/tj)
-[![Code Climate](https://img.shields.io/codeclimate/coverage/github/themejuice/graft.svg?style=flat-square)](https://codeclimate.com/github/themejuice/tj)
+[![Code Climate](https://img.shields.io/codeclimate/coverage/github/themejuice/tj.svg?style=flat-square)](https://codeclimate.com/github/themejuice/tj)
 
 ![Theme Juice CLI](demo.gif)
 
@@ -185,7 +185,7 @@ Yes and no; in order for `tj` to properly create a project, the Vagrant box need
 ```
 
 ### What is a `Customfile`?
-[It's a file that contains custom rules to add into the main `Vagrantfile`, without actually having to modify it](https://github.com/themejuice/graft/graft/blob/master/Vagrantfile?ts=2). This allows us to easily modify the Vagrant box without causing merge conflicts if you were to update the VM source via `git pull`. Every file that `tj` modifies is _meant to be modified_, so at any time you may update your installation of Graft with a simple `git pull` without getting merge conflicts out the wazoo.
+[It's a file that contains custom rules to add into the main `Vagrantfile`, without actually having to modify it](https://github.com/themejuice/graft/blob/master/Vagrantfile?ts=2). This allows us to easily modify the Vagrant box without causing merge conflicts if you were to update the VM source via `git pull`. Every file that `tj` modifies is _meant to be modified_, so at any time you may update your installation of Graft with a simple `git pull` without getting merge conflicts out the wazoo.
 
 ### What is a `Juicefile`?
 A YAML configuration file called a `Juicefile` can be used to store commonly-used build scripts, similar to [npm scripts](https://docs.npmjs.com/misc/scripts). Each command can be mapped to any build script you like, allowing you to define a set of commands that can be used across all of your projects. If you plan to deploy using `tj`, this file will also house your [deployment configuration](http://cli.themejuice.it/deploy).
