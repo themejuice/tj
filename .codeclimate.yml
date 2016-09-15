@@ -1,7 +1,8 @@
 languages:
   Ruby: true
-  JavaScript: true
-  PHP: true
-  Python: true
 exclude_paths:
-- "lib/theme-juice/cli.rb"
+  - "lib/theme-juice/cli.rb"
+  - "spec/"
+  - "docs/"
+  - "man/"
+  - "bin/"

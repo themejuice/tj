@@ -28,4 +28,4 @@ matrix:
 sudo: false
 addons:
   code_climate:
-    repo_token: 680b66f888cd758963624e2a4fb1dcb8749cb9e9ae6149a5345fde3eedf1505e
+    repo_token: a38796ef7bdfcb5028d2e395acdd3e3dcad4e84deeb9b456c80d1032f9d3a5d2
