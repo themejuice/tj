@@ -316,7 +316,7 @@ You can also use a service like [ngrok](https://ngrok.com/), if you prefer that 
 ngrok http -host-header project.dev 80
 ```
 
-⚠️ With both of these options, you'll need to make sure your WordPress project has a plugin like [Relative URL](https://wordpress.org/plugins/relative-url/) so that your assets and links continue to function correctly.
+⚠️ With both of these options, you'll need to make sure your WordPress project has a plugin like [Dynamic Hostname](https://wordpress.org/plugins/dynamic-hostname/) so that your assets and links continue to function correctly.
 
 ### Can I add my starter template, ________?
 Yes! Just update the `TEMPLATES` constant inside [commands/create.rb](https://github.com/themejuice/tj/blob/master/lib/theme-juice/commands/create.rb#L7-L12) and make a pull request. I'll verify that the template includes a `Juicefile` (not required, but preferred to automate build steps), and that everything looks solid. Until then (or if your template is private), just run the command below to clone your template.
