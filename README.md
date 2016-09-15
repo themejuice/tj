@@ -1,19 +1,19 @@
-# Theme Juice CLI
+# `tj`
+[![Mac App](https://img.shields.io/badge/mac-app-brightgreen.svg)](https://www.themejuice.it)
 [![Gem Version](http://img.shields.io/gem/v/theme-juice.svg?style=flat-square)](https://rubygems.org/gems/theme-juice)
-[![Travis](https://img.shields.io/travis/ezekg/tj.svg?style=flat-square)](https://travis-ci.org/ezekg/tj)
-[![Code Climate](https://img.shields.io/codeclimate/github/ezekg/theme-juice-cli.svg?style=flat-square)](https://codeclimate.com/github/ezekg/theme-juice-cli)
-[![Code Climate](https://img.shields.io/codeclimate/coverage/github/ezekg/theme-juice-cli.svg?style=flat-square)](https://codeclimate.com/github/ezekg/theme-juice-cli)
-[![Gitter](https://img.shields.io/gitter/room/ezekg/theme-juice-cli.svg?style=flat-square)](https://gitter.im/ezekg/theme-juice-cli)
+[![Travis](https://img.shields.io/travis/themejuice/tj.svg?style=flat-square)](https://travis-ci.org/themejuice/tj)
+[![Code Climate](https://img.shields.io/codeclimate/github/themejuice/tj.svg?style=flat-square)](https://codeclimate.com/github/themejuice/tj)
+[![Code Climate](https://img.shields.io/codeclimate/coverage/github/themejuice/graft.svg?style=flat-square)](https://codeclimate.com/github/themejuice/tj)
 
 ![Theme Juice CLI](demo.gif)
 
 ## What is it?
-The [Theme Juice CLI](http://cli.themejuice.it), also known as `tj`, helps you create new local WordPress development sites, manage existing sites, and deploy them, all from the command line. It utilizes our [Graft VM](https://github.com/ezekg/graft) for the virtual machine to spin up new development sites in seconds.
+The [Theme Juice CLI](http://cli.themejuice.it), also known as `tj`, helps you create new local WordPress development sites, manage existing sites, and deploy them, all from the command line. It utilizes our [Graft VM](https://github.com/themejuice/graft) for the virtual machine to spin up new development sites in seconds.
 
 Check out [our getting started guide over at SitePoint](http://www.sitepoint.com/introducing-theme-juice-for-local-wordpress-development/), or [view the documentation site](http://cli.themejuice.it).
 
 ## What problems does `tj` help solve?
-To get the most out of `tj`, it is recommended that you use our [starter template](https://github.com/ezekg/theme-juice-starter). Why? Keep on reading and we'll tell you. `tj` is built on top of tried and true open source libraries such as [Capistrano](http://capistranorb.com/) for deployment, [Vagrant](https://www.vagrantup.com/) for local development, and even a little bit of [WP-CLI](http://wp-cli.org) for database migration. Some of the main pain points `tj` helps solve are:
+To get the most out of `tj`, it is recommended that you use our [starter template](https://github.com/themejuice/sprout). Why? Keep on reading and we'll tell you. `tj` is built on top of tried and true open source libraries such as [Capistrano](http://capistranorb.com/) for deployment, [Vagrant](https://www.vagrantup.com/) for local development, and even a little bit of [WP-CLI](http://wp-cli.org) for database migration. Some of the main pain points `tj` helps solve are:
 
 ### 1. Local development
 Say goodbye to MAMP! With one command, `tj create`, you can have a new local development site up and running in under a minute. It uses Vagrant to create a robust development environment, and lets you create and manage multiple projects within a single virtual machine. It also handles deployments over SSH using Capistrano if you want to move away from FTP (more about that below).
@@ -21,19 +21,19 @@ Say goodbye to MAMP! With one command, `tj create`, you can have a new local dev
 ### 2. Multi-environment projects
 Oh, multi-environment development! Usually, you would have to ignore your entire `wp-config.php` file and create one for every single stage. These can get out of sync fast. Even worse, the config file actually gets checked into the project repo and so the credentials fluctuate from `dev` to `staging` to `production`. Not good. Not good at all.
 
-Our [starter template](https://github.com/ezekg/theme-juice-starter) uses a `.env` file, and has support for an unlimited number of environments (we generally do `development`, `staging` and `production`). Since these settings are housed in a `.env` file, they are not checked into the repo. That means the codebase is 100% environment agnostic. [The way it should be.](http://12factor.net/)
+Our [starter template](https://github.com/themejuice/sprout) uses a `.env` file, and has support for an unlimited number of environments (we generally do `development`, `staging` and `production`). Since these settings are housed in a `.env` file, they are not checked into the repo. That means the codebase is 100% environment agnostic. [The way it should be.](http://12factor.net/)
 
 ### 3. Multi-environment deployments
-Really. Want to deploy to staging? Set up a staging environment inside of the [`Juicefile`](https://github.com/ezekg/theme-juice-starter/blob/master/Juicefile?ts=2), make sure you can SSH in without a password (remember, best practices here!) and run `tj deploy staging`. Boom, you're done. Make a mistake? Run `tj remote staging rollback`. Crisis averted!
+Really. Want to deploy to staging? Set up a staging environment inside of the [`Juicefile`](https://github.com/themejuice/sprout/blob/master/Juicefile?ts=2), make sure you can SSH in without a password (remember, best practices here!) and run `tj deploy staging`. Boom, you're done. Make a mistake? Run `tj remote staging rollback`. Crisis averted!
 
 Want to pull the database from your production server to your development install? Run `tj remote production db:pull` and you're good to go; `tj` will automatically handle rewriting any URLs within the database.
 
-How about pushing your development database and your local uploads folder? Run `tj remote production db:push && tj remote production uploads:push` and you're done. [You can even send notifications to your teams Slack channel if you want to!](https://github.com/ezekg/theme-juice-cli#can-i-integrate-my-deployments-with-slack)
+How about pushing your development database and your local uploads folder? Run `tj remote production db:push && tj remote production uploads:push` and you're done. [You can even send notifications to your teams Slack channel if you want to!](#can-i-integrate-my-deployments-with-slack)
 
 ## Requirements
 **`tj` requires [Vagrant](https://www.vagrantup.com/) and [VirtualBox](https://www.virtualbox.org/) to be able to create virtual machines for local development. Please download and install both of these before getting started.** If you plan on using `tj` for deployments, you should also ensure that your `remote` servers have [WP-CLI](http://wp-cli.org/) installed in order for `tj` to be able to handle database migration.
 
-I recommend one of the latest versions of Ruby MRI (2.2, 2.1, 2.0). `tj` requires at least MRI 1.9.3. For the full report, check out the [Travis CI build status](https://travis-ci.org/ezekg/theme-juice-cli), where I test against an array of Ruby interpreters.
+I recommend one of the latest versions of Ruby MRI (2.2, 2.1, 2.0). `tj` requires at least MRI 1.9.3. For the full report, check out the [Travis CI build status](https://travis-ci.org/themejuice/tj), where I test against an array of Ruby interpreters.
 
 I also recommend you set up [SSH-keys for GitHub](https://help.github.com/articles/generating-ssh-keys/). Internally, `tj` uses `git clone` with SSH URLs, [so things might break if you don't have your keys set up properly](#help-it-wont-let-me-git-clone-anything).
 
@@ -44,7 +44,7 @@ gem install theme-juice
 
 ## Getting Started
 
-_If you're going to be using [our starter template](https://github.com/ezekg/theme-juice-starter), then I recommend checking out [it's dependencies](https://github.com/ezekg/theme-juice-starter#development-dependencies) before running your first `create`. That way, the build step doesn't fail._
+_If you're going to be using [our starter template](https://github.com/themejuice/sprout), then I recommend checking out [it's dependencies](https://github.com/themejuice/sprout#development-dependencies) before running your first `create`. That way, the build step doesn't fail._
 
 ### Initialize the VM
 This will install and configure the virtual machine. It will clone the VM into the `vm-path`, install the required Vagrant plugins (such as [Landrush](https://github.com/phinze/landrush), unless disabled) and will also set up port forwarding if you're on OSX.
@@ -150,7 +150,7 @@ To use these permanently, set the appropriate `ENV` variables through your `.bas
 _Note: Before running this, you might want to either choose a new `vm-path`, or destroy and remove any existing VMs inside of your `~/tj-vagrant` directory. If `tj` detects that a VM already installed, it will skip installing the new box._
 
 ### So, does that mean I can use any Vagrant box?
-Yes and no; in order for `tj` to properly create a project, the Vagrant box needs to follow the same directory structure as [Graft](https://github.com/ezekg/graft), and include logic for a `Customfile`. Here is the required structure that `tj` needs in order to be able to create new projects:
+Yes and no; in order for `tj` to properly create a project, the Vagrant box needs to follow the same directory structure as [Graft](https://github.com/themejuice/graft), and include logic for a `Customfile`. Here is the required structure that `tj` needs in order to be able to create new projects:
 
 ```
 ├── config/
@@ -185,14 +185,19 @@ Yes and no; in order for `tj` to properly create a project, the Vagrant box need
 ```
 
 ### What is a `Customfile`?
-[It's a file that contains custom rules to add into the main `Vagrantfile`, without actually having to modify it](https://github.com/ezekg/graft/blob/master/Vagrantfile?ts=2). This allows us to easily modify the Vagrant box without causing merge conflicts if you were to update the VM source via `git pull`. Every file that `tj` modifies is _meant to be modified_, so at any time you may update your installation of Graft with a simple `git pull` without getting merge conflicts out the wazoo.
+[It's a file that contains custom rules to add into the main `Vagrantfile`, without actually having to modify it](https://github.com/themejuice/graft/graft/blob/master/Vagrantfile?ts=2). This allows us to easily modify the Vagrant box without causing merge conflicts if you were to update the VM source via `git pull`. Every file that `tj` modifies is _meant to be modified_, so at any time you may update your installation of Graft with a simple `git pull` without getting merge conflicts out the wazoo.
 
 ### What is a `Juicefile`?
 A YAML configuration file called a `Juicefile` can be used to store commonly-used build scripts, similar to [npm scripts](https://docs.npmjs.com/misc/scripts). Each command can be mapped to any build script you like, allowing you to define a set of commands that can be used across all of your projects. If you plan to deploy using `tj`, this file will also house your [deployment configuration](http://cli.themejuice.it/deploy).
 
-For reference, below is an example config: (see the config for our starter template, [Sprout](https://github.com/ezekg/theme-juice-starter))
+For reference, below is an example config: (see the config for our starter template, [Sprout](https://github.com/themejuice/sprout))
 
 ```yml
+# Project configuration
+project:
+  name: example
+  url: example.dev
+
 # Manage command aliases for the current project
 commands:
 
@@ -206,7 +211,7 @@ commands:
     - grunt %args%
 
   # Manage front-end dependencies
-  assets:
+  asset:
     - npm %args%
 
   # Manage back-end dependencies
@@ -216,48 +221,105 @@ commands:
   # Create a backup of the current database with a nice timestamp
   backup:
     - mkdir -p backup
-    - wp @dev db export backup/$(date +'%Y-%m-%d-%H-%M-%S').sql
+    - wp @development db export backup/$(date +'%Y-%m-%d-%H-%M-%S').sql
 
 # Manage deployment settings for the current project
 deployment:
+  # …
 
-  application:
-    name: "example"
-
-  # ...
+  stages:
+    # …
 ```
 
-The commands within the `commands` block can be run from the command line via `tj <command>`. For example, we can run the `dev` command by running `tj dev`, which will in turn run the command `grunt`.
+Each command within the above example can be run from the command-line via `tj <command>`. For example, we can run the `tj dev` command, which will in turn run the command `grunt`. Pretty simple, right?
 
-If you noticed in the example above, there are a few commands that contain `%args%`; each command list is run within a single execution via joining: `cmd1 && cmd2 [&& cmd3...]`, with all `%args%`/`%argN%` being replaced with the corresponding argument index, when available. Here's a few example scenarios:
+If you happened to have noticed in the example above, there are a few sub-commands that contain `%args%`; these are called placeholders. Each sub-command list is run within a single execution via joining: `cmd1 && cmd2 && cmd3 && ...`, with all placeholders (`%args%`/`%argN%`) replaced with their corresponding argument index, when available.
 
-```yml
+Here's a few example commands utilizing placeholders:
+
+```yaml
 commands:
-  example-command:
+
+  example-command-1:
     # Will contain all arguments joined by a space
-    - cmd1 %args%
+    - echo "%args%"
+
+  example-command-2:
     # Will contain each argument mapped to its respective index
-    - cmd2 '%arg1% %arg2% %arg3%'
+    - cat '%arg1% %arg2% %arg3%'
     # Will only map argument 4, while ignoring 1-3
-    - cmd3 "%arg4%"
+    - pbcopy < "%arg4%"
 ```
 
-To clarify a little bit more, we could run `tj dev build`, and since our `dev` command contains `%args%`, that will in turn run the command `grunt build`; if we can `tj dev some other task`, that would be interpreted and run as `grunt some other task`.
+To clarify a little bit more using our first example config, we could run `tj dev build` (notice the `build` argument), and since our `dev` command contains `%args%`, that will in turn run the command `grunt build`; if we run `tj dev` command with the arguments `some:other task`, that would be interpreted and run as `grunt some:other task`.
 
 You can specify an unlimited number of commands with an unlimited number of arguments within your `Juicefile`; however, you should be careful with how this is used. Don't go including `sudo rm -rf %arg1%` in a command, while passing `/` as an argument. Keep it simple. These are meant to make your life easier by helping you manage build tools, not to do fancy scripting.
+
+#### Template strings
+You may define ERB template strings within a project starter template's `Juicefile`. These will be replaced when creating a new project.
+
+For example,
+
+```yaml
+# Project configuration
+project:
+  name: <%= name %>
+  url: <%= url %>
+```
+
+will be replaced with,
+
+```yaml
+# Project configuration
+project:
+  name: example-project
+  url: example-project.dev
+```
+
+if those were the options chosen during a project creation.
+
+#### Available variables for use
+- `name`: Project name
+- `location`: Project location
+- `url`: Project URL
+- `xip_url`: Project xip.io URL
+- `template`: Project template repository URL
+- `repository`: Initialized repository URL, if available
+- `db_host`: Project database host
+- `db_name`: Project database name
+- `db_user`: Project database user
+- `db_pass`: Project database password
+- `db_import`: Path to imported database file
+- `vm_box`: Virtual machine box URL
+- `vm_ip`: Virtual machine IP address
+- `vm_revision` Revision hash or branch of VM
+- `vm_path`: Virtual machine location on the host machine
+- `vm_root`: Web root of the VM on the host machine
+- `vm_location`: Project location within the VM on the host machine
+- `vm_srv`: Project location within the VM on the guest machine
+- `vm_prefix`: Virtual machine project location prefix
 
 ### Does `tj` support subdomain multi-sites?
 If you're able to use [Landrush](https://github.com/phinze/landrush) for your DNS, then yes. All subdomains will resolve to their parent domain. Landrush comes pre-installed when you create your first project with `tj`. Having said that, unfortunately, if you're on Windows you'll might have to manually add the subdomains to your `/etc/hosts` file due to Landrush not being fully supported yet. If you have the Windows chops, head over there and contribute to Landrush by squashing that bug. I'm sure he would appreciate it!
 
 ### Can I access a project from another device (i.e. mobile)?
-Yes! Every project created with `tj` will automatically be set up to support using [xip.io](http://xip.io/). If you're using OSX, then everything should work out of the box. If you're not using OSX, then you'll need to point port `80` on your host machine to `8080`; Vagrant cannot do this by default for security reasons. You can also use a service like [ngrok](https://ngrok.com/), if you prefer.
+Yes! Every project created with `tj` will automatically be set up to support using [xip.io](http://xip.io/). If you're using OSX, then everything should work out of the box. If you're not using OSX, then you'll need to point port `80` on your host machine to `8080`; Vagrant cannot do this by default for security reasons.
 
 Once everything is good to go, you can access a project from another device on the same network by going to `<project-name>.<your-hosts-ip-address>.xip.io` e.g. `themejuice.192.168.1.1.xip.io`.
 
-_If you're familiar with forwarding host ports on operating systems other than OSX, check out [this file](https://github.com/ezekg/theme-juice-cli/blob/master/lib/theme-juice/tasks/forward_ports.rb#L34-L51) and make a pull request so that everybody else can benefit from your smarts._
+_If you're familiar with forwarding host ports on operating systems other than OSX, check out [this file](https://github.com/themejuice/tj/blob/master/lib/theme-juice/tasks/forward_ports.rb#L34-L51) and make a pull request so that everybody else can benefit from your smarts._
+
+#### Using `ngrok`
+You can also use a service like [ngrok](https://ngrok.com/), if you prefer that over xip.io:
+
+```bash
+ngrok http -host-header project.dev 80
+```
+
+⚠️ With both of these options, you'll need to make sure your WordPress project has a plugin like [Relative URL](https://wordpress.org/plugins/relative-url/) so that your assets and links continue to function correctly.
 
 ### Can I add my starter template, ________?
-Yes! Just update the `TEMPLATES` constant inside [commands/create.rb](https://github.com/ezekg/theme-juice-cli/blob/master/lib/theme-juice/commands/create.rb#L7-L12) and make a pull request. I'll verify that the template includes a `Juicefile` (not required, but preferred to automate build steps), and that everything looks solid. Until then (or if your template is private), just run the command below to clone your template.
+Yes! Just update the `TEMPLATES` constant inside [commands/create.rb](https://github.com/themejuice/tj/blob/master/lib/theme-juice/commands/create.rb#L7-L12) and make a pull request. I'll verify that the template includes a `Juicefile` (not required, but preferred to automate build steps), and that everything looks solid. Until then (or if your template is private), just run the command below to clone your template.
 
 ```
 tj create --template git@your.repo:link/goes-here.git
@@ -282,16 +344,16 @@ deployment:
 Check out [capistrano-slackify](https://github.com/onthebeach/capistrano-slackify) for more information.
 
 ### Can I use a self-signed SSL cert?
-Yes, unless you used the `--no-ssl` flag, `tj` will set up each new site to support SSL, [and the VM will generate a new self-signed certificate](https://github.com/ezekg/graft#automatically-generated-self-signed-ssl-certs). In order to take advantage of it, [you'll need to accept the self-signed certificate on your host machine](https://github.com/ezekg/graft#accepting-a-self-signed-ssl-cert).
+Yes, unless you used the `--no-ssl` flag, `tj` will set up each new site to support SSL, [and the VM will generate a new self-signed certificate](https://github.com/themejuice/graft#automatically-generated-self-signed-ssl-certs). In order to take advantage of it, [you'll need to accept the self-signed certificate on your host machine](https://github.com/themejuice/graft#accepting-a-self-signed-ssl-cert).
 
 ### Can I define my own Capistrano tasks?
 Yes. Any file within a directory called `deploy/` in your project with extensions `.rb`, `.cap` or `.rake` will be automatically loaded by Capistrano.
 
-For example, within our [starter template](https://github.com/ezekg/theme-juice-starter), you will find a `deploy/` directory, inside is a few example tasks. Open one of them and you'll see an example task invokable by `tj remote <stage> <namespace:task>`.
+For example, within our [starter template](https://github.com/themejuice/theme-juice-starter), you will find a `deploy/` directory, inside is a few example tasks. Open one of them and you'll see an example task invokable by `tj remote <stage> <namespace:task>`.
 
 To learn more about Rake and how you can define your own Capistrano tasks, check out the [official Rake repository](https://github.com/ruby/rake) as well as the [official Capistrano tasks documentation](http://capistranorb.com/documentation/getting-started/tasks/).
 
-If you're interested in checking out `tj`'s predefined tasks, head over [here](https://github.com/ezekg/theme-juice-cli/tree/master/lib/theme-juice/tasks/capistrano). You may override any task with custom functionality by using the same namespace/task name as outlined below,
+If you're interested in checking out `tj`'s predefined tasks, head over [here](https://github.com/themejuice/tj/tree/master/lib/theme-juice/tasks/capistrano). You may override any task with custom functionality by using the same namespace/task name as outlined below,
 
 ```ruby
 # encoding: UTF-8
@@ -362,11 +424,11 @@ sudo dscacheutil -flushcache; sudo killall -HUP mDNSResponder
 sudo discoveryutil mdnsflushcache; sudo discoveryutil udnsflushcaches
 ```
 
-_Still having issues? [Yell at me!](https://github.com/ezekg/theme-juice-cli/issues)_
+_Still having issues? [Yell at me!](https://github.com/themejuice/tj/issues)_
 
 ## Contributing
-1. First, create a _well documented_ [issue](https://github.com/ezekg/theme-juice-cli/issues) for your proposed feature/bug fix
-1. After getting approval for the new feature, [fork the repository](https://github.com/ezekg/theme-juice-cli/fork)
+1. First, create a _well documented_ [issue](https://github.com/themejuice/tj/issues) for your proposed feature/bug fix
+1. After getting approval for the new feature, [fork the repository](https://github.com/themejuice/tj/fork)
 1. Create a new feature branch (`git checkout -b my-new-feature`)
 1. Write tests before pushing your changes, then run Rspec (`rake`)
 1. Commit your changes (`git commit -am 'add some feature'`)
@@ -374,7 +436,7 @@ _Still having issues? [Yell at me!](https://github.com/ezekg/theme-juice-cli/iss
 1. Create a new Pull Request
 
 ## License
-Please see [LICENSE](https://github.com/ezekg/theme-juice-cli/blob/master/LICENSE) for licensing details.
+Please see [LICENSE](https://github.com/themejuice/tj/blob/master/LICENSE) for licensing details.
 
 ## Author
 Ezekiel Gabrielse, [@ezekkkg](https://twitter.com/ezekkkg), [http://ezekielg.com](http://ezekielg.com)
