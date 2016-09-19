@@ -35,19 +35,30 @@ config.vm.network "forwarded_port", :guest => 443, :host => 8443}
       #  OSX, so that's why there's nothing else here at the moment
       def forward_host_ports
         if OS.osx?
-%Q{if defined? VagrantPlugins::Triggers
+%Q{if Vagrant.has_plugin?("vagrant-triggers")
+  config.trigger.before [:reload, :provision], :stdout => true do
+    system \%Q{#{remove_forward_ports}}
+  end
   config.trigger.after [:up, :reload, :provision], :stdout => true do
-    system \%Q{echo "
-rdr pass inet proto tcp from any to any port 80 -> 127.0.0.1 port 8080
-rdr pass inet proto tcp from any to any port 443 -> 127.0.0.1 port 8443
-" | sudo pfctl -ef - >/dev/null 2>&1; echo "Forwarding ports (80 => 8080)\\nForwarding ports (443 => 8443)"}
+    system \%Q{#{add_forward_ports}}
   end
   config.trigger.after [:halt, :suspend, :destroy], :stdout => true do
-    system \%Q{sudo pfctl -F all -f /etc/pf.conf >/dev/null 2>&1; echo "Removing forwarded ports (80 => 8080)\\nRemoving forwarded ports (443 => 8443)"}
+    system \%Q{#{remove_forward_ports}}
   end
 end
 }
         end
+      end
+
+      def add_forward_ports
+        'echo "
+rdr pass inet proto tcp from any to any port 80 -> 127.0.0.1 port 8080
+rdr pass inet proto tcp from any to any port 443 -> 127.0.0.1 port 8443
+" | sudo pfctl -ef - >/dev/null 2>&1; echo "Forwarding ports (80 => 8080)\\nForwarding ports (443 => 8443)"'
+      end
+
+      def remove_forward_ports
+        'sudo pfctl -F all -f /etc/pf.conf >/dev/null 2>&1; echo "Removing forwarded ports (80 => 8080)\\nRemoving forwarded ports (443 => 8443)"'
       end
     end
   end

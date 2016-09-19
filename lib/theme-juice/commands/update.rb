@@ -8,6 +8,7 @@ module ThemeJuice
         super
 
         runner do |tasks|
+          tasks << Migrations::ForwardPorts.new
           tasks << Tasks::VMUpdateBox.new
         end
       end
