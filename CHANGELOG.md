@@ -1,5 +1,12 @@
 # Releases
 
+## `v0.28.3`
+
+- Add migration system to perform updates on many one-time entries
+- Add migration for port forwarding entry
+- Fix port forwarding issue where performing a `tj vm provision` while the VM
+  was powered off would fail but still forward ports
+
 ## `v0.28.2`
 
 - Update `create` command to prompt for WordPress version when using the
