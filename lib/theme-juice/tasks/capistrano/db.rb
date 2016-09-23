@@ -52,7 +52,7 @@ namespace :db do
       within release_path do
         execute :wp, :db, :import, "#{fetch(:tmp_dir)}/#{fetch(:vm_db)}"
         execute :rm, "#{fetch(:tmp_dir)}/#{fetch(:vm_db)}"
-        execute :wp, "search-replace", fetch(:vm_url), fetch(:stage_url), fetch(:wpcli_args) || "--skip-columns=guid"
+        execute :wp, "search-replace", fetch(:vm_url), fetch(:stage_url), fetch(:wpcli_args) || "--skip-columns=guid --all-tables"
       end
     end
 
@@ -81,7 +81,7 @@ namespace :db do
       within fetch(:dev_path) do
         execute :wp, :db, :import, "#{fetch(:vm_backup_dir)}/#{fetch(:remote_db)}"
         execute :rm, "#{fetch(:vm_backup_dir)}/#{fetch(:remote_db)}"
-        execute :wp, "search-replace", fetch(:stage_url), fetch(:vm_url), fetch(:wpcli_args) || "--skip-columns=guid"
+        execute :wp, "search-replace", fetch(:stage_url), fetch(:vm_url), fetch(:wpcli_args) || "--skip-columns=guid --all-tables"
       end
     end
   end
