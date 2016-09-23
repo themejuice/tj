@@ -1,5 +1,9 @@
 # Releases
 
+## `v0.28.4`
+- When performing a database search/replace, use the `--all-tables` flag to make
+  sure all URLs in the database get properly rewritten.
+
 ## `v0.28.3`
 
 - Add migration system to perform updates on many one-time entries
