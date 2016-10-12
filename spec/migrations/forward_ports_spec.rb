@@ -42,5 +42,24 @@ describe ThemeJuice::Migrations::ForwardPorts do
         capture(:stdout) { @migration.execute }
       end
     end
+
+    context "when customfile does not exist" do
+
+      before do
+        File.unlink @file
+      end
+
+      it "should not throw an error" do
+        expect(@migration).to_not receive(:replace_content)
+
+        expect { @migration.execute }.to_not raise_error
+      end
+
+      it "should not migrate the port forwarding entries" do
+        expect(@migration).to_not receive(:replace_content)
+
+        capture(:stdout) { @migration.execute }
+      end
+    end
   end
 end
