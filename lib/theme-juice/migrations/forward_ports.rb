@@ -9,7 +9,7 @@ module ThemeJuice
       end
 
       def execute
-        return if migration_is_completed?
+        return if !migration_file_exists? || migration_is_completed?
         replace_content
       end
 
@@ -21,6 +21,10 @@ module ThemeJuice
 
       def migration_file
         "#{@env.vm_path}/Customfile"
+      end
+
+      def migration_file_exists?
+        File.exist? migration_file
       end
 
       def replace_content
