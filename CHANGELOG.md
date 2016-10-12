@@ -1,5 +1,9 @@
 # Releases
 
+## `v0.28.5`
+- Fix issue where migrations were attempted to be performed on the `Customfile`,
+  even if it didn't exist yet, causing a crash.
+
 ## `v0.28.4`
 - When performing a database search/replace, use the `--all-tables` flag to make
   sure all URLs in the database get properly rewritten.
