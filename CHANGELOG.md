@@ -1,5 +1,9 @@
 # Releases
 
+## Unreleased
+- Fix issue where a deployment would fail if the stage within the `Juicefile` did
+  not contain any shared files or folders.
+
 ## `v0.28.5`
 - Fix issue where migrations were attempted to be performed on the `Customfile`,
   even if it didn't exist yet, causing a crash.
