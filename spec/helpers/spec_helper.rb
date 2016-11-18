@@ -1,5 +1,5 @@
-require "codeclimate-test-reporter"
-CodeClimate::TestReporter.start
+require "simplecov"
+SimpleCov.start
 
 lib = File.expand_path "../../../", __FILE__
 $:.unshift lib unless $:.include? lib
