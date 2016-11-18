@@ -45,6 +45,7 @@ test4.dev                 192.168.50.4
     before :each do
       FileUtils.mkdir_p "#{@project.vm_root}/prefix-test-1"
       FileUtils.mkdir_p "#{@project.vm_root}/prefix-test-2"
+      FileUtils.mkdir_p "#{@project.vm_root}/prefix-prefix-test-3"
     end
 
     it "should return an array of project names" do
@@ -54,10 +55,11 @@ test4.dev                 192.168.50.4
     it "should return an array that includes test projects" do
       expect(@task.projects).to include /test-1/
       expect(@task.projects).to include /test-2/
+      expect(@task.projects).to include /prefix-test-3/
     end
 
     it "should return an array that does not include test projects" do
-      expect(@task.projects).to_not include /test-3/
+      expect(@task.projects).to_not include /test-4/
     end
   end
 

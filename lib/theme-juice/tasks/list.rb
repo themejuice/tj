@@ -25,7 +25,7 @@ module ThemeJuice
           name = File.basename f
 
           if File.directory?(f) && name.include?(@env.vm_prefix)
-            res << name.gsub(/(#{@env.vm_prefix})/, "")
+            res << name.gsub(/^(#{@env.vm_prefix})/, "")
           end
         end
 
