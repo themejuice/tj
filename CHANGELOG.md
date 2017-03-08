@@ -1,5 +1,9 @@
 # Releases
 
+## `v0.28.8`
+- Fix issue where install would fail if Vagrant plugins were not installed due
+  to a lack of `nil` check when checking plugin versions.
+
 ## `v0.28.7`
 - Update Landrush to v1.2.0
 
