@@ -17,9 +17,10 @@ module ThemeJuice
 
       def vagrant_plugin_is_installed?(plugin, version)
         plugins = `vagrant plugin list`
-        current_version = plugins.match(/#{plugin} \(([[0-9]\.]+)(?:,[^\)]+)?\)/)[1]
+        matches = plugins.match /#{plugin} \(([[0-9]\.]+)(?:,[^\)]+)?\)/
 
-        return false if !plugins.include?(plugin) || current_version.nil?
+        return false if !plugins.include?(plugin) || matches.nil?
+        current_version = matches[1]
 
         Gem::Version.new(current_version) >= Gem::Version.new(version)
       end
