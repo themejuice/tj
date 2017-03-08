@@ -1,5 +1,6 @@
 # encoding: UTF-8
 
+require "rubygems"
 require "thor"
 require "faker"
 require "os"

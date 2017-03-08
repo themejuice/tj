@@ -1,6 +1,9 @@
 # Releases
 
-## Unreleased
+## `v0.28.7`
+- Update Landrush to v1.2.0
+
+## `v0.28.6`
 - Fix issue where a deployment would fail if the stage within the `Juicefile` did
   not contain any shared files or folders.
 
